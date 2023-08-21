@@ -1,6 +1,5 @@
 import React,{useState} from "react";
 import './home.css'
-import '../reusable.css'
 import Headercom from "../header/header";
 import Footercom from "../footer/footer";
 
