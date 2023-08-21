@@ -1,7 +1,7 @@
 import {Sequelize} from 'sequelize';
 
 //const db = new Sequelize('nombre de la base de datos', 'usuario', 'contraseña, objeto el cual indica el host y la base de datos que se esta utilizando',
-const db = new Sequelize('FrutColA', 'root', 'Password',{
+const db = new Sequelize('FrutColA', 'root', '',{
     host: 'localhost',
     dialect: 'mysql',
     define: {

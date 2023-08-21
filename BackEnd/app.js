@@ -4,13 +4,23 @@ import cors from 'cors';
 //Importing the Database Connection
 import db from './DataBase/db.js';
 
+//Importar enrutadores
+import productoRoutes from './Routes/Producto.routes.js'
+import reservaRoutes from './Routes/Reserva.routes.js'
+import usuarioRoutes from './Routes/Usuario.routes.js'
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+//endpoints
+app.use('/productos',productoRoutes)
+app.use('/reserva',reservaRoutes)
+app.use('/usuarios',usuarioRoutes)
 
-console.clear();
+
+//console.clear();
 
 //connection 
 try {
