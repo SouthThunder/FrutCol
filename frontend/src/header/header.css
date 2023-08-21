@@ -1,24 +1,9 @@
-.holahead{
-    color: moccasin;
-}
 /*Fuentes de google*/
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;300;400&display=swap');
 
 /*CSS*/
 
-/*Tipografia responsive*/
-
-
-
-
-
-
-/* .container{
-position:relative;
-margin-left:var(--mb-1-5);
-margin-right: var(--mb-1-5);
-} */
 /*HEADER*/
 .header{
     width: 100%;
@@ -28,8 +13,7 @@ margin-right: var(--mb-1-5);
     z-index:var(--z-fixed);
     background: transparent;
 }
-/*NAV*/
-/*NAV*/
+
 .header >.nav{
     height: var(--header-height);
     max-width: 100%;
@@ -90,20 +74,4 @@ margin-right: var(--mb-1-5);
 
 .header >.nav .container #inicios{
     color:white;
-}
-
-.header >.nav .container h1,h2,h3{
-    color:var(--title-color)
-}
-.header >.nav .container ul{
-    list-style:none;
-}
-.header >.nav .container a{
-    text-decoration: none;
-}
-
-
-.header >.nav .container img{
-    max-width: 300%;
-    height: auto;
 }
