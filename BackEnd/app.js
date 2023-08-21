@@ -9,6 +9,7 @@ import productoRoutes from './Routes/Producto.routes.js'
 import reservaRoutes from './Routes/Reserva.routes.js'
 import usuarioRoutes from './Routes/Usuario.routes.js'
 
+
 const app = express();
 
 app.use(cors());
@@ -31,8 +32,9 @@ try {
 }
 //end connection
 
-
-const port=8000;
+//manejar la vaiable de entorno si existe
+const port = process.env.PORT || 8000;
+//const port = 8000;
 
 app.listen(port, ()=>{
     console.log('Server Up running in http://localhost:' + port + '/');
