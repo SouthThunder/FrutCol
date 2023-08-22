@@ -1,9 +1,9 @@
 import React,{useState} from "react";
 import './ingreso.css'
-import Headercom from "../header/header";
-import Footercom from "../footer/footer";
+import {Headercom} from "../header/header";
+import {Footercom} from "../footer/footer";
 
-export default function Ingresocom(){
+export const  Ingresocom=()=>{
 
 
     return(

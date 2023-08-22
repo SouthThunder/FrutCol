@@ -1,9 +1,9 @@
 import React,{useState} from "react";
 import './carrito.css'
-import Headercom from "../header/header";
-import Footercom from "../footer/footer";
+import {Headercom} from "../header/header";
+import {Footercom} from "../footer/footer";
 
-export default function Carritocom(){
+export const Carritocom=()=>{
 
 
     return(

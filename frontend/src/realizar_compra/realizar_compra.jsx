@@ -1,9 +1,9 @@
 import React,{useState} from "react";
 import './realizar_compra.css'
-import Headercom from "../header/header";
-import Footercom from "../footer/footer";
+import {Headercom} from "../header/header";
+import {Footercom} from "../footer/footer";
 
-export default function RealizarCompracom(){
+export const RealizarCompracom=()=>{
 
 
     return(
