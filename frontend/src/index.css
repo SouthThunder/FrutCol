@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+:root{
+    --gray-color:#808080;
+    --header-height:3rem;
+    --text-color: var(--gray-color);
+    --text-color-light: (var(--hue-color));
+    --text-gradient: linear-gradient(var(--gray-color), #357f27);
+/*Fuente y tipografia*/
+    --biggest-font-size:5rem;
+    --bigger-font-size:3.5rem;
+    --big-font-size:2.5rem;
+    --h2-font-size:1.25rem;
+    --h3-font-size:1.125rem;
+    --normal-font-size:.938rem;
+    --small-font-size:.813rem;
+    --smaller-font-size:.75rem;
+    --text-line-height:2rem;
+
+/*Tamaño fuente*/
+    --font-medium: 500;
+    --font-semi-bold: 600;
+
+/*Margenes */
+    --mb-0-5: .5rem;
+    --mb-0-75: .75rem;
+    --mb-1: 1rem;
+    --mb-1-5: 1.5rem;
+    --mb-2: 2rem;
+    --mb-2-5: 2.5rem;
+
+
+--z-tooltip: 10;
+--z-fixed: 100;
+}
+
+@media screen and (min-width:968px){
+    :root{
+--biggest-font-size:7.5rem;
+--bigger-font-size:4.5rem;
+--big-font-size:4rem;
+--h2-font-size:1.5rem;
+--h3-font-size:1.25rem;
+--normal-font-size:1;
+--small-font-size:.875rem;
+--smaller-font-size:.813rem;
+    }
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    font-family: Montserrat, sans-serif;
+    scroll-behavior: smooth;
+}

@@ -1,0 +1,78 @@
+/*Fuentes de google*/
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;300;400&display=swap');
+
+/*CSS*/
+
+/*HEADER*/
+.header{
+    width: 100%;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:var(--z-fixed);
+    background: transparent;
+}
+
+.header >.nav{
+    height: var(--header-height);
+    max-width: 100%;
+    border-radius: 25px;
+    background: rgba(177, 156, 217, 0.20);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px;
+
+}
+.header>.nav .container .nav__logo{
+    display:flex;
+    width:1.5rem;
+}
+.header > .nav .container .nav__list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header >.nav .container .nav__item {
+    margin-right: 4rem;
+}
+
+.header >.nav .container .nav__link{
+    
+    font-size: var(--small-font-size);
+    font-weight: 600;
+    font-style: normal;
+    background: var(--text-gradient);
+    color:transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    display: inline-block;
+}
+
+.header >.nav .container .nav__link:hover{
+    background: #9B52D1;
+    color:transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+.header >.nav .container .inicios {
+    display: flex;
+    align-items: center; /* Centra verticalmente */
+    background-color: #6A00B4;
+    width: 100%;
+    height: 30px;
+    border-radius: 25px;
+    justify-content: center; /* Centra horizontalmente */
+}
+.header >.nav .container .inicios:hover{
+    background-color: #9B52D1;
+}
+
+.header >.nav .container #inicios{
+    color:white;
+}
+
