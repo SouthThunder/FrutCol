@@ -1,6 +1,21 @@
 //importacion del modelo
 import UsuarioModel from "../Models/UsuarioModel.js";
 
+// Inicio Sesión
+export const logIn = async(req, res) =>{
+    try {
+        const usuario = await UsuarioModel.findAll({
+            where:{
+                correo_usuario: req.params.correo_usuario,
+                contraseña_usuario: req.params.contraseña_usuario
+            }
+        });
+        res.json(true);
+    } catch (error) {
+        res.json({message: error.message})
+    }
+}
+
 
 // metodos CRUD
 
@@ -20,9 +35,9 @@ export const getAllUsuarios = async (req , res) =>{
 export const getUsuario = async (req , res) =>{
     try {
         const usuario = await UsuarioModel.findAll({
-                where:{id:req.params.id}
+                where:{id_usuario:req.params.id}
         })
-        res.joson(usuario)
+        res.json(usuario)
     } catch (error){
         res.json({message: error.message})
     }

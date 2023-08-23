@@ -6,9 +6,9 @@
 
 /*HEADER*/
 .header{
+    margin-top: .5rem;
     width: 100%;
     position:fixed;
-    margin-bottom: 15rem;
     top:0;
     left:0;
     z-index:var(--z-fixed);
@@ -64,7 +64,7 @@
 }
 
 .header > .nav-bar .nav__menu > .nav__list .nav__item:nth-child(1) > .container > a{
-    color: var(--seconday-color);
+    color: var(--secondary-color);
 }
 
 .header > .nav-bar .nav__menu > .nav__list .nav__item > .container > a{

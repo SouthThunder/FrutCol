@@ -22,7 +22,7 @@ const UsuarioModel = db.define('Usuario', {
         allowNull: false,
         unique: true
     },
-    contrasena_usuario:{
+    contraseña_usuario:{
         type: DataTypes.STRING,
         allowNull: false
     },

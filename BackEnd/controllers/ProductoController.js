@@ -20,9 +20,9 @@ export const getAllProductos = async (req , res) =>{
 export const getProducto = async (req , res) =>{
     try {
         const producto = await ProductoModel.findAll({
-                where:{id:req.params.id}
+                where:{id_producto:req.params.id}
         })
-        res.joson(producto)
+        res.json(producto)
     } catch (error){
         res.json({message: error.message})
     }

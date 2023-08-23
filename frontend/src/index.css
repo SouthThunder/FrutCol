@@ -7,7 +7,7 @@
     --text-color-light: (var(--hue-color));
     --text-gradient: linear-gradient(var(--gray-color), #357f27);
     --primary-color: #6B8E23;
-    --seconday-color: white;
+    --secondary-color: white;
 /*Fuente y tipografia*/
     --biggest-font-size:5rem;
     --bigger-font-size:3.5rem;
