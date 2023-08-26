@@ -69,3 +69,12 @@ html{
     font-family: Montserrat, sans-serif;
     scroll-behavior: smooth;
 }
+ul{
+    list-style:none;
+}
+a{
+    text-decoration: none;
+}
+h1,h2,h3{
+    color:var(--primary-color)
+}
