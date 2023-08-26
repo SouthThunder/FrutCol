@@ -6,7 +6,6 @@
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(3, 1fr);
     flex-wrap: wrap;
-    background-color: var(--strawberry-comp-color);
 }
 
 /*FIRST COLUMN OF THE GRID*/
