@@ -29,9 +29,9 @@ export const  Registrocom=()=>{
         }
 
         // Validación para contraseña
-        const passwordPattern = /^(?=.*\d)(?=.*[A-Z]).+$/; // Al menos un número y una mayúscula
+        const passwordPattern = /^(?=.*\d)(?=.*[A-Z]).{8,}$/; // Al menos un número, una mayúscula y 8 o más caracteres
         if (!passwordPattern.test(contrasena)) {
-            alert('La contraseña debe contener al menos un número y una mayúscula.');
+            alert('La contraseña debe contener al menos un número, una mayúscula y tener 8 o más caracteres.');
             return;
         }
 
