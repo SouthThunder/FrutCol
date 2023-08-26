@@ -12,21 +12,13 @@ export const Headercom = () => {
         <div className="nav__menu">
           <ul className="nav__list">
             <li className="nav__item">
-              <div className="container">
-                <a href="" className="nav__link">
-                  Registrarse
-                </a>
-              </div>
+              <button className="nav__link">Registrarse</button>
             </li>
             <li className="nav__item">
-              <div className="container">
-                <a href="" className="nav__link">
-                  Iniciar Sesión
-                </a>
-              </div>
+              <button className="nav__link">Iniciar sesión</button>
             </li>
             <li className="nav__item">
-              <img src="images/carrito.png" alt="" />
+              <img src="images/carrito.png" />
             </li>
           </ul>
         </div>

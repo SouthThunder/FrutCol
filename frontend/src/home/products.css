@@ -1,0 +1,76 @@
+.homecontain > .products{
+    min-height: 60vh;
+}
+
+.homecontain > .products > .title{
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.homecontain > .products > .title >h1{
+    margin-left: 10%;
+}
+
+.homecontain > .products > .elements{
+    min-width: 80vw;
+    max-width: 80vw;
+    margin: 2rem auto;
+    min-height: 50vh;
+    max-height: 100vh;
+    display: flex;
+}
+
+.homecontain > .products > .elements > .card{
+    height: var(--card-height);
+    width: var(--card-width);
+    border: 1px solid black;
+    border-radius: var(--md-border);
+    margin: 0 auto;
+}
+
+.homecontain > .products > .elements > .card >.title{
+    width: 80%;
+    margin: auto;
+    margin-top: 1rem;
+}
+
+.homecontain > .products > .elements > .card .pImg{
+    width: 100%;
+    height: calc(var(--card-width) - (var(--card-width) / 4));
+    display: flex;
+    justify-content: center;
+}
+
+.homecontain > .products > .elements > .card > .pImg > img{
+    width: calc(var(--card-width) - (var(--card-width) / 5));
+}
+
+.homecontain > .products > .elements > .card > .controls{
+    display: flex;
+    width: 100%;
+}
+
+.homecontain > .products > .elements > .card > .controls >.panel{
+    display: flex;
+    margin-left: 2rem;
+}
+
+.homecontain > .products > .elements > .card > .controls > .panel > button{
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: var(--primary-color);
+    border: 1px solid black;
+    color: var(--secondary-color);
+    font-weight: var(--font-bolder);
+}
+
+.homecontain > .products > .elements > .card > .controls > .panel > p{
+    margin: 0 1rem;
+}
+
+.homecontain > .products > .elements > .card > .controls > .value{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
