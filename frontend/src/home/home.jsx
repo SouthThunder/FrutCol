@@ -31,6 +31,7 @@ export const Slider = () => {
         <img src="../../images/stain fresa.png" alt="" />
         <img src="../../images/fresa.jpg" alt="" />
       </div>
+      
 
       <div className="third">
         <div className="n1">
@@ -43,7 +44,36 @@ export const Slider = () => {
           <button>&#60;</button>
           <button>&#62;</button>
         </div>
-        <div className="n3"></div>
+        <div className="n3">
+        <div className="products__preview">
+        <button className="fruit">
+          <div className="fruit__container">
+              <img src="../../images/fresa.png" alt="" />
+          </div>
+        </button>
+        <button className="fruit">
+          <div className="fruit__container">
+              <img src="../../images/guanabana.png" alt="" />
+          </div>
+        </button>
+        <button className="fruit">
+          <div className="fruit__container">
+              <img src="../../images/mango.png" alt="" />
+          </div>
+        </button>
+        <button className="fruit">
+          <div className="fruit__container">
+              <img src="../../images/maracuya.png" alt="" />
+          </div>
+        </button>
+        <button className="fruit">
+          <div className="fruit__container">
+              <img src="../../images/mora.png" alt="" />
+          </div>
+        </button>
+        
+        </div>
+        </div>
       </div>
     </div>
   );
