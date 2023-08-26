@@ -80,31 +80,46 @@ export const Slider = () => {
   );
 };
 
-export const Products = () => {
+const Products = () => {
   const URI = "https://frutcola-backendpru.onrender.com/productos";
   const [products, setProducts] = useState([]);
+  const [test, setTest] = useState({
+    producto: []
+  });
+
   useEffect(() => {
-    getProducts()
+    getProducts();
   }, []);
 
   const getProducts = async () => {
     try {
       const res = await axios.get(URI);
       setProducts(res.data);
+      setTest({ producto: res.data.map(prod => new Producto(prod.nombre_producto, prod.precio_producto, 0)) });
     } catch (error) {
-      console.error("ERROR: " + { error });
+      console.error("ERROR: " + error);
     }
   };
 
-  function updateQuantity (prod, QTY, cond){
-    if(cond){
-      return QTY+1;
-    }else{
-      if(QTY===0){
-        return 0;
+  const handleResCantidad = (producto) => {
+    const updatedProductos = test.producto.map(prod => {
+      if (prod.nombre === producto.nombre_producto) {
+        prod.resCantidad();
       }
-    }
-  }
+      return prod;
+    });
+    setTest({ producto: updatedProductos });
+  };
+
+  const handleSumCantidad = (producto) => {
+    const updatedProductos = test.producto.map(prod => {
+      if (prod.nombre === producto.nombre_producto) {
+        prod.sumCantidad();
+      }
+      return prod;
+    });
+    setTest({ producto: updatedProductos });
+  };
 
   return (
     <div className="products">
@@ -112,29 +127,26 @@ export const Products = () => {
         <h1>Productos</h1>
       </div>
       <div className="elements">
-        {products.map((prods) => {
-          const producto = new Producto(prods.nombre_producto, prods.precio_producto, 0);
-          return (
-            <div className="card" key={prods.id_producto}>
-              <div className="title">
-                <p>{prods.nombre_producto}</p>
+        {products.map((prods) => (
+          <div className="card" key={prods.id_producto}>
+            <div className="title">
+              <p>{prods.nombre_producto}</p>
+            </div>
+            <div className="pImg">
+              <img src={"../../images/" + prods.img_producto} alt={prods.nombre_producto} />
+            </div>
+            <div className="controls">
+              <div className="panel">
+                <button onClick={() => handleResCantidad(prods)}>-</button>
+                <p>{test.producto.find(prod => prod.nombre === prods.nombre_producto)?.cantidad}</p>
+                <button onClick={() => handleSumCantidad(prods)}>+</button>
               </div>
-              <div className="pImg">
-                <img src={"../../images/" + prods.img_producto} />
-              </div>
-              <div className="controls">
-                <div className="panel">
-                  <button onClick={producto.resCantidad()}>-</button>
-                  <p>{producto.cantidadT()}</p>
-                  <button onClick={producto.sumCantidad()}>+</button>
-                </div>
-                <div className="value">
-                  <p>$ {prods.precio_producto}</p>
-                </div>
+              <div className="value">
+                <p>$ {test.producto.find(prod => prod.nombre ===prods.nombre_producto)?.calcularPrecioTotal()}</p>
               </div>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </div>
   );

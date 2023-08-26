@@ -13,14 +13,12 @@ export class Producto {
     // Método para actualizar la cantidad
     sumCantidad() {
       this.cantidad = this.cantidad + 1;
-      alert(this.cantidad)
     }
 
     resCantidad(){
         if(this.cantidad===0){
             this.cantidad= 0;
         }else{
-            console.log('Prod: ' + this.nombre + ' QTY: ' + this.cantidad)
             this.cantidad = this.cantidad -1;
         }
     }
