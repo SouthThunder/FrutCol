@@ -27,7 +27,7 @@ export const mango={
     fontColor: '#f5ce7e',
     headerColor: '#f5e0b6',
     compColor: '#f5e9d2',
-    image: '../../images/mora.jpg',
+    image: '../../images/mango.jpg',
     stainImage: '../../images/stain mango.png',
     name: 'Mango',
     id: 3,

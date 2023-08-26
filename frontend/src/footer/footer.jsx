@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import "./footer.css";
 import { Link } from 'react-router-dom';
 
-export const Footercom = () => {
+export const Footercom = (props) => {
   return (
-    <footer >
+    <footer style={{backgroundColor: props.prod.headerColor , transition: 'all 1s var(--btn-cubic-bezier)'}}>
         <div className="footer__section">
         <Link to="#" className="footer__logo"> 
         <img src="images/Frame 1.png" alt="" />
