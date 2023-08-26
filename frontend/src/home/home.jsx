@@ -12,40 +12,28 @@ import { Guanabana } from "./sliderProds";
 import { maracuya } from "./sliderProds";
 
 export const Slider = () => {
-  const array= [];
+  const array= [fresa,mora,mango,Guanabana,maracuya];
 
-  const colorOptions=['#f8ccd4','#e1dbed','green','yellow','purple']
-  const Maincolors=['#FF355E','#781fbb','green','yellow','purple']
-  const images=['../../images/fresa.jpg','../../images/mora.jpg','../../images/mango.jpg','../../images/guanabana.jpg','../../images/maracuya.jpg']
-  const imagesback=['../../images/stain fresa.png','../../images/stain mora.png','../../images/mango.jpg','../../images/guanabana.jpg','../../images/maracuya.jpg']
-  const words = ['Fresa', 'Mora', 'Mango', 'Guanabana','Maracuya'];
-  const [backgroundColor, setBackgroundColor] = useState(colorOptions[0]);
-  const [currentImage, setCurrentImage] = useState(images[0]);
-  const[primaryColor,setPrimaryColor]=useState(Maincolors[0])
-  const [currentImageback, setCurrentImageback] = useState(imagesback[0]);
-  const [currentWord, setCurrentWord] = useState(words[0]);
-  useEffect(()=>{
+  
+  const [backgroundColor, setBackgroundColor] = useState(fresa.compColor);
+  const [currentImage, setCurrentImage] = useState(fresa.image);
+  const[primaryColor,setPrimaryColor]=useState(fresa.mainColor)
+  const [currentImageback, setCurrentImageback] = useState(fresa.stainImage);
+  const [currentWord, setCurrentWord] = useState(fresa.name);
+  const [currentPrice, setCurrentprice] = useState(fresa.precio);
+  
 
-  },[])
-
-  const initArray= () =>{
-    array.push(fresa);
-    array.push(mora);
-    array.push(mango);
-    array.push(Guanabana);
-    array.push(maracuya);
-  }
-  useEffect(() => {
-    initArray(); // Llama a initArray durante la inicialización del componente
-  }, []);
+  
+ 
   
   
-  const changestyle = (color,maincolor,imageIndex,imagebackIndex,word) =>{
+  const changestyle = (color,maincolor,imageIndex,imagebackIndex,word,precio) =>{
     setBackgroundColor(color);
     setPrimaryColor(maincolor);
     setCurrentImage(imageIndex);
     setCurrentImageback(imagebackIndex);
     setCurrentWord(word);
+    setCurrentprice(precio);
   };
   console.log(array);
 
@@ -58,14 +46,15 @@ export const Slider = () => {
           </h1>
         </div>
         <div className="n2">
-          <h1>$ 9.000 c/u</h1>
+          <h1>$ {currentPrice} c/u</h1>
         </div>
         <div className="n3">
-          <button>+ Añadir al carrito</button>
+          <button  onMouseEnter={(e) => (e.target.style.backgroundColor = primaryColor)}
+    onMouseLeave={(e) => (e.target.style.backgroundColor = "#FFF" )} >+ Añadir al carrito</button>
         </div>
         <div className="n4">
           <p>01</p>
-          <span></span>
+          <span style={{color: primaryColor}}></span>
           <p>05</p>
         </div>
       </div>
@@ -84,14 +73,14 @@ export const Slider = () => {
           </h3>
         </div>
         <div className="n2">
-          <button>&#60;</button>
+          <button style={{color: primaryColor}}>&#60;</button>
           <button style={{ backgroundColor: primaryColor }}>&#62;</button>
         </div>
         <div className="n3">
         <div className="products__preview">
 
         {array.map((element) => (
-              <button key={element.id} className="fruit" onClick={() => changestyle(element.compColor, element.maincolor,element.image,element.stainImage, element.name)} >
+              <button key={element.id} className="fruit" onClick={() => changestyle(element.compColor, element.mainColor,element.image,element.stainImage, element.name,element.precio)} >
                 <div className="fruit__container">
                   <img src={element.image} alt="" />
                 </div>

@@ -67,7 +67,6 @@
 
         .homecontain > .slider > .first > .n3 >button:hover{
             cursor: pointer;
-            background-color: var(--strawberry-main-color);
             color: var(--secondary-color);
             transition: all 1s cubic-bezier(0,.76,.28,.93);
             border: 1px solid black;
@@ -83,7 +82,8 @@
         }
 
         .homecontain > .slider > .first > .n4 > span{
-            border: 1px solid var(--strawberry-main-color);
+            border: 1px solid;
+            color:yellow;
             width: 60%;
         }
 
@@ -178,7 +178,7 @@
         .homecontain > .slider > .third >.n2 > button:nth-child(1){
             background-color: transparent;
             font-size: 1rem;
-            color: var(--strawberry-main-color);
+           
             border: 2px solid var(--secondary-color);
         }
 
