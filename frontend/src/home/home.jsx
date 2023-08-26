@@ -35,6 +35,9 @@ export const Slider = () => {
     array.push(Guanabana);
     array.push(maracuya);
   }
+  useEffect(() => {
+    initArray(); // Llama a initArray durante la inicialización del componente
+  }, []);
   
   
   const changestyle = (color,maincolor,imageIndex,imagebackIndex,word) =>{
@@ -44,6 +47,7 @@ export const Slider = () => {
     setCurrentImageback(imagebackIndex);
     setCurrentWord(word);
   };
+  console.log(array);
 
   return (
     <div className="slider" style={{ backgroundColor }}>
@@ -85,10 +89,11 @@ export const Slider = () => {
         </div>
         <div className="n3">
         <div className="products__preview">
-        {colorOptions.map((color, index) => (
-              <button key={index} className="fruit" onClick={() => changestyle(colorOptions[index], Maincolors[index  ],images[index],imagesback[index], words[index])} >
+
+        {array.map((element) => (
+              <button key={element.id} className="fruit" onClick={() => changestyle(element.compColor, element.maincolor,element.image,element.stainImage, element.name)} >
                 <div className="fruit__container">
-                  <img src={images[index]} alt="" />
+                  <img src={element.image} alt="" />
                 </div>
               </button>
             ))}
