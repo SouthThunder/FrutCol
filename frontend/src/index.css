@@ -10,10 +10,16 @@
     --text-gradient: linear-gradient(var(--gray-color), #357f27);
     --primary-color: #6B8E23;
     --secondary-color: white;
-    --strawberry-main-color:#FF355E;
-    --strawberry-font-color: #fc738f;
-    --strawberry-header-color: #ffb4bc;
-    --strawberry-comp-color: #f8ccd4;
+        --strawberry-main-color:#FF355E;
+        --strawberry-font-color: #fc738f;
+        --strawberry-header-color: #ffb4bc;
+        --strawberry-comp-color: #f8ccd4;
+    /*Mora*/
+        --blackberry-main-color: #781fbb;
+        --blackberry-font-color:#a168cf;
+        --blackberry-header-color:#d6cee8;
+        --blackberry-comp-color:#e1dbed ;
+
 /*Fuente y tipografia*/
     --biggest-font-size:5rem;
     --bigger-font-size:3.5rem;

@@ -4,6 +4,7 @@ import "./slider.css";
 import "./products.css";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
+import { Producto } from "./cartSlice";
 
 export const Slider = () => {
   const [backgroundColor, setBackgroundColor] = useState('red');
@@ -112,7 +113,7 @@ export const Products = () => {
       </div>
       <div className="elements">
         {products.map((prods) => {
-          const quantity=0;
+          const producto = new Producto(prods.nombre_producto, prods.precio_producto, 0);
           return (
             <div className="card" key={prods.id_producto}>
               <div className="title">
@@ -123,17 +124,9 @@ export const Products = () => {
               </div>
               <div className="controls">
                 <div className="panel">
-                  <button onClick={()=>{
-                    if(quantity===0){
-                      return 0;
-                    }else{
-                      return quantity-1;
-                    }
-                  }}>-</button>
-                  <p>{quantity}</p>
-                  <button onClick={()=>{
-                    return quantity+1;
-                  }}>+</button>
+                  <button onClick={producto.resCantidad()}>-</button>
+                  <p>{producto.cantidadT()}</p>
+                  <button onClick={producto.sumCantidad()}>+</button>
                 </div>
                 <div className="value">
                   <p>$ {prods.precio_producto}</p>
