@@ -5,8 +5,15 @@ import "./products.css";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 import { Producto } from "./cartSlice";
+import { fresa } from "./sliderProds";
+import { mora } from "./sliderProds";
+import { mango } from "./sliderProds";
+import { Guanabana } from "./sliderProds";
+import { maracuya } from "./sliderProds";
 
 export const Slider = () => {
+  const array= [];
+
   const colorOptions=['#f8ccd4','#e1dbed','green','yellow','purple']
   const Maincolors=['#FF355E','#781fbb','green','yellow','purple']
   const images=['../../images/fresa.jpg','../../images/mora.jpg','../../images/mango.jpg','../../images/guanabana.jpg','../../images/maracuya.jpg']
@@ -17,6 +24,17 @@ export const Slider = () => {
   const[primaryColor,setPrimaryColor]=useState(Maincolors[0])
   const [currentImageback, setCurrentImageback] = useState(imagesback[0]);
   const [currentWord, setCurrentWord] = useState(words[0]);
+  useEffect(()=>{
+
+  },[])
+
+  const initArray= () =>{
+    array.push(fresa);
+    array.push(mora);
+    array.push(mango);
+    array.push(Guanabana);
+    array.push(maracuya);
+  }
   
   
   const changestyle = (color,maincolor,imageIndex,imagebackIndex,word) =>{

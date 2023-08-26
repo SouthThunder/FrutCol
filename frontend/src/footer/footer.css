@@ -5,6 +5,7 @@ footer {
     transform: translate(-45%);
     min-height: 30vh;
     border-radius: 80% 80% 0 0;
+    position: relative;
  }
 .footer__section{
     padding-top: 3rem;
