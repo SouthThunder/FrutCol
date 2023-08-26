@@ -11,16 +11,16 @@ import { mango } from "./sliderProds";
 import { Guanabana } from "./sliderProds";
 import { maracuya } from "./sliderProds";
 
-export const Slider = () => {
+export const Slider = ({prod, changeProp}) => {
   const array= [fresa,mora,mango,Guanabana,maracuya];
 
-  
-  const [backgroundColor, setBackgroundColor] = useState(fresa.compColor);
-  const [currentImage, setCurrentImage] = useState(fresa.image);
-  const[primaryColor,setPrimaryColor]=useState(fresa.mainColor)
-  const [currentImageback, setCurrentImageback] = useState(fresa.stainImage);
-  const [currentWord, setCurrentWord] = useState(fresa.name);
-  const [currentPrice, setCurrentprice] = useState(fresa.precio);
+  console.log(prod)
+  const [backgroundColor, setBackgroundColor] = useState(prod.compColor);
+  const [currentImage, setCurrentImage] = useState(prod.image);
+  const[primaryColor,setPrimaryColor]=useState(prod.mainColor)
+  const [currentImageback, setCurrentImageback] = useState(prod.stainImage);
+  const [currentWord, setCurrentWord] = useState(prod.name);
+  const [currentPrice, setCurrentprice] = useState(prod.precio);
   
 
   
@@ -35,10 +35,12 @@ export const Slider = () => {
     setCurrentWord(word);
     setCurrentprice(precio);
   };
-  console.log(array);
+  const updateProp= (element) =>{
+    changeProp(element);
+  }
 
   return (
-    <div className="slider" style={{ backgroundColor }}>
+    <div className="slider" style={{ backgroundColor , transition: 'all 1s var(--btn-cubic-bezier)'}}>
       <div className="first">
         <div className="n1">
           <h1>
@@ -61,7 +63,7 @@ export const Slider = () => {
 
       <div className="second">
         <img src={currentImageback} alt="" />
-        <img src={currentImage} alt="" />
+        <img src={currentImage } alt="" />
       </div>
       
 
@@ -73,14 +75,17 @@ export const Slider = () => {
           </h3>
         </div>
         <div className="n2">
-          <button style={{color: primaryColor}}>&#60;</button>
-          <button style={{ backgroundColor: primaryColor }}>&#62;</button>
+          <button style={{color: primaryColor , transition: 'all 1s var(--btn-cubic-bezier)'}}>&#60;</button>
+          <button style={{ backgroundColor: primaryColor , transition: 'all 1s var(--btn-cubic-bezier)'}}>&#62;</button>
         </div>
         <div className="n3">
         <div className="products__preview">
 
         {array.map((element) => (
-              <button key={element.id} className="fruit" onClick={() => changestyle(element.compColor, element.mainColor,element.image,element.stainImage, element.name,element.precio)} >
+              <button key={element.id} className="fruit" onClick={() =>{ 
+                changestyle(element.compColor, element.mainColor,element.image,element.stainImage, element.name,element.precio)
+                updateProp(element)
+                }} >
                 <div className="fruit__container">
                   <img src={element.image} alt="" />
                 </div>
@@ -174,12 +179,17 @@ const Products = () => {
 };
 
 export const Homecom = () => {
+  const [product, setProduct] = useState(fresa);
+  const changeProp= (element) =>{
+    setProduct(element);
+  }
+
   return (
     <div className="homecontain">
-      <Headercom />
-      <Slider />
+      <Headercom prod={product}/>
+      <Slider prod={product} changeProp={changeProp}/>
       <Products />
-      <Footercom />
+      <Footercom prod={product}/>
     </div>
   );
 };
