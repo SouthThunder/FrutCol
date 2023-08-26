@@ -7,12 +7,32 @@ import { Footercom } from "../footer/footer";
 import { Producto } from "./cartSlice";
 
 export const Slider = () => {
+  const colorOptions=['#f8ccd4','#e1dbed','green','yellow','purple']
+  const Maincolors=['#FF355E','#781fbb','green','yellow','purple']
+  const images=['../../images/fresa.jpg','../../images/mora.jpg','../../images/mango.jpg','../../images/guanabana.jpg','../../images/maracuya.jpg']
+  const imagesback=['../../images/stain fresa.png','../../images/stain mora.png','../../images/mango.jpg','../../images/guanabana.jpg','../../images/maracuya.jpg']
+  const words = ['Fresa', 'Mora', 'Mango', 'Guanabana','Maracuya'];
+  const [backgroundColor, setBackgroundColor] = useState(colorOptions[0]);
+  const [currentImage, setCurrentImage] = useState(images[0]);
+  const[primaryColor,setPrimaryColor]=useState(Maincolors[0])
+  const [currentImageback, setCurrentImageback] = useState(imagesback[0]);
+  const [currentWord, setCurrentWord] = useState(words[0]);
+  
+  
+  const changestyle = (color,maincolor,imageIndex,imagebackIndex,word) =>{
+    setBackgroundColor(color);
+    setPrimaryColor(maincolor);
+    setCurrentImage(imageIndex);
+    setCurrentImageback(imagebackIndex);
+    setCurrentWord(word);
+  };
+
   return (
-    <div className="slider">
+    <div className="slider" style={{ backgroundColor }}>
       <div className="first">
         <div className="n1">
           <h1>
-            Pulpa de <br /> Fresa
+            Pulpa de <br /> {currentWord}
           </h1>
         </div>
         <div className="n2">
@@ -29,8 +49,8 @@ export const Slider = () => {
       </div>
 
       <div className="second">
-        <img src="../../images/stain fresa.png" alt="" />
-        <img src="../../images/fresa.jpg" alt="" />
+        <img src={currentImageback} alt="" />
+        <img src={currentImage} alt="" />
       </div>
       
 
@@ -43,35 +63,17 @@ export const Slider = () => {
         </div>
         <div className="n2">
           <button>&#60;</button>
-          <button>&#62;</button>
+          <button style={{ backgroundColor: primaryColor }}>&#62;</button>
         </div>
         <div className="n3">
         <div className="products__preview">
-        <button className="fruit">
-          <div className="fruit__container">
-              <img src="../../images/fresa.jpg" alt="" />
-          </div>
-        </button>
-        <button className="fruit">
-          <div className="fruit__container">
-              <img src="../../images/guanabana.jpg" alt="" />
-          </div>
-        </button>
-        <button className="fruit">
-          <div className="fruit__container">
-              <img src="../../images/mango.jpg" alt="" />
-          </div>
-        </button>
-        <button className="fruit">
-          <div className="fruit__container">
-              <img src="../../images/maracuya.jpg" alt="" />
-          </div>
-        </button>
-        <button className="fruit">
-          <div className="fruit__container">
-              <img src="../../images/mora.jpg" alt="" />
-          </div>
-        </button>
+        {colorOptions.map((color, index) => (
+              <button key={index} className="fruit" onClick={() => changestyle(colorOptions[index], Maincolors[index  ],images[index],imagesback[index], words[index])} >
+                <div className="fruit__container">
+                  <img src={images[index]} alt="" />
+                </div>
+              </button>
+            ))}
         
         </div>
         </div>
@@ -162,3 +164,5 @@ export const Homecom = () => {
     </div>
   );
 };
+
+
