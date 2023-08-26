@@ -19,9 +19,7 @@
     max-height: 100vh;
     display: flex;
     justify-content: space-around;
-    scroll-snap-type: mandatory;
-    white-space: nowrap;
-    overflow: hidden;
+    flex-wrap: wrap;
 }
 
 .homecontain > .products > .elements > .card{
@@ -30,7 +28,8 @@
     max-width: var(--card-width);
     border: 1px solid black;
     border-radius: var(--md-border);
-    margin: 0 8rem;
+    margin: 2rem 5rem;
+
 }
 
 .homecontain > .products > .elements > .card >.title{

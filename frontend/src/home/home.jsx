@@ -48,27 +48,27 @@ export const Slider = () => {
         <div className="products__preview">
         <button className="fruit">
           <div className="fruit__container">
-              <img src="../../images/fresa.png" alt="" />
+              <img src="../../images/fresa.jpg" alt="" />
           </div>
         </button>
         <button className="fruit">
           <div className="fruit__container">
-              <img src="../../images/guanabana.png" alt="" />
+              <img src="../../images/guanabana.jpg" alt="" />
           </div>
         </button>
         <button className="fruit">
           <div className="fruit__container">
-              <img src="../../images/mango.png" alt="" />
+              <img src="../../images/mango.jpg" alt="" />
           </div>
         </button>
         <button className="fruit">
           <div className="fruit__container">
-              <img src="../../images/maracuya.png" alt="" />
+              <img src="../../images/maracuya.jpg" alt="" />
           </div>
         </button>
         <button className="fruit">
           <div className="fruit__container">
-              <img src="../../images/mora.png" alt="" />
+              <img src="../../images/mora.jpg" alt="" />
           </div>
         </button>
         

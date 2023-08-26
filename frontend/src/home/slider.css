@@ -67,9 +67,10 @@
 
         .homecontain > .slider > .first > .n3 >button:hover{
             cursor: pointer;
-            background-color: var(--primary-color);
+            background-color: var(--strawberry-main-color);
             color: var(--secondary-color);
             transition: all 1s cubic-bezier(0,.76,.28,.93);
+            border: 1px solid black;
         }
 
     /*PROGRESS BAR*/

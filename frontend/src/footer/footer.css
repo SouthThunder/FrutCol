@@ -1,6 +1,6 @@
 @import url("https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css");
 footer {
-    background: rgba(177, 156, 217, 0.20);
+    background: var(--strawberry-header-color);
     width: 200%;
     transform: translate(-45%);
     min-height: 30vh;
@@ -44,6 +44,6 @@ footer > .footer__section > .footer__content > .footer__social > .footer__social
     font-size: 1rem;
 }
 footer > .footer__section > .footer__content > .footer__social > .footer__social-link:hover{
-    background-color: var(--primary-color);
-
+    background-color: var(--strawberry-main-color);
+    transition: all 1s var(--btn-cubic-bezier);
 }
