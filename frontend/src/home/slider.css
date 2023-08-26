@@ -196,11 +196,15 @@
             position:relative ;
             padding-right: 0;
         }
+       
         .homecontain > .slider > .third > .n3 > .products__preview > .fruit{
             display:inline-flex;
             border: 0px;
             width: 70px;
             border-radius: 50%;
+        }
+        .homecontain > .slider > .third > .n3 > .products__preview > .fruit:hover{
+            cursor:pointer;
         }
         .homecontain > .slider > .third > .n3 > .products__preview > .fruit > .fruit__container{
             border-radius: 50%;
