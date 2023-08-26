@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./slider.css";
 import "./products.css";
 import { Headercom } from "../header/header";
@@ -28,7 +29,7 @@ export const Slider = () => {
 
       <div className="second">
         <img src="../../images/stain fresa.png" alt="" />
-        <img src="../../images/fresa.png" alt="" />
+        <img src="../../images/fresa.jpg" alt="" />
       </div>
 
       <div className="third">
@@ -49,31 +50,68 @@ export const Slider = () => {
 };
 
 export const Products = () => {
-  const URI = 1;
+  const URI = "https://frutcola-backendpru.onrender.com/productos";
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    getProducts()
+  }, []);
+
+  const getProducts = async () => {
+    try {
+      const res = await axios.get(URI);
+      setProducts(res.data);
+    } catch (error) {
+      console.error("ERROR: " + { error });
+    }
+  };
+
+  function updateQuantity (prod, QTY, cond){
+    if(cond){
+      return QTY+1;
+    }else{
+      if(QTY===0){
+        return 0;
+      }
+    }
+  }
+
   return (
     <div className="products">
       <div className="title">
         <h1>Productos</h1>
       </div>
       <div className="elements">
-        <div className="card">
-          <div className="title">
-            <p>Test</p>
-          </div>
-          <div className="pImg">
-            <img src="../../images/fresa.png" alt="" />
-          </div>
-          <div className="controls">
-            <div className="panel">
-              <button>-</button>
-              <p>1</p>
-              <button>+</button>
+        {products.map((prods) => {
+          const quantity=0;
+          return (
+            <div className="card" key={prods.id_producto}>
+              <div className="title">
+                <p>{prods.nombre_producto}</p>
+              </div>
+              <div className="pImg">
+                <img src={"../../images/" + prods.img_producto} />
+              </div>
+              <div className="controls">
+                <div className="panel">
+                  <button onClick={()=>{
+                    if(quantity===0){
+                      return 0;
+                    }else{
+                      return quantity-1;
+                    }
+                  }}>-</button>
+                  <p>{quantity}</p>
+                  <button onClick={()=>{
+                    return quantity+1;
+                  }}>+</button>
+                </div>
+                <div className="value">
+                  <p>$ {prods.precio_producto}</p>
+                </div>
+              </div>
             </div>
-            <div className="value">
-              <p>Total Price</p>
-            </div>
-          </div>
-        </div>
+          );
+        })}
       </div>
     </div>
   );

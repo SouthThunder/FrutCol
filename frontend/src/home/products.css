@@ -18,14 +18,19 @@
     min-height: 50vh;
     max-height: 100vh;
     display: flex;
+    justify-content: space-around;
+    scroll-snap-type: mandatory;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .homecontain > .products > .elements > .card{
     height: var(--card-height);
-    width: var(--card-width);
+    min-width: var(--card-width);
+    max-width: var(--card-width);
     border: 1px solid black;
     border-radius: var(--md-border);
-    margin: 0 auto;
+    margin: 0 8rem;
 }
 
 .homecontain > .products > .elements > .card >.title{
@@ -39,10 +44,12 @@
     height: calc(var(--card-width) - (var(--card-width) / 4));
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .homecontain > .products > .elements > .card > .pImg > img{
-    width: calc(var(--card-width) - (var(--card-width) / 5));
+    width: calc(var(--card-width) - (var(--card-width) / 3));
+    height: calc(var(--card-width) - (var(--card-width) / 3));
 }
 
 .homecontain > .products > .elements > .card > .controls{
@@ -63,6 +70,7 @@
     border: 1px solid black;
     color: var(--secondary-color);
     font-weight: var(--font-bolder);
+    cursor: pointer;
 }
 
 .homecontain > .products > .elements > .card > .controls > .panel > p{
