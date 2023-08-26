@@ -153,14 +153,16 @@
         .homecontain .slider .third .n2{
             display: flex;
             align-items:flex-end;
-            justify-content:space-evenly;
+            justify-content:flex-end;
             grid-row: 3/4;
             grid-column: 2/3;
             margin-right: 10%;
+           
         }
 
         .homecontain .slider .third .n2 button{
             width: 4rem;
+            margin: 0 1rem;
             height: 2rem;
             border-radius: var(--md-border);
             font-weight: var(--font-bolder);
@@ -185,3 +187,33 @@
             border: 2px solid black;
         }
 
+
+        .products__preview{
+            display:flex;
+            column-gap: 1.25rem;
+            position:relative ;
+            padding-right: 0;
+        }
+        .fruit{
+            display:inline-flex;
+            border: 0px;
+            width: 70px;
+            border-radius: 50%;
+        }
+        .fruit__container{
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .homecontain .slider .products__preview > .fruit > .fruit__container > img{
+            
+            max-width: 70px;
+            max-height: 60px;
+        }
+        .homecontain .slider .third .n3{
+            grid-column:2/3;
+            grid-row: 4/4;
+            display: flex;
+            align-items: center;
+            padding-right: 5rem;
+            
+        }
