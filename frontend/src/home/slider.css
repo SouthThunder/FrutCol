@@ -6,6 +6,7 @@
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(3, 1fr);
     flex-wrap: wrap;
+   
 }
 
 /*FIRST COLUMN OF THE GRID*/
@@ -182,7 +183,7 @@
         }
 
         .homecontain > .slider > .third >.n2 > button:nth-child(2){
-            background-color: var(--strawberry-main-color);
+            /* background-color: var(--strawberry-main-color); */
             color: var(--secondary-color);
             font-size: 1rem;
             border: 2px solid black;

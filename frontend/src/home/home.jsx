@@ -7,18 +7,21 @@ import { Footercom } from "../footer/footer";
 import { Producto } from "./cartSlice";
 
 export const Slider = () => {
-  const [backgroundColor, setBackgroundColor] = useState('red');
-  const [currentImage, setCurrentImage] = useState(0);
-  const [currentImageback, setCurrentImageback] = useState(0);
-  const [currentWord, setCurrentWord] = useState('Hello');
-  
-  const colorOptions=['#f8ccd4','blue','green','yellow','purple']
-  const Maincolors=[]
+  const colorOptions=['#f8ccd4','#e1dbed','green','yellow','purple']
+  const Maincolors=['#FF355E','#781fbb','green','yellow','purple']
   const images=['../../images/fresa.jpg','../../images/mora.jpg','../../images/mango.jpg','../../images/guanabana.jpg','../../images/maracuya.jpg']
   const imagesback=['../../images/stain fresa.png','../../images/stain mora.png','../../images/mango.jpg','../../images/guanabana.jpg','../../images/maracuya.jpg']
   const words = ['Fresa', 'Mora', 'Mango', 'Guanabana','Maracuya'];
-  const changestyle = (color,imageIndex,imagebackIndex,word) =>{
+  const [backgroundColor, setBackgroundColor] = useState(colorOptions[0]);
+  const [currentImage, setCurrentImage] = useState(images[0]);
+  const[primaryColor,setPrimaryColor]=useState(Maincolors[0])
+  const [currentImageback, setCurrentImageback] = useState(imagesback[0]);
+  const [currentWord, setCurrentWord] = useState(words[0]);
+  
+  
+  const changestyle = (color,maincolor,imageIndex,imagebackIndex,word) =>{
     setBackgroundColor(color);
+    setPrimaryColor(maincolor);
     setCurrentImage(imageIndex);
     setCurrentImageback(imagebackIndex);
     setCurrentWord(word);
@@ -60,12 +63,12 @@ export const Slider = () => {
         </div>
         <div className="n2">
           <button>&#60;</button>
-          <button>&#62;</button>
+          <button style={{ backgroundColor: primaryColor }}>&#62;</button>
         </div>
         <div className="n3">
         <div className="products__preview">
         {colorOptions.map((color, index) => (
-              <button key={index} className="fruit" onClick={() => changestyle(colorOptions[index], images[index],imagesback[index], words[index])} >
+              <button key={index} className="fruit" onClick={() => changestyle(colorOptions[index], Maincolors[index  ],images[index],imagesback[index], words[index])} >
                 <div className="fruit__container">
                   <img src={images[index]} alt="" />
                 </div>

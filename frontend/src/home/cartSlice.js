@@ -13,7 +13,7 @@ export class Producto {
     // Método para actualizar la cantidad
     sumCantidad() {
       this.cantidad = this.cantidad + 1;
-      alert(this.cantidad)
+     
     }
 
     resCantidad(){
