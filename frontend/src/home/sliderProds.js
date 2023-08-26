@@ -35,17 +35,25 @@ export const mango={
 }
 
 export const Guanabana={
-    mainColor: '#79C300',
-    fontColor: '#f5ce7e',
-    headerColor: '#f5e0b6',
-    compColor: '#f5e9d2',
-    image: '../../images/mora.jpg',
-    stainImage: '../../images/stain mango.png',
-    name: 'Mango',
-    id: 3,
-    precio: 6000
+    mainColor: '#89c91f',
+    fontColor: '#a0d34f',
+    headerColor: '#c8e39d',
+    compColor: '#dcebc4',
+    image: '../../images/guanabana.jpg',
+    stainImage: '../../images/stain guanabana.png',
+    name: 'Guanábana',
+    id: 4,
+    precio: 12000 
 }
 
 export const maracuya={
-    
+    mainColor: '#dfc752',
+    fontColor: '#e4d276',
+    headerColor: '#ece3b2',
+    compColor: '#f0ebd0',
+    image: '../../images/maracuya.jpg',
+    stainImage: '../../images/stain maracuya.png',
+    name: 'Maracuyá',
+    id: 5,
+    precio: 8000   
 }
