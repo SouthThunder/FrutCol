@@ -3,6 +3,14 @@ import "./footer.css";
 import { Link } from 'react-router-dom';
 
 export const Footercom = (props) => {
+    const Min= (e) =>{
+        e.target.style.backgroundColor = props.prod.mainColor;
+    }
+
+    const Mout = (e) =>{
+        e.target.style.backgroundColor = props.prod.headerColor;
+    }
+
   return (
     <footer style={{backgroundColor: props.prod.headerColor , transition: 'all 1s var(--btn-cubic-bezier)'}}>
         <div className="footer__section">
@@ -25,13 +33,13 @@ export const Footercom = (props) => {
         <div className="footer__content">
             <h3 className="footer__title">Redes Sociales</h3>
             <div className="footer__social">
-            <Link to="https://www.facebook.com/" target="_blank"  className="footer__social-link">
-                        <i class="ri-facebook-fill"></i>
+            <Link to="https://www.facebook.com/" target="_blank"  className="footer__social-link" style={{backgroundColor: props.prod.headerColor}} onMouseLeave={(e) => (Mout(e))} onMouseEnter={(e) => (Min(e))}>
+                        <i class="ri-facebook-fill" ></i>
                     </Link>
-                    <Link to="https://twitter.com/" target="_blank" className="footer__social-link">
+                    <Link to="https://twitter.com/" target="_blank" className="footer__social-link" style={{backgroundColor: props.prod.headerColor}} onMouseLeave={(e) => (Mout(e))} onMouseEnter={(e) => (Min(e))}>
                         <i class="ri-twitter-x-line"></i>
                     </Link>
-                    <Link to="https://www.instagram.com/" target="_blank" className="footer__social-link">
+                    <Link to="https://www.instagram.com/" target="_blank" className="footer__social-link" style={{backgroundColor: props.prod.headerColor}} onMouseLeave={(e) => (Mout(e))} onMouseEnter={(e) => (Min(e))}>
                         <i class="ri-instagram-line"></i>
                     </Link>
             </div>

@@ -1,8 +1,3 @@
-.homecontain{
-    position: relative;
-    margin-bottom: 5rem;
-}
-
 .homecontain > .products{
     min-height: 60vh;
 }

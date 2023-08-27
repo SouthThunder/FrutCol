@@ -81,10 +81,10 @@
             align-items: center;
         }
 
-        .homecontain > .slider > .first > .n4 > span{
-            border: 1px solid;
-            color:yellow;
+
+        .homecontain > .slider > .first > .n4 > .progress{
             width: 60%;
+            border: 1px solid;
         }
 
         .homecontain > .slider > .first > .n4 >p:nth-child(1){
