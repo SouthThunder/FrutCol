@@ -4,7 +4,7 @@
     height: 100%;
 }
 
-.contderformlogin {
+.ingresocontain >.contderformlogin {
     flex: 1;
     /* border: 1px solid black; */
     height: 90vh;
@@ -15,26 +15,26 @@
     margin-right: 20px;
 }
 
-.contderformlogin h1 {
+.ingresocontain >.contderformlogin h1 {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
-.contderformlogin form {
+.ingresocontain >.contderformlogin form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.contderformlogin label {
+.ingresocontain >.contderformlogin label {
     font-size: 16px;
     margin-top: 10px;
     margin-right: 10px;
     display: inline-block;
 }
 
-.contderformlogin input {
+.ingresocontain >.contderformlogin input {
     width: 500px;
     border: none;
     border-bottom: 1px solid #ccc;
@@ -45,12 +45,12 @@
     background: none;
 }
 
-.contderformlogin input:focus {
+.ingresocontain >.contderformlogin input:focus {
     outline: none; 
     border-color:var(--primary-color);
 }
 
-.contderformlogin .enviar {
+.ingresocontain >.contderformlogin .enviar {
     margin-top: 4%;
     margin-left: 40%;
     background-color: transparent;
@@ -62,26 +62,38 @@
     transition: background-color 0.3s;
 }
 
-.contderformlogin .invisible {
+.ingresocontain >.contderformlogin .invisible {
     background: none;
     border: none;
     padding: 0;
     cursor: pointer;
 }
 
-.contderformlogin .invisible img{
+.ingresocontain >.contderformlogin .invisible img{
     width: 20px; 
     height: 20px; 
     display: block; 
 }
 
-.contderformlogin .enviar:hover {
+.ingresocontain >.contderformlogin .enviar:hover {
     background-color: var(--primary-color);
     color: white;
     border: none;
 }
 
-.contizformlogin {
+
+.ingresocontain > .contderformlogin .botonizform {
+    background-color: white;
+    border: 2px solid white; 
+    color: black; 
+    padding: 10px 20px; 
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; 
+    border-radius: 10px;
+    font-weight: bold; 
+}
+
+.ingresocontain >.contizformlogin {
     flex: 0 0 30%; 
     /* border: 1px solid red;  */
     height: 90vh;
@@ -97,7 +109,7 @@
 }
 
 
-.contizformlogin h1 {
+.ingresocontain >.contizformlogin h1 {
     border-radius: 5px; 
     font-size: 24px; 
     margin-bottom: 10px;
@@ -105,30 +117,27 @@
     background-color: white;
 }
 
-.separadorform{
+.ingresocontain > .contderformlogin .separadorform{
     margin-top: 10%;
 }
 
-.contizformlogin p {
+.ingresocontain >.contizformlogin p {
     font-size: 18px; 
     border-radius: 5px;
     font-weight: 500; 
     background-color: white;
 }
 
-.botonizform {
-    background-color: white;
-    border: 2px solid white; 
-    color: black; 
-    padding: 10px 20px; 
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s; 
-    border-radius: 10px;
-    font-weight: bold; 
+.ingresocontain > .contderformlogin form .password{
+    display: flex;
 }
 
-.botonizform:hover {
-    background: transparent;
+.ingresocontain > .contderformlogin form .password > input{
+    border-radius: 0;
+}
 
+
+.ingresocontain > .contderformlogin .botonizform:hover {
+    background: transparent;
     color: white;
 }
