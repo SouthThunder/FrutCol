@@ -23,10 +23,10 @@ export const Footercom = (props) => {
             <ul className="footer__links">
                 <li>
                     <Link to="#" className="footer__link">
-                    <i class="ri-phone-line"></i> 571 3108621696</Link>
+                    <i className="ri-phone-line"></i> 571 3108621696</Link>
                 </li>
                 <li>
-                    <Link to="#" className="footer__link"><i class="ri-mail-line"></i> frutcol0518@gmail.com</Link>
+                    <Link to="#" className="footer__link"><i className="ri-mail-line"></i> frutcol0518@gmail.com</Link>
                 </li>
             </ul>
         </div>
@@ -34,13 +34,13 @@ export const Footercom = (props) => {
             <h3 className="footer__title">Redes Sociales</h3>
             <div className="footer__social">
             <Link to="https://www.facebook.com/" target="_blank"  className="footer__social-link" style={{backgroundColor: props.prod.headerColor}} onMouseLeave={(e) => (Mout(e))} onMouseEnter={(e) => (Min(e))}>
-                        <i class="ri-facebook-fill" ></i>
+                        <i className="ri-facebook-fill" ></i>
                     </Link>
                     <Link to="https://twitter.com/" target="_blank" className="footer__social-link" style={{backgroundColor: props.prod.headerColor}} onMouseLeave={(e) => (Mout(e))} onMouseEnter={(e) => (Min(e))}>
-                        <i class="ri-twitter-x-line"></i>
+                        <i className="ri-twitter-x-line"></i>
                     </Link>
                     <Link to="https://www.instagram.com/" target="_blank" className="footer__social-link" style={{backgroundColor: props.prod.headerColor}} onMouseLeave={(e) => (Mout(e))} onMouseEnter={(e) => (Min(e))}>
-                        <i class="ri-instagram-line"></i>
+                        <i className="ri-instagram-line"></i>
                     </Link>
             </div>
         </div>

@@ -1,10 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ingreso.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
+
+const URI = 'https://frutcola-backendpru.onrender.com/usuarios/login';
 
 
 export const Ingresocom = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [localuser, setLocalUser] =useState([]);
+  const [localpassword, setlocalPassword] =useState([]);
+  const navigate= useNavigate();
+
+  useEffect(()=>{
+
+  },[])
+
+  const shaAlgorithm = (string)=>{
+    const CryptoJS= require('crypto-js')
+    const hash= CryptoJS.SHA512(string);
+    return hash.toString(CryptoJS.enc.Hex)
+  }
+
+  const test= async() => {
+    try {
+      const res = await axios.post(URI,
+        {
+          correo_usuario: localuser,
+          contrasena_usuario: localpassword
+        });
+      localStorage.setItem('token', res.data.token);
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -26,9 +56,8 @@ export const Ingresocom = () => {
         <h1>Inicio de sesión</h1>
         <br />
         <p className="separadorform"></p>
-        <form>
           <label htmlFor="correo">Correo:</label>
-          <input type="email" id="correo" name="correo" required />
+          <input type="email" id="correo" name="correo" required onChange={(e)=> setLocalUser(e.target.value)}/>
           <br />
           <br />
           <br />
@@ -41,6 +70,7 @@ export const Ingresocom = () => {
               id="contrasena"
               name="contrasena"
               required
+              onChange={(e)=> setlocalPassword(e.target.value)}
             />
             <br />
             <br />
@@ -56,10 +86,9 @@ export const Ingresocom = () => {
               />
             </button>
           </div>
-          <button className="enviar" type="submit">
+          <button className="enviar" onClick={test}>
             Iniciar sesión
           </button>
-        </form>
       </div>
     </div>
   );
