@@ -53,6 +53,7 @@
     --lg-btn-padding: 1.2rem 1rem;
 
 /*Borders*/
+    --xs-border: 5px;
     --sm-border: 10px;
     --md-border: 25px;
     --l-border: 50px;
