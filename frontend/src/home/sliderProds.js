@@ -11,15 +11,15 @@ export const fresa={
 }
 
 export const mora={
-    mainColor: '#781fbb',
-    fontColor: '#a168cf',
-    headerColor: '#d6cee8',
-    compColor: '#e1dbed',
-    image: '../../images/mora.jpg',
-    stainImage: '../../images/stain mora.png',
-    name: 'Mora',
-    id: 2,
-    precio: 10000
+    mainColor: '#781fbb', //METADATA TABLE
+    fontColor: '#a168cf', //METADATA TABLE
+    headerColor: '#d6cee8', //METADATA TABLE
+    compColor: '#e1dbed', //METADATA TABLE
+    image: '../../images/mora.jpg', //METADATA TABLE
+    stainImage: '../../images/stain mora.png', //METADATA TABLE
+    name: 'Mora', //ORIGINAL TABLE
+    id: 2, //ORIGINAL TABLE
+    precio: 10000 //ORIGINAL TABLE
 }
 
 export const mango={

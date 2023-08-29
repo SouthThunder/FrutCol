@@ -88,11 +88,22 @@
         border-radius: var(--xs-border);
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
     }
 
     .header > .nav-bar .nav__menu > .nav__list > .nav__item  .popup-header .popup-inner{
         height: 2rem;
+    }
+
+    .header > .nav-bar .nav__menu > .nav__list > .nav__item  .popup-header .popup-inner:nth-child(2){
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .header > .nav-bar .nav__menu > .nav__list > .nav__item  .popup-header .popup-inner .separator{
+        width: 60%;
+        position: absolute;
+        border: 1px solid black;
     }
 
     .header > .nav-bar .nav__menu > .nav__list > .nav__item  .popup-header .popup-inner a,

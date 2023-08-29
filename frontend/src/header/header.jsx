@@ -21,6 +21,9 @@ export const HeadPopUp = (props) =>{
                   <div className="popup-inner" >
                       <Link to={'/'} style={{color: props.prod.mainColor}}>Settings</Link>
                   </div>
+                  <div className="popup-inner" >
+                      <span className="separator"></span>
+                  </div>
                   <div className="popup-inner">
                       <button 
                       onClick={logout} style={{color: props.prod.mainColor}}
