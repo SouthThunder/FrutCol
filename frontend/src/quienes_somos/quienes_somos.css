@@ -1,0 +1,111 @@
+.tittlequienes{
+    margin-bottom: 1%;
+    color: #FF355E;
+}
+.containerquienes  {
+    display: grid;
+    place-items: center;
+    padding: 5%;
+    text-align: justify;
+    text-justify: inter-word;
+}
+.quienesomos{
+    
+  
+   
+   
+}
+.quienesomos > .first {
+
+}
+.quienesomos > .misionvision{
+    display: flex;
+    border-radius: var(--sm-border);
+   
+    
+}
+.quienesomos > .misionvision > .vision{
+    border-left: 2px solid black;
+    
+}
+.quienesomos > .objectives {
+    border-radius: var(--sm-border);
+
+}
+.quienesomos > .objectives > .objectives__list{
+    list-style:circle;
+
+}
+.quienesomos > .objectives > .objectives__list > li{
+    margin: 3% 0 3% 0;
+}
+
+/*VALORES CSS */
+.values{
+    display: flex;
+    height: 78vh;
+    width: 100%;
+    margin-top: 4rem;
+    position: relative; 
+    justify-content: center;
+    margin-bottom: -10rem;
+    
+}
+
+@keyframes showTopText {
+  0% { transform: translate3d(0, 100%, 0); }
+  40%, 60% { transform: translate3d(0, 50%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes showBottomText {
+  0% { transform: translate3d(0, -100%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+.animated-title {
+  color: #222;
+  
+  height: 50vmin;
+  left: 50%;
+  top: 50%;
+ 
+  width: 90vmin;
+}
+.animated-title > div {
+  height: 50%;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+}
+.animated-title > div div {
+  font-size: 5vmin;
+  padding: 2vmin 0;
+  position: absolute;
+}
+.animated-title > div div span {
+  display: block;
+}
+.animated-title > div.text-top {
+  border-bottom: 0.5vmin solid #000;
+  width: 50%;
+  top: 0;
+}
+.animated-title > div.text-top div {
+  animation: showTopText 1s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+  bottom: 0;
+  transform: translate(0, 100%);
+}
+.animated-title > div.text-top div span:first-child {
+  color: #767676;
+}
+.animated-title > div.text-bottom {
+  bottom: 0;
+}
+.animated-title > div.text-bottom div {
+  animation: showBottomText 0.5s;
+  animation-delay: 1.75s;
+  animation-fill-mode: forwards;
+  top: 0;
+  transform: translate(0, -100%);
+}

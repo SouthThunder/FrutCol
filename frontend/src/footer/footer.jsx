@@ -48,7 +48,7 @@ export const Footercom = (props) => {
             <h3 className="footer__title">¿Quiénes Somos?</h3>
             <ul className="footer__links">
                 <li>
-                    <Link to="#" className="footer__link">Nuestra Historia</Link>
+                    <Link to="/QuienesSomos" className="footer__link">Nuestra Historia</Link>
                 </li>
                 <li>
                     <Link to="#" className="footer__link">FAQ</Link>
