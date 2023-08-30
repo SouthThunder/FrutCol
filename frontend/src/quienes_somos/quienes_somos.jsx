@@ -134,7 +134,7 @@ export const QuienesSomoscom = (prop) => {
   };
 
   return (
-    <div className="QuienesSomoscontain" id="home">
+    <div className="QuienesSomoscontain" >
       <Headercom prod={product} />
       <QuienesSomos prod={product} />
       <Footercom prod={product} />
