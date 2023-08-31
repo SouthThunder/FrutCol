@@ -16,13 +16,8 @@ export const Ingresocom = () => {
 
   },[])
 
-  const shaAlgorithm = (string)=>{
-    const CryptoJS= require('crypto-js')
-    const hash= CryptoJS.SHA512(string);
-    return hash.toString(CryptoJS.enc.Hex)
-  }
-
   const test= async() => {
+    console.log('validating...')
     try {
       const res = await axios.post(URI,
         {
@@ -32,7 +27,7 @@ export const Ingresocom = () => {
       localStorage.setItem('token', res.data.token);
       navigate('/')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
@@ -56,6 +51,7 @@ export const Ingresocom = () => {
         <h1>Inicio de sesión</h1>
         <br />
         <p className="separadorform"></p>
+          <form action={test}>
           <label htmlFor="correo">Correo:</label>
           <input type="email" id="correo" name="correo" required onChange={(e)=> setLocalUser(e.target.value)}/>
           <br />
@@ -86,9 +82,10 @@ export const Ingresocom = () => {
               />
             </button>
           </div>
-          <button className="enviar" onClick={test}>
+          <button className="enviar" type="submit">
             Iniciar sesión
           </button>
+          </form>
       </div>
     </div>
   );

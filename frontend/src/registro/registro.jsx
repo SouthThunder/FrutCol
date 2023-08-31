@@ -3,16 +3,21 @@ import './registro.css'
 import {Link, parsePath} from 'react-router-dom';
 import {Headercom} from "../header/header";
 import {Footercom} from "../footer/footer";
+import axios from "axios";
 
 export const  Registrocom=()=>{
 
-    const handleSubmit = (event) => {
+    const URI= 'https://frutcola-backendpru.onrender.com/usuarios/register';
+
+    const handleSubmit = async(event) => {
         event.preventDefault();
 
         const nombre = event.target.nombre.value;
         const apellido = event.target.apellido.value;
         const cedula = event.target.cedula.value;
         const contrasena = event.target.contrasena.value;
+        const correo = event.target.correo.value;
+        const direccion = event.target.direccion.value;
 
         // Validaciones para nombres y apellidos
         const namePattern = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
@@ -36,7 +41,19 @@ export const  Registrocom=()=>{
         }
 
         // Queda por enviar 
-        alert('Registro exitoso!');
+        try {
+            await axios.post(URI, {
+                nombre: nombre,
+                apellido: apellido,
+                cedula: cedula,
+                contraseña: contrasena,
+                correo: correo,
+                direccion: direccion
+            });
+            alert('Registro exitoso!');
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     return(

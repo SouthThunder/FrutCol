@@ -169,16 +169,31 @@ export const Slider = ({ prod, changeProp }) => {
   );
 };
 
-const Products = () => {
+export const Products = (props) => {
   const URI = "https://frutcola-backendpru.onrender.com/productos";
   const [products, setProducts] = useState([]);
+  const [promt, setPromt] = useState([]);
   const [test, setTest] = useState({
     producto: [],
   });
 
   useEffect(() => {
+    checkPromt();
     getProducts();
   }, []);
+
+  const func1= () =>{
+      let string = JSON.stringify(test.producto)
+      localStorage.setItem('carrito', string)
+  }
+
+  const checkPromt= () =>{
+    if(props.promt===undefined || props.promt===null){
+      setPromt('Productos');
+    }else{
+      setPromt(props.promt);
+    }
+  }
 
   const getProducts = async () => {
     try {
@@ -202,6 +217,7 @@ const Products = () => {
       return prod;
     });
     setTest({ producto: updatedProductos });
+    func1();
   };
 
   const handleSumCantidad = (producto) => {
@@ -212,12 +228,13 @@ const Products = () => {
       return prod;
     });
     setTest({ producto: updatedProductos });
+    func1();
   };
 
   return (
-    <div className="products">
+    <div className="productsComp">
       <div className="title">
-        <h1>Productos</h1>
+        <h1>{promt}</h1>
       </div>
       <div className="elements">
         {products.map((prods) => (
