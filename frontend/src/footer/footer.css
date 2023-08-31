@@ -1,5 +1,6 @@
 @import url("https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css");
 footer {
+
     background: var(--strawberry-header-color);
     width: 200%;
     transform: translate(-45%);
@@ -8,6 +9,7 @@ footer {
     position: relative;
  }
 .footer__section{
+    margin-top: 10rem;
     padding-top: 3rem;
     margin-left: 45%;
     grid-template-columns:repeat(auto-fit,minmax(220px.1fr));
