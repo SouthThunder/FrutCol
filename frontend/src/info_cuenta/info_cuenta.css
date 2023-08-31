@@ -2,8 +2,7 @@
     display: flex;
     text-align: left;
     width: 90%;
-    
-    
+    min-height: 30vh;
     margin: 8rem;
 }
 .infocuenta > .contenidos{
@@ -12,34 +11,45 @@
 }
 .infocuenta > .contenidos > h4{
     margin: 2rem 0 2rem 0;
+    cursor: pointer;
+
+}
+.infocuenta > .contenidos > h4:hover{
+    color:red;
+
 }
 .infocuenta > .infogeneral{
     width: 100%;
     margin-left: 3rem;
 }
-.infocuenta > .infogeneral > .form > .input__info > ion-icon{
+.infocuenta > .cambiocontrasena{
+    width: 100%;
+    margin-left: 3rem;
+}
+.input__info > ion-icon{
     position: absolute;
     right: 8px;
     top: 20px;
     color:black;
 }
-.infocuenta > .infogeneral > .form > .input__info {
+.input__info {
     position: relative;
     width: 70%;
     margin-top: 1rem;
     margin-left: 1rem;
     border-bottom: 1px solid black;
 }
-.infocuenta > .infogeneral > .form > .input__info > label{
+ .input__info > label{
     position: absolute;
     top: 30%;
     left: 5px;
     color: black;
     font-size: 1rem;
+    top:-4px;
     pointer-events: none;
     transition: 0.5s;
 }
-.infocuenta > .infogeneral > .form > .input__info > small{
+ .input__info > small{
     color: #FFA500;
     position: absolute;
     bottom: 0;
@@ -47,7 +57,7 @@
     width: 100%;
     visibility: hidden;
 }
-.infocuenta > .infogeneral > .form > .input__info > input {
+ .input__info > input {
     width: 100%;
     height: 50px;
     background: transparent;
@@ -56,17 +66,17 @@
     font-size: 1rem;
     padding: 15px 5px 0 5px;
 }
-.infocuenta > .infogeneral > .form > .input__info > input:focus ~ label,
-.infocuenta > .infogeneral > .form > .input__info > input:invalid ~ label,
-.infocuenta > .infogeneral > .form > .input__info > input:invalid ~label {
+/* .input__info > input:focus ~ label,
+.input__info > input:invalid ~ label,
+.input__info > input[type="password"]:not(:placeholder-shown) {
     top: -4px;
-}
-.infocuenta > .infogeneral > form > .enter{
+} */
+.enter{
     display: flex;
     justify-content: center;
     margin-right: 16rem;
 }
-.infocuenta > .infogeneral > form > .enter > button {
+.enter > button {
     --border: 5px;    /* the border width */
     --slant: 0.7em;   /* control the slanted corners */
     --color: red; /* the color */
@@ -93,19 +103,20 @@
     transition: color var(--t,0.3s), background-size 0.3s;
   }
 
-  .infocuenta > .infogeneral > form > .enter > button:focus-visible {
+ .enter > button:focus-visible {
     outline-offset: calc(-1*var(--border));
     outline: var(--border) solid #000c;
     clip-path: none;
     background-size: 0 0;
   }
-  .infocuenta > .infogeneral > form > .enter > button:hover,
-  .infocuenta > .infogeneral > form > .enter > button:active{
+ .enter > button:hover,
+.enter > button:active{
     background-size: 100% 100%;
     color: #fff;
     --t: 0.2s 0.1s;
   }
-  .infocuenta > .infogeneral > form > .enter > button:active {
+.enter > button:active {
     --s: #0005;
     transition: none;
   }
+

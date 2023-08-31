@@ -1,12 +1,14 @@
 @import url("https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css");
 footer {
-
+    
     background: var(--strawberry-header-color);
     width: 200%;
     transform: translate(-45%);
     min-height: 30vh;
     border-radius: 80% 80% 0 0;
     position: relative;
+    bottom: 0;
+    margin-top: auto;
  }
 .footer__section{
     margin-top: 10rem;
