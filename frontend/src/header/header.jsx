@@ -19,7 +19,7 @@ export const HeadPopUp = (props) =>{
           !props.trigger && (
               <div className="popup-header" style={{backgroundColor: props.prod.headerColor}}>
                   <div className="popup-inner" >
-                      <Link to={'/'} style={{color: props.prod.mainColor}}>Settings</Link>
+                      <Link to={'/InformacionCuenta'} style={{color: props.prod.mainColor}}>Settings</Link>
                   </div>
                   <div className="popup-inner" >
                       <span className="separator"></span>
@@ -114,7 +114,7 @@ export const Headercom = (props) => {
                 </button>
               </li>
               <li className="nav__item">
-                <img src="images/carrito.png" />
+                <Link to={'/Carrito'}><img src="images/carrito.png" /></Link>
               </li>
             </ul>
           </div>
@@ -158,7 +158,7 @@ export const Headercom = (props) => {
                 <HeadPopUp trigger={popup} prod={props.prod}/>
               </li>
               <li className="nav__item">
-                <img src="images/carrito.png" />
+                <Link to={'/Carrito'}><img src="images/carrito.png" /></Link>
               </li>
             </ul>
           </div>
