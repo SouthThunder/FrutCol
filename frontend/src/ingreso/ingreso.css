@@ -21,7 +21,7 @@
     margin-bottom: 20px;
 }
 
-.ingresocontain >.contderformlogin form {
+.ingresocontain >.contderformlogin .form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -128,11 +128,11 @@
     background-color: white;
 }
 
-.ingresocontain > .contderformlogin form .password{
+.ingresocontain > .contderformlogin .form .password{
     display: flex;
 }
 
-.ingresocontain > .contderformlogin form .password > input{
+.ingresocontain > .contderformlogin .form .password > input{
     border-radius: 0;
 }
 

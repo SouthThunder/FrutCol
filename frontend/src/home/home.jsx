@@ -237,7 +237,7 @@ export const Products = (props) => {
         <h1>{promt}</h1>
       </div>
       <div className="elements">
-        {products.map((prods) => (
+        {products?.map((prods) => (
           <div className="card" key={prods.id_producto}>
             <div className="title">
               <div className="promt">

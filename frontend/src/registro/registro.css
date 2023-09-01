@@ -21,7 +21,7 @@
     margin-bottom: 20px;
 }
 
-.contderform form {
+.contderform .form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
