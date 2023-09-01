@@ -1,35 +1,31 @@
 import React, { useEffect, useState } from "react";
 import "./ingreso.css";
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
-const URI = 'https://frutcola-backendpru.onrender.com/usuarios/login';
-
+const URI = "https://frutcola-backendpru.onrender.com/usuarios/login";
 
 export const Ingresocom = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [localuser, setLocalUser] =useState([]);
-  const [localpassword, setlocalPassword] =useState([]);
-  const navigate= useNavigate();
+  const [localuser, setLocalUser] = useState([]);
+  const [localpassword, setlocalPassword] = useState([]);
+  const navigate = useNavigate();
 
-  useEffect(()=>{
+  useEffect(() => {}, []);
 
-  },[])
-
-  const test= async() => {
-    console.log('validating...')
+  const test = async () => {
+    console.log("validating...");
     try {
-      const res = await axios.post(URI,
-        {
-          correo_usuario: localuser,
-          contrasena_usuario: localpassword
-        });
-      localStorage.setItem('token', res.data.token);
-      navigate('/')
+      const res = await axios.post(URI, {
+        correo_usuario: localuser,
+        contrasena_usuario: localpassword,
+      });
+      localStorage.setItem("token", res.data.token);
+      navigate("/");
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -51,9 +47,15 @@ export const Ingresocom = () => {
         <h1>Inicio de sesión</h1>
         <br />
         <p className="separadorform"></p>
-          <form action={test}>
+        <div className="form">
           <label htmlFor="correo">Correo:</label>
-          <input type="email" id="correo" name="correo" required onChange={(e)=> setLocalUser(e.target.value)}/>
+          <input
+            type="email"
+            id="correo"
+            name="correo"
+            required
+            onChange={(e) => setLocalUser(e.target.value)}
+          />
           <br />
           <br />
           <br />
@@ -66,7 +68,7 @@ export const Ingresocom = () => {
               id="contrasena"
               name="contrasena"
               required
-              onChange={(e)=> setlocalPassword(e.target.value)}
+              onChange={(e) => setlocalPassword(e.target.value)}
             />
             <br />
             <br />
@@ -82,10 +84,10 @@ export const Ingresocom = () => {
               />
             </button>
           </div>
-          <button className="enviar" type="submit">
+          <button className="enviar" onClick={test}>
             Iniciar sesión
           </button>
-          </form>
+        </div>
       </div>
     </div>
   );
