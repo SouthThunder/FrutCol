@@ -1,0 +1,243 @@
+.info_pagina{
+    display: flex;
+    text-align: left;
+    width: 98%;
+    min-height: 30vh;
+    margin: 8rem;
+}
+.info_pagina > .contenidos{
+    border-right: 2px solid black;
+    width: 15%;
+}
+.info_pagina > .editar_container{
+   
+    margin-left: 3rem;
+    width: 100%;
+}
+.info_pagina > .editar_container > .editarcontent{
+   display: flex; 
+   width: 100%;
+   column-gap: 3rem;
+}
+.info_pagina > .editar_container > .editarcontent > .left {
+   width: 30%;
+ }
+.info_pagina > .editar_container > .editarcontent > .left > .product_image{
+    background-color: red;
+    width: 13rem;
+    height: 13rem;
+    margin-left: 1rem;
+ }
+ .info_pagina > .editar_container > .editarcontent > .right > .producto_estilo{
+    margin-top: 2rem;
+    
+    align-items:flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+ }
+ .info_pagina > .editar_container > .editarcontent > .right > .producto_estilo > h4{
+    margin-left: 1rem;
+ }
+ .info_pagina > .editar_container > .editarcontent > .right > .producto_estilo > .colores_producto{
+    display: flex;
+    width: 72.2%;
+ }
+ .info_pagina > .editar_container > .editarcontent > .left > .product_image > img{
+     object-fit: cover;
+ }
+ .info_pagina > .editar_container > .editarcontent > .left > .product_image > img{
+    object-fit: cover;
+}
+.info_pagina > .contenidos > h4{
+    margin: 2rem 0 2rem 0;
+    cursor: pointer;
+
+}
+.info_pagina > .contenidos > h4:hover{
+    color:red;
+
+}
+.info_pagina > .infoproductos{
+    
+    width: 100%;
+    margin-left: 3rem;
+}
+.info_pagina > .infoproductos> .productos > .table {
+    border-spacing: 2.2rem;
+}
+.info_pagina > .infoproductos> .productos > .table > tbody > tr> td > .tablebtn{
+    
+    cursor: pointer;
+}
+.info_pagina > .infoproductos> .productos > .table > tbody > tr> td > .tablebtn:hover{
+    background-color: #f2f2f2;
+    color: red;
+    cursor: pointer;
+}
+.info_pagina > .cambiocontrasena{
+    width: 100%;
+    margin-left: 3rem;
+}
+
+.input__info > ion-icon{
+    position: absolute;
+    right: 8px;
+    top: 20px;
+    color:black;
+}
+.input__info {
+    position: relative;
+    width: 70%;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    border-bottom: 1px solid black;
+}
+
+ .input__info > label{
+    position: absolute;
+    top: 30%;
+    left: 5px;
+    color: black;
+    font-size: 1rem;
+    top:-4px;
+    pointer-events: none;
+    transition: 0.5s;
+}
+ .input__info > small{
+    color: #FFA500;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    visibility: hidden;
+}
+ .input__info > input {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 15px 5px 0 5px;
+}
+.input__info > textarea {
+    width: 100%;
+    height: 100px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 15px 5px 0 5px;
+}
+/* .input__info > input:focus ~ label,
+.input__info > input:invalid ~ label,
+.input__info > input[type="password"]:not(:placeholder-shown) {
+    top: -4px;
+} */
+.info_pagina > .editar_container > .actualizar_product{
+    
+    width: 100%;
+    margin-left: 9rem;
+    
+}
+
+/*AGREGAR PRODUCTO */
+.info_pagina > .agregar_container{
+   
+    margin-left: 3rem;
+    width: 100%;
+}
+.info_pagina > .agregar_container > .agregar_producto{
+   display: flex; 
+   width: 100%;
+   column-gap: 3rem;
+}
+.info_pagina > .agregar_container > .agregar_producto > .left {
+   width: 30%;
+ }
+.info_pagina > .agregar_container > .agregar_producto > .left > .product_image{
+    background-color: red;
+    width: 13rem;
+    height: 13rem;
+    margin-left: 1rem;
+ }
+ .info_pagina > .agregar_container > .agregar_producto > .right > .producto_estilo{
+    margin-top: 2rem;
+    
+    align-items:flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+ }
+ .info_pagina > .agregar_container > .agregar_producto > .right > .producto_estilo > h4{
+    margin-left: 1rem;
+ }
+ .info_pagina > .agregar_container > .agregar_producto > .right > .producto_estilo > .colores_producto{
+    display: flex;
+    width: 72.2%;
+ }
+ 
+ .info_pagina > .agregar_container > .agregar_product{
+    
+    width: 100%;
+    margin-left: 9rem;
+    
+}
+
+
+/*BOTON*/
+.info_pagina > .infoproductos > .agregarp{
+    width: 70%;
+    height: 60%;
+    
+}
+.enter{
+    display: flex;
+    justify-content: center;
+    margin-right: 16rem;
+}
+.enter > button {
+    --border: 5px;    /* the border width */
+    --slant: 0.7em;   /* control the slanted corners */
+    --color: red; /* the color */
+    width: 20%;
+    height: 20%;
+    font-size: 20px;
+    padding: 0.4em 1.2em;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--color);
+    background: 
+       linear-gradient(to bottom left,var(--color)  50%,#0000 50.1%) top right,
+       linear-gradient(to top   right,var(--color)  50%,#0000 50.1%) bottom left;
+    background-size: calc(var(--slant) + 1.3*var(--border)) calc(var(--slant) + 1.3*var(--border));
+    background-repeat: no-repeat;
+    box-shadow:
+      0 0 0 200px inset var(--s,#0000),
+      0 0 0 var(--border) inset var(--color);
+    clip-path: 
+        polygon(0 0, calc(100% - var(--slant)) 0, 100% var(--slant),
+                100% 100%, var(--slant) 100%,0 calc(100% - var(--slant))
+               );
+    transition: color var(--t,0.3s), background-size 0.3s;
+  }
+
+ .enter > button:focus-visible {
+    outline-offset: calc(-1*var(--border));
+    outline: var(--border) solid #000c;
+    clip-path: none;
+    background-size: 0 0;
+  }
+ .enter > button:hover,
+.enter > button:active{
+    background-size: 100% 100%;
+    color: #fff;
+    --t: 0.2s 0.1s;
+  }
+.enter > button:active {
+    --s: #0005;
+    transition: none;
+  }
+

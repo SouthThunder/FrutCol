@@ -8,6 +8,7 @@ import {QuienesSomoscom} from './quienes_somos/quienes_somos.jsx';
 import {RealizarCompracom} from './realizar_compra/realizar_compra.jsx';
 import {Registrocom} from './registro/registro.jsx';
 
+
 export const App= () =>{
   return (
     <div className="principalContainer">
@@ -21,6 +22,7 @@ export const App= () =>{
           <Route path='/QuienesSomos' element={<QuienesSomoscom/>}/>
           <Route path='/RealizarCompra' element={<RealizarCompracom/>}/>
           <Route path='/Registro' element={<Registrocom/>}/>
+          
         </Routes>
       </BrowserRouter>      
     </div>

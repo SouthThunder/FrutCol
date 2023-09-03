@@ -170,7 +170,7 @@ export const Slider = ({ prod, changeProp }) => {
 };
 
 export const Products = (props) => {
-  const URI = "https://frutcola-backendpru.onrender.com/productos";
+  const URI = "https://frutcola-backendpru.onrender.com/metadata";
   const [products, setProducts] = useState([]);
   const [promt, setPromt] = useState([]);
   const [test, setTest] = useState({
