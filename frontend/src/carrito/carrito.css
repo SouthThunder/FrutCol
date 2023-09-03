@@ -1,6 +1,5 @@
 .cartComp{
     width: 100%;
-    background-color:bisque;
     margin-top: calc(var(--header-height) + 1rem);
 }
 
