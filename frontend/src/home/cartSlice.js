@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export class Producto {
     constructor(nombre, precio, cantidad) {
       this.nombre = nombre;
