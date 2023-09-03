@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import "./registro.css";
-import { Link, parsePath } from "react-router-dom";
-import { Headercom } from "../header/header";
-import { Footercom } from "../footer/footer";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import jwt_decode from 'jwt-decode';
+
 
 export const Registrocom = () => {
-  const URI = "https://frutcola-backendpru.onrender.com/usuarios/register";
 
   const [nombre, setNombre] = useState([]);
   const [apellido, setApellido] = useState([]);
@@ -14,8 +13,10 @@ export const Registrocom = () => {
   const [contrasena, setContrasena] = useState([]);
   const [correo, setCorreo] = useState([]);
   const [direccion, setDireccion] = useState([]);
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
+    const URI = "https://frutcola-backendpru.onrender.com/usuarios/register";
     // Validaciones para nombres y apellidos
     const namePattern = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
     if (!namePattern.test(nombre) || !namePattern.test(apellido)) {
@@ -48,11 +49,37 @@ export const Registrocom = () => {
         correo_usuario: correo,
         direccion_usuario: direccion,
       });
+      authToken()
       alert("Registro exitoso!");
     } catch (error) {
       console.error(error);
     }
   };
+
+  const authToken = async() =>{
+    try {
+      const URI = "https://frutcola-backendpru.onrender.com/usuarios/login";
+      const res = await axios.post(URI, {
+        correo_usuario: correo,
+        contrasena_usuario: contrasena,
+      });
+      localStorage.setItem("token", res.data.token);
+      getId(res.data.token)
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const getId = async(token) =>{
+    const URI = "https://frutcola-backendpru.onrender.com/carrito";
+    try {
+      const decode= jwt_decode(token);
+      await axios.post(URI, decode.id_usuario)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <div className="registrocontain" id="home">

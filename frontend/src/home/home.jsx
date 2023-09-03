@@ -11,6 +11,7 @@ import { mango } from "./sliderProds";
 import { Guanabana } from "./sliderProds";
 import { maracuya } from "./sliderProds";
 
+
 export const Slider = ({ prod, changeProp }) => {
   const array = [fresa, mora, mango, Guanabana, maracuya];
 
@@ -170,7 +171,8 @@ export const Slider = ({ prod, changeProp }) => {
 };
 
 export const Products = (props) => {
-  const URI = "https://frutcola-backendpru.onrender.com/productos";
+  //const URI = "https://frutcola-backendpru.onrender.com/productos";
+  const URI = "https://frutcola-backendpru.onrender.com/metadata/";
   const [products, setProducts] = useState([]);
   const [promt, setPromt] = useState([]);
   const [test, setTest] = useState({
@@ -182,23 +184,24 @@ export const Products = (props) => {
     getProducts();
   }, []);
 
-  const func1= () =>{
-      let string = JSON.stringify(test.producto)
-      localStorage.setItem('carrito', string)
-  }
+  const func1 = () => {
+    let string = JSON.stringify(test.producto);
+    localStorage.setItem("carrito", string);
+  };
 
-  const checkPromt= () =>{
-    if(props.promt===undefined || props.promt===null){
-      setPromt('Productos');
-    }else{
+  const checkPromt = () => {
+    if (props.promt === undefined || props.promt === null) {
+      setPromt("Productos");
+    } else {
       setPromt(props.promt);
     }
-  }
+  };
 
   const getProducts = async () => {
     try {
       const res = await axios.get(URI);
       setProducts(res.data);
+      console.log(res.data);
       setTest({
         producto: res.data.map(
           (prod) => new Producto(prod.nombre_producto, prod.precio_producto, 0)
@@ -251,7 +254,7 @@ export const Products = (props) => {
             </div>
             <div className="pImg">
               <img
-                src={"../../images/" + prods.img_producto}
+                src={"../../images/" + prods.image}
                 alt={prods.nombre_producto}
               />
             </div>
