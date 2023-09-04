@@ -16,12 +16,12 @@ export const HeadPopUp = (props) => {
       {!props.trigger && (
         <div
           className="popup-header"
-          style={{ backgroundColor: props.prod.headerColor }}
+          style={{ backgroundColor: props.prod.header_color }}
         >
           <div className="popup-inner">
             <Link
               to={"/InformacionCuenta"}
-              style={{ color: props.prod.mainColor }}
+              style={{ color: props.prod.main_color }}
             >
               Settings
             </Link>
@@ -32,14 +32,14 @@ export const HeadPopUp = (props) => {
           <div className="popup-inner">
             <button
               onClick={logout}
-              style={{ color: props.prod.mainColor }}
+              style={{ color: props.prod.main_color }}
               onMouseEnter={(e) => (
-                (e.target.style.backgroundColor = props.prod.mainColor),
+                (e.target.style.backgroundColor = props.prod.main_color),
                 (e.target.style.color = "#FFFF")
               )}
               onMouseLeave={(e) => (
-                (e.target.style.backgroundColor = props.prod.headerColor),
-                (e.target.style.color = props.prod.mainColor)
+                (e.target.style.backgroundColor = props.prod.header_color),
+                (e.target.style.color = props.prod.main_color)
               )}
             >
               Log Out
@@ -86,7 +86,7 @@ export const Headercom = (props) => {
         <nav
           className="nav-bar"
           style={{
-            backgroundColor: props.prod.headerColor,
+            backgroundColor: props.prod.header_color,
             transition: "all 1s var(--btn-cubic-bezier)",
           }}
         >
@@ -94,7 +94,7 @@ export const Headercom = (props) => {
             <img src="images/Frame 1.png" alt="" />
             <p
               style={{
-                color: props.prod.mainColor,
+                color: props.prod.main_color,
                 transition: "all 1s var(--btn-cubic-bezier)",
               }}
             >
@@ -108,7 +108,7 @@ export const Headercom = (props) => {
                   className="nav__link"
                   onClick={signUp}
                   style={{
-                    backgroundColor: props.prod.mainColor,
+                    backgroundColor: props.prod.main_color,
                     transition: "all 1s var(--btn-cubic-bezier)",
                   }}
                 >
@@ -120,7 +120,7 @@ export const Headercom = (props) => {
                   className="nav__link"
                   onClick={logIn}
                   style={{
-                    color: props.prod.fontColor,
+                    color: props.prod.font_color,
                     transition: "all 1s var(--btn-cubic-bezier)",
                   }}
                 >
@@ -153,7 +153,7 @@ export const Headercom = (props) => {
         <nav
           className="nav-bar"
           style={{
-            backgroundColor: props.prod.headerColor,
+            backgroundColor: props.prod.header_color,
             transition: "all 1s var(--btn-cubic-bezier)",
           }}
         >
@@ -161,7 +161,7 @@ export const Headercom = (props) => {
             <img src="images/Frame 1.png" alt="" />
             <p
               style={{
-                color: props.prod.mainColor,
+                color: props.prod.main_color,
                 transition: "all 1s var(--btn-cubic-bezier)",
               }}
             >

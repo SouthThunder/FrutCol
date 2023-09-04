@@ -6,53 +6,36 @@ import "./products.css";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 import { Producto } from "./cartSlice";
-import { fresa } from "./sliderProds";
-import { mora } from "./sliderProds";
-import { mango } from "./sliderProds";
-import { Guanabana } from "./sliderProds";
-import { maracuya } from "./sliderProds";
+import {fresa} from './sliderProds'
 
 
-export const Slider = ({ prod, changeProp }) => {
-  const array = [fresa, mora, mango, Guanabana, maracuya];
+export const Slider = ({ product, changeProp }) => {
 
+  const firstRender = useRef(true);
   const [activeProductIndex, setActiveProductIndex] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [backgroundColor, setBackgroundColor] = useState(prod.compColor);
-  const [currentImage, setCurrentImage] = useState(prod.image);
-  const [primaryColor, setPrimaryColor] = useState(prod.mainColor);
-  const [currentImageback, setCurrentImageback] = useState(prod.stainImage);
-  const [currentWord, setCurrentWord] = useState(prod.name);
-  const [currentPrice, setCurrentprice] = useState(prod.precio);
+  const [backgroundColor, setBackgroundColor] = useState();
+  const [currentImage, setCurrentImage] = useState();
+  const [primaryColor, setPrimaryColor] = useState();
+  const [currentImageback, setCurrentImageback] = useState();
+  const [currentWord, setCurrentWord] = useState();
+  const [currentPrice, setCurrentprice] = useState();
 
-  useEffect(() => {
-    // Este efecto se ejecutará solo una vez al inicio
-    changestyle(
-      prod.compColor,
-      prod.mainColor,
-      prod.image,
-      prod.stainImage,
-      prod.name,
-      prod.precio
-    );
-  }, []);
+  const [prodsPool, setProdsPool] = useState(null);
 
-  const incrementArray = (step) => {
-    const newIndex = (activeProductIndex + step + array.length) % array.length;
-    setActiveProductIndex(newIndex);
-    const nextProduct = array[newIndex];
-    changestyle(
-      nextProduct.compColor,
-      nextProduct.mainColor,
-      nextProduct.image,
-      nextProduct.stainImage,
-      nextProduct.name,
-      nextProduct.precio
-    );
-    updateProp(nextProduct);
+
+
+  const getProducts = async () => {
+    const URI = "https://frutcola-backendpru.onrender.com/metadata";
+    try {
+      const response = await axios.get(URI);
+      setProdsPool(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const changestyle = (
+    const changestyle = (
     color,
     maincolor,
     imageIndex,
@@ -71,11 +54,42 @@ export const Slider = ({ prod, changeProp }) => {
     changeProp(element);
   };
 
-  const increaseProgress = () => {
-    if (progress < 100) {
-      setProgress(progress + 10);
+
+
+  useEffect(() => {
+    if(firstRender.current){
+      firstRender.current= false;
+      getProducts()
+    }else{
+      if(prodsPool!==null){
+        changestyle(
+          prodsPool[0].comp_color,
+          prodsPool[0].main_color,
+          `../../images/${prodsPool[0].image}`,
+          `../../images/${prodsPool[0].stain_image}`,
+          prodsPool[0].nombre_producto,
+          prodsPool[0].precio_producto
+        );
+      } 
     }
+  }, [prodsPool]);
+
+  const incrementArray = (step) => {
+    const newIndex = (activeProductIndex + step + prodsPool.length) % prodsPool.length;
+    setActiveProductIndex(newIndex);
+    const nextProduct = prodsPool[newIndex];
+    changestyle(
+      nextProduct.comp_color,
+      nextProduct.main_color,
+      `../../images/${nextProduct.image}`,
+      `../../images/${nextProduct.stain_image}`,
+      nextProduct.nombre_producto,
+      nextProduct.precio_producto
+    );
+    updateProp(nextProduct);
   };
+
+
 
   return (
     <div
@@ -142,28 +156,30 @@ export const Slider = ({ prod, changeProp }) => {
         </div>
         <div className="n3">
           <div className="products__preview">
-            {array.map((element) => (
-              <button
-                key={element.id}
-                className="fruit"
-                onClick={() => {
-                  setActiveProductIndex(element.id - 1);
-                  changestyle(
-                    element.compColor,
-                    element.mainColor,
-                    element.image,
-                    element.stainImage,
-                    element.name,
-                    element.precio
-                  );
-                  updateProp(element);
-                }}
-              >
-                <div className="fruit__container">
-                  <img src={element.image} />
-                </div>
-              </button>
-            ))}
+            {prodsPool?.map((element) => {
+              return (
+                <button
+                  key={element.id_metadata_producto}
+                  className="fruit"
+                  onClick={() => {
+                    setActiveProductIndex(element.id_metadata_producto - 1);
+                    changestyle(
+                      element.comp_color,
+                      element.main_color,
+                      `../../images/${element.image}`,
+                      `../../images/${element.stain_image}`,
+                      element.nombre_producto,
+                      element.precio_producto
+                    );
+                    updateProp(element);
+                  }}
+                >
+                  <div className="fruit__container">
+                    <img src={`../../images/${element.image}`} />
+                  </div>
+                </button>
+              )
+            })}
           </div>
         </div>
       </div>
@@ -321,10 +337,32 @@ export const Products = (props) => {
 };
 
 export const Homecom = () => {
-  const [product, setProduct] = useState(fresa);
+  const [product, setProduct] = useState();
+  const [isLoading, setisLoading] = useState(true);
   const changeProp = (element) => {
     setProduct(element);
   };
+
+  useEffect(() =>{
+     getProducts()
+  }, [])
+
+  const getProducts = async() =>{
+    const URI= 'https://frutcola-backendpru.onrender.com/metadata';
+    try {
+      const response = await axios.get(URI);
+
+      setProduct(response.data[0])
+      setisLoading(false)
+      //console.log(product)
+    } catch (error) {
+      console.error(error)
+    }    
+  }
+
+  if(isLoading){
+    return <div>is loading...</div>
+  }
 
   return (
     <div className="homecontain">

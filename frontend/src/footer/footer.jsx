@@ -1,63 +1,99 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./footer.css";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export const Footercom = (props) => {
-    const Min= (e) =>{
-        e.target.style.backgroundColor = props.prod.mainColor;
-    }
+  useEffect(() => {}, []);
+  const Min = (e) => {
+    e.target.style.backgroundColor = props.prod.main_color;
+  };
 
-    const Mout = (e) =>{
-        e.target.style.backgroundColor = props.prod.headerColor;
-    }
+  const Mout = (e) => {
+    e.target.style.backgroundColor = props.prod.header_color;
+  };
 
   return (
-    <footer style={{backgroundColor: props.prod.headerColor , transition: 'all 1s var(--btn-cubic-bezier)'}}>
-        <div className="footer__section">
-        <Link to="#" className="footer__logo"> 
-        <img src="images/Frame 1.png" alt="" />
-        </Link>   
-        
+    <footer
+      style={{
+        backgroundColor: props.prod.header_color,
+        transition: "all 1s var(--btn-cubic-bezier)",
+      }}
+    >
+      <div className="footer__section">
+        <Link to="#" className="footer__logo">
+          <img src="images/Frame 1.png" alt="" />
+        </Link>
+
         <div className="footer__content">
-            <h3 className="footer__title">Contáctanos</h3>
-            <ul className="footer__links">
-                <li>
-                    <Link to="#" className="footer__link">
-                    <i className="ri-phone-line"></i> 571 3108621696</Link>
-                </li>
-                <li>
-                    <a href="mailto:frutcol0518@gmail.com" className="footer__link" target="_balnk">
-                        <i className="ri-mail-line"></i> frutcol0518@gmail.com
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div className="footer__content">
-            <h3 className="footer__title">Redes Sociales</h3>
-            <div className="footer__social">
-            <Link to="https://www.facebook.com/" target="_blank"  className="footer__social-link" style={{backgroundColor: props.prod.headerColor}} onMouseLeave={(e) => (Mout(e))} onMouseEnter={(e) => (Min(e))}>
-                        <i className="ri-facebook-fill" ></i>
-                    </Link>
-                    <Link to="https://wa.me/573108621696" target="_blank" className="footer__social-link" style={{backgroundColor: props.prod.headerColor}} onMouseLeave={(e) => (Mout(e))} onMouseEnter={(e) => (Min(e))}>
-                        <i className="ri-whatsapp-line"></i>
-                    </Link>
-                    <Link to="https://www.instagram.com/" target="_blank" className="footer__social-link" style={{backgroundColor: props.prod.headerColor}} onMouseLeave={(e) => (Mout(e))} onMouseEnter={(e) => (Min(e))}>
-                        <i className="ri-instagram-line"></i>
-                    </Link>
-            </div>
+          <h3 className="footer__title">Contáctanos</h3>
+          <ul className="footer__links">
+            <li>
+              <Link to="#" className="footer__link">
+                <i className="ri-phone-line"></i> 571 3108621696
+              </Link>
+            </li>
+            <li>
+              <a
+                href="mailto:frutcol0518@gmail.com"
+                className="footer__link"
+                target="_balnk"
+              >
+                <i className="ri-mail-line"></i> frutcol0518@gmail.com
+              </a>
+            </li>
+          </ul>
         </div>
         <div className="footer__content">
-            <h3 className="footer__title">¿Quiénes Somos?</h3>
-            <ul className="footer__links">
-                <li>
-                    <Link to="/QuienesSomos" className="footer__link">Nuestra Historia</Link>
-                </li>
-                <li>
-                    <Link to="#" className="footer__link">FAQ</Link>
-                </li>
-            </ul>
+          <h3 className="footer__title">Redes Sociales</h3>
+          <div className="footer__social">
+            <Link
+              to="https://www.facebook.com/"
+              target="_blank"
+              className="footer__social-link"
+              style={{ backgroundColor: props.prod.header_color }}
+              onMouseLeave={(e) => Mout(e)}
+              onMouseEnter={(e) => Min(e)}
+            >
+              <i className="ri-facebook-fill"></i>
+            </Link>
+            <Link
+              to="https://wa.me/573108621696"
+              target="_blank"
+              className="footer__social-link"
+              style={{ backgroundColor: props.prod.header_color }}
+              onMouseLeave={(e) => Mout(e)}
+              onMouseEnter={(e) => Min(e)}
+            >
+              <i className="ri-whatsapp-line"></i>
+            </Link>
+            <Link
+              to="https://www.instagram.com/"
+              target="_blank"
+              className="footer__social-link"
+              style={{ backgroundColor: props.prod.header_color }}
+              onMouseLeave={(e) => Mout(e)}
+              onMouseEnter={(e) => Min(e)}
+            >
+              <i className="ri-instagram-line"></i>
+            </Link>
+          </div>
         </div>
+        <div className="footer__content">
+          <h3 className="footer__title">¿Quiénes Somos?</h3>
+          <ul className="footer__links">
+            <li>
+              <Link to="/QuienesSomos" className="footer__link">
+                Nuestra Historia
+              </Link>
+            </li>
+            <li>
+              <Link to="#" className="footer__link">
+                FAQ
+              </Link>
+            </li>
+          </ul>
         </div>
+      </div>
     </footer>
   );
 };
