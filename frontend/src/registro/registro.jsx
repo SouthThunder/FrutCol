@@ -7,38 +7,172 @@ import jwt_decode from 'jwt-decode';
 
 export const Registrocom = () => {
 
-  const [nombre, setNombre] = useState([]);
-  const [apellido, setApellido] = useState([]);
-  const [cedula, setCedula] = useState([]);
-  const [contrasena, setContrasena] = useState([]);
-  const [correo, setCorreo] = useState([]);
-  const [direccion, setDireccion] = useState([]);
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
+  const [cedula, setCedula] = useState("");
+  const [contrasena, setContrasena] = useState("");
+  const [correo, setCorreo] = useState("");
+  const [direccion, setDireccion] = useState("");
+  const [nombreError, setnombreError] = useState("");
+  const [nombreInputClass, setnombreInputClass] = useState("");
+  const [apellidoInputClass, setapellidoInputClass] = useState("");
+  const [apellidoError, setapellidoError] = useState("");
+  const [cedulaInputClass, setcedulaInputClass] = useState("");
+  const [cedulaError, setcedulaError] = useState("");
+  const [direccionInputClass, setdireccionInputClass] = useState("");
+  const [direccionError, setdireccionError] = useState("");
+  const [correoInputClass, setcorreoInputClass] = useState("");
+  const [correoError, setcorreoError] = useState("");
+  const [contrasenaInputClass, setcontrasenaInputClass] = useState("");
+  const [contrasenaError, setcontrasenaError] = useState("");
+
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    const URI = "https://frutcola-backendpru.onrender.com/usuarios/register";
-    // Validaciones para nombres y apellidos
-    const namePattern = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
-    if (!namePattern.test(nombre) || !namePattern.test(apellido)) {
-      alert("Los nombres y apellidos solo pueden contener letras y espacios.");
+
+    //validaciones de contenido
+    //validacion de contenido nombre
+    if (!nombre || nombre === undefined || nombre === '') {
+      setnombreError("Ingrese su nombre");
+      setnombreInputClass("shake");
+      setTimeout(() => {
+        setnombreInputClass("");
+      }, 500);
       return;
+    } else {
+      setnombreError("");
+      setnombreInputClass("");
     }
 
-    // Validación para cédula
-    const cedulaPattern = /^\d+$/; // Solo números
-    if (!cedulaPattern.test(cedula)) {
-      alert("La cédula debe contener solo números.");
+    //validacion de contenido apellido
+    if (!apellido || apellido === undefined || apellido === '') {
+      setapellidoError("Ingrese su apellido");
+      setapellidoInputClass("shake");
+      setTimeout(() => {
+        setapellidoInputClass("");
+      }, 500);
       return;
+    } else {
+      setapellidoError("");
+      setapellidoInputClass("");
     }
+    
+
+    //validacion de contenido cedula
+    if (!cedula || cedula === undefined || cedula === '') {
+      setcedulaError("Ingrese su cedula");
+      setcedulaInputClass("shake");
+      setTimeout(() => {
+        setcedulaInputClass("");
+      }, 500);
+      return;
+    } else {
+      setcedulaError("");
+      setcedulaInputClass("");
+    }
+
+    //validacion de contenido direccion
+    if (!direccion || direccion === undefined || direccion === '') {
+      setdireccionError("Ingrese su dirección");
+      setdireccionInputClass("shake");
+      setTimeout(() => {
+        setdireccionInputClass("");
+      }, 500);
+      return;
+    } else {
+      setdireccionError("");
+      setdireccionInputClass("");
+    }
+
+
+    //validacion de contenido correo
+    if (!correo || correo === undefined || correo === '') {
+      setcorreoError("Ingrese su correo");
+      setcorreoInputClass("shake");
+      setTimeout(() => {
+        setcorreoInputClass("");
+      }, 500);
+      return;
+    } else {
+      setcorreoError("");
+      setcorreoInputClass("");
+    }
+
+    //validacion de contenido contrasena
+    if (!contrasena || contrasena === undefined || contrasena === '') {
+      setcontrasenaError("Ingrese su contraseña");
+      setcontrasenaInputClass("shake");
+      setTimeout(() => {
+        setcontrasenaInputClass("");
+      }, 500);
+      return;
+    } else {
+      setcontrasenaError("");
+      setcontrasenaInputClass("");
+    }
+
+
+    const URI = "https://frutcola-backendpru.onrender.com/usuarios/register";
+
+
+    // Validaciones para nombres y apellidos
+    const namePattern = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
+
+    if (!namePattern.test(nombre)) {
+      setnombreError("Los nombres solo pueden contener letras y espacios");
+      setnombreInputClass("shake");
+      setTimeout(() => {
+        setnombreInputClass("");
+      }, 500);
+      return;
+    }else {
+    setnombreError("");
+    setnombreInputClass("");
+    }
+
+    if (!namePattern.test(apellido)) {
+      setapellidoError("Losapellidos solo pueden contener letras y espacios");
+      setapellidoInputClass("shake");
+      setTimeout(() => {
+        setapellidoInputClass("");
+      }, 500);
+      return;
+    }else {
+    setapellidoError("");
+    setapellidoInputClass("");
+    }
+
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    if (!emailRegex.test(correo)) {
+      setcorreoError("Ingrese un formato de correo valido");
+      setcorreoInputClass("shake");
+      setTimeout(() => {
+        setcorreoInputClass("");
+      }, 500);
+      return;
+    }else {
+      setcorreoError("");
+      setcorreoInputClass("");
+    }
+
+
 
     // Validación para contraseña
     const passwordPattern = /^(?=.*\d)(?=.*[A-Z]).{8,}$/; // Al menos un número, una mayúscula y 8 o más caracteres
     if (!passwordPattern.test(contrasena)) {
-      alert(
-        "La contraseña debe contener al menos un número, una mayúscula y tener 8 o más caracteres."
-      );
+      setcontrasenaError("La contraseña debe contener al menos un número, una mayúscula y tener 8 o más caracteres");
+      setcontrasenaInputClass("shake");
+      setTimeout(() => {
+        setcontrasenaInputClass("");
+      }, 500);
       return;
+    }else {
+      setcontrasenaError("");
+      setcontrasenaInputClass("");
     }
+
+    
     // Queda por enviar
     try {
       await axios.post(URI, {
@@ -96,6 +230,7 @@ export const Registrocom = () => {
             onChange={(e) => setNombre(e.target.value)}
             required
           />
+          <p className={`error ${nombreInputClass}`}>{nombreError}</p>
           <br />
 
           <label htmlFor="apellido">Apellido:</label>
@@ -106,16 +241,19 @@ export const Registrocom = () => {
             onChange={(e) => setApellido(e.target.value)}
             required
           />
+          <p className={`error ${apellidoInputClass}`}>{apellidoError}</p>
           <br />
 
           <label htmlFor="cedula">Cédula:</label>
           <input
-            type="text"
+            type="number"
             id="cedula"
             name="cedula"
+            inputMode="numeric"
             onChange={(e) => setCedula(e.target.value)}
             required
           />
+          <p className={`error ${cedulaInputClass}`}>{cedulaError}</p>
           <br />
 
           <label htmlFor="Direccion">Dirección:</label>
@@ -126,6 +264,7 @@ export const Registrocom = () => {
             onChange={(e) => setDireccion(e.target.value)}
             required
           />
+          <p className={`error ${direccionInputClass}`}>{direccionError}</p>
           <br />
 
           <label htmlFor="correo">Correo:</label>
@@ -136,6 +275,7 @@ export const Registrocom = () => {
             onChange={(e) => setCorreo(e.target.value)}
             required
           />
+          <p className={`error ${correoInputClass}`}>{correoError}</p>
           <br />
 
           <label htmlFor="contrasena">Contraseña:</label>
@@ -146,6 +286,7 @@ export const Registrocom = () => {
             onChange={(e) => setContrasena(e.target.value)}
             required
           />
+          <p className={`error ${contrasenaInputClass}`}>{contrasenaError}</p>
           <br />
 
           <button type="submit" onClick={handleSubmit}>

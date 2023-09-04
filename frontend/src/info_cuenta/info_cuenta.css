@@ -43,6 +43,18 @@
     width: 100%;
     margin-left: 3rem;
 }
+.infocuenta > .cambiocontrasena > .form > .input__info > .invisible{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    right: 0;
+}
+.infocuenta > .cambiocontrasena > .form > .input__info > .invisible > img{
+    width: 20px; 
+    height: 20px; 
+    display: block; 
+}
 .input__info > ion-icon{
     position: absolute;
     right: 8px;
@@ -52,6 +64,7 @@
 .input__info {
     position: relative;
     width: 70%;
+    display: flex;
     margin-top: 1rem;
     margin-left: 1rem;
     border-bottom: 1px solid black;

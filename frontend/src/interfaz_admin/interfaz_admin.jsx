@@ -21,8 +21,7 @@ export const Agregarproducto = (prop) => {
   const handleAgregar = async () => {
     try {
       var nombre_producto = document.getElementById("nombre")?.value || "";
-      var descripcion_producto =
-        document.getElementById("descripcion")?.value || "";
+      var descripcion_producto = document.getElementById("descripcion")?.value || "";
       var stock_producto = document.getElementById("cantidad")?.value || "";
       var precio_producto = document.getElementById("precio")?.value || "";
       var main_color = document.getElementById("principalc")?.value || "";
@@ -217,11 +216,11 @@ export const Agregarproducto = (prop) => {
 };
 
 export const Editarproducto = (prop) => {
+
   const handleActualizar = async () => {
     try {
       var nombre_producto = document.getElementById("nombre")?.value || "";
-      var descripcion_producto =
-        document.getElementById("descripcion")?.value || "";
+      var descripcion_producto = document.getElementById("descripcion")?.value || "";
       var stock_producto = document.getElementById("cantidad")?.value || "";
       var precio_producto = document.getElementById("precio")?.value || "";
       var main_color = document.getElementById("principalc")?.value || "";
@@ -233,6 +232,7 @@ export const Editarproducto = (prop) => {
 
       if (nombre_producto !== "" && !texto.test(nombre_producto)) {
         alert("Ingrese un nombre válido");
+        
         return;
       } else {
         if (nombre_producto === "") {
@@ -347,9 +347,10 @@ export const Editarproducto = (prop) => {
             <h4>Cantidad</h4>
             <input
               className=""
-              type="text"
+              type="number"
               name=""
               id="cantidad"
+              inputMode="numeric"
               placeholder={prop.product.stock_producto}
             />
           </div>
@@ -357,9 +358,10 @@ export const Editarproducto = (prop) => {
             <h4>Precio</h4>
             <input
               className=""
-              type="text"
+              type="number"
               name=""
               id="precio"
+              inputMode="numeric"
               placeholder={prop.product.precio_producto}
             />
           </div>

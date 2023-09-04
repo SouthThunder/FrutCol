@@ -191,7 +191,7 @@ export const Informacioncuenta = (prop) => {
   )
 }
 export const Cambiocontraseña = (prop) => {
-  
+  const [showPassword, setShowPassword] = useState(false);
   const handleActualizarContra = async (e) => {
     e.preventDefault();
     
@@ -232,6 +232,9 @@ export const Cambiocontraseña = (prop) => {
       alert("Error al actualizar los datos");
     }
   };
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   return(
     <div className="cambiocontrasena">
       <form action="" className="form">
@@ -239,11 +242,21 @@ export const Cambiocontraseña = (prop) => {
           <small className="errores">Error message</small>
           <ion-icon name="person"></ion-icon>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="contrasena"
             name="contrasena"
           />
           <label for="">Nueva contraseña</label>
+          <button
+              className="invisible"
+              type="button"
+              onClick={togglePasswordVisibility}
+            >
+              <img
+                src={showPassword ? "images/ojo.png" : "images/invisible.png"}
+                alt={showPassword ? "visible" : "invisible"}
+              />
+            </button>
         </div>
         <div className="input__info">
           <small className="errores">Error message</small>
@@ -254,6 +267,17 @@ export const Cambiocontraseña = (prop) => {
             name="newcontrasena"
           />
           <label for="">Confirmar nueva contraseña</label>
+          <button
+              className="invisible"
+              type="button"
+              onClick={togglePasswordVisibility}
+            >
+          
+              <img
+                src={showPassword ? "images/ojo.png" : "images/invisible.png"}
+                alt={showPassword ? "visible" : "invisible"}
+              />
+            </button>
         </div>
         <br />
         <div className="enter">
