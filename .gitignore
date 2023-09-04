@@ -1,2 +1,6 @@
 BackEnd
 Backend_FrutColADeploy
+
+/node_modules
+/.pnp
+.pnp.js
