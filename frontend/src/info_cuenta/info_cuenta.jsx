@@ -7,19 +7,19 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import LoadingSpinner from "../loading/LoadingSpinner";
 
-const accessToken = localStorage.getItem("token");
 const numeros = /^\d+$/; // Solo números
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 const texto = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
-const headers = {
-  Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
-};
 
 const URI = "https://frutcola-backendpru.onrender.com/usuarios/";
 const URI2 = "https://frutcola-backendpru.onrender.com/usuarios/contrasena/";
 export const Infocuenta = (prop) => {
   const handleActualizar = async (e) => {
     e.preventDefault();
+    const accessToken = localStorage.getItem("token");
+    const headers = {
+      Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
+    };
 
     var nombre_usuario = document.getElementById("nombre")?.value || "";
     var apellido_usuario = document.getElementById("apellido")?.value || "";
@@ -211,6 +211,11 @@ export const Cambiocontraseña = (prop) => {
   const handleActualizarContra = async (e) => {
     e.preventDefault();
 
+    const accessToken = localStorage.getItem("token");
+const headers = {
+  Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
+};
+
     var id_usuario = prop.user[0].id_usuario;
     var contrasena_usuario1 =
       document.getElementById("contrasena")?.value || "";
@@ -302,10 +307,12 @@ export const InfoCuentacom = (prop) => {
   const [isLoading, setisLoading] = useState(true);
   const firstRender = useRef(true);
 
-  const changeProp = (element) => {
-    setProduct(element);
-  };
   const [userData, setUserData] = useState(null); // Estado para almacenar los datos del usuario
+
+  const accessToken = localStorage.getItem("token");
+  const headers = {
+    Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
+  };
 
   useEffect(() => {
     // Obtener datos del usuario cuando el componente se monta
@@ -314,14 +321,19 @@ export const InfoCuentacom = (prop) => {
       getProduct();
       firstRender.current = false;
     } else {
-      if (userData !== null && product !== null) {
+      if (
+        userData !== null &&
+        product !== null &&
+        headers.Authorization !== null
+      ) {
         setisLoading(false);
       }
     }
-  }, [userData, product]);
+  }, [userData, product, headers]);
 
   const getUserData = async () => {
     try {
+      console.log(headers);
       const res = await axios.get(`${URI}${decode.id_usuario}`, { headers });
       setUserData(res.data);
     } catch (error) {

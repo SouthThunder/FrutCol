@@ -141,26 +141,30 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
 };
 
 export const Products = ({prodsPool}) => {
-  const URI = "https://frutcola-backendpru.onrender.com/metadata";
   const [products, setProducts] = useState([]);
   const [test, setTest] = useState({
     producto: [],
   });
 
   useEffect(() => {
-    getProducts();
+    getProductsFromCart();
   }, [test.producto]);
 
-  const getProducts = async () => {
+  const accessToken= localStorage.getItem("token");
+  const headers = {
+    Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
+  };
+
+  const getProductsFromCart = async () => {
     const id_carrito = jwt_decode(localStorage.getItem("token"));
-    const idk = `https://frutcola-backendpru.onrender.com/carrito/${id_carrito.id_usuario}`;
+    const URI = `https://frutcola-backendpru.onrender.com/carrito/${id_carrito.id_usuario}`;
     try {
-      const res = await axios.get(URI);
-      const res2 = await axios.get(idk);
-      setProducts(res.data);
+      const res = await axios.get(URI, {
+        headers
+      });
       setTest({
         producto: prodsPool.map((prod) => {
-          const it = res2.data.find(
+          const it = res.data.find(
             (lproduc) => lproduc.id_producto === prod.id_metadata_producto
           );
           if (it === undefined) {
