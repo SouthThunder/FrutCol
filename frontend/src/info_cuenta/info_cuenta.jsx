@@ -80,7 +80,7 @@ export const Infocuenta = (prop) => {
       };
       try {
       await axios.put(`${URI}${prop.user[0].id_usuario}`, user, {
-        headers,
+        headers
       });
       alert("Los datos se actualizaron correctamente");
       window.location.reload();
@@ -312,13 +312,16 @@ export const InfoCuentacom = (prop) => {
   };
   return (
     <div className="infoCuentacontain">
-      <Headercom prod={product} />
-      {userData ? ( // Renderizar Informacioncuenta solo cuando userData tiene datos
-        <Informacioncuenta prod={product} userData={userData} />
+      {userData ? (
+        // Renderizar Informacioncuenta solo cuando userData tiene datos
+        <>
+          <Headercom prod={product} />
+          <Informacioncuenta prod={product} userData={userData} />
+          <Footercom prod={product} />
+        </>
       ) : (
         <p>Cargando datos...</p>
       )}
-      <Footercom prod={product} />
     </div>
   );
 };
