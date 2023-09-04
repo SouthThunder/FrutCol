@@ -7,6 +7,7 @@ import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 import { Producto } from "./cartSlice";
 import {fresa} from './sliderProds'
+import LoadingSpinner from "../loading/LoadingSpinner";
 
 
 export const Slider = ({ product, changeProp }) => {
@@ -361,7 +362,7 @@ export const Homecom = () => {
   }
 
   if(isLoading){
-    return <div>is loading...</div>
+    return <LoadingSpinner />;
   }
 
   return (

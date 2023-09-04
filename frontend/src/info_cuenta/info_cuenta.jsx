@@ -5,7 +5,7 @@ import { Footercom } from "../footer/footer";
 import { fresa } from "../home/sliderProds";
 import jwt_decode from 'jwt-decode';
 import axios from "axios";
-     
+import LoadingSpinner from "../loading/LoadingSpinner";
 
 
 const accessToken= localStorage.getItem("token");
@@ -316,7 +316,7 @@ export const InfoCuentacom = (prop) => {
       {userData ? ( // Renderizar Informacioncuenta solo cuando userData tiene datos
         <Informacioncuenta prod={product} userData={userData} />
       ) : (
-        <p>Cargando datos...</p>
+        <LoadingSpinner />
       )}
       <Footercom prod={product} />
     </div>
