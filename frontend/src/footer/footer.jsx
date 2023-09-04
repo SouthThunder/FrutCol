@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./footer.css";
 import { Link } from "react-router-dom";
 
-export const Footercom = (props) => {
-  useEffect(() => {}, []);
+export const Footercom = ({product}) => {
+  useEffect(() => {}, [product]);
   const Min = (e) => {
-    e.target.style.backgroundColor = props.prod.main_color;
+    e.target.style.backgroundColor = product.main_color;
   };
 
   const Mout = (e) => {
-    e.target.style.backgroundColor = props.prod.header_color;
+    e.target.style.backgroundColor = product.header_color;
   };
 
   return (
     <footer
       style={{
-        backgroundColor: props.prod.header_color,
+        backgroundColor: product.header_color,
         transition: "all 1s var(--btn-cubic-bezier)",
       }}
     >
@@ -50,7 +50,7 @@ export const Footercom = (props) => {
               to="https://www.facebook.com/"
               target="_blank"
               className="footer__social-link"
-              style={{ backgroundColor: props.prod.header_color }}
+              style={{ backgroundColor: product.header_color }}
               onMouseLeave={(e) => Mout(e)}
               onMouseEnter={(e) => Min(e)}
             >
@@ -60,7 +60,7 @@ export const Footercom = (props) => {
               to="https://wa.me/573108621696"
               target="_blank"
               className="footer__social-link"
-              style={{ backgroundColor: props.prod.header_color }}
+              style={{ backgroundColor: product.header_color }}
               onMouseLeave={(e) => Mout(e)}
               onMouseEnter={(e) => Min(e)}
             >
@@ -70,7 +70,7 @@ export const Footercom = (props) => {
               to="https://www.instagram.com/"
               target="_blank"
               className="footer__social-link"
-              style={{ backgroundColor: props.prod.header_color }}
+              style={{ backgroundColor: product.header_color }}
               onMouseLeave={(e) => Mout(e)}
               onMouseEnter={(e) => Min(e)}
             >
