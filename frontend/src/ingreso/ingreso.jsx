@@ -98,7 +98,7 @@ export const Ingresocom = () => {
             <br />
             <br />
             <br />
-            <button
+            <button 
               className="invisible"
               type="button"
               onClick={togglePasswordVisibility}
