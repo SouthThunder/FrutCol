@@ -103,7 +103,7 @@ export const Infocuenta = (prop) => {
             id="nombre"
             name="nombre"
           />
-          <label for="">Nombre</label>
+          <label htmlFor="">Nombre</label>
         </div>
         <div className="input__info">
           <small className="errores">Error message</small>
@@ -114,7 +114,7 @@ export const Infocuenta = (prop) => {
             id="apellido"
             name="apellido"
           />
-          <label for="">Apellidos</label>
+          <label htmlFor="">Apellidos</label>
         </div>
         <div className="input__info">
           <small className="errores">Error message</small>
@@ -125,7 +125,7 @@ export const Infocuenta = (prop) => {
             id="cedula"
             name="cedula"
           />
-          <label for="">Cedula</label>
+          <label htmlFor="">Cedula</label>
         </div>
         <div className="input__info">
           <small className="errores">Error message</small>
@@ -136,7 +136,7 @@ export const Infocuenta = (prop) => {
             id="correo"
             name="correo"
           />
-          <label for="">Correo electronico</label>
+          <label htmlFor="">Correo electronico</label>
         </div>
         <div className="input__info">
           <small className="errores">Error message</small>
@@ -147,7 +147,7 @@ export const Infocuenta = (prop) => {
             id="direccion"
             name="direccion"
           />
-          <label for="">Dirección</label>
+          <label htmlFor="">Dirección</label>
         </div>
         <br />
         <div className="enter">
@@ -246,7 +246,7 @@ export const Cambiocontraseña = (prop) => {
             id="contrasena"
             name="contrasena"
           />
-          <label for="">Nueva contraseña</label>
+          <label htmlFor="">Nueva contraseña</label>
           <button
               className="invisible"
               type="button"
@@ -266,7 +266,7 @@ export const Cambiocontraseña = (prop) => {
             id="newcontrasena"
             name="newcontrasena"
           />
-          <label for="">Confirmar nueva contraseña</label>
+          <label htmlFor="">Confirmar nueva contraseña</label>
           <button
               className="invisible"
               type="button"
