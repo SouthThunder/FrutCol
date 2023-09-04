@@ -1,17 +1,15 @@
 import React from 'react';
-import { css } from '@emotion/react';
-import { PacmanLoader } from 'react-spinners';
+import { RingLoader } from 'react-spinners';
+import './LoadingSpinner.css'; 
 
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: red;
-`;
+
 
 const LoadingSpinner = () => {
   return (
     <div className="loading-spinner">
-      <PacmanLoader css={override} size={50} color={'#36D7B7'} loading={true} />
+      <RingLoader size={250} color={'#FF355E'} loading={true} />
+      <br />
+      <p >Cargando...</p>
     </div>
   );
 };

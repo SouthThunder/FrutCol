@@ -312,13 +312,16 @@ export const InfoCuentacom = (prop) => {
   };
   return (
     <div className="infoCuentacontain">
-      <Headercom prod={product} />
-      {userData ? ( // Renderizar Informacioncuenta solo cuando userData tiene datos
-        <Informacioncuenta prod={product} userData={userData} />
+      {userData ? (
+        // Renderizar Informacioncuenta solo cuando userData tiene datos
+        <>
+          <Headercom prod={product} />
+          <Informacioncuenta prod={product} userData={userData} />
+          <Footercom prod={product} />
+        </>
       ) : (
         <LoadingSpinner />
       )}
-      <Footercom prod={product} />
     </div>
   );
 };
