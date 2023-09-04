@@ -13,6 +13,9 @@ export const Ingresocom = () => {
   const [passwordError, setPasswordError] = useState("");
   const [emailInputClass, setEmailInputClass] = useState("");
   const [passwordInputClass, setPasswordInputClass] = useState("");
+  const [credentialError, setCredentialError] = useState("");
+  const [credentialInputClass, setCredentialInputClass] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {}, []);
@@ -37,7 +40,7 @@ export const Ingresocom = () => {
       setPasswordInputClass("shake");
       setTimeout(() => {
         setPasswordInputClass("");
-      }, 2000);
+      }, 500);
       return;
     } else {
       setPasswordError("");
@@ -53,6 +56,11 @@ export const Ingresocom = () => {
       navigate("/");
     } catch (error) {
       console.error(error);
+      setCredentialError("Credenciales incorrectas, intente una vez mas ");
+      setCredentialInputClass("shake");
+      setTimeout(() => {
+        setCredentialInputClass("");
+      }, 500);
     }
   };
 
@@ -114,11 +122,14 @@ export const Ingresocom = () => {
               />
             </button>
             <br /><br />
-            <p className={`error ${passwordInputClass}`}>{passwordError}</p>
+            
           </div>
+          <p className={`error ${passwordInputClass}`}>{passwordError}</p>
           <button className="enviar" onClick={test}>
             Iniciar sesión
           </button>
+          <br />
+          <p className={`error ${credentialInputClass}`}>{credentialError}</p>
         </div>
       </div>
     </div>
