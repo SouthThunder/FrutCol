@@ -7,14 +7,38 @@ const URI = "https://frutcola-backendpru.onrender.com/usuarios/login";
 
 export const Ingresocom = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [localuser, setLocalUser] = useState([]);
-  const [localpassword, setlocalPassword] = useState([]);
+  const [localuser, setLocalUser] = useState("");
+  const [localpassword, setlocalPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [emailInputClass, setEmailInputClass] = useState("");
+  const [passwordInputClass, setPasswordInputClass] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {}, []);
 
   const test = async () => {
     console.log("validating...");
+
+    if (!localuser || localuser === undefined || localuser === '') {
+      setEmailError("Ingrese su correo");
+      setEmailInputClass("shake");
+      setTimeout(() => {
+        setEmailInputClass("");
+      }, 500);
+      return;
+    } else {
+      setEmailError("");
+      setEmailInputClass("");
+    }
+
+    if (!localpassword  || localpassword == undefined ) {
+      setPasswordError("Ingrese su contraseña");
+      return;
+    } else {
+      setPasswordError("");
+    }
+
     try {
       const res = await axios.post(URI, {
         correo_usuario: localuser,
@@ -56,6 +80,7 @@ export const Ingresocom = () => {
             required
             onChange={(e) => setLocalUser(e.target.value)}
           />
+          <p className={`error ${emailInputClass}`}>{emailError}</p>
           <br />
           <br />
           <br />
@@ -83,6 +108,8 @@ export const Ingresocom = () => {
                 alt={showPassword ? "visible" : "invisible"}
               />
             </button>
+            <br /><br />
+            <p className="error">{passwordError}</p>
           </div>
           <button className="enviar" onClick={test}>
             Iniciar sesión
