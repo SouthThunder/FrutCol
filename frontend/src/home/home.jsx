@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 import "./slider.css";
 import "./products.css";
 import { Headercom } from "../header/header";
@@ -181,12 +182,7 @@ export const Products = (props) => {
   useEffect(() => {
     checkPromt();
     getProducts();
-  }, []);
-
-  const func1 = () => {
-    let string = JSON.stringify(test.producto);
-    localStorage.setItem("carrito", string);
-  };
+  }, [test]);
 
   const checkPromt = () => {
     if (props.promt === undefined || props.promt === null) {
@@ -197,13 +193,23 @@ export const Products = (props) => {
   };
 
   const getProducts = async () => {
+    const id_carrito= jwt_decode(localStorage.getItem('token'))
+    const idk= `https://frutcola-backendpru.onrender.com/carrito/${id_carrito.id_usuario}`
     try {
       const res = await axios.get(URI);
+      const res2 = await axios.get(idk)
       setProducts(res.data);
-      console.log(res.data);
       setTest({
         producto: res.data.map(
-          (prod) => new Producto(prod.nombre_producto, prod.precio_producto, 0)
+          (prod) =>{
+            const it= res2.data.find((lproduc)=> lproduc.id_producto === prod.id_metadata_producto)
+            if(it===undefined){
+              return new Producto(prod.id_metadata_producto, prod.nombre_producto, prod.precio_producto, 0)
+            }else{
+              return new Producto(it.id_producto, prod.nombre_producto, prod.precio_producto, it.cantidad_producto)
+            }
+            
+          } 
         ),
       });
     } catch (error) {
@@ -211,16 +217,19 @@ export const Products = (props) => {
     }
   };
 
-  const handleResCantidad = (producto) => {
+  const handleResCantidad = (element) => {
     const updatedProductos = test.producto.map((prod) => {
-      if (prod.nombre === producto.nombre_producto) {
-        prod.resCantidad();
+      if (prod.nombre === element.nombre_producto) {
+        if(prod.cantidad===1){
+          prod.delProd();
+        }else{
+          prod.resCantidad();
+        }
       }
       return prod;
     });
-    setTest({ producto: updatedProductos });
-    func1();
-  };
+    setTest({producto: updatedProductos})
+}
 
   const handleSumCantidad = (producto) => {
     const updatedProductos = test.producto.map((prod) => {
@@ -230,7 +239,6 @@ export const Products = (props) => {
       return prod;
     });
     setTest({ producto: updatedProductos });
-    func1();
   };
 
   return (
@@ -239,47 +247,74 @@ export const Products = (props) => {
         <h1>{promt}</h1>
       </div>
       <div className="elements">
-        {products?.map((prods) => (
-          <div className="card" key={prods.id_producto}>
-            <div className="title">
-              <div className="promt">
-                <p>{prods.nombre_producto}</p>
-              </div>
-              <div className="unit">
-                <div className="container">
-                  <p>$ {prods.precio_producto} c/u</p>
+        {products?.map((prods) => {
+
+          const controls= (
+              <div className="controls">
+                <div className="panel">
+                  <button onClick={() => handleResCantidad(prods)}>-</button>
+                  <p>
+                    {
+                      test.producto.find(
+                        (prod) => prod.nombre === prods.nombre_producto
+                      )?.cantidad
+                    }
+                  </p>
+                  <button onClick={() => handleSumCantidad(prods)}>+</button>
+                </div>
+                <div className="value">
+                  <p>
+                    ${" "}
+                    {test.producto
+                      .find((prod) => prod.nombre === prods.nombre_producto)
+                      ?.calcularPrecioTotal()}
+                  </p>
                 </div>
               </div>
+          )
+
+          const noControls= (element) =>{
+            return(
+              <div className="noControls" onClick={() => element.insertIntoDb(element)}>
+              <button>
+                + Añadir al carrito
+              </button>
             </div>
-            <div className="pImg">
-              <img
-                src={"../../images/" + prods.image}
-                alt={prods.nombre_producto}
-              />
-            </div>
-            <div className="controls">
-              <div className="panel">
-                <button onClick={() => handleResCantidad(prods)}>-</button>
-                <p>
-                  {
-                    test.producto.find(
-                      (prod) => prod.nombre === prods.nombre_producto
-                    )?.cantidad
-                  }
-                </p>
-                <button onClick={() => handleSumCantidad(prods)}>+</button>
+            )
+          }
+
+          const fDisplay = () =>{
+            const validate = test.producto.find((prod) => prod.id === prods.id_metadata_producto)
+            if(validate.cantidad === 0){
+              return noControls(validate)
+            }else{
+              return controls
+            }
+          };
+
+
+          return (
+            <div className="card" key={prods.id_producto}>
+              <div className="title">
+                <div className="promt">
+                  <p>{prods.nombre_producto}</p>
+                </div>
+                <div className="unit">
+                  <div className="container">
+                    <p>$ {prods.precio_producto} c/u</p>
+                  </div>
+                </div>
               </div>
-              <div className="value">
-                <p>
-                  ${" "}
-                  {test.producto
-                    .find((prod) => prod.nombre === prods.nombre_producto)
-                    ?.calcularPrecioTotal()}
-                </p>
+              <div className="pImg">
+                <img
+                  src={"../../images/" + prods.image}
+                  alt={prods.nombre_producto}
+                />
               </div>
+              {fDisplay()}
             </div>
-          </div>
-        ))}
+          )
+        } )}
       </div>
     </div>
   );
