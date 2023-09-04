@@ -65,11 +65,14 @@ export class Producto {
     const idUser= jwt_decode(localStorage.getItem('token'))
     this.cantidad += 1;
     console.log(idUser.id_usuario)
+    console.log(this.id)
+    
+    
     try {
-      const URI = "https://frutcola-backendpru.onrender.com/productos";
+      const URI = "https://frutcola-backendpru.onrender.com/carrito/";
       const res= await axios.post(URI, {
         id_producto: this.id,
-        cantidad_producto: 1,
+        cantidad_producto: this.cantidad,
         id_metadata_producto: this.id,
         id_carrito: idUser.id_usuario,
       });
