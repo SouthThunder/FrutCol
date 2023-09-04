@@ -6,7 +6,7 @@ import "./products.css";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 import { Producto } from "./cartSlice";
-import {fresa} from './sliderProds'
+import LoadingSpinner from '../loading/LoadingSpinner'
 
 export const Slider = ({ product, changeProp, prodsPool }) => {
   const [activeProductIndex, setActiveProductIndex] = useState(0);
