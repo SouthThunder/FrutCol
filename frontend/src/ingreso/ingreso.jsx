@@ -34,9 +34,14 @@ export const Ingresocom = () => {
 
     if (!localpassword  || localpassword == undefined ) {
       setPasswordError("Ingrese su contraseña");
+      setPasswordInputClass("shake");
+      setTimeout(() => {
+        setPasswordInputClass("");
+      }, 2000);
       return;
     } else {
       setPasswordError("");
+      setPasswordInputClass("");
     }
 
     try {
@@ -109,7 +114,7 @@ export const Ingresocom = () => {
               />
             </button>
             <br /><br />
-            <p className="error">{passwordError}</p>
+            <p className={`error ${passwordInputClass}`}>{passwordError}</p>
           </div>
           <button className="enviar" onClick={test}>
             Iniciar sesión
