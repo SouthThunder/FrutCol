@@ -66,9 +66,10 @@ export class Producto {
     this.cantidad += 1;
     console.log(idUser.id_usuario)
     console.log(this.id)
+    
+    
     try {
-      //const URI = "https://frutcola-backendpru.onrender.com/carrito/";
-      const URI = 'http://localhost:8000/carrito/'
+      const URI = "https://frutcola-backendpru.onrender.com/carrito/";
       const res= await axios.post(URI, {
         id_producto: this.id,
         cantidad_producto: this.cantidad,

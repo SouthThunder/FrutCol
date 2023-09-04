@@ -182,7 +182,7 @@ export const Products = (props) => {
   useEffect(() => {
     checkPromt();
     getProducts();
-  }, [test]);
+  }, [test.producto]);
 
   const checkPromt = () => {
     if (props.promt === undefined || props.promt === null) {
@@ -275,7 +275,7 @@ export const Products = (props) => {
 
           const noControls= (element) =>{
             return(
-              <div className="noControls" onClick={() => element.insertIntoDb(element)}>
+              <div className="noControls" onClick={() => element.insertIntoDb()}>
               <button>
                 + Añadir al carrito
               </button>
