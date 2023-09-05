@@ -333,7 +333,6 @@ export const InfoCuentacom = (prop) => {
 
   const getUserData = async () => {
     try {
-      console.log(headers);
       const res = await axios.get(`${URI}${decode.id_usuario}`, { headers });
       setUserData(res.data);
     } catch (error) {
