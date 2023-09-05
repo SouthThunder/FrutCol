@@ -141,14 +141,20 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
 };
 
 export const Products = ({prodsPool}) => {
-  const [products, setProducts] = useState([]);
-  const [test, setTest] = useState({
-    producto: [],
-  });
+  const [isLoading, setisLoading] = useState(true);
+  const [lProductos, setLProductos] = useState(null);
+  const firstRender = useRef(true);
 
   useEffect(() => {
-    getProductsFromCart();
-  }, [test.producto]);
+    if(firstRender.current){
+      getProductsFromCart();
+      firstRender.current = false;
+    }else{
+      if(lProductos!==null){
+        setisLoading(false)
+      }
+    }
+  }, [lProductos]);
 
   const accessToken= localStorage.getItem("token");
   const headers = {
@@ -162,11 +168,9 @@ export const Products = ({prodsPool}) => {
       const res = await axios.get(URI, {
         headers
       });
-      setTest({
-        producto: prodsPool.map((prod) => {
-          const it = res.data.find(
-            (lproduc) => lproduc.id_producto === prod.id_metadata_producto
-          );
+      setLProductos(()=>
+        prodsPool.map((prod) =>{
+          const it=res.data.find((lproduc) => lproduc.id_producto === prod.id_metadata_producto)
           if (it === undefined) {
             return new Producto(
               prod.id_metadata_producto,
@@ -182,12 +186,18 @@ export const Products = ({prodsPool}) => {
               it.cantidad_producto
             );
           }
-        }),
-      });
+        })
+      )
     } catch (error) {
       console.error("ERROR: " + error);
     }
   };
+
+  if(isLoading){
+    return (
+      <div></div>
+    )
+  }
 
   const handleResCantidad = (element) => {
     const updatedProductos = test.producto.map((prod) => {
@@ -200,7 +210,7 @@ export const Products = ({prodsPool}) => {
       }
       return prod;
     });
-    setTest({ producto: updatedProductos });
+    setLProductos( updatedProductos );
   };
 
   const handleSumCantidad = (producto) => {
@@ -210,7 +220,7 @@ export const Products = ({prodsPool}) => {
       }
       return prod;
     });
-    setTest({ producto: updatedProductos });
+    setLProductos( updatedProductos );
   };
 
   return (
@@ -219,14 +229,14 @@ export const Products = ({prodsPool}) => {
         <h1>Productos</h1>
       </div>
       <div className="elements">
-        {products?.map((prods) => {
+        {prodsPool?.map((prods) => {
           const controls = (
             <div className="controls">
               <div className="panel">
                 <button onClick={() => handleResCantidad(prods)}>-</button>
                 <p>
                   {
-                    test.producto.find(
+                    lProductos.find(
                       (prod) => prod.nombre === prods.nombre_producto
                     )?.cantidad
                   }
@@ -236,7 +246,7 @@ export const Products = ({prodsPool}) => {
               <div className="value">
                 <p>
                   ${" "}
-                  {test.producto
+                  {lProductos
                     .find((prod) => prod.nombre === prods.nombre_producto)
                     ?.calcularPrecioTotal()}
                 </p>
@@ -256,7 +266,7 @@ export const Products = ({prodsPool}) => {
           };
 
           const fDisplay = () => {
-            const validate = test.producto.find(
+            const validate = lProductos.find(
               (prod) => prod.id === prods.id_metadata_producto
             );
             if (validate.cantidad === 0) {
