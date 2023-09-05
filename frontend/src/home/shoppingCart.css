@@ -9,6 +9,7 @@
     background-color: white;
     right: 0;
     border-radius: var(--sm-border);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
     z-index: 1;
     animation: popup 0.5s;
 }
