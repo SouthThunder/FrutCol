@@ -3,8 +3,10 @@ import { useNavigate, Link } from "react-router-dom";
 import "./header.css";
 import { ShoppingCart } from "../home/shoppingCart";
 
-export const HeadPopUp = (props) => {
-  useEffect(() => {}, []);
+export const HeadPopUp = ({product, trigger}) => {
+  useEffect(() => {
+    
+  }, [product]);
 
   const logout = () => {
     localStorage.clear();
@@ -13,15 +15,15 @@ export const HeadPopUp = (props) => {
 
   return (
     <div>
-      {!props.trigger && (
+      {!trigger && (
         <div
           className="popup-header"
-          style={{ backgroundColor: props.prod.header_color }}
+          style={{ backgroundColor: product.header_color }}
         >
           <div className="popup-inner">
             <Link
               to={"/InformacionCuenta"}
-              style={{ color: props.prod.main_color }}
+              style={{ color: product.main_color }}
             >
               Settings
             </Link>
@@ -32,14 +34,14 @@ export const HeadPopUp = (props) => {
           <div className="popup-inner">
             <button
               onClick={logout}
-              style={{ color: props.prod.main_color }}
+              style={{ color: product.main_color }}
               onMouseEnter={(e) => (
-                (e.target.style.backgroundColor = props.prod.main_color),
+                (e.target.style.backgroundColor = product.main_color),
                 (e.target.style.color = "#FFFF")
               )}
               onMouseLeave={(e) => (
-                (e.target.style.backgroundColor = props.prod.header_color),
-                (e.target.style.color = props.prod.main_color)
+                (e.target.style.backgroundColor = product.header_color),
+                (e.target.style.color = product.main_color)
               )}
             >
               Log Out
@@ -51,7 +53,7 @@ export const HeadPopUp = (props) => {
   );
 };
 
-export const Headercom = (props) => {
+export const Headercom = ({product}) => {
   const token = localStorage.getItem("token");
   const [header, setHeader] = useState([]);
   const [popup, setPopup] = useState([]);
@@ -64,7 +66,7 @@ export const Headercom = (props) => {
   const navigate = useNavigate();
   useEffect(() => {
     validateToken();
-  }, [props, popup, cartVis]);
+  }, [product, popup, cartVis]);
 
   const validateToken = () => {
     if (token === null) setHeader(notAuthUser);
@@ -86,7 +88,7 @@ export const Headercom = (props) => {
         <nav
           className="nav-bar"
           style={{
-            backgroundColor: props.prod.header_color,
+            backgroundColor: product.header_color,
             transition: "all 1s var(--btn-cubic-bezier)",
           }}
         >
@@ -94,7 +96,7 @@ export const Headercom = (props) => {
             <img src="images/Frame 1.png" alt="" />
             <p
               style={{
-                color: props.prod.main_color,
+                color: product.main_color,
                 transition: "all 1s var(--btn-cubic-bezier)",
               }}
             >
@@ -108,7 +110,7 @@ export const Headercom = (props) => {
                   className="nav__link"
                   onClick={signUp}
                   style={{
-                    backgroundColor: props.prod.main_color,
+                    backgroundColor: product.main_color,
                     transition: "all 1s var(--btn-cubic-bezier)",
                   }}
                 >
@@ -120,7 +122,7 @@ export const Headercom = (props) => {
                   className="nav__link"
                   onClick={logIn}
                   style={{
-                    color: props.prod.font_color,
+                    color: product.font_color,
                     transition: "all 1s var(--btn-cubic-bezier)",
                   }}
                 >
@@ -153,7 +155,7 @@ export const Headercom = (props) => {
         <nav
           className="nav-bar"
           style={{
-            backgroundColor: props.prod.header_color,
+            backgroundColor: product.header_color,
             transition: "all 1s var(--btn-cubic-bezier)",
           }}
         >
@@ -161,7 +163,7 @@ export const Headercom = (props) => {
             <img src="images/Frame 1.png" alt="" />
             <p
               style={{
-                color: props.prod.main_color,
+                color: product.main_color,
                 transition: "all 1s var(--btn-cubic-bezier)",
               }}
             >
@@ -174,7 +176,7 @@ export const Headercom = (props) => {
                 <button id="userIcon" onClick={togglePopup}>
                   <img src="/images/userIcon.png" alt="" />
                 </button>
-                <HeadPopUp trigger={popup} prod={props.prod} />
+                <HeadPopUp trigger={popup} product={product} />
               </li>
               <li className="nav__item">
                 <button onClick={toggleCart}>

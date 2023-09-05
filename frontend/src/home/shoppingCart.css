@@ -10,6 +10,16 @@
     right: 0;
     border-radius: var(--sm-border);
     z-index: 1;
+    animation: popup 0.5s;
+}
+
+@keyframes popup {
+    0% {
+        right: -35vw;
+    }
+    100%{
+        right: 0;
+    }
 }
 
 .shoppingCart > .top{

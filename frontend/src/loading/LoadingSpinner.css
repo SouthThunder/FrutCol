@@ -1,0 +1,12 @@
+.loading-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loading-spinner p{
+    font-weight: bold;
+    margin-left: 25%;
+    font-size: 25px;
+}

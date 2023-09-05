@@ -50,6 +50,7 @@
     cursor: pointer;
     right: 0;
 }
+
 .infocuenta > .cambiocontrasena > .form > .input__info > .invisible > img{
     width: 20px; 
     height: 20px; 
@@ -68,6 +69,10 @@
     margin-top: 1rem;
     margin-left: 1rem;
     border-bottom: 1px solid black;
+}
+
+.input__info:hover {
+    border-bottom: 1px solid var(--primary-color);
 }
  .input__info > label{
     position: absolute;

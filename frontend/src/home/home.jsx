@@ -6,90 +6,43 @@ import "./products.css";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 import { Producto } from "./cartSlice";
-import {fresa} from './sliderProds'
+import LoadingSpinner from '../loading/LoadingSpinner'
 
-
-export const Slider = ({ product, changeProp }) => {
-
-  const firstRender = useRef(true);
+export const Slider = ({ product, changeProp, prodsPool }) => {
   const [activeProductIndex, setActiveProductIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
-  const [backgroundColor, setBackgroundColor] = useState();
-  const [currentImage, setCurrentImage] = useState();
-  const [primaryColor, setPrimaryColor] = useState();
-  const [currentImageback, setCurrentImageback] = useState();
-  const [currentWord, setCurrentWord] = useState();
-  const [currentPrice, setCurrentprice] = useState();
+  const [backgroundColor, setBackgroundColor] = useState([]);
+  const [currentImage, setCurrentImage] = useState([]);
+  const [primaryColor, setPrimaryColor] = useState([]);
+  const [currentImageback, setCurrentImageback] = useState([]);
+  const [currentWord, setCurrentWord] = useState([]);
+  const [currentPrice, setCurrentprice] = useState([]);
 
-  const [prodsPool, setProdsPool] = useState(null);
-
-
-
-  const getProducts = async () => {
-    const URI = "https://frutcola-backendpru.onrender.com/metadata";
-    try {
-      const response = await axios.get(URI);
-      setProdsPool(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-    const changestyle = (
-    color,
-    maincolor,
-    imageIndex,
-    imagebackIndex,
-    word,
-    precio
-  ) => {
-    setBackgroundColor(color);
-    setPrimaryColor(maincolor);
-    setCurrentImage(imageIndex);
-    setCurrentImageback(imagebackIndex);
-    setCurrentWord(word);
-    setCurrentprice(precio);
+  const changestyle = ( element) => {
+    setBackgroundColor(element.comp_color);
+    setPrimaryColor(element.main_color);
+    setCurrentImage(`../../images/${product.image}`);
+    setCurrentImageback(`../../images/${product.stain_image}`);
+    setCurrentWord(element.nombre_producto);
+    setCurrentprice(element.precio_producto);
   };
   const updateProp = (element) => {
     changeProp(element);
   };
 
-
-
   useEffect(() => {
-    if(firstRender.current){
-      firstRender.current= false;
-      getProducts()
-    }else{
-      if(prodsPool!==null){
-        changestyle(
-          prodsPool[0].comp_color,
-          prodsPool[0].main_color,
-          `../../images/${prodsPool[0].image}`,
-          `../../images/${prodsPool[0].stain_image}`,
-          prodsPool[0].nombre_producto,
-          prodsPool[0].precio_producto
-        );
-      } 
+    if (product !== null) {
+      changestyle(product);
     }
-  }, [prodsPool]);
+  }, [product]);
 
   const incrementArray = (step) => {
-    const newIndex = (activeProductIndex + step + prodsPool.length) % prodsPool.length;
+    const newIndex =
+      (activeProductIndex + step + prodsPool.length) % prodsPool.length;
     setActiveProductIndex(newIndex);
     const nextProduct = prodsPool[newIndex];
-    changestyle(
-      nextProduct.comp_color,
-      nextProduct.main_color,
-      `../../images/${nextProduct.image}`,
-      `../../images/${nextProduct.stain_image}`,
-      nextProduct.nombre_producto,
-      nextProduct.precio_producto
-    );
+    changestyle(nextProduct);
     updateProp(nextProduct);
   };
-
-
 
   return (
     <div
@@ -178,7 +131,7 @@ export const Slider = ({ product, changeProp }) => {
                     <img src={`../../images/${element.image}`} />
                   </div>
                 </button>
-              )
+              );
             })}
           </div>
         </div>
@@ -187,46 +140,49 @@ export const Slider = ({ product, changeProp }) => {
   );
 };
 
-export const Products = (props) => {
-  const URI = "https://frutcola-backendpru.onrender.com/metadata";
+export const Products = ({prodsPool}) => {
   const [products, setProducts] = useState([]);
-  const [promt, setPromt] = useState([]);
   const [test, setTest] = useState({
     producto: [],
   });
 
   useEffect(() => {
-    checkPromt();
-    getProducts();
+    getProductsFromCart();
   }, [test.producto]);
 
-  const checkPromt = () => {
-    if (props.promt === undefined || props.promt === null) {
-      setPromt("Productos");
-    } else {
-      setPromt(props.promt);
-    }
+  const accessToken= localStorage.getItem("token");
+  const headers = {
+    Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
   };
 
-  const getProducts = async () => {
-    const id_carrito= jwt_decode(localStorage.getItem('token'))
-    const idk= `https://frutcola-backendpru.onrender.com/carrito/${id_carrito.id_usuario}`
+  const getProductsFromCart = async () => {
+    const id_carrito = jwt_decode(localStorage.getItem("token"));
+    const URI = `https://frutcola-backendpru.onrender.com/carrito/${id_carrito.id_usuario}`;
     try {
-      const res = await axios.get(URI);
-      const res2 = await axios.get(idk)
-      setProducts(res.data);
+      const res = await axios.get(URI, {
+        headers
+      });
       setTest({
-        producto: res.data.map(
-          (prod) =>{
-            const it= res2.data.find((lproduc)=> lproduc.id_producto === prod.id_metadata_producto)
-            if(it===undefined){
-              return new Producto(prod.id_metadata_producto, prod.nombre_producto, prod.precio_producto, 0)
-            }else{
-              return new Producto(it.id_producto, prod.nombre_producto, prod.precio_producto, it.cantidad_producto)
-            }
-            
-          } 
-        ),
+        producto: prodsPool.map((prod) => {
+          const it = res.data.find(
+            (lproduc) => lproduc.id_producto === prod.id_metadata_producto
+          );
+          if (it === undefined) {
+            return new Producto(
+              prod.id_metadata_producto,
+              prod.nombre_producto,
+              prod.precio_producto,
+              0
+            );
+          } else {
+            return new Producto(
+              it.id_producto,
+              prod.nombre_producto,
+              prod.precio_producto,
+              it.cantidad_producto
+            );
+          }
+        }),
       });
     } catch (error) {
       console.error("ERROR: " + error);
@@ -236,16 +192,16 @@ export const Products = (props) => {
   const handleResCantidad = (element) => {
     const updatedProductos = test.producto.map((prod) => {
       if (prod.nombre === element.nombre_producto) {
-        if(prod.cantidad===1){
+        if (prod.cantidad === 1) {
           prod.delProd();
-        }else{
+        } else {
           prod.resCantidad();
         }
       }
       return prod;
     });
-    setTest({producto: updatedProductos})
-}
+    setTest({ producto: updatedProductos });
+  };
 
   const handleSumCantidad = (producto) => {
     const updatedProductos = test.producto.map((prod) => {
@@ -260,54 +216,55 @@ export const Products = (props) => {
   return (
     <div className="productsComp">
       <div className="title">
-        <h1>{promt}</h1>
+        <h1>Productos</h1>
       </div>
       <div className="elements">
         {products?.map((prods) => {
-
-          const controls= (
-              <div className="controls">
-                <div className="panel">
-                  <button onClick={() => handleResCantidad(prods)}>-</button>
-                  <p>
-                    {
-                      test.producto.find(
-                        (prod) => prod.nombre === prods.nombre_producto
-                      )?.cantidad
-                    }
-                  </p>
-                  <button onClick={() => handleSumCantidad(prods)}>+</button>
-                </div>
-                <div className="value">
-                  <p>
-                    ${" "}
-                    {test.producto
-                      .find((prod) => prod.nombre === prods.nombre_producto)
-                      ?.calcularPrecioTotal()}
-                  </p>
-                </div>
+          const controls = (
+            <div className="controls">
+              <div className="panel">
+                <button onClick={() => handleResCantidad(prods)}>-</button>
+                <p>
+                  {
+                    test.producto.find(
+                      (prod) => prod.nombre === prods.nombre_producto
+                    )?.cantidad
+                  }
+                </p>
+                <button onClick={() => handleSumCantidad(prods)}>+</button>
               </div>
-          )
-
-          const noControls= (element) =>{
-            return(
-              <div className="noControls" onClick={() => element.insertIntoDb()}>
-              <button>
-                + Añadir al carrito
-              </button>
+              <div className="value">
+                <p>
+                  ${" "}
+                  {test.producto
+                    .find((prod) => prod.nombre === prods.nombre_producto)
+                    ?.calcularPrecioTotal()}
+                </p>
+              </div>
             </div>
-            )
-          }
+          );
 
-          const fDisplay = () =>{
-            const validate = test.producto.find((prod) => prod.id === prods.id_metadata_producto)
-            if(validate.cantidad === 0){
-              return noControls(validate)
-            }else{
-              return controls
-            }
+          const noControls = (element) => {
+            return (
+              <div
+                className="noControls"
+                onClick={() => element.insertIntoDb()}
+              >
+                <button>+ Añadir al carrito</button>
+              </div>
+            );
           };
 
+          const fDisplay = () => {
+            const validate = test.producto.find(
+              (prod) => prod.id === prods.id_metadata_producto
+            );
+            if (validate.cantidad === 0) {
+              return noControls(validate);
+            } else {
+              return controls;
+            }
+          };
 
           return (
             <div className="card" key={prods.id_producto}>
@@ -329,47 +286,59 @@ export const Products = (props) => {
               </div>
               {fDisplay()}
             </div>
-          )
-        } )}
+          );
+        })}
       </div>
     </div>
   );
 };
 
 export const Homecom = () => {
-  const [product, setProduct] = useState();
+  const [product, setProduct] = useState(null);
   const [isLoading, setisLoading] = useState(true);
+  const [prodsPool, setProdsPool] = useState(null);
+  const firstRender = useRef(true);
+  const firstSet = useRef(true);
+
+  useEffect(() => {
+    if (firstRender.current) {
+      getProducts();
+      firstRender.current = false;
+    } else {
+      if (prodsPool !== null && firstSet.current===true) {
+        setProduct(prodsPool[0]);
+        if (product !== null) {
+          firstSet.current=false;
+          setisLoading(false);
+        }
+      }
+    }
+  }, [prodsPool, product]);
+
+  const getProducts = async () => {
+    const URI = "https://frutcola-backendpru.onrender.com/metadata";
+    try {
+      const response = await axios.get(URI);
+      setProdsPool(response.data);
+      console.log(response.status);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const changeProp = (element) => {
     setProduct(element);
   };
-
-  useEffect(() =>{
-     getProducts()
-  }, [])
-
-  const getProducts = async() =>{
-    const URI= 'https://frutcola-backendpru.onrender.com/metadata';
-    try {
-      const response = await axios.get(URI);
-
-      setProduct(response.data[0])
-      setisLoading(false)
-      //console.log(product)
-    } catch (error) {
-      console.error(error)
-    }    
-  }
-
   if(isLoading){
-    return <div>is loading...</div>
+    return <LoadingSpinner />;
   }
 
   return (
     <div className="homecontain">
-      <Headercom prod={product} />
-      <Slider prod={product} changeProp={changeProp} />
-      <Products />
-      <Footercom prod={product} />
+      <Headercom product={product} />
+      <Slider product={product} changeProp={changeProp} prodsPool={prodsPool}/>
+      <Products prodsPool={prodsPool}/>
+      <Footercom product={product} />
     </div>
   );
 };
