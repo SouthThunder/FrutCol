@@ -38,6 +38,11 @@
     background-color: transparent;
     border: none;
 }
+
+.shoppingCart >.top > button:hover{
+    cursor: pointer;
+}
+
 .shoppingCart > .bottom{
     display: flex;
     flex-direction: column;

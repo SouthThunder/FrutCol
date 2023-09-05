@@ -144,6 +144,7 @@ export const Products = ({prodsPool}) => {
   const [isLoading, setisLoading] = useState(true);
   const [lProductos, setLProductos] = useState(null);
   const firstRender = useRef(true);
+  
 
   useEffect(() => {
     if(firstRender.current){
@@ -200,12 +201,12 @@ export const Products = ({prodsPool}) => {
   }
 
   const handleResCantidad = (element) => {
-    const updatedProductos = test.producto.map((prod) => {
+    const updatedProductos = lProductos.map((prod) => {
       if (prod.nombre === element.nombre_producto) {
         if (prod.cantidad === 1) {
-          prod.delProd();
+          prod.delProd(headers);
         } else {
-          prod.resCantidad();
+          prod.resCantidad(headers);
         }
       }
       return prod;
@@ -214,9 +215,9 @@ export const Products = ({prodsPool}) => {
   };
 
   const handleSumCantidad = (producto) => {
-    const updatedProductos = test.producto.map((prod) => {
+    const updatedProductos = lProductos.map((prod) => {
       if (prod.nombre === producto.nombre_producto) {
-        prod.sumCantidad();
+        prod.sumCantidad(headers);
       }
       return prod;
     });
@@ -258,7 +259,7 @@ export const Products = ({prodsPool}) => {
             return (
               <div
                 className="noControls"
-                onClick={() => element.insertIntoDb()}
+                onClick={() => element.insertIntoDb(headers)}
               >
                 <button>+ Añadir al carrito</button>
               </div>
