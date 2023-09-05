@@ -81,7 +81,7 @@ export const Infocuenta = (prop) => {
     };
     try {
       await axios.put(`${URI}${prop.user[0].id_usuario}`, user, {
-        headers,
+        headers
       });
       alert("Los datos se actualizaron correctamente");
       window.location.reload();
