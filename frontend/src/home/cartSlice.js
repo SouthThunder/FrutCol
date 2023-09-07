@@ -85,6 +85,7 @@ export class Producto {
         headers
       });
       console.log(res)
+      console.log(this.cantidad)
     } catch (error) {
       console.error(error);
     }

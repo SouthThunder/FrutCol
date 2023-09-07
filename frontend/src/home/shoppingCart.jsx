@@ -89,7 +89,7 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
       setActive(visibility);
     }
   };
-  console.log(test.producto);
+
 
   return (
     <div>
