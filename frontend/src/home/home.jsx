@@ -71,7 +71,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
         <div className="n4">
           <p>01</p>
           <span className="progress" style={{ color: primaryColor }}></span>
-          <p>05</p>
+          <p>0{prodsPool.length}</p>
         </div>
       </div>
 
