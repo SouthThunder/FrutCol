@@ -140,6 +140,91 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
   );
 };
 
+export const ProdsComp = ({product, headers}) =>{
+  const [element, setElement] =useState(product);
+
+  useEffect(() =>{
+
+  }, [element.cantidad])
+
+  const handleResCantidad = () => {
+        if (element.cantidad === 1) {
+          element.delProd(headers);
+        } else {
+          element.resCantidad(headers);
+        }
+  };
+
+  const handleSumCantidad = () => {
+        element.sumCantidad(headers);
+  };
+
+
+  const controls = (
+    <div className="controls">
+      <div className="panel">
+        <button onClick={() => handleResCantidad()}>-</button>
+        <p>
+          {
+            element.cantidad
+          }
+        </p>
+        <button onClick={() => handleSumCantidad()}>+</button>
+      </div>
+      <div className="value">
+        <p>
+          ${" "}
+          {
+            element.calcularPrecioTotal()
+          }
+        </p>
+      </div>
+    </div>
+  );
+
+  const noControls = () => {
+    return (
+      <div
+        className="noControls"
+        onClick={() => element.insertIntoDb(headers)}
+      >
+        <button>+ Añadir al carrito</button>
+      </div>
+    );
+  };
+
+  const fDisplay = () => {
+    if (element.cantidad === 0) {
+      return noControls();
+    } else {
+      return controls;
+    }
+  };
+
+  return (
+    <div className="card">
+      <div className="title">
+        <div className="promt">
+          <p>{element.nombre}</p>
+        </div>
+        <div className="unit">
+          <div className="container">
+            <p>$ {element.precio} c/u</p>
+          </div>
+        </div>
+      </div>
+      <div className="pImg">
+        <img
+          src={"../../images/" + element.image}
+          alt={element.nombre}
+        />
+      </div>
+      {fDisplay()}
+    </div>
+  );
+}
+
+
 export const Products = ({prodsPool}) => {
   const [isLoading, setisLoading] = useState(true);
   const [lProductos, setLProductos] = useState(null);
@@ -179,14 +264,16 @@ export const Products = ({prodsPool}) => {
               prod.id_metadata_producto,
               prod.nombre_producto,
               prod.precio_producto,
-              0
+              0,
+              prod.image
             );
           } else {
             return new Producto(
               it.id_producto,
               prod.nombre_producto,
               prod.precio_producto,
-              it.cantidad_producto
+              it.cantidad_producto,
+              prod.image
             );
           }
         })
@@ -202,109 +289,23 @@ export const Products = ({prodsPool}) => {
     )
   }
 
-  const handleResCantidad = (element) => {
-    const updatedProductos = lProductos.map((prod) => {
-      if (prod.nombre === element.nombre_producto) {
-        if (prod.cantidad === 1) {
-          prod.delProd(headers);
-        } else {
-          prod.resCantidad(headers);
-        }
-      }
-      return prod;
-    });
-    setLProductos( updatedProductos );
-  };
-
-  const handleSumCantidad = (producto) => {
-    const updatedProductos = lProductos.map((prod) => {
-      if (prod.nombre === producto.nombre_producto) {
-        prod.sumCantidad(headers);
-      }
-      return prod;
-    });
-    setLProductos( updatedProductos );
-  };
-
   return (
     <div className="productsComp">
       <div className="title">
         <h1>Productos</h1>
       </div>
       <div className="elements">
-        {prodsPool?.map((prods) => {
-          const controls = (
-            <div className="controls">
-              <div className="panel">
-                <button onClick={() => handleResCantidad(prods)}>-</button>
-                <p>
-                  {
-                    lProductos.find(
-                      (prod) => prod.nombre === prods.nombre_producto
-                    )?.cantidad
-                  }
-                </p>
-                <button onClick={() => handleSumCantidad(prods)}>+</button>
-              </div>
-              <div className="value">
-                <p>
-                  ${" "}
-                  {lProductos
-                    .find((prod) => prod.nombre === prods.nombre_producto)
-                    ?.calcularPrecioTotal()}
-                </p>
-              </div>
-            </div>
-          );
-
-          const noControls = (element) => {
-            return (
-              <div
-                className="noControls"
-                onClick={() => element.insertIntoDb(headers)}
-              >
-                <button>+ Añadir al carrito</button>
-              </div>
-            );
-          };
-
-          const fDisplay = () => {
-            const validate = lProductos.find(
-              (prod) => prod.id === prods.id_metadata_producto
-            );
-            if (validate.cantidad === 0) {
-              return noControls(validate);
-            } else {
-              return controls;
-            }
-          };
-
+        {lProductos?.map((prods) => {
+          
           return (
-            <div className="card" key={prods.id_producto}>
-              <div className="title">
-                <div className="promt">
-                  <p>{prods.nombre_producto}</p>
-                </div>
-                <div className="unit">
-                  <div className="container">
-                    <p>$ {prods.precio_producto} c/u</p>
-                  </div>
-                </div>
-              </div>
-              <div className="pImg">
-                <img
-                  src={"../../images/" + prods.image}
-                  alt={prods.nombre_producto}
-                />
-              </div>
-              {fDisplay()}
-            </div>
-          );
+          <ProdsComp product={prods} headers={headers}/>
+          )
         })}
       </div>
     </div>
   );
 };
+
 
 export const Homecom = () => {
   const [product, setProduct] = useState(null);

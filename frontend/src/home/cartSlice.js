@@ -2,11 +2,12 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 export class Producto {
-  constructor(id, nombre, precio, cantidad) {
+  constructor(id, nombre, precio, cantidad, image) {
     this.id = id;
     this.nombre = nombre;
     this.precio = precio;
     this.cantidad = cantidad;
+    this.image = image;
   }
 
   // Método para actualizar el precio

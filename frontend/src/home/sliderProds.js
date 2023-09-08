@@ -57,3 +57,5 @@ export const maracuya={
     id: 5,
     precio: 8000   
 }
+
+//nombre, descripcion, stock y precio
