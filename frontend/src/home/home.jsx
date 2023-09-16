@@ -219,7 +219,6 @@ export const Products = ({ prodsPool }) => {
   const firstRender = useRef(true);
 
   useEffect(() => {
-    getProductsFromCart();
     if (firstRender.current) {
       if (
         localStorage.getItem("token") === undefined ||
@@ -230,8 +229,8 @@ export const Products = ({ prodsPool }) => {
         getProducts();
       } else {
         console.log("found");
-        setUser(false);
-        //getProductsFromCart();
+        setUser(true);
+        getProductsFromCart();
       }
       firstRender.current = false;
     } else {
@@ -307,7 +306,6 @@ export const Products = ({ prodsPool }) => {
       </div>
       <div className="elements">
         {lProductos?.map((prods) => {
-          console.log(prods);
           return <ProdsComp product={prods} headers={headers} loged={user} />;
         })}
       </div>
