@@ -143,18 +143,23 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
 
 export const ProdsComp = ({ product, headers, loged }) => {
   const [element, setElement] = useState(product);
+  const [test, setTest] =useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {}, [element.cantidad]);
+  useEffect(() => {}, [test]);
+
   const handleResCantidad = () => {
     if (element.cantidad === 1) {
+      setTest(!test)
       element.delProd(headers);
     } else {
+      setTest(!test)
       element.resCantidad(headers);
     }
   };
 
   const handleSumCantidad = () => {
+    setTest(!test)
     element.sumCantidad(headers);
   };
 
@@ -176,7 +181,10 @@ export const ProdsComp = ({ product, headers, loged }) => {
       <div className="noControls">
         {
           loged? (
-            <button onClick={() => element.insertIntoDb(headers)}>+ Añadir al carrito</button>
+            <button onClick={() => {
+              element.insertIntoDb(headers)
+              setTest(!test)
+            }}>+ Añadir al carrito</button>
           ) : <button onClick={() => navigate('/Ingreso')}>+ Añadir al carrito</button>
 
         }

@@ -206,10 +206,15 @@ export const Registrocom = () => {
   }
 
   const getId = async(token) =>{
-    const URI = "https://frutcola-backendpru.onrender.com/carrito";
+    const URI = "https://frutcola-backendpru.onrender.com/carrito/create";
+    const headers = {
+      Authorization: `${token}`, // Agrega "Bearer" antes del token si es necesario
+    };
     try {
       const decode= jwt_decode(token);
-      await axios.post(URI, decode.id_usuario)
+      await axios.post(URI, {
+        headers
+      } , decode.id_usuario)
     } catch (error) {
       console.error(error)
     }

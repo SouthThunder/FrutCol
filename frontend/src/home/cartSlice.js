@@ -54,10 +54,9 @@ export class Producto {
     try {
     const id_carrito= jwt_decode(localStorage.getItem('token'))
     const URI = `https://frutcola-backendpru.onrender.com/carrito/${id_carrito.id_usuario}/${this.id}`;
-      const res = await axios.delete(URI, {
+      await axios.delete(URI, {
         headers
       });
-      console.log(res);
     } catch (error) {
       console.error(error);
     }
@@ -71,19 +70,15 @@ export class Producto {
   async insertIntoDb(headers) {
     const idUser= jwt_decode(localStorage.getItem('token'))
     this.cantidad += 1;
-    console.log(idUser.id_usuario)
-    console.log(this.id)
     try {
       const URI = "https://frutcola-backendpru.onrender.com/carrito/";
-      const res= await axios.post(URI, {
+      await axios.post(URI, {
         id_producto: this.id,
         cantidad_producto: this.cantidad,
         id_carrito: idUser.id_usuario
       }, {
         headers
       });
-      console.log(res)
-      console.log(this.cantidad)
     } catch (error) {
       console.error(error);
     }
