@@ -150,17 +150,17 @@ export const ProdsComp = ({ product, headers, loged }) => {
 
   const handleResCantidad = () => {
     if (element.cantidad === 1) {
-      setTest(!test)
       element.delProd(headers);
-    } else {
       setTest(!test)
+    } else {
       element.resCantidad(headers);
+      setTest(!test)
     }
   };
 
   const handleSumCantidad = () => {
-    setTest(!test)
     element.sumCantidad(headers);
+    setTest(!test)
   };
 
   const controls = (

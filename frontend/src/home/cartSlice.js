@@ -51,6 +51,7 @@ export class Producto {
   }
 
   async delProd(headers) {
+    this.cantidad=0;
     try {
     const id_carrito= jwt_decode(localStorage.getItem('token'))
     const URI = `https://frutcola-backendpru.onrender.com/carrito/${id_carrito.id_usuario}/${this.id}`;
