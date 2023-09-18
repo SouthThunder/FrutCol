@@ -159,9 +159,12 @@
     border: none;
     background-color: transparent;
     color: var(--strawberry-main-color);
-    font-size: 1rem;
-    font-weight: var(--font-medium);
     cursor: pointer;
+    width: 2.5rem;
+}
+
+.header > .nav-bar .nav__menu > .nav__list > .nav__item:nth-child(2) > button > img{
+    width: inherit;
 }
 
 .header >.nav  .inicios {
