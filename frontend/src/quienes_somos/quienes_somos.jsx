@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./quienes_somos.css";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 import { fresa } from "../home/sliderProds";
-export const QuienesSomos = (prop) => {
+export const QuienesSomos = ({product}) => {
+  useEffect(() =>{
+    console.log('FuckingShiet')
+    console.log(product)
+  })
   return (
     <div className="quienesomos containerquienes">
       <h1 className="tittlequienes">FrutCol-A</h1>
@@ -24,7 +28,7 @@ export const QuienesSomos = (prop) => {
           el mejor producto a nuestros consumidores.
         </p>
       </div>
-      <div className="misionvision containerquienes" style={{backgroundColor:prop.prod.compColor}}>
+      <div className="misionvision containerquienes" style={{backgroundColor:product.comp_color}}>
         <div className="mision containerquienes">
           <h2 className="tittlequienes ">Mision</h2>
           <p>
@@ -70,7 +74,7 @@ export const QuienesSomos = (prop) => {
           </div>
         </div>
       </div>
-      <div className="objectives containerquienes" style={{backgroundColor:prop.prod.compColor}}>
+      <div className="objectives containerquienes" style={{backgroundColor:product.comp_color}}>
         <h2 className="tittlequienes">Objetivos</h2>
         <ul className="objectives__list">
           <li>
@@ -127,17 +131,17 @@ export const QuienesSomos = (prop) => {
   );
 };
 
-export const QuienesSomoscom = (prop) => {
-  const [product, setProduct] = useState(fresa);
-  const changeProp = (element) => {
-    setProduct(element);
-  };
+export const QuienesSomoscom = ({product}) => {
+  useEffect(() =>{
+    console.log('fuck')
+    console.log(product)
+  }, [product]);
 
   return (
     <div className="QuienesSomoscontain" >
-      <Headercom prod={product} />
-      <QuienesSomos prod={product} />
-      <Footercom prod={product} />
+      <Headercom product={product} />
+      <QuienesSomos product={product} />
+      <Footercom product={product} />
     </div>
   );
 };

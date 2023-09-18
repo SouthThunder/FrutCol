@@ -70,7 +70,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
           </button>
         </div>
         <div className="n4">
-          <p>01</p>
+          <p>0{activeProductIndex+1}</p>
           <input type="range" min={0} max={100} step={20} value={(activeProductIndex+1)*20} disabled className="progress" style={{ backgroundImage: `linear-gradient(${primaryColor}, ${primaryColor})`, backgroundSize: `${(activeProductIndex+1)*20}% 100%`, transition: 'all 1s var(--btn-cubic-bezier)'}}></input>
           <p>0{prodsPool.length}</p>
         </div>

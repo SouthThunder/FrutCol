@@ -9,20 +9,9 @@
     text-align: justify;
     text-justify: inter-word;
 }
-.quienesomos{
-    
-  
-   
-   
-}
-.quienesomos > .first {
-
-}
 .quienesomos > .misionvision{
     display: flex;
     border-radius: var(--sm-border);
-   
-    
 }
 .quienesomos > .misionvision > .vision{
     border-left: 2px solid black;
@@ -108,4 +97,8 @@
   animation-fill-mode: forwards;
   top: 0;
   transform: translate(0, -100%);
+}
+
+.qualitypolicies {
+  width: 80%;
 }
