@@ -213,15 +213,17 @@ export const Registrocom = () => {
     try {
       const decode= jwt_decode(token);
       await axios.post(URI, {
+        id_carrito: decode.id_usuario
+      }, {
         headers
-      } , decode.id_usuario)
+      })
     } catch (error) {
       console.error(error)
     }
   }
 
   return (
-    <div className="registrocontain" id="home">
+    <div className="registrocontain">
       <div className="contderform">
         <h1>Registro</h1>
         <br />

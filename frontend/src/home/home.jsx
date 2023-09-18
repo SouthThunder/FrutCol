@@ -71,7 +71,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
         </div>
         <div className="n4">
           <p>01</p>
-          <span className="progress" style={{ color: primaryColor }}></span>
+          <input type="range" min={0} max={100} step={20} value={(activeProductIndex+1)*20} disabled className="progress" style={{ backgroundImage: `linear-gradient(${primaryColor}, ${primaryColor})`, backgroundSize: `${(activeProductIndex+1)*20}% 100%`, transition: 'all 1s var(--btn-cubic-bezier)'}}></input>
           <p>0{prodsPool.length}</p>
         </div>
       </div>
@@ -117,14 +117,6 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
                   className="fruit"
                   onClick={() => {
                     setActiveProductIndex(element.id_metadata_producto - 1);
-                    changestyle(
-                      element.comp_color,
-                      element.main_color,
-                      `../../images/${element.image}`,
-                      `../../images/${element.stain_image}`,
-                      element.nombre_producto,
-                      element.precio_producto
-                    );
                     updateProp(element);
                   }}
                 >
@@ -201,7 +193,7 @@ export const ProdsComp = ({ product, headers, loged }) => {
   };
 
   return (
-    <div className="card">
+    <div className="card" key={element.id_producto}>
       <div className="title">
         <div className="promt">
           <p>{element.nombre}</p>
@@ -314,7 +306,7 @@ export const Products = ({ prodsPool }) => {
       </div>
       <div className="elements">
         {lProductos?.map((prods) => {
-          return <ProdsComp product={prods} headers={headers} loged={user} />;
+          return <ProdsComp product={prods} headers={headers} loged={user}/>;
         })}
       </div>
     </div>
