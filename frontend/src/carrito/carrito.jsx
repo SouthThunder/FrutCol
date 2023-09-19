@@ -3,7 +3,6 @@ import './carrito.css'
 import {Headercom} from "../header/header";
 import {Footercom} from "../footer/footer";
 import { Products } from "../home/home";
-import { fresa } from "../home/sliderProds";
 
 
 export const CartComp= () =>{
@@ -24,7 +23,6 @@ export const CartComp= () =>{
           return prod;
         });
         setTest({ producto: updatedProductos });
-        //func1();
       };
     
       const handleSumCantidad = (producto) => {
@@ -35,7 +33,6 @@ export const CartComp= () =>{
           return prod;
         });
         setTest({ producto: updatedProductos });
-        //func1();
       };
 
     const readItems= () =>{
@@ -108,12 +105,12 @@ export const CartComp= () =>{
     );
 }
 
-export const Carritocom=()=>{
+export const Carritocom=({product})=>{
     return(
         <div className="carritocontain">
-            <Headercom prod={fresa}/>
+            <Headercom prod={product}/>
             <CartComp/>
-            <Footercom prod={fresa}/>
+            <Footercom prod={product}/>
         </div>
     )
 

@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import {Homecom} from './home/home.jsx';
-import {Carritocom} from './carrito/carrito.jsx';
 import {InfoCuentacom} from './info_cuenta/info_cuenta.jsx';
 import {Ingresocom} from './ingreso/ingreso.jsx';
 import {InterfazAdmincom} from './interfaz_admin/interfaz_admin.jsx';
@@ -48,6 +47,10 @@ export const App= () =>{
     }
   };
 
+  const changeProp = (element) => {
+    setProduct(element);
+  };
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -56,11 +59,10 @@ export const App= () =>{
     <div className="principalContainer">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Homecom/>}/>
-          <Route path='/Carrito' element={<Carritocom/>}/>
+          <Route path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool}/>}/>
           <Route path='/InformacionCuenta' element={<InfoCuentacom/>}/>
           <Route path='/Ingreso' element={<Ingresocom/>}/>
-          <Route path='/IterfazAdmin' element={<InterfazAdmincom/>}/>
+          <Route path='/IterfazAdmin' element={<InterfazAdmincom product={product}/>}/>
           <Route path='/QuienesSomos' element={<QuienesSomoscom product={product}/>}/>
           <Route path='/RealizarCompra' element={<RealizarCompracom/>}/>
           <Route path='/Registro' element={<Registrocom/>}/>

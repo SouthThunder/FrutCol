@@ -3,7 +3,6 @@ import "./interfaz_admin.css";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 import axios from "axios";
-import { fresa } from "../home/sliderProds";
 import { Link } from "react-router-dom";
 
 const accessToken = localStorage.getItem("token");
@@ -580,11 +579,8 @@ export const Dashboard = (prop) => {
   return <h4>SOY DASHBOARD</h4>;
 };
 
-export const InterfazAdmincom = (prop) => {
-  const [product, setProduct] = useState(fresa);
-  const changeProp = (element) => {
-    setProduct(element);
-  };
+export const InterfazAdmincom = ({product}) => {
+
   return (
     <div className="infopagecontain">
       <Headercom prod={product} />

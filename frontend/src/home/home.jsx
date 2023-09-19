@@ -313,45 +313,7 @@ export const Products = ({ prodsPool }) => {
   );
 };
 
-export const Homecom = () => {
-  const [product, setProduct] = useState(null);
-  const [isLoading, setisLoading] = useState(true);
-  const [prodsPool, setProdsPool] = useState(null);
-  const firstRender = useRef(true);
-  const firstSet = useRef(true);
-
-  useEffect(() => {
-    if (firstRender.current) {
-      getProducts();
-      firstRender.current = false;
-    } else {
-      if (prodsPool !== null && firstSet.current === true) {
-        setProduct(prodsPool[0]);
-        if (product !== null) {
-          firstSet.current = false;
-          setisLoading(false);
-        }
-      }
-    }
-  }, [prodsPool, product]);
-
-  const getProducts = async () => {
-    const URI = "https://frutcola-backendpru.onrender.com/metadata";
-    try {
-      const response = await axios.get(URI);
-      setProdsPool(response.data);
-      console.log(response.status);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const changeProp = (element) => {
-    setProduct(element);
-  };
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
+export const Homecom = ({product, changeProp, prodsPool}) => {
 
   return (
     <div className="homecontain">

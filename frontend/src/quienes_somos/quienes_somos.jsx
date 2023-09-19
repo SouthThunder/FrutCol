@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./quienes_somos.css";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
-import { fresa } from "../home/sliderProds";
+
 export const QuienesSomos = ({product}) => {
   useEffect(() =>{
     console.log('FuckingShiet')
@@ -10,10 +10,10 @@ export const QuienesSomos = ({product}) => {
   })
   return (
     <div className="quienesomos containerquienes">
-      <h1 className="tittlequienes">FrutCol-A</h1>
+      <h1 className="tittlequienes" style={{color:product.main_color}}>FrutCol-A</h1>
       <h3 className="sloganquienes">Apasionante y natural</h3>
       <div className="first containerquienes">
-        <h2 className="subtittleQuienes tittlequienes">Quienes Somos</h2>
+        <h2 className="subtittleQuienes tittlequienes" style={{color:product.main_color}}>Quienes Somos</h2>
         <p>
           FrutCol -A SAS es una empresa dedicada a la producción y
           comercialización de pulpa de fruta y otros alimentos 100% naturales.
@@ -30,7 +30,7 @@ export const QuienesSomos = ({product}) => {
       </div>
       <div className="misionvision containerquienes" style={{backgroundColor:product.comp_color}}>
         <div className="mision containerquienes">
-          <h2 className="tittlequienes ">Mision</h2>
+          <h2 className="tittlequienes" style={{color:product.main_color}}>Mision</h2>
           <p>
             Producir Pulpa de fruta y otros alimentos 100% naturales usando
             frutas, vegetales, hortalizas y tubérculos de las diferentes
@@ -44,7 +44,7 @@ export const QuienesSomos = ({product}) => {
         </div>
 
         <div className="vision containerquienes">
-          <h2 className="tittlequienes ">Vision</h2>
+          <h2 className="tittlequienes" style={{color:product.main_color}}>Vision</h2>
           <p>
             FrutCol – A SAS será una empresa consolidada con reconocimiento
             nacional e internacional por la producción y comercialización de
@@ -75,7 +75,7 @@ export const QuienesSomos = ({product}) => {
         </div>
       </div>
       <div className="objectives containerquienes" style={{backgroundColor:product.comp_color}}>
-        <h2 className="tittlequienes">Objetivos</h2>
+        <h2 className="tittlequienes" style={{color:product.main_color}}>Objetivos</h2>
         <ul className="objectives__list">
           <li>
             <p>
@@ -115,7 +115,7 @@ export const QuienesSomos = ({product}) => {
       </div>
     
       <div className="qualitypolicies containerquienes">
-        <h2 className="tittlequienes">Politicas de Calidad</h2>
+        <h2 className="tittlequienes" style={{color:product.main_color}}>Politicas de Calidad</h2>
         <p>
           FrutCol-A Establece una política de calidad basada en la normativa
           nacional y en las mejores prácticas higiénico-sanitarias, dando
@@ -133,8 +133,6 @@ export const QuienesSomos = ({product}) => {
 
 export const QuienesSomoscom = ({product}) => {
   useEffect(() =>{
-    console.log('fuck')
-    console.log(product)
   }, [product]);
 
   return (
