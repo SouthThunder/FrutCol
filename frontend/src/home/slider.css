@@ -28,6 +28,7 @@
         .homecontain > .slider > .first > .n1 > h1{
             margin-left: 10%;
             font-weight: var(--font-bolder);
+            font-size: calc(18px + 1vw);
         }
     
     /*PRICE*/
@@ -42,6 +43,7 @@
 
         .homecontain > .slider > .first >.n2 > h1{
             font-weight:var(--font-bolder);
+            font-size: calc(18px + 1vw);
         }
 
     /*ADD TO CART BUTTON*/
@@ -54,7 +56,8 @@
         }
 
         .homecontain > .slider > .first > .n3 >button{
-            padding:var(--lg-btn-padding);
+           /* padding:var(--lg-btn-padding);*/
+            padding: calc(1.3vw);
             border-radius: var(--l-border);
             border: none;
             background-color: var(--secondary-color);
@@ -114,6 +117,7 @@
 /*SECOND COLUMN OF THE GRID*/
 
     .homecontain > .slider > .second{
+        padding-left: 6vw;
         grid-column: 2/4;
         grid-row: 1/5;
         width: 80%;
@@ -125,14 +129,14 @@
         position:absolute;
         width: 30vw;
         max-width: 520px;
-        min-width: 350px;
+        min-width: 400px;
         margin-left: -6rem;
     }
 
     .homecontain > .slider > .second > img:nth-child(2){
         width: 15vw;
         max-width: 260px;
-        min-width: 150px;
+        min-width: 200px;
         z-index: 1;
     }
 
@@ -160,6 +164,7 @@
             justify-content: flex-end;
             margin-right: 10%;
             margin-bottom: 1rem;
+            font-size: calc(18px + 1vw);
         }
 
         .homecontain > .slider > .third > .n1 > h3{
