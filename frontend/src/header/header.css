@@ -49,7 +49,7 @@
 }
 
 .header > .nav-bar .nav__menu{
-    width: calc(50% - 15rem);
+    width: calc(50% - 10vw);
 }
 
 .header > .nav-bar .nav__menu > .nav__list {
@@ -164,6 +164,18 @@
 }
 
 .header > .nav-bar .nav__menu > .nav__list > .nav__item:nth-child(2) > button > img{
+    width: inherit;
+}
+
+.header > .nav-bar .nav__menu > .nav__list > .nav__item:nth-child(3) > button{
+    border: none;
+    background-color: transparent;
+    color: var(--strawberry-main-color);
+    cursor: pointer;
+    width: 2.5rem;
+}
+
+.header > .nav-bar .nav__menu > .nav__list > .nav__item:nth-child(3) > button > img{
     width: inherit;
 }
 

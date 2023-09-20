@@ -130,7 +130,7 @@ export const Headercom = ({product}) => {
                 </button>
               </li>
               <li className="nav__item">
-                <button>
+                <button onClick={()=> navigate('/ingreso')}>
                   <img src="images/carrito.png" />
                 </button>
               </li>

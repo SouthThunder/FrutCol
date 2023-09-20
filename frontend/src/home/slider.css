@@ -103,7 +103,6 @@
             background: transparent;
         }
 
-
         .homecontain > .slider > .first > .n4 >p:nth-child(1){
             margin-right: 10px;
         }
@@ -117,19 +116,23 @@
     .homecontain > .slider > .second{
         grid-column: 2/4;
         grid-row: 1/5;
+        width: 80%;
         display: flex;
         align-items: center;
     }
 
     .homecontain > .slider > .second > img:nth-child(1){
         position:absolute;
-        max-width: 600px;
+        width: 30vw;
+        max-width: 520px;
+        min-width: 350px;
         margin-left: -6rem;
     }
 
     .homecontain > .slider > .second > img:nth-child(2){
-        max-width: 300px;
-        max-height: 250px;
+        width: 15vw;
+        max-width: 260px;
+        min-width: 150px;
         z-index: 1;
     }
 
