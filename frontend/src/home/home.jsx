@@ -234,11 +234,9 @@ export const Products = ({ prodsPool }) => {
         localStorage.getItem("token") === undefined ||
         localStorage.getItem("token") === null
       ) {
-        console.log("not found");
         setUser(false);
         getProducts();
       } else {
-        console.log("found");
         setUser(true);
         getProductsFromCart();
       }

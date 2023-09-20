@@ -20,14 +20,14 @@ export const Infocuenta = (prop) => {
       Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
     };
 
-    var nombre_usuario = document.getElementById("nombre")?.value || "";
-    var apellido_usuario = document.getElementById("apellido")?.value || "";
-    var cedula_usuario = document.getElementById("cedula")?.value || "";
-    var correo_usuario = document.getElementById("correo")?.value || "";
-    var direccion_usuario = document.getElementById("direccion")?.value || "";
-    var id_usuario = prop.user[0].id_usuario;
-    var contrasena_usuario = prop.user[0].contrasena_usuario;
-    var role = prop.user[0].role;
+    let nombre_usuario = document.getElementById("nombre")?.value || "";
+    let apellido_usuario = document.getElementById("apellido")?.value || "";
+    let cedula_usuario = document.getElementById("cedula")?.value || "";
+    let correo_usuario = document.getElementById("correo")?.value || "";
+    let direccion_usuario = document.getElementById("direccion")?.value || "";
+    let id_usuario = prop.user[0].id_usuario;
+    let contrasena_usuario = prop.user[0].contrasena_usuario;
+    let role = prop.user[0].role;
 
     if (nombre_usuario !== "" && !texto.test(nombre_usuario)) {
       alert("Ingrese un nombre válido");
@@ -215,10 +215,10 @@ const headers = {
   Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
 };
 
-    var id_usuario = prop.user[0].id_usuario;
-    var contrasena_usuario1 =
+    let id_usuario = prop.user[0].id_usuario;
+    let contrasena_usuario1 =
       document.getElementById("contrasena")?.value || "";
-    var confirmacioncontra =
+      let confirmacioncontra =
       document.getElementById("newcontrasena")?.value || "";
 
     const passwordPattern = /^(?=.*\d)(?=.*[A-Z]).{8,}$/; // Al menos un número, una mayúscula y 8 o más caracteres
@@ -300,9 +300,8 @@ const headers = {
   );
 };
 
-export const InfoCuentacom = (prop) => {
+export const InfoCuentacom = ( {product} ) => {
   const decode = jwt_decode(localStorage.getItem("token"));
-  const [product, setProduct] = useState(null);
   const [isLoading, setisLoading] = useState(true);
   const firstRender = useRef(true);
 
@@ -317,18 +316,18 @@ export const InfoCuentacom = (prop) => {
     // Obtener datos del usuario cuando el componente se monta
     if (firstRender.current) {
       getUserData();
-      getProduct();
       firstRender.current = false;
     } else {
       if (
         userData !== null &&
-        product !== null &&
         headers.Authorization !== null
       ) {
+        document.documentElement.style.setProperty('--background-btn', product.main_color);
+        document.documentElement.style.setProperty('--btn-color', product.main_color);
         setisLoading(false);
       }
     }
-  }, [userData, product, headers]);
+  }, [userData, headers]);
 
   const getUserData = async () => {
     console.log(decode.id_usuario)
@@ -336,16 +335,6 @@ export const InfoCuentacom = (prop) => {
       const res = await axios.get(`${URI}${decode.id_usuario}`, { headers });
       console.log('test')
       setUserData(res.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getProduct = async () => {
-    try {
-      const URIP = "https://frutcola-backendpru.onrender.com/metadata";
-      const response = await axios.get(URIP);
-      setProduct(response.data[0]);
     } catch (error) {
       console.error(error);
     }

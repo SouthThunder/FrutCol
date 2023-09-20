@@ -9,6 +9,8 @@
     --text-color-light: (var(--hue-color));
     --text-gradient: linear-gradient(var(--gray-color), #357f27);
     --primary-color: #6B8E23;
+    --background-btn: ;
+    --btn-color: ;
     --secondary-color: white;
         --strawberry-main-color:#FF355E;
         --strawberry-font-color: #fc738f;

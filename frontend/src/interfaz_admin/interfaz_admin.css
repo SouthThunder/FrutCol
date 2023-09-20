@@ -196,12 +196,12 @@
     height: 60%;
     
 }
-.enter{
+.info_pagina .enter{
     display: flex;
     justify-content: center;
     margin-right: 16rem;
 }
-.enter > button {
+.info_pagina .enter > button {
     --border: 5px;    /* the border width */
     --slant: 0.7em;   /* control the slanted corners */
     --color: red; /* the color */
@@ -228,28 +228,28 @@
     transition: color var(--t,0.3s), background-size 0.3s;
   }
 
- .enter > button:focus-visible {
+  .info_pagina .enter > button:focus-visible {
     outline-offset: calc(-1*var(--border));
     outline: var(--border) solid #000c;
     clip-path: none;
     background-size: 0 0;
   }
- .enter > button:hover,
-.enter > button:active{
+  .info_pagina .enter > button:hover,
+  .info_pagina .enter > button:active{
     background-size: 100% 100%;
     color: #fff;
     --t: 0.2s 0.1s;
   }
-.enter > button:active {
+  .info_pagina .enter > button:active {
     --s: #0005;
     transition: none;
   }
 
-  .error{
+  .info_pagina  .error{
     color: red;
 }
 
-.shake {
+.info_pagina .shake {
     animation: shake 0.5s ease-in-out infinite;
   }
   

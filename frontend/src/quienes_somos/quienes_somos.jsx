@@ -4,10 +4,7 @@ import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 
 export const QuienesSomos = ({product}) => {
-  useEffect(() =>{
-    console.log('FuckingShiet')
-    console.log(product)
-  })
+
   return (
     <div className="quienesomos containerquienes">
       <h1 className="tittlequienes" style={{color:product.main_color}}>FrutCol-A</h1>
