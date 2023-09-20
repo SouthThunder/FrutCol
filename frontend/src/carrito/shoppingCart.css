@@ -5,13 +5,14 @@
     justify-content: flex-end;
     min-height: 40vh;
     margin-top: calc( var(--header-height) - var(--header-height) * 2);
-    position: absolute;
+    position: fixed;
     background-color: white;
     right: 0;
     border-radius: var(--sm-border);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
     z-index: 1;
     animation: popup 0.5s;
+    overflow-y:scroll;
 }
 
 @keyframes popup {
@@ -118,3 +119,16 @@
 .shoppingCart > .body > .elements > .card > .pImg > img{
     width: 100%;
 }
+.shoppingCart > .body > .elements > .noprod > .emptycar{
+   width: 200px;
+   height: 200px;
+  }
+  .shoppingCart > .body > .elements > .noprod{
+    display: flex;
+    flex-direction: column;
+    align-self: center ; 
+    text-align: center;
+   }
+   .shoppingCart > .body{
+    overflow: auto;
+   }

@@ -34,7 +34,17 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
       changestyle(product);
     }
   }, [product]);
+  const handleAddToCart = () => {
+    // Realiza cualquier acción relacionada con agregar al carrito aquí
 
+    // Obtén la referencia al elemento con el ancla '#products'
+    const productsAnchor = document.querySelector('#products');
+
+    if (productsAnchor) {
+      // Usa scrollIntoView con el comportamiento de desplazamiento suave
+      productsAnchor.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   const incrementArray = (step) => {
     const newIndex =
       (activeProductIndex + step + prodsPool.length) % prodsPool.length;
@@ -60,6 +70,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
         </div>
         <div className="n3">
           <button
+          onClick={handleAddToCart}
             onMouseEnter={(e) =>
               (e.target.style.backgroundColor = primaryColor)
             }
@@ -299,7 +310,7 @@ export const Products = ({ prodsPool }) => {
   }
 
   return (
-    <div className="productsComp">
+    <div className="productsComp" id="products">
       <div className="title">
         <h1>Productos</h1>
       </div>
