@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import './shoppingCart.css'
-import { Producto } from "./cartSlice";
+import { Producto } from "../home/cartSlice";
 import jwt_decode from "jwt-decode";
 
 export const ShoppingCart = ({ visibility, changeCartVis}) => {

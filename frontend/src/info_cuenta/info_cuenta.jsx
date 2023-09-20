@@ -331,8 +331,10 @@ export const InfoCuentacom = (prop) => {
   }, [userData, product, headers]);
 
   const getUserData = async () => {
+    console.log(decode.id_usuario)
     try {
       const res = await axios.get(`${URI}${decode.id_usuario}`, { headers });
+      console.log('test')
       setUserData(res.data);
     } catch (error) {
       console.error(error);

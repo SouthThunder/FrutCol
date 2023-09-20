@@ -6,7 +6,6 @@ import "./products.css";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 import { Producto } from "./cartSlice";
-import LoadingSpinner from "../loading/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
 
 export const Slider = ({ product, changeProp, prodsPool }) => {

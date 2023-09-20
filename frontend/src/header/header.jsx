@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./header.css";
-import { ShoppingCart } from "../home/shoppingCart";
+import { ShoppingCart } from "../carrito/shoppingCart";
 
 export const HeadPopUp = ({product, trigger}) => {
   useEffect(() => {
