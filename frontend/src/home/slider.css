@@ -28,7 +28,7 @@
         .homecontain > .slider > .first > .n1 > h1{
             margin-left: 10%;
             font-weight: var(--font-bolder);
-            font-size: calc(18px + 1vw);
+            font-size: calc(15px + 1vw);
         }
     
     /*PRICE*/
@@ -43,7 +43,7 @@
 
         .homecontain > .slider > .first >.n2 > h1{
             font-weight:var(--font-bolder);
-            font-size: calc(18px + 1vw);
+            font-size: calc(15px + 1vw);
         }
 
     /*ADD TO CART BUTTON*/
@@ -164,7 +164,7 @@
             justify-content: flex-end;
             margin-right: 10%;
             margin-bottom: 1rem;
-            font-size: calc(18px + 1vw);
+            font-size: calc(15px + 1vw);
         }
 
         .homecontain > .slider > .third > .n1 > h3{

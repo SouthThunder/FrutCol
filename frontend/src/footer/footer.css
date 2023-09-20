@@ -30,9 +30,15 @@ footer {
     flex-direction: column;
     row-gap: .5rem;
 }
-footer > .footer__section > .footer__content > .footer__links > li > .footer__link{
-    color:var(--text-color); 
+
+footer > .footer__section > .footer__content > .footer__links > li{
+    margin-top: .2rem;
 }
+
+footer > .footer__section > .footer__content > .footer__links > li > .footer__link {
+    color: black;
+}
+
 footer > .footer__section > .footer__content > .footer__links > li > .footer__link:hover{
     color:var(--white-color);
 }

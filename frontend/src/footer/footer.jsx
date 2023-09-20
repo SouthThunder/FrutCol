@@ -29,7 +29,7 @@ export const Footercom = ({product}) => {
           <ul className="footer__links">
             <li>
               <Link to="#" className="footer__link">
-                <i className="ri-phone-line"></i> 571 3108621696
+                <i className="ri-phone-line"> 571 3108621696</i> 
               </Link>
             </li>
             <li>
@@ -38,7 +38,7 @@ export const Footercom = ({product}) => {
                 className="footer__link"
                 target="_balnk"
               >
-                <i className="ri-mail-line"></i> frutcol0518@gmail.com
+                <i className="ri-mail-line"> frutcol0518@gmail.com</i> 
               </a>
             </li>
           </ul>
