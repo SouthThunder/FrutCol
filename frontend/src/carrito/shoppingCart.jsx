@@ -15,7 +15,6 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
    const [test, setTest] = useState({
     producto: [],
   });
-  const navigate = useNavigate();
   const refreshPage = () => {
     window.location.reload();
   };
@@ -46,8 +45,7 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
     const URIC= `https://frutcola-backendpru.onrender.com/carrito/${id_h.id_usuario}`;
     if(totalp>0){
     try {
-      
-      const prueba =await axios.post(URIR, {
+      await axios.post(URIR, {
        id_usuario:id_h.id_usuario,
        num_productos_reserva: totalp,
        valor_reserva:total,
@@ -93,41 +91,31 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
       console.error("ERROR: " + error);
     }
   };
+
   useEffect(() => {
     // Calcula el precio total sumando el precio de cada producto multiplicado por la cantidad
     const totalpruductos= test.producto.reduce(
       (accumulator, prods) => {
-        const matchingProduct = products.find(
-          (prod) => prod.nombre_producto === prods.nombre
-        );
-
-        if (prods.cantidad > 0 && matchingProduct) {
-          return accumulator+1;
+        if (prods.cantidad > 0) {
+          return accumulator+=prods.cantidad;
         }
-
         return accumulator;
       },
       0
     );
     const totalPrice = test.producto.reduce(
       (accumulator, prods) => {
-        const matchingProduct = products.find(
-          (prod) => prod.nombre_producto === prods.nombre
-        );
-
-        if (prods.cantidad > 0 && matchingProduct) {
-          return accumulator + prods.cantidad * matchingProduct.precio_producto;
+        if (prods.cantidad > 0 ) {
+          return accumulator + prods.cantidad * prods.precio;
         }
-
         return accumulator;
       },
       0
     );
-
     // Actualiza el estado total con el nuevo precio total calculado
     setTotal(totalPrice);
     setTotalp(totalpruductos);
-  }, [test.producto, products]);
+  }, [active]);
 
   const chkVis = () => {
     if (visibility === null || visibility === undefined) {
