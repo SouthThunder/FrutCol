@@ -11,7 +11,7 @@ const numeros = /^\d+$/; // Solo números
 const texto = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
 
 const regexHexadecimal = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
-const regexNombreArchivo = /^[A-Za-z0-9]+\.(jpg|jpeg|png|gif|bmp)$/;
+const regexNombreArchivo = /^[A-Za-z0-9]+.*\.(jpg|jpeg|png|gif|bmp)$/;
 const headers = {
   Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
 };
