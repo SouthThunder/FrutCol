@@ -86,11 +86,7 @@ export const Footercom = ({product}) => {
                 Nuestra Historia
               </Link>
             </li>
-            <li>
-              <Link to="#" className="footer__link">
-                FAQ
-              </Link>
-            </li>
+            
           </ul>
         </div>
       </div>
