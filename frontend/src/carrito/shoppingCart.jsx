@@ -4,7 +4,6 @@ import './shoppingCart.css'
 import { Producto } from "../home/cartSlice";
 import jwt_decode from "jwt-decode";
 import { Toaster, toast } from 'sonner';
-import { Link, useNavigate } from "react-router-dom";
 
 export const ShoppingCart = ({ visibility, changeCartVis}) => {
   const [active, setActive] = useState([]);
@@ -41,20 +40,31 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
   const id_h= jwt_decode(localStorage.getItem('token'))
   
   const handleReserve = async () =>{
-    const URIR='https://frutcola-backendpru.onrender.com/reserva';
+    //const URIR='https://frutcola-backendpru.onrender.com/reserva';
+    const URIR='http://localhost:8000/reserva';
+    const URIRP= 'http://localhost:8000/reserprod';
     const URIC= `https://frutcola-backendpru.onrender.com/carrito/${id_h.id_usuario}`;
     if(totalp>0){
     try {
-      await axios.post(URIR, {
+      const testing= await axios.post(URIR, {
        id_usuario:id_h.id_usuario,
        num_productos_reserva: totalp,
        valor_reserva:total,
        fecha_reserva: new Date().toISOString().slice(0, 10),
       }, {headers});
-      await axios.delete(URIC, {headers});
-      
+        test.producto.map(async (prod) =>{
+          if(prod.cantidad > 0){
+            await axios.post(URIRP, {
+              id_reserva: testing.data,
+              id_producto: prod.id
+            }, {
+              headers
+            })
+          }
+        })
+      await axios.delete(URIC, {headers});      
       toast.success('La reserva ha sido creada');
-      await new Promise((resolve) => setTimeout(resolve, 1500)); // Esperar 1 segundo 
+      await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo 
       refreshPage();
 
     } catch (error) {

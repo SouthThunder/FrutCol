@@ -572,6 +572,7 @@ export const Informacionpagina = (prop) => {
     </div>
   );
 };
+
 export const Reservas = (prop) => {
   return <h4>SOY RESERVAS</h4>;
 };
@@ -583,9 +584,9 @@ export const InterfazAdmincom = ({product}) => {
 
   return (
     <div className="infopagecontain">
-      <Headercom prod={product} />
-      <Informacionpagina prod={product} />
-      <Footercom prod={product} />
+      <Headercom product={product} />
+      <Informacionpagina product={product} />
+      <Footercom product={product} />
     </div>
   );
 };
