@@ -55,9 +55,10 @@ export class Producto {
     try {
     const id_carrito= jwt_decode(localStorage.getItem('token'))
     const URI = `https://frutcola-backendpru.onrender.com/carrito/${id_carrito.id_usuario}/${this.id}`;
-      await axios.delete(URI, {
+      const res= await axios.delete(URI, {
         headers
       });
+      console.log(res);
     } catch (error) {
       console.error(error);
     }

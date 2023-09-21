@@ -40,9 +40,8 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
   const id_h= jwt_decode(localStorage.getItem('token'))
   
   const handleReserve = async () =>{
-    //const URIR='https://frutcola-backendpru.onrender.com/reserva';
-    const URIR='http://localhost:8000/reserva';
-    const URIRP= 'http://localhost:8000/reserprod';
+    const URIR='https://frutcola-backendpru.onrender.com/reserva';
+    const URIRP= 'https://frutcola-backendpru.onrender.com/reserprod';
     const URIC= `https://frutcola-backendpru.onrender.com/carrito/${id_h.id_usuario}`;
     if(totalp>0){
     try {
@@ -80,7 +79,6 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
     const idk= `https://frutcola-backendpru.onrender.com/carrito/${id_carrito.id_usuario}`;
     
     try {
-      
       const res = await axios.get(URI);
       const res2 = await axios.get(idk,{headers});
       setProducts(res.data);
