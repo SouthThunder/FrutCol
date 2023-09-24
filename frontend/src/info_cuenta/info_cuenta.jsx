@@ -172,6 +172,15 @@ export const Infocontenidos = (prop) => {
         Información General
       </h4>
       <h4
+        onClick={() => prop.onSelectOption("historialReserva")}
+        style={{
+          backgroundColor:
+            prop.selectedOption === "historialReserva" ? "#f2f2f2" : "transparent",
+        }}
+      >
+        Historial de Reservas
+      </h4>
+      <h4
         onClick={() => prop.onSelectOption("cambiocontraseña")}
         style={{
           backgroundColor:
@@ -185,9 +194,41 @@ export const Infocontenidos = (prop) => {
     </div>
   );
 };
+
+export const HistorialReservas = ({userHistory}) =>{
+  
+  useEffect(() =>{
+  }, [])
+  return (
+    <div className="historialReserva">
+      <div className="container">
+        <div className="labels">
+          <ul>
+            <li># reserva</li>
+            <li>Items totales</li>
+            <li>Fecha</li>
+            <li>Valor total</li>
+          </ul>
+        </div>
+        {
+          userHistory.map((userHistory) =>{
+            return(
+              <ul className="orders">
+              <li>{userHistory.id_reserva}</li>
+              <li>{userHistory.num_productos_reserva}</li>
+              <li>{userHistory.fecha_reserva}</li>
+              <li>{userHistory.valor_reserva}</li>
+            </ul>
+            )
+          })
+        }
+      </div>
+    </div>
+  )
+}
+
 export const Informacioncuenta = (prop) => {
   const [selectedOption, setSelectedOption] = useState("infocuenta"); // Por defecto muestra "infocuenta"
-
   const handleOptionChange = (option) => {
     setSelectedOption(option);
   };
@@ -197,14 +238,19 @@ export const Informacioncuenta = (prop) => {
         onSelectOption={handleOptionChange}
         selectedOption={selectedOption}
       />
-      {selectedOption === "infocuenta" ? (
+      {
+      selectedOption === "infocuenta" ? (
         <Infocuenta prod={prop} user={prop.userData} />
+      ) : selectedOption === 'historialReserva' ? (
+        <HistorialReservas userHistory= {prop.userHistory}/>
       ) : selectedOption === "cambiocontraseña" ? (
         <Cambiocontraseña prod={prop} user={prop.userData} />
       ) : null}
     </div>
   );
 };
+
+
 export const Cambiocontraseña = (prop) => {
   const [showPassword, setShowPassword] = useState(false);
   const handleActualizarContra = async (e) => {
@@ -215,7 +261,6 @@ const headers = {
   Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
 };
 
-    let id_usuario = prop.user[0].id_usuario;
     let contrasena_usuario1 =
       document.getElementById("contrasena")?.value || "";
       let confirmacioncontra =
@@ -254,7 +299,27 @@ const headers = {
   };
   return (
     <div className="cambiocontrasena">
-      <form action="" className="form">
+      <form action="" className="form"> 
+      <div className="input__info">
+          <small className="errores">Error message</small>
+          <ion-icon name="person"></ion-icon>
+          <input
+            type={showPassword ? "text" : "password"}
+            id="oldcontrasena"
+            name="oldcontrasena"
+          />
+          <label htmlFor="">Vieja contraseña</label>
+          <button
+            className="invisible"
+            type="button"
+            onClick={togglePasswordVisibility}
+          >
+            <img
+              src={showPassword ? "images/ojo.png" : "images/invisible.png"}
+              alt={showPassword ? "visible" : "invisible"}
+            />
+          </button>
+        </div>
         <div className="input__info">
           <small className="errores">Error message</small>
           <ion-icon name="person"></ion-icon>
@@ -306,6 +371,7 @@ export const InfoCuentacom = ( {product} ) => {
   const firstRender = useRef(true);
 
   const [userData, setUserData] = useState(null); // Estado para almacenar los datos del usuario
+  const [userHistory, setUserHistory] = useState(null);
 
   const accessToken = localStorage.getItem("token");
   const headers = {
@@ -316,29 +382,39 @@ export const InfoCuentacom = ( {product} ) => {
     // Obtener datos del usuario cuando el componente se monta
     if (firstRender.current) {
       getUserData();
+      getHistoryData();
       firstRender.current = false;
     } else {
       if (
         userData !== null &&
-        headers.Authorization !== null
+        headers.Authorization !== null &&
+        userHistory !== null 
       ) {
         document.documentElement.style.setProperty('--background-btn', product.main_color);
         document.documentElement.style.setProperty('--btn-color', product.main_color);
         setisLoading(false);
       }
     }
-  }, [userData, headers]);
+  }, [userData, headers, userHistory]);
 
   const getUserData = async () => {
-    console.log(decode.id_usuario)
     try {
       const res = await axios.get(`${URI}${decode.id_usuario}`, { headers });
-      console.log('test')
       setUserData(res.data);
     } catch (error) {
       console.error(error);
     }
   };
+
+  const getHistoryData = async () => {
+    const lURI = 'http://localhost:8000/reserva/usuario'
+    try {
+      const res = await axios.get(lURI, { headers });
+      setUserHistory(res.data);
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -347,7 +423,7 @@ export const InfoCuentacom = ( {product} ) => {
   return (
     <div className="infoCuentacontain">
       <Headercom product={product} />
-      <Informacioncuenta product={product} userData={userData} />
+      <Informacioncuenta product={product} userData={userData} userHistory={userHistory}/>
       <Footercom product={product} />
     </div>
   );

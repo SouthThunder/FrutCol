@@ -34,8 +34,7 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
     const URI= `https://frutcola-backendpru.onrender.com/productos/${id}`;
     await axios.delete(URI, {
         headers,
-      });
-      
+      });  
   }
   const id_h= jwt_decode(localStorage.getItem('token'))
   

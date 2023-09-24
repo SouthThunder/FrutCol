@@ -2,7 +2,7 @@
     display: flex;
     text-align: left;
     width: 90%;
-    min-height: 30vh;
+    min-height: 50vh;
     margin: 8rem;
 }
 .infocuenta > .contenidos{
@@ -42,7 +42,14 @@
 .infocuenta > .cambiocontrasena{
     width: 100%;
     margin-left: 3rem;
+    display: flex;
+    align-items: center;
 }
+
+.infocuenta > .cambiocontrasena > .form{
+    width: 100%;
+}
+
 .infocuenta > .cambiocontrasena > .form > .input__info > .invisible{
     background: none;
     border: none;
@@ -129,5 +136,41 @@
 .infoCuentacontain .enter > button:active{
     background-color: var(--btn-color);
     color: #fff;
-    
   }
+
+
+.infocuenta > .historialReserva{
+    width: 100%;
+    margin-left: 3rem;
+    display: flex;
+    align-items: center;
+}
+
+.infocuenta > .historialReserva > .container{
+    width: 80%;
+    height: 100%;
+    background-color: beige;
+}
+
+.infocuenta > .historialReserva > .container > .labels{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 3rem;
+    border-radius: var(--sm-border);
+    border: 1px solid black;
+}
+
+.infocuenta > .historialReserva > .container > .labels > ul {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.infocuenta > .historialReserva > .container > .orders {
+    display: flex;
+    justify-content: space-around;
+    height: 3rem;
+    border-bottom: 1px solid black;
+    align-items: center;
+}
