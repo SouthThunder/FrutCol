@@ -42,7 +42,7 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
   const handleReserve = async () =>{
     const URIR='https://frutcola-backendpru.onrender.com/reserva';
     const URIRP= 'https://frutcola-backendpru.onrender.com/reserprod';
-    const URIC= `https://frutcola-backendpru.onrender.com/carrito/${id_h.id_usuario}`;
+    const URI = "https://frutcola-backendpru.onrender.com/carrito/mod";
     if(totalp>0){
     try {
       const testing= await axios.post(URIR, {
@@ -55,13 +55,21 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
           if(prod.cantidad > 0){
             await axios.post(URIRP, {
               id_reserva: testing.data,
-              id_producto: prod.id
+              id_producto: prod.id,
+              cantidad_producto: prod.cantidad
             }, {
               headers
             })
+
+            await axios.put(URI, {
+              id_carrito: id_h.id_usuario,
+              id_producto: prod.id,
+              cantidad_producto: 0,
+            }, {
+              headers
+            });
           }
         })
-      await axios.delete(URIC, {headers});      
       toast.success('La reserva ha sido creada');
       await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo 
       refreshPage();

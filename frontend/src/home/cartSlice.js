@@ -52,13 +52,16 @@ export class Producto {
 
   async delProd(headers) {
     this.cantidad=0;
+    const idUser= jwt_decode(localStorage.getItem('token'))
     try {
-    const id_carrito= jwt_decode(localStorage.getItem('token'))
-    const URI = `https://frutcola-backendpru.onrender.com/carrito/${id_carrito.id_usuario}/${this.id}`;
-      const res= await axios.delete(URI, {
+      const URI = "https://frutcola-backendpru.onrender.com/carrito/mod";
+      await axios.put(URI, {
+        id_carrito: idUser.id_usuario,
+        id_producto: this.id,
+        cantidad_producto: this.cantidad,
+      }, {
         headers
       });
-      console.log(res);
     } catch (error) {
       console.error(error);
     }
