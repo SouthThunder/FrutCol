@@ -2,18 +2,16 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 export class Producto {
-  constructor(id, nombre, precio, cantidad, image) {
+  constructor(id, nombre, precio, cantidad, image, exists) {
     this.id = id;
     this.nombre = nombre;
     this.precio = precio;
     this.cantidad = cantidad;
     this.image = image;
+    this.exists = exists;
   }
 
-  // Método para actualizar el precio
-  actualizarPrecio(nuevoPrecio) {
-    this.precio = nuevoPrecio;
-  }
+
 
   // Método para actualizar la cantidad
   async sumCantidad(headers) {

@@ -184,7 +184,11 @@ export const ProdsComp = ({ product, headers, loged }) => {
         {
           loged? (
             <button onClick={() => {
-              element.insertIntoDb(headers)
+              if(element.exists){
+                element.sumCantidad(headers);
+              }else{
+                element.insertIntoDb(headers)
+              }
               setTest(!test)
             }}>+ Añadir al carrito</button>
           ) : <button onClick={() => navigate('/Ingreso')}>+ Añadir al carrito</button>
@@ -285,7 +289,8 @@ export const Products = ({ prodsPool }) => {
               prod.nombre_producto,
               prod.precio_producto,
               0,
-              prod.image
+              prod.image,
+              false
             );
           } else {
             return new Producto(
@@ -293,7 +298,8 @@ export const Products = ({ prodsPool }) => {
               prod.nombre_producto,
               prod.precio_producto,
               it.cantidad_producto,
-              prod.image
+              prod.image,
+              true
             );
           }
         })

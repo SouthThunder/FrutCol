@@ -407,7 +407,7 @@ export const InfoCuentacom = ( {product} ) => {
   };
 
   const getHistoryData = async () => {
-    const lURI = 'http://localhost:8000/reserva/usuario'
+    const lURI = 'https://frutcola-backendpru.onrender.com/reserva/usuario'
     try {
       const res = await axios.get(lURI, { headers });
       setUserHistory(res.data);

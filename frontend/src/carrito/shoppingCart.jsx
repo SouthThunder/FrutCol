@@ -38,7 +38,7 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
   }
   const id_h= jwt_decode(localStorage.getItem('token'))
   
-  const handleReserve = async () =>{
+  const handleReserve = async () =>{ 
     const URIR='https://frutcola-backendpru.onrender.com/reserva';
     const URIRP= 'https://frutcola-backendpru.onrender.com/reserprod';
     const URI = "https://frutcola-backendpru.onrender.com/carrito/mod";
