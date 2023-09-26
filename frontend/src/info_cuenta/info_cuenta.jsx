@@ -9,16 +9,16 @@ import LoadingSpinner from "../loading/LoadingSpinner";
 const numeros = /^\d+$/; // Solo números
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 const texto = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
-
+const accessToken = localStorage.getItem("token");
+const headers = {
+  Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
+};
 const URI = "https://frutcola-backendpru.onrender.com/usuarios/";
 const URI2 = "https://frutcola-backendpru.onrender.com/usuarios/contrasena/";
+
 export const Infocuenta = (prop) => {
   const handleActualizar = async (e) => {
     e.preventDefault();
-    const accessToken = localStorage.getItem("token");
-    const headers = {
-      Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
-    };
 
     let nombre_usuario = document.getElementById("nombre")?.value || "";
     let apellido_usuario = document.getElementById("apellido")?.value || "";
@@ -196,8 +196,73 @@ export const Infocontenidos = (prop) => {
     </div>
   );
 };
+export const ProductosReserva = (prop) => {
+  const URI = `https://frutcola-backendpru.onrender.com/reserprod/${prop.reservation.id_reserva}`;
+  const URI2 = "https://frutcola-backendpru.onrender.com/metadata/";
+  const [metadata, setMetadata] = useState([]);
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    getMetadata();
+    getProducts();
+  }, []);
+  const getMetadata = async () => {
+    try {
+      const res = await axios.get(URI2);
+      setMetadata(res.data);
+    } catch (error) {
+      console.error("ERROR: " + error);
+    }
+  };
+  const getProducts = async () => {
+    try {
+      const res = await axios.get(URI, { headers });
+      console.log(res);
+      setProducts(res.data);
+    } catch (error) {
+      console.error("ERROR: " + error);
+    }
+  };
 
-export const HistorialReservas = ({ userHistory }) => {
+
+  return (
+    <div className="resprod">
+      <div className="elements">
+        {products.map((products) => {
+          const matchingProduct = metadata.find(
+            (prod) => prod.id_metadata_producto === products.id_producto
+          );
+          return (
+            <div className="product" key={products.id_producto}>
+              <div className="pImg">
+                <img
+                  src={"../../images/" + matchingProduct.image}
+                  alt={matchingProduct.nombre_producto}
+                />
+              </div>
+              <div className="title">
+                <div className="promt">
+                  <h3>{matchingProduct.nombre_producto}</h3>
+                  <p>Cantidad: {products.cantidad_producto}</p>
+                </div>
+                <div className="unit">
+                  <div className="container">
+                    <p>$ {matchingProduct.precio_producto} c/u</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export const HistorialReservas = (prop) => {
+  const handleReservationClick = (reserva) => {
+    prop.onSelectOption("productosreserva");
+    prop.onSelectReservation(reserva);
+  };
   useEffect(() => {}, []);
   return (
     <div className="historialReserva">
@@ -216,9 +281,9 @@ export const HistorialReservas = ({ userHistory }) => {
               <p>Valor total</p>
             </div>
         </div>
-        {userHistory.map((userHistory) => {
+        {prop.userHistory.map((userHistory) => {
           return (
-            <ul className="orders" key={userHistory.num_orden}>
+            <ul className="orders" key={userHistory.num_orden}  onClick={() => handleReservationClick(userHistory)}>
               <div className="lItem">
                 <li>{userHistory.num_orden}</li>
               </div>
@@ -241,6 +306,7 @@ export const HistorialReservas = ({ userHistory }) => {
 
 export const Informacioncuenta = (prop) => {
   const [selectedOption, setSelectedOption] = useState("infocuenta"); // Por defecto muestra "infocuenta"
+  const [selectedReservation, setSelectedReservation] = useState(null);
   const handleOptionChange = (option) => {
     setSelectedOption(option);
   };
@@ -253,9 +319,19 @@ export const Informacioncuenta = (prop) => {
       {selectedOption === "infocuenta" ? (
         <Infocuenta prod={prop} user={prop.userData} />
       ) : selectedOption === "historialReserva" ? (
-        <HistorialReservas userHistory={prop.userHistory} />
+        <HistorialReservas
+          onSelectOption={handleOptionChange}
+          onSelectReservation={setSelectedReservation}
+          userHistory={prop.userHistory}
+        />
       ) : selectedOption === "cambiocontraseña" ? (
         <Cambiocontraseña prod={prop} user={prop.userData} />
+      ) : selectedOption === "productosreserva" ? (
+        <ProductosReserva
+          prod={prop}
+          reservation={selectedReservation}
+          onSelectOption={handleOptionChange}
+        />
       ) : null}
     </div>
   );
