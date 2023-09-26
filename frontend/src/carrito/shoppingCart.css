@@ -50,10 +50,10 @@
     flex-direction: column;
     justify-content: end;
     align-items: center;
-   
     height: 100%;
     width: 100%;
 }
+
 .shoppingCart > .bottom > button{
     margin-top: .5rem;
     width: 100%;
@@ -61,8 +61,13 @@
     margin-right: 0rem;
     background-color: transparent;
     border: none;
-   
 }
+
+.shoppingCart > .bottom > button:hover{
+    cursor: pointer;
+    transition: all 0.5s var(--btn-cubic-bezier);
+}
+
 .shoppingCart > .bottom > p{
     width: 55%;
     text-align: center;

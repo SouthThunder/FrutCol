@@ -223,10 +223,21 @@ export const ProductosReserva = (prop) => {
     }
   };
 
-
   return (
     <div className="resprod">
+      <h2>Número de orden: {prop.reservation.num_orden}</h2>
       <div className="elements">
+        <div className="labels">
+          <div className="lItem">
+            <p>Producto</p>
+          </div>
+          <div className="lItem">
+            <p>Cantidad</p>
+          </div>
+          <div className="lItem">
+            <p>Valor</p>
+          </div>
+        </div>
         {products.map((products) => {
           const matchingProduct = metadata.find(
             (prod) => prod.id_metadata_producto === products.id_producto
@@ -234,25 +245,27 @@ export const ProductosReserva = (prop) => {
           return (
             <div className="product" key={products.id_producto}>
               <div className="pImg">
+                <div className="title">
+                  <h3>{matchingProduct.nombre_producto}</h3>
+                </div>
                 <img
                   src={"../../images/" + matchingProduct.image}
                   alt={matchingProduct.nombre_producto}
                 />
               </div>
-              <div className="title">
-                <div className="promt">
-                  <h3>{matchingProduct.nombre_producto}</h3>
-                  <p>Cantidad: {products.cantidad_producto}</p>
-                </div>
-                <div className="unit">
-                  <div className="container">
-                    <p>$ {matchingProduct.precio_producto} c/u</p>
-                  </div>
-                </div>
+              <div className="promt">
+                <p>Cantidad: {products.cantidad_producto}</p>
+              </div>
+              <div className="unit">
+                <p>$ {matchingProduct.precio_producto} c/u</p>
               </div>
             </div>
           );
         })}
+      </div>
+      <div className="separator"></div>
+      <div className="total">
+        <p><strong>Total:</strong> {prop.reservation.valor_reserva}</p>
       </div>
     </div>
   );
@@ -268,22 +281,26 @@ export const HistorialReservas = (prop) => {
     <div className="historialReserva">
       <div className="container">
         <div className="labels">
-            <div className="lItem">
-              <p># Reserva</p>
-            </div>
-            <div className="lItem">
-              <p>Número de productos </p>
-            </div>
-            <div className="lItem">
-              <p>Fecha</p>
-            </div>
-            <div className="lItem">
-              <p>Valor total</p>
-            </div>
+          <div className="lItem">
+            <p># Reserva</p>
+          </div>
+          <div className="lItem">
+            <p>Número de productos </p>
+          </div>
+          <div className="lItem">
+            <p>Fecha</p>
+          </div>
+          <div className="lItem">
+            <p>Valor total</p>
+          </div>
         </div>
         {prop.userHistory.map((userHistory) => {
           return (
-            <ul className="orders" key={userHistory.num_orden}  onClick={() => handleReservationClick(userHistory)}>
+            <ul
+              className="orders"
+              key={userHistory.num_orden}
+              onClick={() => handleReservationClick(userHistory)}
+            >
               <div className="lItem">
                 <li>{userHistory.num_orden}</li>
               </div>
