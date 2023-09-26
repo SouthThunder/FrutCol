@@ -5,13 +5,21 @@ import { ShoppingCart } from "../carrito/shoppingCart";
 
 export const HeadPopUp = ({product, trigger}) => {
   useEffect(() => {
-    
+    document.documentElement.style.setProperty(
+      "--btn-color",
+      product.main_color
+    );
   }, [product]);
+  const navigate = useNavigate();
 
   const logout = () => {
     localStorage.clear();
     window.location.href = "/";
   };
+
+  const reDirect =  () => {
+    navigate('/InformacionCuenta');
+  }
 
   return (
     <div>
@@ -21,30 +29,19 @@ export const HeadPopUp = ({product, trigger}) => {
           style={{ backgroundColor: product.header_color }}
         >
           <div className="popup-inner">
-            <Link
-              to={"/InformacionCuenta"}
-              style={{ color: product.main_color }}
+            <button
+            onClick={reDirect}
             >
-              Settings
-            </Link>
+              Ajustes
+            </button>
           </div>
-          <div className="popup-inner">
-            <span className="separator"></span>
+          <div className="separator">
           </div>
           <div className="popup-inner">
             <button
               onClick={logout}
-              style={{ color: product.main_color }}
-              onMouseEnter={(e) => (
-                (e.target.style.backgroundColor = product.main_color),
-                (e.target.style.color = "#FFFF")
-              )}
-              onMouseLeave={(e) => (
-                (e.target.style.backgroundColor = product.header_color),
-                (e.target.style.color = product.main_color)
-              )}
             >
-              Log Out
+              Salir
             </button>
           </div>
         </div>

@@ -91,52 +91,43 @@
     }
 
     .header > .nav-bar .nav__menu > .nav__list > .nav__item  .popup-header .popup-inner{
-        height: 2rem;
+        height: 2.4rem;
     }
 
-    .header > .nav-bar .nav__menu > .nav__list > .nav__item  .popup-header .popup-inner:nth-child(2){
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .header > .nav-bar .nav__menu > .nav__list > .nav__item  .popup-header .separator{
+        background-color: black;
+        height: 1.5px;
+        width: 100%;
+        margin: auto;
     }
 
-    .header > .nav-bar .nav__menu > .nav__list > .nav__item  .popup-header .popup-inner .separator{
-        width: 60%;
-        position: absolute;
-        border: 1px solid black;
-    }
-
-    .header > .nav-bar .nav__menu > .nav__list > .nav__item  .popup-header .popup-inner a,
-    .header > .nav-bar .nav__menu > .nav__list > .nav__item  .popup-header .popup-inner button{
+    .header > .nav-bar .nav__menu > .nav__list > .nav__item .popup-header .popup-inner button{
         width: 100%;
         height: 100%;
         background-color: transparent;
         border: none;
         font-size: 1rem;
+        color: var(--btn-color);
     }
 
-    .header > .nav-bar .nav__menu > .nav__list > .nav__item .popup-header .popup-inner a{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        font-weight: var(--font-medium);
+    .header > .nav-bar .nav__menu > .nav__list > .nav__item .popup-header .popup-inner:nth-child(1) button:hover{
+        cursor: pointer;
+        border-top-left-radius: var(--xs-border);
+        border-top-right-radius: var(--xs-border);
+        transition: all 1s var(--btn-cubic-bezier);
+        background-color: var(--btn-color);
+        color: white;
     }
 
-    .header > .nav-bar .nav__menu > .nav__list > .nav__item .popup-header .popup-inner button:hover{
+    .header > .nav-bar .nav__menu > .nav__list > .nav__item .popup-header .popup-inner:nth-child(3) button:hover{
         cursor: pointer;
         border-bottom-left-radius: var(--xs-border);
         border-bottom-right-radius: var(--xs-border);
         transition: all 1s var(--btn-cubic-bezier);
+        background-color: var(--btn-color);
+        color: white;
     }
 
-    .header > .nav-bar .nav__menu > .nav__list > .nav__item  .popup-header .popup-inner a:hover{
-        cursor: pointer;
-        border-top-left-radius: var(--xs-border);
-        border-top-right-radius: var(--xs-border);
-        color: var(--secondary-color);
-        transition: all 1s var(--btn-cubic-bezier);
-    }
 
 .header > .nav-bar .nav__menu > .nav__list > .nav__item:nth-child(1) > button{
     background-color: var(--strawberry-main-color);
