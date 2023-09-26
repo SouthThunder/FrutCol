@@ -80,7 +80,7 @@ export const Infocuenta = (prop) => {
     };
     try {
       await axios.put(`${URI}${prop.user[0].id_usuario}`, user, {
-        headers
+        headers,
       });
       alert("Los datos se actualizaron correctamente");
       window.location.reload();
@@ -175,7 +175,9 @@ export const Infocontenidos = (prop) => {
         onClick={() => prop.onSelectOption("historialReserva")}
         style={{
           backgroundColor:
-            prop.selectedOption === "historialReserva" ? "#f2f2f2" : "transparent",
+            prop.selectedOption === "historialReserva"
+              ? "#f2f2f2"
+              : "transparent",
         }}
       >
         Historial de Reservas
@@ -195,37 +197,47 @@ export const Infocontenidos = (prop) => {
   );
 };
 
-export const HistorialReservas = ({userHistory}) =>{
-  
-  useEffect(() =>{
-  }, [])
+export const HistorialReservas = ({ userHistory }) => {
+  useEffect(() => {}, []);
   return (
     <div className="historialReserva">
       <div className="container">
         <div className="labels">
-          <ul>
-            <li># reserva</li>
-            <li>Items totales</li>
-            <li>Fecha</li>
-            <li>Valor total</li>
-          </ul>
+            <div className="lItem">
+              <p># Reserva</p>
+            </div>
+            <div className="lItem">
+              <p>Número de productos </p>
+            </div>
+            <div className="lItem">
+              <p>Fecha</p>
+            </div>
+            <div className="lItem">
+              <p>Valor total</p>
+            </div>
         </div>
-        {
-          userHistory.map((userHistory) =>{
-            return(
-              <ul className="orders">
-              <li>{userHistory.id_reserva}</li>
-              <li>{userHistory.num_productos_reserva}</li>
-              <li>{userHistory.fecha_reserva}</li>
-              <li>{userHistory.valor_reserva}</li>
+        {userHistory.map((userHistory) => {
+          return (
+            <ul className="orders" key={userHistory.num_orden}>
+              <div className="lItem">
+                <li>{userHistory.num_orden}</li>
+              </div>
+              <div className="lItem">
+                <li>{userHistory.num_productos_reserva}</li>
+              </div>
+              <div className="lItem">
+                <li>{userHistory.fecha_reserva}</li>
+              </div>
+              <div className="lItem">
+                <li>{userHistory.valor_reserva}</li>
+              </div>
             </ul>
-            )
-          })
-        }
+          );
+        })}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export const Informacioncuenta = (prop) => {
   const [selectedOption, setSelectedOption] = useState("infocuenta"); // Por defecto muestra "infocuenta"
@@ -238,11 +250,10 @@ export const Informacioncuenta = (prop) => {
         onSelectOption={handleOptionChange}
         selectedOption={selectedOption}
       />
-      {
-      selectedOption === "infocuenta" ? (
+      {selectedOption === "infocuenta" ? (
         <Infocuenta prod={prop} user={prop.userData} />
-      ) : selectedOption === 'historialReserva' ? (
-        <HistorialReservas userHistory= {prop.userHistory}/>
+      ) : selectedOption === "historialReserva" ? (
+        <HistorialReservas userHistory={prop.userHistory} />
       ) : selectedOption === "cambiocontraseña" ? (
         <Cambiocontraseña prod={prop} user={prop.userData} />
       ) : null}
@@ -250,20 +261,19 @@ export const Informacioncuenta = (prop) => {
   );
 };
 
-
 export const Cambiocontraseña = (prop) => {
   const [showPassword, setShowPassword] = useState(false);
   const handleActualizarContra = async (e) => {
     e.preventDefault();
 
     const accessToken = localStorage.getItem("token");
-const headers = {
-  Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
-};
+    const headers = {
+      Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
+    };
 
     let contrasena_usuario1 =
       document.getElementById("contrasena")?.value || "";
-      let confirmacioncontra =
+    let confirmacioncontra =
       document.getElementById("newcontrasena")?.value || "";
 
     const passwordPattern = /^(?=.*\d)(?=.*[A-Z]).{8,}$/; // Al menos un número, una mayúscula y 8 o más caracteres
@@ -299,8 +309,8 @@ const headers = {
   };
   return (
     <div className="cambiocontrasena">
-      <form action="" className="form"> 
-      <div className="input__info">
+      <form action="" className="form">
+        <div className="input__info">
           <small className="errores">Error message</small>
           <ion-icon name="person"></ion-icon>
           <input
@@ -365,7 +375,7 @@ const headers = {
   );
 };
 
-export const InfoCuentacom = ( {product} ) => {
+export const InfoCuentacom = ({ product }) => {
   const decode = jwt_decode(localStorage.getItem("token"));
   const [isLoading, setisLoading] = useState(true);
   const firstRender = useRef(true);
@@ -388,10 +398,16 @@ export const InfoCuentacom = ( {product} ) => {
       if (
         userData !== null &&
         headers.Authorization !== null &&
-        userHistory !== null 
+        userHistory !== null
       ) {
-        document.documentElement.style.setProperty('--background-btn', product.main_color);
-        document.documentElement.style.setProperty('--btn-color', product.main_color);
+        document.documentElement.style.setProperty(
+          "--background-btn",
+          product.main_color
+        );
+        document.documentElement.style.setProperty(
+          "--btn-color",
+          product.main_color
+        );
         setisLoading(false);
       }
     }
@@ -407,14 +423,14 @@ export const InfoCuentacom = ( {product} ) => {
   };
 
   const getHistoryData = async () => {
-    const lURI = 'https://frutcola-backendpru.onrender.com/reserva/usuario'
+    const lURI = "https://frutcola-backendpru.onrender.com/reserva/usuario";
     try {
       const res = await axios.get(lURI, { headers });
       setUserHistory(res.data);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -423,7 +439,11 @@ export const InfoCuentacom = ( {product} ) => {
   return (
     <div className="infoCuentacontain">
       <Headercom product={product} />
-      <Informacioncuenta product={product} userData={userData} userHistory={userHistory}/>
+      <Informacioncuenta
+        product={product}
+        userData={userData}
+        userHistory={userHistory}
+      />
       <Footercom product={product} />
     </div>
   );
