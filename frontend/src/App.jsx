@@ -60,7 +60,7 @@ export const App= () =>{
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool}/>}/>
-          <Route path='/InformacionCuenta' element={<InfoCuentacom product={product}/>}/>
+          <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool}/>}/>
           <Route path='/Ingreso' element={<Ingresocom/>}/>
           <Route path='/IterfazAdmin' element={<InterfazAdmincom product={product}/>}/>
           <Route path='/QuienesSomos' element={<QuienesSomoscom product={product}/>}/>

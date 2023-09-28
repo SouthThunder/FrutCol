@@ -198,37 +198,41 @@ export const Infocontenidos = (prop) => {
     </div>
   );
 };
+
 export const ProductosReserva = (prop) => {
   const URI = `https://frutcola-backendpru.onrender.com/reserprod/${prop.reservation.id_reserva}`;
-  const URI2 = "https://frutcola-backendpru.onrender.com/metadata/";
-  const [metadata, setMetadata] = useState([]);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(null);
+  const [isLoading, setisLoading] = useState(true);
   const firstRender = useRef(true);
   const headers = prop.headers;
+  const metadata= prop.prodsPool;
+  
   useEffect(() => {
-    if(firstRender){
-      getMetadata();
+    if(firstRender.current){
+      console.log(prop.reservation.num_orden)
       getProducts();
-      firstRender.current =false;
+      firstRender.current = false;
+    }else{
+      if(products!==null){
+        console.log(products)
+        setisLoading(false)
+      }
     }
-  }, [firstRender, headers]);
-  const getMetadata = async () => {
-    try {
-      const res = await axios.get(URI2);
-      setMetadata(res.data);
-    } catch (error) {
-      console.error("ERROR: " + error);
-    }
-  };
+  }, [products]);
+
   const getProducts = async () => {
     try {
       const res = await axios.get(URI, { headers });
-      console.log(res);
       setProducts(res.data);
     } catch (error) {
       console.error("ERROR: " + error);
     }
   };
+
+  if(isLoading){
+      return <LoadingSpinner />;
+      
+  }
 
   return (
     <div className="resprod">
@@ -359,6 +363,7 @@ export const Informacioncuenta = (prop) => {
           reservation={selectedReservation}
           onSelectOption={handleOptionChange}
           headers={prop.headers}
+          prodsPool={prop.prodsPool}
         />
       ) : null}
     </div>
@@ -479,7 +484,7 @@ export const Cambiocontraseña = (prop) => {
   );
 };
 
-export const InfoCuentacom = ({ product }) => {
+export const InfoCuentacom = ({ product, prodsPool }) => {
   const decode = jwt_decode(localStorage.getItem("token"));
   const [isLoading, setisLoading] = useState(true);
   const firstRender = useRef(true);
@@ -547,6 +552,7 @@ export const InfoCuentacom = ({ product }) => {
         userData={userData}
         userHistory={userHistory}
         headers={headers}
+        prodsPool={prodsPool}
       />
       <Footercom product={product} />
     </div>
