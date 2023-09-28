@@ -9,14 +9,16 @@ import LoadingSpinner from "../loading/LoadingSpinner";
 const numeros = /^\d+$/; // Solo números
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 const texto = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
-const accessToken = localStorage.getItem("token");
-const headers = {
-  Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
-};
+
 const URI = "https://frutcola-backendpru.onrender.com/usuarios/";
 const URI2 = "https://frutcola-backendpru.onrender.com/usuarios/contrasena/";
 
 export const Infocuenta = (prop) => {
+  const headers=prop.headers;
+  useEffect(() =>{
+    console.log()
+  }, [headers])
+
   const handleActualizar = async (e) => {
     e.preventDefault();
 
@@ -201,10 +203,15 @@ export const ProductosReserva = (prop) => {
   const URI2 = "https://frutcola-backendpru.onrender.com/metadata/";
   const [metadata, setMetadata] = useState([]);
   const [products, setProducts] = useState([]);
+  const firstRender = useRef(true);
+  const headers = prop.headers;
   useEffect(() => {
-    getMetadata();
-    getProducts();
-  }, []);
+    if(firstRender){
+      getMetadata();
+      getProducts();
+      firstRender.current =false;
+    }
+  }, [firstRender, headers]);
   const getMetadata = async () => {
     try {
       const res = await axios.get(URI2);
@@ -238,7 +245,7 @@ export const ProductosReserva = (prop) => {
             <p>Valor</p>
           </div>
         </div>
-        {products.map((products) => {
+        {products?.map((products) => {
           const matchingProduct = metadata.find(
             (prod) => prod.id_metadata_producto === products.id_producto
           );
@@ -324,6 +331,9 @@ export const HistorialReservas = (prop) => {
 export const Informacioncuenta = (prop) => {
   const [selectedOption, setSelectedOption] = useState("infocuenta"); // Por defecto muestra "infocuenta"
   const [selectedReservation, setSelectedReservation] = useState(null);
+  useEffect(() =>{
+
+  }, [])
   const handleOptionChange = (option) => {
     setSelectedOption(option);
   };
@@ -334,7 +344,7 @@ export const Informacioncuenta = (prop) => {
         selectedOption={selectedOption}
       />
       {selectedOption === "infocuenta" ? (
-        <Infocuenta prod={prop} user={prop.userData} />
+        <Infocuenta prod={prop} user={prop.userData} headers={prop.headers}/>
       ) : selectedOption === "historialReserva" ? (
         <HistorialReservas
           onSelectOption={handleOptionChange}
@@ -348,6 +358,7 @@ export const Informacioncuenta = (prop) => {
           prod={prop}
           reservation={selectedReservation}
           onSelectOption={handleOptionChange}
+          headers={prop.headers}
         />
       ) : null}
     </div>
@@ -476,9 +487,8 @@ export const InfoCuentacom = ({ product }) => {
   const [userData, setUserData] = useState(null); // Estado para almacenar los datos del usuario
   const [userHistory, setUserHistory] = useState(null);
 
-  const accessToken = localStorage.getItem("token");
   const headers = {
-    Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
+    Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
   };
 
   useEffect(() => {
@@ -536,6 +546,7 @@ export const InfoCuentacom = ({ product }) => {
         product={product}
         userData={userData}
         userHistory={userHistory}
+        headers={headers}
       />
       <Footercom product={product} />
     </div>
