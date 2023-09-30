@@ -30,7 +30,6 @@ export const App= () =>{
           firstSet.current = false;
           console.log(product)
           setisLoading(false);
-
         }
       }
     }
@@ -62,7 +61,7 @@ export const App= () =>{
           <Route path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool}/>}/>
           <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool}/>}/>
           <Route path='/Ingreso' element={<Ingresocom/>}/>
-          <Route path='/IterfazAdmin' element={<InterfazAdmincom product={product}/>}/>
+          <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product}/>}/>
           <Route path='/QuienesSomos' element={<QuienesSomoscom product={product}/>}/>
           <Route path='/RealizarCompra' element={<RealizarCompracom/>}/>
           <Route path='/Registro' element={<Registrocom/>}/>

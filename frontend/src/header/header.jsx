@@ -13,8 +13,8 @@ export const HeadPopUp = ({product, trigger}) => {
   const navigate = useNavigate();
 
   const logout = () => {
-    localStorage.clear();
     window.location.href = "/";
+    localStorage.clear();
   };
 
   const reDirect =  () => {

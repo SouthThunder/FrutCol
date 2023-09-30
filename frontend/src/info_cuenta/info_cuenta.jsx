@@ -214,7 +214,6 @@ export const ProductosReserva = (prop) => {
       firstRender.current = false;
     }else{
       if(products!==null){
-        console.log(products)
         setisLoading(false)
       }
     }
@@ -230,8 +229,9 @@ export const ProductosReserva = (prop) => {
   };
 
   if(isLoading){
-      return <LoadingSpinner />;
-      
+      return (
+            <LoadingSpinner />
+      );
   }
 
   return (

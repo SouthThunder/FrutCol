@@ -3,7 +3,6 @@ import "./interfaz_admin.css";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 const accessToken = localStorage.getItem("token");
 const URI = "https://frutcola-backendpru.onrender.com/metadata/";
@@ -19,16 +18,16 @@ const headers = {
 export const Agregarproducto = (prop) => {
   const handleAgregar = async () => {
     try {
-      var nombre_producto = document.getElementById("nombre")?.value || "";
-      var descripcion_producto = document.getElementById("descripcion")?.value || "";
-      var stock_producto = document.getElementById("cantidad")?.value || "";
-      var precio_producto = document.getElementById("precio")?.value || "";
-      var main_color = document.getElementById("principalc")?.value || "";
-      var comp_color = document.getElementById("compc")?.value || "";
-      var header_color = document.getElementById("headerc")?.value || "";
-      var font_color = document.getElementById("fontc")?.value || "";
-      var image = document.getElementById("image")?.value || "";
-      var stain_image = document.getElementById("stain_image")?.value || "";
+      let nombre_producto = document.getElementById("nombre")?.value || "";
+      let descripcion_producto = document.getElementById("descripcion")?.value || "";
+      let stock_producto = document.getElementById("cantidad")?.value || "";
+      let precio_producto = document.getElementById("precio")?.value || "";
+      let main_color = document.getElementById("principalc")?.value || "";
+      let comp_color = document.getElementById("compc")?.value || "";
+      let header_color = document.getElementById("headerc")?.value || "";
+      let font_color = document.getElementById("fontc")?.value || "";
+      let image = document.getElementById("image")?.value || "";
+      let stain_image = document.getElementById("stain_image")?.value || "";
 
       if (image === "" || !regexNombreArchivo.test(image)) {
         alert("Ingrese un nombre de imagen válido (png,jpg,jpeg,bmp)");
@@ -218,16 +217,16 @@ export const Editarproducto = (prop) => {
 
   const handleActualizar = async () => {
     try {
-      var nombre_producto = document.getElementById("nombre")?.value || "";
-      var descripcion_producto = document.getElementById("descripcion")?.value || "";
-      var stock_producto = document.getElementById("cantidad")?.value || "";
-      var precio_producto = document.getElementById("precio")?.value || "";
-      var main_color = document.getElementById("principalc")?.value || "";
-      var comp_color = document.getElementById("compc")?.value || "";
-      var header_color = document.getElementById("headerc")?.value || "";
-      var font_color = document.getElementById("fontc")?.value || "";
-      var image = prop.product.image;
-      var stain_image = prop.product.stain_image;
+      let nombre_producto = document.getElementById("nombre")?.value || "";
+      let descripcion_producto = document.getElementById("descripcion")?.value || "";
+      let stock_producto = document.getElementById("cantidad")?.value || "";
+      let precio_producto = document.getElementById("precio")?.value || "";
+      let main_color = document.getElementById("principalc")?.value || "";
+      let comp_color = document.getElementById("compc")?.value || "";
+      let header_color = document.getElementById("headerc")?.value || "";
+      let font_color = document.getElementById("fontc")?.value || "";
+      let image = prop.product.image;
+      let stain_image = prop.product.stain_image;
 
       if (nombre_producto !== "" && !texto.test(nombre_producto)) {
         alert("Ingrese un nombre válido");
@@ -419,17 +418,10 @@ export const Editarproducto = (prop) => {
 };
 export const Productos = (prop) => {
   const [products, setProducts] = useState([]);
-  const [promt, setPromt] = useState([]);
   useEffect(() => {
     getProducts();
   }, []);
-  const checkPromt = () => {
-    if (prop.promt === undefined || prop.promt === null) {
-      setPromt("Productos");
-    } else {
-      setPromt(prop.promt);
-    }
-  };
+
   const handleEditClick = (product) => {
     // Cuando se hace clic en "Editar", actualiza el producto seleccionado
     // y cambia la opción seleccionada a "editarproducto"
@@ -540,6 +532,10 @@ export const Infocontenidos = (prop) => {
 export const Informacionpagina = (prop) => {
   const [selectedOption, setSelectedOption] = useState("productos"); // Por defecto muestra "infocuenta"
   const [selectedProduct, setSelectedProduct] = useState(null);
+  useEffect(() =>{
+
+  }, [])
+
   const handleOptionChange = (option) => {
     setSelectedOption(option);
   };
@@ -581,6 +577,13 @@ export const Dashboard = (prop) => {
 };
 
 export const InterfazAdmincom = ({product}) => {
+
+  useEffect(() =>{
+    document.documentElement.style.setProperty(
+      "--background-btn",
+      product.main_color
+    );
+  }, [])
 
   return (
     <div className="infopagecontain">

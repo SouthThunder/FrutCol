@@ -1,14 +1,12 @@
 import React from 'react';
-import { RingLoader } from 'react-spinners';
+import { BarLoader } from 'react-spinners';
 import './LoadingSpinner.css'; 
-
-
 
 const LoadingSpinner = () => {
   return (
     <div className="loading-spinner">
-      <RingLoader size={250} color={'#FF355E'} loading={true} />
-      <br />
+      <BarLoader height={4}
+      width={200} color={'#FF355E'} loading={true} />
       <p >Cargando...</p>
     </div>
   );
