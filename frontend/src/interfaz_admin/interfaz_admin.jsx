@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./interfaz_admin.css";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
+import LoadingSpinner from "../loading/LoadingSpinner";
 import axios from "axios";
 
 const accessToken = localStorage.getItem("token");
@@ -11,11 +12,10 @@ const texto = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
 
 const regexHexadecimal = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 const regexNombreArchivo = /^[A-Za-z0-9]+.*\.(jpg|jpeg|png|gif|bmp)$/;
-const headers = {
-  Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
-};
+
 
 export const Agregarproducto = (prop) => {
+  const headers= prop.headers;
   const handleAgregar = async () => {
     try {
       let nombre_producto = document.getElementById("nombre")?.value || "";
@@ -214,7 +214,7 @@ export const Agregarproducto = (prop) => {
 };
 
 export const Editarproducto = (prop) => {
-
+  const headers= prop.headers;
   const handleActualizar = async () => {
     try {
       let nombre_producto = document.getElementById("nombre")?.value || "";
@@ -417,6 +417,7 @@ export const Editarproducto = (prop) => {
   );
 };
 export const Productos = (prop) => {
+  const headers= prop.headers;
   const [products, setProducts] = useState([]);
   useEffect(() => {
     getProducts();
@@ -561,9 +562,10 @@ export const Informacionpagina = (prop) => {
           prod={prop}
           product={selectedProduct}
           onSelectOption={handleOptionChange}
+          headers= {prop.headers}
         />
       ) : selectedOption === "agregar" ? (
-        <Agregarproducto prod={prop} onSelectOption={handleOptionChange} />
+        <Agregarproducto prod={prop} onSelectOption={handleOptionChange} headers={prop.headers}/>
       ) : null}
     </div>
   );
@@ -577,18 +579,54 @@ export const Dashboard = (prop) => {
 };
 
 export const InterfazAdmincom = ({product}) => {
+  const [prodsPool, setProdsPool] = useState(null);
+  const [isLoading, setisLoading] = useState(true);
+  const [admin, setAdming] =useState(null)
+  const firstRender = useRef(true)
+
+  const headers = {
+    Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
+  };
 
   useEffect(() =>{
-    document.documentElement.style.setProperty(
-      "--background-btn",
-      product.main_color
-    );
-  }, [])
+    if(firstRender.current){
+      getProducts();
+      document.documentElement.style.setProperty(
+        "--background-btn",
+        product.main_color
+      );
+      firstRender.current= false;
+    }else{
+      if(prodsPool!==null){
+        setisLoading(false)
+      }
+    }
+
+  }, [prodsPool])
+
+  const getProducts = async() =>{
+    try {
+      const URI = "https://frutcola-backendpru.onrender.com/metadata/user";
+      const products = await axios.get(URI, {headers})
+      setProdsPool(products)
+      setAdming(true)
+    } catch (error) {
+      setAdming(false)
+    }
+  }
+
+  if(isLoading && admin===null){
+    return <LoadingSpinner />;
+  }else if(isLoading && admin===false){
+    return (
+      <h1>NOT ADMIN</h1>
+    )
+  }
 
   return (
     <div className="infopagecontain">
       <Headercom product={product} />
-      <Informacionpagina product={product} />
+      <Informacionpagina product={product} headers={headers}/>
       <Footercom product={product} />
     </div>
   );
