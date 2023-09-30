@@ -112,7 +112,7 @@ export const Registrocom = () => {
     }
 
 
-    const URI = "https://frutcola-backendpru.onrender.com/usuarios/register";
+    const URI = "https://frutcol-backend.onrender.com/usuarios/register";
 
 
     // Validaciones para nombres y apellidos
@@ -192,7 +192,7 @@ export const Registrocom = () => {
 
   const authToken = async() =>{
     try {
-      const URI = "https://frutcola-backendpru.onrender.com/usuarios/login";
+      const URI = "https://frutcol-backend.onrender.com/usuarios/login";
       const res = await axios.post(URI, {
         correo_usuario: correo,
         contrasena_usuario: contrasena,
@@ -206,7 +206,7 @@ export const Registrocom = () => {
   }
 
   const getId = async(token) =>{
-    const URI = "https://frutcola-backendpru.onrender.com/carrito/create";
+    const URI = "https://frutcol-backend.onrender.com/carrito/create";
     const headers = {
       Authorization: `${token}`, // Agrega "Bearer" antes del token si es necesario
     };

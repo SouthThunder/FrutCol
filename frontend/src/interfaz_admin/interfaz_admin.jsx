@@ -6,7 +6,7 @@ import LoadingSpinner from "../loading/LoadingSpinner";
 import axios from "axios";
 
 const accessToken = localStorage.getItem("token");
-const URI = "https://frutcola-backendpru.onrender.com/metadata/";
+const URI = "https://frutcol-backend.onrender.com/metadata/";
 const numeros = /^\d+$/; // Solo números
 const texto = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
 
@@ -606,7 +606,7 @@ export const InterfazAdmincom = ({product}) => {
 
   const getProducts = async() =>{
     try {
-      const URI = "https://frutcola-backendpru.onrender.com/metadata/user";
+      const URI = "https://frutcol-backend.onrender.com/metadata/user";
       const products = await axios.get(URI, {headers})
       setProdsPool(products)
       setAdming(true)

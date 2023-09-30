@@ -36,7 +36,7 @@ export const App= () =>{
   }, [prodsPool, product]);
 
   const getProducts = async () => {
-    const URI = "https://frutcola-backendpru.onrender.com/metadata";
+    const URI = "https://frutcol-backend.onrender.com/metadata";
     try {
       const response = await axios.get(URI);
       setProdsPool(response.data);

@@ -3,7 +3,7 @@ import "./ingreso.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const URI = "https://frutcola-backendpru.onrender.com/usuarios/login";
+const URI = "https://frutcol-backend.onrender.com/usuarios/login";
 
 export const Ingresocom = () => {
   const [showPassword, setShowPassword] = useState(false);

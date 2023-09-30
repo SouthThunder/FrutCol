@@ -273,7 +273,7 @@ export const Products = ({ prodsPool }) => {
 
   const getProductsFromCart = async () => {
     const id_carrito = jwt_decode(localStorage.getItem("token"));
-    const URI = `https://frutcola-backendpru.onrender.com/carrito/${id_carrito.id_usuario}`;
+    const URI = `https://frutcol-backend.onrender.com/carrito/${id_carrito.id_usuario}`;
     try {
       const res = await axios.get(URI, {
         headers,

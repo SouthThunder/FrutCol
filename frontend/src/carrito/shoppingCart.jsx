@@ -7,7 +7,7 @@ import { Toaster, toast } from 'sonner';
 
 export const ShoppingCart = ({ visibility, changeCartVis}) => {
   const [active, setActive] = useState([]);
-   const URI = "https://frutcola-backendpru.onrender.com/metadata";
+   const URI = "https://frutcol-backend.onrender.com/metadata";
    const [products, setProducts] = useState([]);
    const [total,setTotal]=useState(0);
    const [totalp,setTotalp]=useState(0);
@@ -31,7 +31,7 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
   }, [test.producto]);
   
   const handleDelete = async (id) =>{
-    const URI= `https://frutcola-backendpru.onrender.com/productos/${id}`;
+    const URI= `https://frutcol-backend.onrender.com/productos/${id}`;
     await axios.delete(URI, {
         headers,
       });  
@@ -39,9 +39,9 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
   const id_h= jwt_decode(localStorage.getItem('token'))
   
   const handleReserve = async () =>{ 
-    const URIR='https://frutcola-backendpru.onrender.com/reserva';
-    const URIRP= 'https://frutcola-backendpru.onrender.com/reserprod';
-    const URI = "https://frutcola-backendpru.onrender.com/carrito/mod";
+    const URIR='https://frutcol-backend.onrender.com/reserva';
+    const URIRP= 'https://frutcol-backend.onrender.com/reserprod';
+    const URI = "https://frutcol-backend.onrender.com/carrito/mod";
     if(totalp>0){
     try {
       const testing= await axios.post(URIR, {
@@ -83,7 +83,7 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
 
    const getProducts = async () => {
     const id_carrito= jwt_decode(localStorage.getItem('token'))
-    const idk= `https://frutcola-backendpru.onrender.com/carrito/${id_carrito.id_usuario}`;
+    const idk= `https://frutcol-backend.onrender.com/carrito/${id_carrito.id_usuario}`;
     
     try {
       const res = await axios.get(URI);
