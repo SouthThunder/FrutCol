@@ -53,7 +53,7 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
         test.producto.map(async (prod) =>{
           if(prod.cantidad > 0){
             await axios.post(URIRP, {
-              id_reserva: testing.data,
+              num_orden: testing.data,
               id_producto: prod.id,
               cantidad_producto: prod.cantidad
             }, {
@@ -72,7 +72,6 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
       toast.success('La reserva ha sido creada');
       await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo 
       refreshPage();
-
     } catch (error) {
       toast.error('Ha ocurrido un error creando la reserva');
       console.error(error);

@@ -200,7 +200,7 @@ export const Infocontenidos = (prop) => {
 };
 
 export const ProductosReserva = (prop) => {
-  const URI = `https://frutcol-backend.onrender.com/reserprod/${prop.reservation.id_reserva}`;
+  const URI = `https://frutcol-backend.onrender.com/reserprod/${prop.reservation.num_orden}`;
   const [products, setProducts] = useState(null);
   const [isLoading, setisLoading] = useState(true);
   const firstRender = useRef(true);

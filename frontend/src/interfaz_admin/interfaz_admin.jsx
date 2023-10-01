@@ -4,6 +4,7 @@ import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 import LoadingSpinner from "../loading/LoadingSpinner";
 import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const accessToken = localStorage.getItem("token");
 const URI = "https://frutcol-backend.onrender.com/metadata/";
@@ -13,13 +14,13 @@ const texto = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
 const regexHexadecimal = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 const regexNombreArchivo = /^[A-Za-z0-9]+.*\.(jpg|jpeg|png|gif|bmp)$/;
 
-
 export const Agregarproducto = (prop) => {
-  const headers= prop.headers;
+  const headers = prop.headers;
   const handleAgregar = async () => {
     try {
       let nombre_producto = document.getElementById("nombre")?.value || "";
-      let descripcion_producto = document.getElementById("descripcion")?.value || "";
+      let descripcion_producto =
+        document.getElementById("descripcion")?.value || "";
       let stock_producto = document.getElementById("cantidad")?.value || "";
       let precio_producto = document.getElementById("precio")?.value || "";
       let main_color = document.getElementById("principalc")?.value || "";
@@ -214,11 +215,12 @@ export const Agregarproducto = (prop) => {
 };
 
 export const Editarproducto = (prop) => {
-  const headers= prop.headers;
+  const headers = prop.headers;
   const handleActualizar = async () => {
     try {
       let nombre_producto = document.getElementById("nombre")?.value || "";
-      let descripcion_producto = document.getElementById("descripcion")?.value || "";
+      let descripcion_producto =
+        document.getElementById("descripcion")?.value || "";
       let stock_producto = document.getElementById("cantidad")?.value || "";
       let precio_producto = document.getElementById("precio")?.value || "";
       let main_color = document.getElementById("principalc")?.value || "";
@@ -230,7 +232,7 @@ export const Editarproducto = (prop) => {
 
       if (nombre_producto !== "" && !texto.test(nombre_producto)) {
         alert("Ingrese un nombre válido");
-        
+
         return;
       } else {
         if (nombre_producto === "") {
@@ -417,7 +419,7 @@ export const Editarproducto = (prop) => {
   );
 };
 export const Productos = (prop) => {
-  const headers= prop.headers;
+  const headers = prop.headers;
   const [products, setProducts] = useState([]);
   useEffect(() => {
     getProducts();
@@ -533,9 +535,7 @@ export const Infocontenidos = (prop) => {
 export const Informacionpagina = (prop) => {
   const [selectedOption, setSelectedOption] = useState("productos"); // Por defecto muestra "infocuenta"
   const [selectedProduct, setSelectedProduct] = useState(null);
-  useEffect(() =>{
-
-  }, [])
+  useEffect(() => {}, []);
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);
@@ -562,10 +562,14 @@ export const Informacionpagina = (prop) => {
           prod={prop}
           product={selectedProduct}
           onSelectOption={handleOptionChange}
-          headers= {prop.headers}
+          headers={prop.headers}
         />
       ) : selectedOption === "agregar" ? (
-        <Agregarproducto prod={prop} onSelectOption={handleOptionChange} headers={prop.headers}/>
+        <Agregarproducto
+          prod={prop}
+          onSelectOption={handleOptionChange}
+          headers={prop.headers}
+        />
       ) : null}
     </div>
   );
@@ -578,55 +582,67 @@ export const Dashboard = (prop) => {
   return <h4>SOY DASHBOARD</h4>;
 };
 
-export const InterfazAdmincom = ({product}) => {
+export const InterfazAdmincom = ({ product }) => {
   const [prodsPool, setProdsPool] = useState(null);
   const [isLoading, setisLoading] = useState(true);
-  const [admin, setAdming] =useState(null)
-  const firstRender = useRef(true)
+  const [admin, setAdming] = useState(null);
+  const firstRender = useRef(true);
+  const navigate = useNavigate()
 
   const headers = {
     Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
   };
 
-  useEffect(() =>{
-    if(firstRender.current){
+  useEffect(() => {
+    if (firstRender.current) {
       getProducts();
       document.documentElement.style.setProperty(
         "--background-btn",
         product.main_color
       );
-      firstRender.current= false;
-    }else{
-      if(prodsPool!==null){
-        setisLoading(false)
+      document.documentElement.style.setProperty(
+        "--btn-color",
+        product.header_color
+      );
+      console.log(product.header_color)
+      firstRender.current = false;
+    } else {
+      if (prodsPool !== null) {
+        setisLoading(false);
       }
     }
+  }, [prodsPool]);
 
-  }, [prodsPool])
-
-  const getProducts = async() =>{
+  const getProducts = async () => {
     try {
       const URI = "https://frutcol-backend.onrender.com/metadata/user";
-      const products = await axios.get(URI, {headers})
-      setProdsPool(products)
-      setAdming(true)
+      const products = await axios.get(URI, { headers });
+      setProdsPool(products);
+      setAdming(true);
     } catch (error) {
-      setAdming(false)
+      setAdming(false);
     }
-  }
+  };
 
-  if(isLoading && admin===null){
+  
+
+  if (isLoading && admin === null) {
     return <LoadingSpinner />;
-  }else if(isLoading && admin===false){
+  } else if (isLoading && admin === false) {
     return (
-      <h1>NOT ADMIN</h1>
-    )
+      <div className="notAuthorized">
+        <div className="container">
+          <h1>Acceso no autorizado, verifique sus permisos</h1>
+          <button onClick={() => navigate('/')}>Volver</button>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="infopagecontain">
       <Headercom product={product} />
-      <Informacionpagina product={product} headers={headers}/>
+      <Informacionpagina product={product} headers={headers} />
       <Footercom product={product} />
     </div>
   );

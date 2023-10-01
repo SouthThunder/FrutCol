@@ -258,3 +258,45 @@ input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
 }
+
+
+.notAuthorized {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notAuthorized > .container{
+  width: 50%;
+  height: 30%;
+  background-color: var(--btn-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--md-border);
+  flex-direction: column;
+  border: 1px solid black;
+}
+
+.notAuthorized > .container > h1 {
+  color: black;
+}
+
+.notAuthorized > .container > h1 + button {
+  margin-top: 2rem;
+  height: 2rem;
+  width: 6rem;
+  border-radius: var(--sm-border);
+  border: 1px solid black;
+  color: white;
+  background-color: var(--background-btn);
+}
+
+.notAuthorized > .container > h1 + button:hover{
+  cursor: pointer;
+  color: var(--background-btn);
+  background-color: #f2f2f2;
+  transition: all 1s var(--btn-cubic-bezier);
+}
