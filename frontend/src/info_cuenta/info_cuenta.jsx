@@ -14,10 +14,10 @@ const URI = "https://frutcol-backend.onrender.com/usuarios/";
 const URI2 = "https://frutcol-backend.onrender.com/usuarios/contrasena/";
 
 export const Infocuenta = (prop) => {
-  const headers=prop.headers;
-  useEffect(() =>{
-    console.log()
-  }, [headers])
+  const headers = prop.headers;
+  useEffect(() => {
+    console.log();
+  }, [headers]);
 
   const handleActualizar = async (e) => {
     e.preventDefault();
@@ -205,16 +205,17 @@ export const ProductosReserva = (prop) => {
   const [isLoading, setisLoading] = useState(true);
   const firstRender = useRef(true);
   const headers = prop.headers;
-  const metadata= prop.prodsPool;
-  
+  const metadata = prop.prodsPool;
+
   useEffect(() => {
-    if(firstRender.current){
-      console.log(prop.reservation.num_orden)
+    if (firstRender.current) {
+      console.log(prop.reservation.num_orden);
       getProducts();
       firstRender.current = false;
-    }else{
-      if(products!==null){
-        setisLoading(false)
+    } else {
+      if (products !== null) {
+        setisLoading(false);
+        console.log(products);
       }
     }
   }, [products]);
@@ -228,10 +229,8 @@ export const ProductosReserva = (prop) => {
     }
   };
 
-  if(isLoading){
-      return (
-            <LoadingSpinner />
-      );
+  if (isLoading) {
+    return <LoadingSpinner />;
   }
 
   return (
@@ -276,7 +275,9 @@ export const ProductosReserva = (prop) => {
       </div>
       <div className="separator"></div>
       <div className="total">
-        <p><strong>Total:</strong> {prop.reservation.valor_reserva}</p>
+        <p>
+          <strong>Total:</strong> {prop.reservation.valor_reserva}
+        </p>
       </div>
     </div>
   );
@@ -304,8 +305,19 @@ export const HistorialReservas = (prop) => {
           <div className="lItem">
             <p>Valor total</p>
           </div>
+          <div className="lItem">
+            <p>Estado</p>
+          </div>
         </div>
         {prop.userHistory.map((userHistory) => {
+          const chkStatus = () => {
+            if (userHistory.estado_reserva === false) {
+              return <li style={{color: "#ff8c00"}}>En proceso</li>;
+            }else{
+              return <li style={{color: "green"}}>Entregado</li>
+            }
+          };
+
           return (
             <ul
               className="orders"
@@ -324,6 +336,9 @@ export const HistorialReservas = (prop) => {
               <div className="lItem">
                 <li>{userHistory.valor_reserva}</li>
               </div>
+              <div className="lItem">
+                <li>{chkStatus()}</li>
+              </div>
             </ul>
           );
         })}
@@ -335,9 +350,7 @@ export const HistorialReservas = (prop) => {
 export const Informacioncuenta = (prop) => {
   const [selectedOption, setSelectedOption] = useState("infocuenta"); // Por defecto muestra "infocuenta"
   const [selectedReservation, setSelectedReservation] = useState(null);
-  useEffect(() =>{
-
-  }, [])
+  useEffect(() => {}, []);
   const handleOptionChange = (option) => {
     setSelectedOption(option);
   };
@@ -348,7 +361,7 @@ export const Informacioncuenta = (prop) => {
         selectedOption={selectedOption}
       />
       {selectedOption === "infocuenta" ? (
-        <Infocuenta prod={prop} user={prop.userData} headers={prop.headers}/>
+        <Infocuenta prod={prop} user={prop.userData} headers={prop.headers} />
       ) : selectedOption === "historialReserva" ? (
         <HistorialReservas
           onSelectOption={handleOptionChange}
@@ -535,6 +548,7 @@ export const InfoCuentacom = ({ product, prodsPool }) => {
     try {
       const res = await axios.get(lURI, { headers });
       setUserHistory(res.data);
+      console.log(res.data);
     } catch (error) {
       console.error(error);
     }
