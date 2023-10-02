@@ -350,9 +350,16 @@ input[type="number"] {
 
 .info_pagina > .reserva {
   width: 100%;
+  height: 100%;
 }
 
 .info_pagina > .reserva > h2{
+  margin-left: 3rem;
+}
+
+.info_pagina > .reserva > .resuser{
+  width: 100%;
+  height: 100%;
   margin-left: 3rem;
 }
 
@@ -361,7 +368,7 @@ input[type="number"] {
   height: 100%;
   margin-left: 3rem;
 }
-.info_pagina > .reserva > .resprod > .elements > .labels{
+.info_pagina > .reserva  .elements > .labels{
   display: flex;
   width: 100%;
   height: 3rem;
@@ -370,51 +377,51 @@ input[type="number"] {
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
-.info_pagina > .reserva > .resprod > .elements > .labels > .lItem{
+.info_pagina > .reserva  .elements > .labels > .lItem{
   width: 100%;
   display: flex;
   align-items: center;
 }
-.info_pagina > .reserva > .resprod > .elements > .labels > .lItem > p{
+.info_pagina > .reserva  .elements > .labels > .lItem > p{
   margin-left: 1rem;
 }
-.info_pagina > .reserva > .resprod > .elements{
+.info_pagina > .reserva  .elements{
   display: flex;
   flex-direction: column;
   width: 80%;
 }
-.info_pagina > .reserva > .resprod > .elements > .product{
+.info_pagina > .reserva  .elements > .product{
   display: flex;
 }
-.info_pagina > .reserva > .resprod > .elements > .product > .pImg{
+.info_pagina > .reserva  .elements > .product > .pImg{
   width: 100%;
   margin-left: 1rem;
 }
-.info_pagina > .reserva > .resprod > .elements > .product > .pImg > img{
+.info_pagina > .reserva  .elements > .product > .pImg > img{
   margin-left: 2rem;
   width: 100px;
 }
-.info_pagina > .reserva > .resprod > .elements > .product > .promt{
+.info_pagina > .reserva  .elements > .product > .promt{
   width: 100%;
   display: flex;
   align-items: center;
 }
-.info_pagina > .reserva > .resprod > .elements > .product > .unit{
+.info_pagina > .reserva  .elements > .product > .unit{
   width: 100%;
   display: flex;
   align-items: center;
 }
-.info_pagina > .reserva > .resprod > .separator{
+.info_pagina > .reserva  .separator{
   width: 80%;
   height: 1.5px;
   background-color: black;
 }
-.info_pagina > .reserva > .resprod > .total{
+.info_pagina > .reserva  .total{
   margin-top: 1rem;
   width: 80%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
-.info_pagina > .reserva > .resprod > .total > p{
+.info_pagina > .reserva  .total > p{
   grid-column: 3/3;
 }

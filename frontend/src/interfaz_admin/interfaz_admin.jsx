@@ -420,9 +420,8 @@ export const Editarproducto = (prop) => {
 };
 export const Productos = (prop) => {
   const headers = prop.headers;
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(prop.prod.prodsPool);
   useEffect(() => {
-    getProducts();
   }, []);
 
   const handleEditClick = (product) => {
@@ -526,7 +525,9 @@ export const Infocontenidos = (prop) => {
 export const Informacionpagina = (prop) => {
   const [selectedOption, setSelectedOption] = useState("productos"); // Por defecto muestra "infocuenta"
   const [selectedProduct, setSelectedProduct] = useState(null);
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(prop.prodsPool)
+  }, []);
   const [selectedReservation, setSelectedReservation] = useState(null);
 
   const handleOptionChange = (option) => {
@@ -682,6 +683,7 @@ export const ProductosReserva = (prop) => {
     try {
       const res = await axios.get(URI2, { headers });
       setUserData(res.data);
+      console.log(res.data);
     } catch (error) {
       console.error("ERROR: " + error);
     }
@@ -696,7 +698,25 @@ export const ProductosReserva = (prop) => {
     <div className="reserva">
       <h2>Número de orden: {prop.reservation.num_orden}</h2>
       <div className="resuser">
-        
+        <div className="elements">
+        <div className="labels">
+          <div className="lItem">
+            <p>Cédula</p>
+          </div>
+          <div className="lItem">
+            <p>Nombre</p>
+          </div>
+          <div className="lItem">
+            <p>Apellido</p>
+          </div>
+          <div className="lItem">
+            <p>Correo</p>
+          </div>
+          <div className="lItem">
+            <p>Direccion</p>
+          </div>
+        </div>
+        </div>
       </div>
       <div className="resprod">
       <div className="elements">
@@ -747,8 +767,7 @@ export const ProductosReserva = (prop) => {
   );
 };
 
-export const InterfazAdmincom = ({ product }) => {
-  const [prodsPool, setProdsPool] = useState(null);
+export const InterfazAdmincom = ({ product, prodsPool }) => {
   const [isLoading, setisLoading] = useState(true);
   const [userHistory, setUserHistory] = useState(null);
   const [admin, setAdming] = useState(null);
@@ -761,7 +780,6 @@ export const InterfazAdmincom = ({ product }) => {
 
   useEffect(() => {
     if (firstRender.current) {
-      getProducts();
       getHistoryData();
       document.documentElement.style.setProperty(
         "--background-btn",
@@ -778,26 +796,17 @@ export const InterfazAdmincom = ({ product }) => {
         setisLoading(false);
       }
     }
-  }, [prodsPool, userHistory]);
-
-  const getProducts = async () => {
-    try {
-      const URI = "https://frutcol-backend.onrender.com/metadata/user";
-      const products = await axios.get(URI, { headers });
-      setAdming(true);
-      setProdsPool(products);
-    } catch (error) {
-      setAdming(false);
-    }
-  };
+  }, [userHistory]);
 
   const getHistoryData = async () => {
     const lURI = "https://frutcol-backend.onrender.com/reserva/";
     try {
       const res = await axios.get(lURI, { headers });
+      setAdming(true)
       setUserHistory(res.data);
       console.log(res.data);
     } catch (error) {
+      setAdming(false)
       console.error(error);
     }
   };
