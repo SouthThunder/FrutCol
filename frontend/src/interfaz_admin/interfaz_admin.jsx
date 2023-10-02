@@ -645,6 +645,7 @@ export const Reservas = (prop) => {
     </div>
   );
 };
+
 export const ProductosReserva = (prop) => {
   const URI = `https://frutcol-backend.onrender.com/reserprod/${prop.reservation.num_orden}`;
   const URI2 = `https://frutcol-backend.onrender.com/reserva/${prop.reservation.num_orden}`;
@@ -659,7 +660,6 @@ export const ProductosReserva = (prop) => {
   };
   useEffect(() => {
     if (firstRender.current) {
-      console.log(prop.reservation.num_orden);
       getProducts();
       getUserData();
       firstRender.current = false;
@@ -683,7 +683,6 @@ export const ProductosReserva = (prop) => {
     try {
       const res = await axios.get(URI2, { headers });
       setUserData(res.data);
-      console.log(res.data);
     } catch (error) {
       console.error("ERROR: " + error);
     }
@@ -732,7 +731,7 @@ export const ProductosReserva = (prop) => {
           </div>
         </div>
         {products?.map((products) => {
-          const matchingProduct = metadata.data.find(
+          const matchingProduct = metadata.find(
             (prod) => prod.id_metadata_producto === products.id_producto
           );
           return (
