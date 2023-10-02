@@ -300,3 +300,112 @@ input[type="number"] {
   background-color: #f2f2f2;
   transition: all 1s var(--btn-cubic-bezier);
 }
+
+.info_pagina > .historialReserva{
+    
+  width: 100%;
+  margin-left: 3rem;
+  display: flex;
+  align-items: center;
+}
+
+.info_pagina > .historialReserva > .container{
+  width: 80%;
+  height: 100%;
+}
+.info_pagina > .historialReserva > .container > .labels{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 3rem;
+  border: 1px solid black;
+  border-radius: var(--sm-border);
+}
+.info_pagina > .historialReserva > .container > .labels .lItem {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.info_pagina > .historialReserva > .container > .orders {
+  display: flex;
+  height: 3rem;
+  border-bottom: 1px solid black;
+  align-items: center;
+}
+.info_pagina > .historialReserva > .container > .orders:hover{
+  cursor: pointer;
+  background-color: var(--btn-color);
+  border-radius: var(--sm-border);
+  transition: all 0.5s var(--btn-cubic-bezier);
+}
+.info_pagina > .historialReserva > .container > .orders > .lItem{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.info_pagina > .resprod {
+  width: 100%;
+  height: 100%;
+  margin-left: 3rem;
+}
+.info_pagina > .resprod > .elements > .labels{
+  display: flex;
+  width: 100%;
+  height: 3rem;
+  border-radius: var(--sm-border);
+  border: 1px solid   black;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+.info_pagina > .resprod > .elements > .labels > .lItem{
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.info_pagina > .resprod > .elements > .labels > .lItem > p{
+  margin-left: 1rem;
+}
+.info_pagina > .resprod > .elements{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+.info_pagina > .resprod > .elements > .product{
+  display: flex;
+}
+.info_pagina > .resprod > .elements > .product > .pImg{
+  width: 100%;
+  margin-left: 1rem;
+}
+.info_pagina > .resprod > .elements > .product > .pImg > img{
+  margin-left: 2rem;
+  width: 100px;
+}
+.info_pagina > .resprod > .elements > .product > .promt{
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.info_pagina > .resprod > .elements > .product > .unit{
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.info_pagina > .resprod > .separator{
+  width: 80%;
+  height: 1.5px;
+  background-color: black;
+}
+.info_pagina > .resprod > .total{
+  margin-top: 1rem;
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.info_pagina > .resprod > .total > p{
+  grid-column: 3/3;
+}

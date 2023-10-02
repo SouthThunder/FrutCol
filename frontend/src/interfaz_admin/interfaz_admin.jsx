@@ -536,6 +536,7 @@ export const Informacionpagina = (prop) => {
   const [selectedOption, setSelectedOption] = useState("productos"); // Por defecto muestra "infocuenta"
   const [selectedProduct, setSelectedProduct] = useState(null);
   useEffect(() => {}, []);
+  const [selectedReservation, setSelectedReservation] = useState(null);
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);
@@ -554,9 +555,20 @@ export const Informacionpagina = (prop) => {
           prod={prop}
         />
       ) : selectedOption === "reservas" ? (
-        <Reservas prod={prop} />
-      ) : selectedOption === "dashboard" ? (
-        <Dashboard prod={prop} />
+        <Reservas
+          onSelectOption={handleOptionChange}
+          onSelectReservation={setSelectedReservation}
+          selectedOption={selectedOption}
+          prod={prop}
+        />
+      ) : selectedOption === "productosreserva" ? (
+        <ProductosReserva
+          onSelectOption={handleOptionChange}
+          reservation={selectedReservation}
+          selectedOption={selectedOption}
+          prod={prop}
+          prodsPool={prop.prodsPool}
+        />
       ) : selectedOption === "editarproducto" ? (
         <Editarproducto
           prod={prop}
@@ -576,10 +588,170 @@ export const Informacionpagina = (prop) => {
 };
 
 export const Reservas = (prop) => {
-  return <h4>SOY RESERVAS</h4>;
+  const handleReservationClick = (reserva) => {
+    prop.onSelectOption("productosreserva");
+    prop.onSelectReservation(reserva);
+  };
+  const [userHistory, setUserHistory] = useState(null);
+  const accessToken = localStorage.getItem("token");
+  const headers = {
+    Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
+  };
+  const getHistoryData = async () => {
+    const lURI = "https://frutcol-backend.onrender.com/reserva/";
+    try {
+      const res = await axios.get(lURI, { headers });
+      setUserHistory(res.data);
+      console.log(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getHistoryData();
+  }, []);
+  return (
+    <div className="historialReserva">
+      <div className="container">
+        <div className="labels">
+          <div className="lItem">
+            <p># Reserva</p>
+          </div>
+          <div className="lItem">
+            <p>Número de productos </p>
+          </div>
+          <div className="lItem">
+            <p>Fecha</p>
+          </div>
+          <div className="lItem">
+            <p>Valor total</p>
+          </div>
+          <div className="lItem">
+            <p>Estado</p>
+          </div>
+        </div>
+        {userHistory &&
+          userHistory.map((userHistory) => {
+            const chkStatus = () => {
+              if (userHistory.estado_reserva === false) {
+                return <li style={{ color: "#ff8c00" }}>En proceso</li>;
+              } else {
+                return <li style={{ color: "green" }}>Entregado</li>;
+              }
+            };
+
+            return (
+              <ul
+                className="orders"
+                key={userHistory.num_orden}
+                onClick={() => handleReservationClick(userHistory)}
+              >
+                <div className="lItem">
+                  <li>{userHistory.num_orden}</li>
+                </div>
+                <div className="lItem">
+                  <li>{userHistory.num_productos_reserva}</li>
+                </div>
+                <div className="lItem">
+                  <li>{userHistory.fecha_reserva}</li>
+                </div>
+                <div className="lItem">
+                  <li>{userHistory.valor_reserva}</li>
+                </div>
+                <div className="lItem">
+                  <li>{chkStatus()}</li>
+                </div>
+              </ul>
+            );
+          })}
+      </div>
+    </div>
+  );
 };
-export const Dashboard = (prop) => {
-  return <h4>SOY DASHBOARD</h4>;
+export const ProductosReserva = (prop) => {
+  const URI = `https://frutcol-backend.onrender.com/reserprod/${prop.reservation.num_orden}`;
+  const [products, setProducts] = useState(null);
+  const [isLoading, setisLoading] = useState(true);
+  const firstRender = useRef(true);
+  const metadata = prop.prodsPool;
+  const accessToken = localStorage.getItem("token");
+  const headers = {
+    Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
+  };
+  useEffect(() => {
+    if (firstRender.current) {
+      console.log(prop.reservation.num_orden);
+      getProducts();
+      firstRender.current = false;
+    } else {
+      if (products !== null) {
+        setisLoading(false);
+        console.log(products);
+      }
+    }
+  }, [products]);
+
+  const getProducts = async () => {
+    try {
+      const res = await axios.get(URI, { headers });
+      setProducts(res.data);
+    } catch (error) {
+      console.error("ERROR: " + error);
+    }
+  };
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+ 
+  return (
+    <div className="resprod">
+      <h2>Número de orden: {prop.reservation.num_orden}</h2>
+      <div className="elements">
+        <div className="labels">
+          <div className="lItem">
+            <p>Producto</p>
+          </div>
+          <div className="lItem">
+            <p>Cantidad</p>
+          </div>
+          <div className="lItem">
+            <p>Valor</p>
+          </div>
+        </div>
+        {products?.map((products) => {
+          const matchingProduct = metadata.data.find(
+            (prod) => prod.id_metadata_producto === products.id_producto
+          );
+          return (
+            <div className="product" key={products.id_producto}>
+              <div className="pImg">
+                <div className="title">
+                  <h3>{matchingProduct.nombre_producto}</h3>
+                </div>
+                <img
+                  src={"../../images/" + matchingProduct.image}
+                  alt={matchingProduct.nombre_producto}
+                />
+              </div>
+              <div className="promt">
+                <p>Cantidad: {products.cantidad_producto}</p>
+              </div>
+              <div className="unit">
+                <p>$ {matchingProduct.precio_producto} c/u</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="separator"></div>
+      <div className="total">
+        <p>
+          <strong>Total:</strong> {prop.reservation.valor_reserva}
+        </p>
+      </div>
+    </div>
+  );
 };
 
 export const InterfazAdmincom = ({ product }) => {
@@ -587,7 +759,7 @@ export const InterfazAdmincom = ({ product }) => {
   const [isLoading, setisLoading] = useState(true);
   const [admin, setAdming] = useState(null);
   const firstRender = useRef(true);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const headers = {
     Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
@@ -604,7 +776,7 @@ export const InterfazAdmincom = ({ product }) => {
         "--btn-color",
         product.header_color
       );
-      console.log(product.header_color)
+      console.log(product.header_color);
       firstRender.current = false;
     } else {
       if (prodsPool !== null) {
@@ -624,8 +796,6 @@ export const InterfazAdmincom = ({ product }) => {
     }
   };
 
-  
-
   if (isLoading && admin === null) {
     return <LoadingSpinner />;
   } else if (isLoading && admin === false) {
@@ -633,7 +803,7 @@ export const InterfazAdmincom = ({ product }) => {
       <div className="notAuthorized">
         <div className="container">
           <h1>Acceso no autorizado, verifique sus permisos</h1>
-          <button onClick={() => navigate('/')}>Volver</button>
+          <button onClick={() => navigate("/")}>Volver</button>
         </div>
       </div>
     );
@@ -642,7 +812,7 @@ export const InterfazAdmincom = ({ product }) => {
   return (
     <div className="infopagecontain">
       <Headercom product={product} />
-      <Informacionpagina product={product} headers={headers} />
+      <Informacionpagina product={product} headers={headers} prodsPool={prodsPool} />
       <Footercom product={product} />
     </div>
   );
