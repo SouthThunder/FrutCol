@@ -520,15 +520,6 @@ export const Infocontenidos = (prop) => {
       >
         Reservas
       </h4>
-      <h4
-        onClick={() => prop.onSelectOption("dashboard")}
-        style={{
-          backgroundColor:
-            prop.selectedOption === "dashboard" ? "#f2f2f2" : "transparent",
-        }}
-      >
-        Dashboard
-      </h4>
     </div>
   );
 };
@@ -592,23 +583,8 @@ export const Reservas = (prop) => {
     prop.onSelectOption("productosreserva");
     prop.onSelectReservation(reserva);
   };
-  const [userHistory, setUserHistory] = useState(null);
-  const accessToken = localStorage.getItem("token");
-  const headers = {
-    Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
-  };
-  const getHistoryData = async () => {
-    const lURI = "https://frutcol-backend.onrender.com/reserva/";
-    try {
-      const res = await axios.get(lURI, { headers });
-      setUserHistory(res.data);
-      console.log(res.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
   useEffect(() => {
-    getHistoryData();
   }, []);
   return (
     <div className="historialReserva">
@@ -630,8 +606,8 @@ export const Reservas = (prop) => {
             <p>Estado</p>
           </div>
         </div>
-        {userHistory &&
-          userHistory.map((userHistory) => {
+        {
+          prop.prod.userHistory.map((userHistory) => {
             const chkStatus = () => {
               if (userHistory.estado_reserva === false) {
                 return <li style={{ color: "#ff8c00" }}>En proceso</li>;
@@ -670,7 +646,9 @@ export const Reservas = (prop) => {
 };
 export const ProductosReserva = (prop) => {
   const URI = `https://frutcol-backend.onrender.com/reserprod/${prop.reservation.num_orden}`;
+  const URI2 = `https://frutcol-backend.onrender.com/reserva/${prop.reservation.num_orden}`;
   const [products, setProducts] = useState(null);
+  const [userData, setUserData] = useState(null);
   const [isLoading, setisLoading] = useState(true);
   const firstRender = useRef(true);
   const metadata = prop.prodsPool;
@@ -682,14 +660,14 @@ export const ProductosReserva = (prop) => {
     if (firstRender.current) {
       console.log(prop.reservation.num_orden);
       getProducts();
+      getUserData();
       firstRender.current = false;
     } else {
-      if (products !== null) {
+      if (products !== null && userData!==null) {
         setisLoading(false);
-        console.log(products);
       }
     }
-  }, [products]);
+  }, [products, userData]);
 
   const getProducts = async () => {
     try {
@@ -700,13 +678,27 @@ export const ProductosReserva = (prop) => {
     }
   };
 
+  const getUserData = async () => {
+    try {
+      const res = await axios.get(URI2, { headers });
+      setUserData(res.data);
+    } catch (error) {
+      console.error("ERROR: " + error);
+    }
+  }
+
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
  
   return (
-    <div className="resprod">
+    <div className="reserva">
       <h2>Número de orden: {prop.reservation.num_orden}</h2>
+      <div className="resuser">
+        
+      </div>
+      <div className="resprod">
       <div className="elements">
         <div className="labels">
           <div className="lItem">
@@ -751,12 +743,14 @@ export const ProductosReserva = (prop) => {
         </p>
       </div>
     </div>
+    </div>
   );
 };
 
 export const InterfazAdmincom = ({ product }) => {
   const [prodsPool, setProdsPool] = useState(null);
   const [isLoading, setisLoading] = useState(true);
+  const [userHistory, setUserHistory] = useState(null);
   const [admin, setAdming] = useState(null);
   const firstRender = useRef(true);
   const navigate = useNavigate();
@@ -768,6 +762,7 @@ export const InterfazAdmincom = ({ product }) => {
   useEffect(() => {
     if (firstRender.current) {
       getProducts();
+      getHistoryData();
       document.documentElement.style.setProperty(
         "--background-btn",
         product.main_color
@@ -779,20 +774,31 @@ export const InterfazAdmincom = ({ product }) => {
       console.log(product.header_color);
       firstRender.current = false;
     } else {
-      if (prodsPool !== null) {
+      if (prodsPool !== null && userHistory!==null) {
         setisLoading(false);
       }
     }
-  }, [prodsPool]);
+  }, [prodsPool, userHistory]);
 
   const getProducts = async () => {
     try {
       const URI = "https://frutcol-backend.onrender.com/metadata/user";
       const products = await axios.get(URI, { headers });
-      setProdsPool(products);
       setAdming(true);
+      setProdsPool(products);
     } catch (error) {
       setAdming(false);
+    }
+  };
+
+  const getHistoryData = async () => {
+    const lURI = "https://frutcol-backend.onrender.com/reserva/";
+    try {
+      const res = await axios.get(lURI, { headers });
+      setUserHistory(res.data);
+      console.log(res.data);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -812,7 +818,7 @@ export const InterfazAdmincom = ({ product }) => {
   return (
     <div className="infopagecontain">
       <Headercom product={product} />
-      <Informacionpagina product={product} headers={headers} prodsPool={prodsPool} />
+      <Informacionpagina product={product} headers={headers} prodsPool={prodsPool} userHistory={userHistory}/>
       <Footercom product={product} />
     </div>
   );
