@@ -650,6 +650,7 @@ export const ProductosReserva = (prop) => {
   const [userData, setUserData] = useState(null);
   const [isLoading, setisLoading] = useState(true);
   const firstRender = useRef(true);
+  const navigate = useNavigate()
   const metadata = prop.prodsPool;
   const accessToken = localStorage.getItem("token");
   const headers = {
@@ -689,7 +690,7 @@ export const ProductosReserva = (prop) => {
   const handleEntregarOrden = async () => {
     const URI = `https://frutcol-backend.onrender.com/reserva/${prop.reservation.num_orden}`;
     try {
-      const res = await axios.put(URI, {
+      await axios.put(URI, {
         id_reserva: prop.reservation.id_reserva,
         id_usuario: prop.reservation.id_usuario,
         num_productos_reserva: prop.reservation.num_productos_reserva,
@@ -698,7 +699,7 @@ export const ProductosReserva = (prop) => {
         num_orden: prop.reservation.num_orden,
         estado_reserva: true
       } ,{headers})
-      console.log(res)
+      window.location.reload(false);
     } catch (error) {
       console.error("ERROR: " + error);
     }
