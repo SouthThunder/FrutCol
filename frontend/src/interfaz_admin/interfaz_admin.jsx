@@ -421,8 +421,7 @@ export const Editarproducto = (prop) => {
 export const Productos = (prop) => {
   const headers = prop.headers;
   const [products, setProducts] = useState(prop.prod.prodsPool);
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   const handleEditClick = (product) => {
     // Cuando se hace clic en "Editar", actualiza el producto seleccionado
@@ -526,7 +525,7 @@ export const Informacionpagina = (prop) => {
   const [selectedOption, setSelectedOption] = useState("productos"); // Por defecto muestra "infocuenta"
   const [selectedProduct, setSelectedProduct] = useState(null);
   useEffect(() => {
-    console.log(prop.prodsPool)
+    console.log(prop.prodsPool);
   }, []);
   const [selectedReservation, setSelectedReservation] = useState(null);
 
@@ -585,8 +584,7 @@ export const Reservas = (prop) => {
     prop.onSelectReservation(reserva);
   };
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
   return (
     <div className="historialReserva">
       <div className="container">
@@ -607,40 +605,39 @@ export const Reservas = (prop) => {
             <p>Estado</p>
           </div>
         </div>
-        {
-          prop.prod.userHistory.map((userHistory) => {
-            const chkStatus = () => {
-              if (userHistory.estado_reserva === false) {
-                return <li style={{ color: "#ff8c00" }}>En proceso</li>;
-              } else {
-                return <li style={{ color: "green" }}>Entregado</li>;
-              }
-            };
+        {prop.prod.userHistory.map((userHistory) => {
+          const chkStatus = () => {
+            if (userHistory.estado_reserva === false) {
+              return <li style={{ color: "#ff8c00" }}>En proceso</li>;
+            } else {
+              return <li style={{ color: "green" }}>Entregado</li>;
+            }
+          };
 
-            return (
-              <ul
-                className="orders"
-                key={userHistory.num_orden}
-                onClick={() => handleReservationClick(userHistory)}
-              >
-                <div className="lItem">
-                  <li>{userHistory.num_orden}</li>
-                </div>
-                <div className="lItem">
-                  <li>{userHistory.num_productos_reserva}</li>
-                </div>
-                <div className="lItem">
-                  <li>{userHistory.fecha_reserva}</li>
-                </div>
-                <div className="lItem">
-                  <li>{userHistory.valor_reserva}</li>
-                </div>
-                <div className="lItem">
-                  <li>{chkStatus()}</li>
-                </div>
-              </ul>
-            );
-          })}
+          return (
+            <ul
+              className="orders"
+              key={userHistory.num_orden}
+              onClick={() => handleReservationClick(userHistory)}
+            >
+              <div className="lItem">
+                <li>{userHistory.num_orden}</li>
+              </div>
+              <div className="lItem">
+                <li>{userHistory.num_productos_reserva}</li>
+              </div>
+              <div className="lItem">
+                <li>{userHistory.fecha_reserva}</li>
+              </div>
+              <div className="lItem">
+                <li>{userHistory.valor_reserva}</li>
+              </div>
+              <div className="lItem">
+                <li>{chkStatus()}</li>
+              </div>
+            </ul>
+          );
+        })}
       </div>
     </div>
   );
@@ -660,11 +657,12 @@ export const ProductosReserva = (prop) => {
   };
   useEffect(() => {
     if (firstRender.current) {
+      console.log(prop.reservation)
       getProducts();
       getUserData();
       firstRender.current = false;
     } else {
-      if (products !== null && userData!==null) {
+      if (products !== null && userData !== null) {
         setisLoading(false);
       }
     }
@@ -682,86 +680,133 @@ export const ProductosReserva = (prop) => {
   const getUserData = async () => {
     try {
       const res = await axios.get(URI2, { headers });
-      setUserData(res.data);
+      setUserData(res.data.Usuario);
     } catch (error) {
       console.error("ERROR: " + error);
     }
-  }
+  };
 
+  const handleEntregarOrden = async () => {
+    const URI = `https://frutcol-backend.onrender.com/reserva/${prop.reservation.num_orden}`;
+    try {
+      const res = await axios.put(URI, {
+        id_reserva: prop.reservation.id_reserva,
+        id_usuario: prop.reservation.id_usuario,
+        num_productos_reserva: prop.reservation.num_productos_reserva,
+        valor_reserva: prop.reservation.valor_reserva,
+        fecha_reserva: prop.reservation.fecha_reserva,
+        num_orden: prop.reservation.num_orden,
+        estado_reserva: true
+      } ,{headers})
+      console.log(res)
+    } catch (error) {
+      console.error("ERROR: " + error);
+    }
+
+  };
+
+  const checkNotProcessed = () => {
+    if (!(prop.reservation.estado_reserva)) {
+      return (
+        <div className="control">
+          <button onClick={() => handleEntregarOrden()}>Entregar orden</button>
+        </div>
+      );
+    }else{
+      return 
+    }
+  };
 
   if (isLoading) {
     return <LoadingSpinner />;
   }
- 
+
   return (
     <div className="reserva">
       <h2>Número de orden: {prop.reservation.num_orden}</h2>
       <div className="resuser">
-        <div className="elements">
-        <div className="labels">
-          <div className="lItem">
-            <p>Cédula</p>
+        <h3>Información de Usuario</h3>
+        <div className="grid">
+          <div className="r1">
+            <div className="c1">
+              <p>
+                <strong>Cédula:</strong> {userData.cedula_usuario}
+              </p>
+            </div>
+            <div className="c2">
+              <p>
+                <strong>Correo:</strong> {userData.correo_usuario}
+              </p>
+            </div>
+            <div className="c3">
+              <p>
+                <strong>Dirección:</strong> {userData.direccion_usuario}
+              </p>
+            </div>
           </div>
-          <div className="lItem">
-            <p>Nombre</p>
+          <div className="r2">
+            <div className="c1">
+              <p>
+                <strong>Nombre:</strong> {userData.nombre_usuario}
+              </p>
+            </div>
+            <div className="c2">
+              <p>
+                <strong>Apellido:</strong> {userData.apellido_usuario}
+              </p>
+            </div>
           </div>
-          <div className="lItem">
-            <p>Apellido</p>
-          </div>
-          <div className="lItem">
-            <p>Correo</p>
-          </div>
-          <div className="lItem">
-            <p>Direccion</p>
-          </div>
-        </div>
         </div>
       </div>
       <div className="resprod">
-      <div className="elements">
-        <div className="labels">
-          <div className="lItem">
-            <p>Producto</p>
-          </div>
-          <div className="lItem">
-            <p>Cantidad</p>
-          </div>
-          <div className="lItem">
-            <p>Valor</p>
-          </div>
-        </div>
-        {products?.map((products) => {
-          const matchingProduct = metadata.find(
-            (prod) => prod.id_metadata_producto === products.id_producto
-          );
-          return (
-            <div className="product" key={products.id_producto}>
-              <div className="pImg">
-                <div className="title">
-                  <h3>{matchingProduct.nombre_producto}</h3>
-                </div>
-                <img
-                  src={"../../images/" + matchingProduct.image}
-                  alt={matchingProduct.nombre_producto}
-                />
-              </div>
-              <div className="promt">
-                <p>Cantidad: {products.cantidad_producto}</p>
-              </div>
-              <div className="unit">
-                <p>$ {matchingProduct.precio_producto} c/u</p>
-              </div>
+        <h3>Productos</h3>
+        <div className="elements">
+          <div className="labels">
+            <div className="lItem">
+              <p>Producto</p>
             </div>
-          );
-        })}
+            <div className="lItem">
+              <p>Cantidad</p>
+            </div>
+            <div className="lItem">
+              <p>Valor</p>
+            </div>
+          </div>
+          {products?.map((products) => {
+            const matchingProduct = metadata.find(
+              (prod) => prod.id_metadata_producto === products.id_producto
+            );
+            return (
+              <div className="product" key={products.id_producto}>
+                <div className="pImg">
+                  <div className="title">
+                    <h3>{matchingProduct.nombre_producto}</h3>
+                  </div>
+                  <img
+                    src={"../../images/" + matchingProduct.image}
+                    alt={matchingProduct.nombre_producto}
+                  />
+                </div>
+                <div className="promt">
+                  <p>Cantidad: {products.cantidad_producto}</p>
+                </div>
+                <div className="unit">
+                  <p>$ {matchingProduct.precio_producto} c/u</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="separator"></div>
+        <div className="total">
+          <p>
+            <strong>Total:</strong> {prop.reservation.valor_reserva}
+          </p>
+        </div>
       </div>
-      <div className="separator"></div>
-      <div className="total">
-        <p>
-          <strong>Total:</strong> {prop.reservation.valor_reserva}
-        </p>
-      </div>
-    </div>
+      {
+        checkNotProcessed()
+      }
     </div>
   );
 };
@@ -791,7 +836,7 @@ export const InterfazAdmincom = ({ product, prodsPool }) => {
       console.log(product.header_color);
       firstRender.current = false;
     } else {
-      if (prodsPool !== null && userHistory!==null) {
+      if (prodsPool !== null && userHistory !== null) {
         setisLoading(false);
       }
     }
@@ -801,11 +846,10 @@ export const InterfazAdmincom = ({ product, prodsPool }) => {
     const lURI = "https://frutcol-backend.onrender.com/reserva/";
     try {
       const res = await axios.get(lURI, { headers });
-      setAdming(true)
+      setAdming(true);
       setUserHistory(res.data);
-      console.log(res.data);
     } catch (error) {
-      setAdming(false)
+      setAdming(false);
       console.error(error);
     }
   };
@@ -826,7 +870,12 @@ export const InterfazAdmincom = ({ product, prodsPool }) => {
   return (
     <div className="infopagecontain">
       <Headercom product={product} />
-      <Informacionpagina product={product} headers={headers} prodsPool={prodsPool} userHistory={userHistory}/>
+      <Informacionpagina
+        product={product}
+        headers={headers}
+        prodsPool={prodsPool}
+        userHistory={userHistory}
+      />
       <Footercom product={product} />
     </div>
   );

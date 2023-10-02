@@ -146,7 +146,6 @@
     
     width: 100%;
     margin-left: 9rem;
-    
 }
 
 /*AGREGAR PRODUCTO */
@@ -358,12 +357,58 @@ input[type="number"] {
 }
 
 .info_pagina > .reserva > .resuser{
+  margin-top: 2rem;
   width: 100%;
   height: 100%;
   margin-left: 3rem;
 }
 
+.info_pagina > .reserva > .resuser > .grid{
+  margin-top: 1rem;
+  border: 1px solid black;
+  width: 80%;
+  height: 6rem;
+  border-radius: var(--sm-border);
+}
+
+.info_pagina > .reserva > .resuser > .grid > .r1{
+  display: grid;
+  height: 3rem;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.info_pagina > .reserva > .resuser > .grid > .r1 > .c1{
+  margin: auto;
+  grid-column: 1/2;
+}
+.info_pagina > .reserva > .resuser > .grid > .r1 > .c2{
+  margin: auto;
+  grid-column: 2/3;
+}
+.info_pagina > .reserva > .resuser > .grid > .r1 > .c3{
+  margin: auto;
+  grid-column: 3/3;
+}
+
+.info_pagina > .reserva > .resuser > .grid > .r2{
+  display: grid;
+  height: 3rem;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.info_pagina > .reserva > .resuser > .grid > .r2 > .c1{
+  grid-column: 2/3;
+  margin: auto;
+}
+
+.info_pagina > .reserva > .resuser > .grid > .r2 > .c2{
+  grid-column: 3/4;
+  margin: auto;
+}
+
 .info_pagina > .reserva > .resprod {
+  margin-top: 2rem;
   width: 100%;
   height: 100%;
   margin-left: 3rem;
@@ -374,7 +419,7 @@ input[type="number"] {
   height: 3rem;
   border-radius: var(--sm-border);
   border: 1px solid   black;
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
 }
 .info_pagina > .reserva  .elements > .labels > .lItem{
@@ -424,4 +469,28 @@ input[type="number"] {
 }
 .info_pagina > .reserva  .total > p{
   grid-column: 3/3;
+}
+
+.info_pagina > .reserva  .control {
+  width: 80%;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.info_pagina > .reserva  .control > button{
+  height: 2rem;
+  width: 8rem;
+  border-radius: var(--md-border);
+  border: 1px solid black;
+  background-color: transparent;
+  color: var(--background-btn);
+  font-size: 90%;
+}
+
+.info_pagina > .reserva  .control > button:hover{
+   cursor: pointer;
+   color: white;
+   background-color: var(--background-btn);
+   transition: all 1s var(--btn-cubic-bezier);
 }
