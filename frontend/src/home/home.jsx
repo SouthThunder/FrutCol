@@ -120,7 +120,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
         </div>
         <div className="n3">
           <div className="products__preview">
-            {prodsPool?.map((element) => {
+            {prodsPool.map((element) => {
               return (
                 <button
                   key={element.id_metadata_producto}

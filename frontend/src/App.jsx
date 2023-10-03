@@ -4,7 +4,6 @@ import {InfoCuentacom} from './info_cuenta/info_cuenta.jsx';
 import {Ingresocom} from './ingreso/ingreso.jsx';
 import {InterfazAdmincom} from './interfaz_admin/interfaz_admin.jsx';
 import {QuienesSomoscom} from './quienes_somos/quienes_somos.jsx';
-import {RealizarCompracom} from './realizar_compra/realizar_compra.jsx';
 import {Registrocom} from './registro/registro.jsx';
 import axios from 'axios';
 import { useRef, useEffect } from 'react';
@@ -28,7 +27,6 @@ export const App= () =>{
         setProduct(prodsPool[0]);
         if (product !== null) {
           firstSet.current = false;
-          console.log(product)
           setisLoading(false);
         }
       }
@@ -40,7 +38,6 @@ export const App= () =>{
     try {
       const response = await axios.get(URI);
       setProdsPool(response.data);
-      console.log(response.status);
     } catch (error) {
       console.error(error);
     }
