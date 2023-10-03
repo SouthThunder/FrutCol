@@ -6,7 +6,6 @@ import LoadingSpinner from "../loading/LoadingSpinner";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 
-const accessToken = localStorage.getItem("token");
 const URI = "https://frutcol-backend.onrender.com/metadata/";
 const numeros = /^\d+$/; // Solo números
 const texto = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
@@ -216,6 +215,10 @@ export const Agregarproducto = (prop) => {
 
 export const Editarproducto = (prop) => {
   const headers = prop.headers;
+
+  useEffect(() =>{
+
+  }, [])
   const handleActualizar = async () => {
     try {
       let nombre_producto = document.getElementById("nombre")?.value || "";
@@ -320,7 +323,7 @@ export const Editarproducto = (prop) => {
       <div className="editarcontent">
         <div className="left">
           <div className="product_image">
-            <img src={prop.product.image} alt="" />
+            <img src={`../../images/${prop.product.image}`} alt="product image" />
           </div>
           <div className="input__info">
             <h3>Nombre del Producto</h3>
@@ -818,7 +821,7 @@ export const InterfazAdmincom = ({ product, prodsPool }) => {
   const [admin, setAdming] = useState(null);
   const firstRender = useRef(true);
   const navigate = useNavigate();
-
+  const accessToken = localStorage.getItem("token");
   const headers = {
     Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
   };
@@ -826,6 +829,7 @@ export const InterfazAdmincom = ({ product, prodsPool }) => {
   useEffect(() => {
     if (firstRender.current) {
       getHistoryData();
+      getAdmin()
       document.documentElement.style.setProperty(
         "--background-btn",
         product.main_color
@@ -837,23 +841,32 @@ export const InterfazAdmincom = ({ product, prodsPool }) => {
       console.log(product.header_color);
       firstRender.current = false;
     } else {
-      if (prodsPool !== null && userHistory !== null) {
+      if (prodsPool !== null && userHistory !== null && admin!==null) {
         setisLoading(false);
       }
     }
-  }, [userHistory]);
+  }, [userHistory, admin]);
 
   const getHistoryData = async () => {
     const lURI = "https://frutcol-backend.onrender.com/reserva/";
     try {
       const res = await axios.get(lURI, { headers });
-      setAdming(true);
       setUserHistory(res.data);
     } catch (error) {
-      setAdming(false);
       console.error(error);
     }
   };
+
+  const getAdmin = async () =>{
+    const lURI = "https://frutcol-backend.onrender.com/usuarios";
+    try {
+      const res = await axios.get(lURI, {headers})
+      setAdming(res.data)
+    } catch (error) {
+      setAdming(false)
+      console.error(error)
+    }
+  }
 
   if (isLoading && admin === null) {
     return <LoadingSpinner />;

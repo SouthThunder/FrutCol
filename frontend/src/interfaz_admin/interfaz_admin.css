@@ -27,11 +27,18 @@
    width: 30%;
  }
 .info_pagina > .editar_container > .editarcontent > .left > .product_image{
-    background-color: red;
     width: 13rem;
     height: 13rem;
     margin-left: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
  }
+
+ .info_pagina > .editar_container > .editarcontent > .left > .product_image > img{
+  width: 100%;
+ }
+
  .info_pagina > .editar_container > .editarcontent > .right > .producto_estilo{
     margin-top: 2rem;
     
