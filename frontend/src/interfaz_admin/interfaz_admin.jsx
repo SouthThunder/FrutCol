@@ -335,15 +335,7 @@ export const Editarproducto = (prop) => {
               placeholder={prop.product.nombre_producto}
             />
           </div>
-          <div className="input__info">
-            <h3>Descripción</h3>
-            <textarea
-              className=""
-              type="text"
-              id="descripcion"
-              placeholder={prop.product.descripcion_producto}
-            />
-          </div>
+          
         </div>
         <div className="right">
           <div className="input__info">
@@ -412,9 +404,20 @@ export const Editarproducto = (prop) => {
                 />
               </div>
             </div>
+            
           </div>
         </div>
+        
       </div>
+      <div className="input__description">
+            <h3>Descripción</h3>
+            <textarea
+              className=""
+              type="text"
+              id="descripcion"
+              placeholder={prop.product.descripcion_producto}
+            />
+          </div>
       <div className="enter actualizar_product">
         <button onClick={handleActualizar}>Actualizar</button>
       </div>
