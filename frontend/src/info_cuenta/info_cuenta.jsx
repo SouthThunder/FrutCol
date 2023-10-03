@@ -5,6 +5,7 @@ import { Footercom } from "../footer/footer";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import LoadingSpinner from "../loading/LoadingSpinner";
+import { useNavigate } from "react-router-dom";
 
 const numeros = /^\d+$/; // Solo números
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -158,6 +159,19 @@ export const Infocuenta = (prop) => {
   );
 };
 export const Infocontenidos = (prop) => {
+
+  const navigate = useNavigate()
+
+  const extraOpt = () =>{
+    if(prop.admin){
+      return(
+        <button onClick={() => navigate('/InterfazAdmin')}>Administrador</button>
+      )
+    }else{
+      return
+    }
+  }
+
   return (
     <div className="contenidos">
       <div className="imagecontain">
@@ -195,6 +209,9 @@ export const Infocontenidos = (prop) => {
       >
         Cambio de contraseña
       </h4>
+      {
+        extraOpt()
+      }
     </div>
   );
 };
@@ -350,15 +367,19 @@ export const HistorialReservas = (prop) => {
 export const Informacioncuenta = (prop) => {
   const [selectedOption, setSelectedOption] = useState("infocuenta"); // Por defecto muestra "infocuenta"
   const [selectedReservation, setSelectedReservation] = useState(null);
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(prop.admin)
+  }, []);
   const handleOptionChange = (option) => {
     setSelectedOption(option);
   };
+
   return (
     <div className="infocuenta">
       <Infocontenidos
         onSelectOption={handleOptionChange}
         selectedOption={selectedOption}
+        admin={prop.admin}
       />
       {selectedOption === "infocuenta" ? (
         <Infocuenta prod={prop} user={prop.userData} headers={prop.headers} />
@@ -500,6 +521,7 @@ export const Cambiocontraseña = (prop) => {
 export const InfoCuentacom = ({ product, prodsPool }) => {
   const decode = jwt_decode(localStorage.getItem("token"));
   const [isLoading, setisLoading] = useState(true);
+  const [admin, setAdmin] = useState(null);
   const firstRender = useRef(true);
 
   const [userData, setUserData] = useState(null); // Estado para almacenar los datos del usuario
@@ -514,12 +536,14 @@ export const InfoCuentacom = ({ product, prodsPool }) => {
     if (firstRender.current) {
       getUserData();
       getHistoryData();
+      getAdmin();
       firstRender.current = false;
     } else {
       if (
         userData !== null &&
         headers.Authorization !== null &&
-        userHistory !== null
+        userHistory !== null &&
+        admin!==null
       ) {
         document.documentElement.style.setProperty(
           "--background-btn",
@@ -532,7 +556,17 @@ export const InfoCuentacom = ({ product, prodsPool }) => {
         setisLoading(false);
       }
     }
-  }, [userData, headers, userHistory]);
+  }, [userData, headers, userHistory, admin]);
+
+  const getAdmin = async () => {
+    const URI = "https://frutcol-backend.onrender.com/usuarios";
+    try {
+      const res = await axios.get(URI, {headers})
+      setAdmin(res.data)
+    } catch (error) {
+      
+    }
+  }
 
   const getUserData = async () => {
     try {
@@ -567,6 +601,7 @@ export const InfoCuentacom = ({ product, prodsPool }) => {
         userHistory={userHistory}
         headers={headers}
         prodsPool={prodsPool}
+        admin={admin}
       />
       <Footercom product={product} />
     </div>

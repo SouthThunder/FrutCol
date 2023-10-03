@@ -33,8 +33,24 @@
 }
 .infocuenta > .contenidos > h4:hover{
     color:red;
-
 }
+
+.infocuenta > .contenidos > button {
+    height: 2rem;
+    width: 8rem;
+    border-radius: var(--md-border);
+    border: 1px solid black;
+    background-color: transparent;
+    color: var(--background-btn);
+}
+
+.infocuenta > .contenidos > button:hover{
+    color: white;
+    cursor: pointer;
+    background-color: var(--background-btn);
+    transition: all 1s var(--btn-cubic-bezier);
+}
+
 .infocuenta > .infogeneral{
     width: 100%;
     margin-left: 3rem;
