@@ -424,6 +424,7 @@ export const Editarproducto = (prop) => {
     </div>
   );
 };
+
 export const Productos = (prop) => {
   const headers = prop.headers;
   const [products, setProducts] = useState(prop.prod.prodsPool);
