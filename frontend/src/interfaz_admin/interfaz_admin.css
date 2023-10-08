@@ -26,13 +26,25 @@
    column-gap: 3rem;
 }
 .info_pagina > .editar_container > .input__description{
-    margin-left: -20%;
+    margin-left: -18%;
     width: 80%;
     display: flex;
     flex-direction: column;
-    margin-top: 1rem;
-    border-bottom: 1px solid black;
+    margin-top: 3rem;
 }
+
+.info_pagina > .editar_container > .input__description > input {
+  border:none;
+  margin-top: 1rem;
+  border-bottom: 1px solid black;
+  padding-bottom: .5rem;
+  font-size: large;
+}
+
+.info_pagina > .editar_container > .input__description > input:focus{
+  outline: none;
+}
+
 .info_pagina > .editar_container > .editarcontent > .left {
    width: 30%;
  }

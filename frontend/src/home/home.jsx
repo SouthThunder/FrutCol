@@ -13,15 +13,15 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
   const [backgroundColor, setBackgroundColor] = useState([]);
   const [currentImage, setCurrentImage] = useState([]);
   const [primaryColor, setPrimaryColor] = useState([]);
-  const [currentImageback, setCurrentImageback] = useState([]);
   const [currentWord, setCurrentWord] = useState([]);
   const [currentPrice, setCurrentprice] = useState([]);
+  const [sliderProds, setSliderProds] = useState([]);
+  const firstLoad= useRef(false);
 
   const changestyle = (element) => {
     setBackgroundColor(element.comp_color);
     setPrimaryColor(element.main_color);
     setCurrentImage(`../../images/${product.image}`);
-    setCurrentImageback(`../../images/${product.stain_image}`);
     setCurrentWord(element.nombre_producto);
     setCurrentprice(element.precio_producto);
   };
@@ -30,11 +30,27 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
   };
 
   useEffect(() => {
+    if(!firstLoad.current){
+      chkLength();
+      firstLoad.current = true;
+    }
     if (product !== null) {
-      console.log(product)
       changestyle(product);
     }
   }, [product]);
+
+  const chkLength= async() =>{
+     if(prodsPool.length > 5){
+      const auxProds= [];
+      for(let i=0; i<5; i++){
+        auxProds.push(prodsPool[i]);
+      }
+     await setSliderProds(auxProds)
+    }else{
+      setSliderProds(prodsPool)
+    }
+  }
+
   const handleAddToCart = () => {
     // Realiza cualquier acción relacionada con agregar al carrito aquí
 
@@ -48,12 +64,13 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
   };
   const incrementArray = (step) => {
     const newIndex =
-      (activeProductIndex + step + prodsPool.length) % prodsPool.length;
+      (activeProductIndex + step + sliderProds.length) % sliderProds.length;
     setActiveProductIndex(newIndex);
-    const nextProduct = prodsPool[newIndex];
+    const nextProduct = sliderProds[newIndex];
     changestyle(nextProduct);
     updateProp(nextProduct);
   };
+
 
   return (
     <div
@@ -93,10 +110,10 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
             style={{
               backgroundImage: `linear-gradient(${primaryColor}, ${primaryColor})`,
               backgroundSize: `${(activeProductIndex + 1) * 20}% 100%`,
-              transition: "all 1s var(--btn-cubic-bezier)",
+              transition: "all 5s var(--btn-cubic-bezier)",
             }}
           ></input>
-          <p>0{prodsPool.length}</p>
+          <p>0{sliderProds.length}</p>
         </div>
       </div>
 
@@ -183,7 +200,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
         </div>
         <div className="n3">
           <div className="products__preview">
-            {prodsPool.map((element) => {
+            {sliderProds.map((element) => {
               return (
                 <button
                   key={element.id_metadata_producto}
