@@ -119,7 +119,7 @@ export const Headercom = ({product}) => {
                   className="nav__link"
                   onClick={logIn}
                   style={{
-                    color: product.font_color,
+                    color: product.main_color,
                     transition: "all 1s var(--btn-cubic-bezier)",
                   }}
                 >
