@@ -66,7 +66,7 @@ export const Agregarproducto = (prop) => {
       }
 
       if (font_color === "" || !regexHexadecimal.test(font_color)) {
-        alert("Ingrese un código hexadecimal de letra válido");
+        alert("Ingrese un código hexadecimal de mancha válido");
         return;
       }
 
@@ -160,7 +160,7 @@ export const Agregarproducto = (prop) => {
             />
           </div>
           <div className="producto_estilo">
-            <h4>Colores</h4>
+            <h4>Colores de la página</h4>
             <div className="colores_producto">
               <div className="input__info">
                 <h5>Principal</h5>
@@ -193,7 +193,7 @@ export const Agregarproducto = (prop) => {
                 />
               </div>
               <div className="input__info">
-                <h5>Letra</h5>
+                <h5>Mancha</h5>
                 <input
                   className=""
                   type="text"
@@ -287,7 +287,7 @@ export const Editarproducto = (prop) => {
         }
       }
       if (font_color !== "" && !regexHexadecimal.test(font_color)) {
-        alert("Ingrese un código hexadecimal de letra válido");
+        alert("Ingrese un código hexadecimal de mancha válido");
         return;
       } else {
         if (font_color === "") {
@@ -361,7 +361,7 @@ export const Editarproducto = (prop) => {
             />
           </div>
           <div className="producto_estilo">
-            <h4>Colores</h4>
+            <h4>Colores de la página</h4>
             <div className="colores_producto">
               <div className="input__info">
                 <h5>Principal</h5>
@@ -394,7 +394,7 @@ export const Editarproducto = (prop) => {
                 />
               </div>
               <div className="input__info">
-                <h5>Letra</h5>
+                <h5>Mancha</h5>
                 <input
                   className=""
                   type="text"
@@ -411,7 +411,7 @@ export const Editarproducto = (prop) => {
       </div>
       <div className="input__description">
             <h3>Descripción</h3>
-            <textarea
+            <input
               className=""
               type="text"
               id="descripcion"
