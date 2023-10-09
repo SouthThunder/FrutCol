@@ -341,6 +341,21 @@ input[type="number"] {
   width: 80%;
   height: 100%;
 }
+.info_pagina > .historialReserva > .container > .filtro{
+  display:flex;
+  margin-bottom: 2rem;
+  align-items: flex-end;
+  column-gap: 4rem;
+}
+.info_pagina > .historialReserva > .container > .filtro > .filtroestado > .select{
+ width: 100px;
+ height: 25px;
+}
+.info_pagina > .historialReserva > .container > .filtro > .filtrofecha > .entry{
+  width: 100px;
+  height: 25px;
+ }
+
 .info_pagina > .historialReserva > .container > .labels{
   display: flex;
   align-items: center;
