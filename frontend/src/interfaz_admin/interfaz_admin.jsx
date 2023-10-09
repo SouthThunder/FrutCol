@@ -428,6 +428,7 @@ export const Editarproducto = (prop) => {
 export const Productos = (prop) => {
   const headers = prop.headers;
   const [products, setProducts] = useState(prop.prod.prodsPool);
+  const URI = "https://frutcol-backend.onrender.com/metadata/";
   useEffect(() => {}, []);
 
   const handleEditClick = (product) => {

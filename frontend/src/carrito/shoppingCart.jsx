@@ -1,105 +1,130 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import './shoppingCart.css'
+import "./shoppingCart.css";
 import { Producto } from "../home/cartSlice";
 import jwt_decode from "jwt-decode";
-import { Toaster, toast } from 'sonner';
+import { Toaster, toast } from "sonner";
 
-export const ShoppingCart = ({ visibility, changeCartVis}) => {
+export const ShoppingCart = ({ visibility, changeCartVis }) => {
   const [active, setActive] = useState([]);
-   const URI = "https://frutcol-backend.onrender.com/metadata";
-   const [products, setProducts] = useState([]);
-   const [total,setTotal]=useState(0);
-   const [totalp,setTotalp]=useState(0);
-   const [test, setTest] = useState({
+  const URI = "https://frutcol-backend.onrender.com/metadata";
+  const [products, setProducts] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [totalp, setTotalp] = useState(0);
+  const [test, setTest] = useState({
     producto: [],
   });
   const refreshPage = () => {
     window.location.reload();
   };
-  const accessToken= localStorage.getItem("token");
+  const accessToken = localStorage.getItem("token");
   const headers = {
     Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
   };
   useEffect(() => {
     chkVis();
-     
   }, [visibility]);
   useEffect(() => {
-    
-     getProducts();
+    getProducts();
   }, [test.producto]);
-  
-  const handleDelete = async (id) =>{
-    const URI= `https://frutcol-backend.onrender.com/productos/${id}`;
-    await axios.delete(URI, {
-        headers,
-      });  
-  }
-  const id_h= jwt_decode(localStorage.getItem('token'))
-  
-  const handleReserve = async () =>{ 
-    const URIR='https://frutcol-backend.onrender.com/reserva';
-    const URIRP= 'https://frutcol-backend.onrender.com/reserprod';
-    const URI = "https://frutcol-backend.onrender.com/carrito/mod";
-    if(totalp>0){
-    try {
-      const testing= await axios.post(URIR, {
-       id_usuario:id_h.id_usuario,
-       num_productos_reserva: totalp,
-       valor_reserva:total,
-       fecha_reserva: new Date().toISOString().slice(0, 10),
-      }, {headers});
-        test.producto.map(async (prod) =>{
-          if(prod.cantidad > 0){
-            await axios.post(URIRP, {
-              num_orden: testing.data,
-              id_producto: prod.id,
-              cantidad_producto: prod.cantidad
-            }, {
-              headers
-            })
 
-            await axios.put(URI, {
-              id_carrito: id_h.id_usuario,
-              id_producto: prod.id,
-              cantidad_producto: 0,
-            }, {
-              headers
-            });
-          }
-        })
-      toast.success('La reserva ha sido creada');
-      await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo 
-      refreshPage();
+  const handleDelete = async (id) => {
+    try {
+      const URI = `https://frutcol-backend.onrender.com/productos/${id}`;
+      const res = await axios.delete(URI, {
+        headers,
+      });
+      console.log(res);
     } catch (error) {
-      toast.error('Ha ocurrido un error creando la reserva');
       console.error(error);
-    }}else{
-      toast.error('Agrega productos al carrito antes de reservar');
+    }
+  };
+  const id_h = jwt_decode(localStorage.getItem("token"));
+
+  const handleReserve = async () => {
+    const URIR = "https://frutcol-backend.onrender.com/reserva";
+    const URIRP = "https://frutcol-backend.onrender.com/reserprod";
+    const URI = "https://frutcol-backend.onrender.com/carrito/mod";
+    if (totalp > 0) {
+      try {
+        const testing = await axios.post(
+          URIR,
+          {
+            id_usuario: id_h.id_usuario,
+            num_productos_reserva: totalp,
+            valor_reserva: total,
+            fecha_reserva: new Date().toISOString().slice(0, 10),
+          },
+          { headers }
+        );
+        test.producto.map(async (prod) => {
+          if (prod.cantidad > 0) {
+            await axios.post(
+              URIRP,
+              {
+                num_orden: testing.data,
+                id_producto: prod.id,
+                cantidad_producto: prod.cantidad,
+              },
+              {
+                headers,
+              }
+            );
+
+            await axios.put(
+              URI,
+              {
+                id_carrito: id_h.id_usuario,
+                id_producto: prod.id,
+                cantidad_producto: 0,
+              },
+              {
+                headers,
+              }
+            );
+          }
+        });
+        toast.success("La reserva ha sido creada");
+        await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
+        refreshPage();
+      } catch (error) {
+        toast.error("Ha ocurrido un error creando la reserva");
+        console.error(error);
+      }
+    } else {
+      toast.error("Agrega productos al carrito antes de reservar");
     }
   };
 
-   const getProducts = async () => {
-    const id_carrito= jwt_decode(localStorage.getItem('token'))
-    const idk= `https://frutcol-backend.onrender.com/carrito/${id_carrito.id_usuario}`;
-    
+  const getProducts = async () => {
+    const id_carrito = jwt_decode(localStorage.getItem("token"));
+    const idk = `https://frutcol-backend.onrender.com/carrito/${id_carrito.id_usuario}`;
+
     try {
       const res = await axios.get(URI);
-      const res2 = await axios.get(idk,{headers});
+      const res2 = await axios.get(idk, { headers });
       setProducts(res.data);
       setTest({
-        producto: res.data.map(
-          (prod) =>{
-            const it= res2.data.find((lproduc)=> lproduc.id_producto === prod.id_metadata_producto)
-            if(it===undefined){
-              return new Producto(prod.id_metadata_producto, prod.nombre_producto, prod.precio_producto, 0)
-            }else{
-              return new Producto(it.id_producto, prod.nombre_producto, prod.precio_producto, it.cantidad_producto)
-            }
-            
-          } 
-        ),
+        producto: res.data.map((prod) => {
+          const it = res2.data.find(
+            (lproduc) => lproduc.id_producto === prod.id_metadata_producto
+          );
+          if (it === undefined) {
+            return new Producto(
+              prod.id_metadata_producto,
+              prod.nombre_producto,
+              prod.precio_producto,
+              0
+            );
+          } else {
+            return new Producto(
+              it.id_producto,
+              prod.nombre_producto,
+              prod.precio_producto,
+              it.cantidad_producto
+            );
+          }
+        }),
       });
     } catch (error) {
       console.error("ERROR: " + error);
@@ -108,24 +133,18 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
 
   useEffect(() => {
     // Calcula el precio total sumando el precio de cada producto multiplicado por la cantidad
-    const totalpruductos= test.producto.reduce(
-      (accumulator, prods) => {
-        if (prods.cantidad > 0) {
-          return accumulator+=prods.cantidad;
-        }
-        return accumulator;
-      },
-      0
-    );
-    const totalPrice = test.producto.reduce(
-      (accumulator, prods) => {
-        if (prods.cantidad > 0 ) {
-          return accumulator + prods.cantidad * prods.precio;
-        }
-        return accumulator;
-      },
-      0
-    );
+    const totalpruductos = test.producto.reduce((accumulator, prods) => {
+      if (prods.cantidad > 0) {
+        return (accumulator += prods.cantidad);
+      }
+      return accumulator;
+    }, 0);
+    const totalPrice = test.producto.reduce((accumulator, prods) => {
+      if (prods.cantidad > 0) {
+        return accumulator + prods.cantidad * prods.precio;
+      }
+      return accumulator;
+    }, 0);
     // Actualiza el estado total con el nuevo precio total calculado
     setTotal(totalPrice);
     setTotalp(totalpruductos);
@@ -138,7 +157,6 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
       setActive(visibility);
     }
   };
-
 
   return (
     <div>
@@ -156,7 +174,7 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
                   const matchingProduct = products.find(
                     (prod) => prod.nombre_producto === prods.nombre
                   );
-  
+
                   if (prods.cantidad > 0) {
                     return (
                       <div className="card" key={prods.id_producto}>
@@ -178,7 +196,9 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
                           </div>
                         </div>
                         <div className="delete_prod">
-                          <button onClick={() => handleDelete(prods.id)}>Eliminar</button>
+                          <button onClick={() => handleDelete(prods.id)}>
+                            Eliminar
+                          </button>
                         </div>
                       </div>
                     );
@@ -186,13 +206,17 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
                 })
               ) : (
                 <div className="noprod">
-                  <img className="emptycar" src="../../images/cesta-compra (1)/37459.jpg" alt="No hay productos" />
+                  <img
+                    className="emptycar"
+                    src="../../images/cesta-compra (1)/37459.jpg"
+                    alt="No hay productos"
+                  />
                   <h5>Carrito vacío</h5>
                 </div>
               )}
             </div>
           </div>
-  
+
           <div className="bottom">
             <p>Total: $ {total}</p>
             <button onClick={() => handleReserve()}>Reservar</button>
@@ -202,5 +226,4 @@ export const ShoppingCart = ({ visibility, changeCartVis}) => {
       )}
     </div>
   );
-  
 };
