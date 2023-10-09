@@ -124,15 +124,23 @@
         display: flex;
         align-items: center;
     }
-
+    
     .homecontain > .slider > .second > svg{
         position:absolute;
+        max-width: 512px;
+        max-height: 512px;
+        margin-left: -7%;
         width: 30vw;
-        max-width: 520px;
-        min-width: 400px;
-        margin-left: -6rem;
+       
+        min-width: 30vw;
+        min-height: 30vh;
+      
+       
+        
         transition: all 1s var(--btn-cubic-bezier);
     }
+
+    
 
     .homecontain > .slider > .second > img:nth-child(2){
         width: 15vw;
