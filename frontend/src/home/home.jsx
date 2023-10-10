@@ -228,7 +228,8 @@ export const ProdsComp = ({ product, headers, loged }) => {
   const [test, setTest] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {}, [test]);
+  useEffect(() => {
+  }, [test]);
 
   const handleResCantidad = () => {
     if (element.cantidad === 1) {
@@ -311,95 +312,14 @@ export const ProdsComp = ({ product, headers, loged }) => {
   );
 };
 
-export const Products = ({ prodsPool }) => {
-  const [isLoading, setisLoading] = useState(true);
-  const [lProductos, setLProductos] = useState(null);
-  const [user, setUser] = useState();
-  const firstRender = useRef(true);
+export const Products = ({lProductos, user}) => {
 
-  useEffect(() => {
-    if (firstRender.current) {
-      if (
-        localStorage.getItem("token") === undefined ||
-        localStorage.getItem("token") === null
-      ) {
-        setUser(false);
-        getProducts();
-      } else {
-        setUser(true);
-        getProductsFromCart();
-      }
-      firstRender.current = false;
-    } else {
-      if (lProductos !== null) {
-        setisLoading(false);
-      }
-    }
-  }, [lProductos]);
-
-  const accessToken = localStorage.getItem("token");
+  const accessToken = jwt_decode(localStorage.getItem("token"));
   const headers = {
-    Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
+    Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
   };
-
-  const getProducts = () => {
-    setLProductos(() =>
-      prodsPool.map((prod) => {
-        return new Producto(
-          prod.id_metadata_producto,
-          prod.nombre_producto,
-          prod.precio_producto,
-          0,
-          prod.image
-        );
-      })
-    );
-  };
-
-  const getProductsFromCart = async () => {
-    const id_carrito = jwt_decode(localStorage.getItem("token"));
-    const URI = `https://frutcol-backend.onrender.com/carrito/${id_carrito.id_usuario}`;
-    try {
-      const res = await axios.get(URI, {
-        headers,
-      });
-      setLProductos(() =>
-        prodsPool.map((prod) => {
-          const it = res.data.find(
-            (lproduc) => lproduc.id_producto === prod.id_metadata_producto
-          );
-          if (it === undefined) {
-            return new Producto(
-              prod.id_metadata_producto,
-              prod.nombre_producto,
-              prod.precio_producto,
-              0,
-              prod.image,
-              false
-            );
-          } else {
-            return new Producto(
-              it.id_producto,
-              prod.nombre_producto,
-              prod.precio_producto,
-              it.cantidad_producto,
-              prod.image,
-              true
-            );
-          }
-        })
-      );
-    } catch (error) {
-      console.error("ERROR: " + error);
-    }
-  };
-
-  if (isLoading) {
-    return <div></div>;
-  }
-
   return (
-    <div className="productsComp" id="products">
+    <div className="productsComp">
       <div className="title">
         <h1>Productos</h1>
       </div>
@@ -412,12 +332,12 @@ export const Products = ({ prodsPool }) => {
   );
 };
 
-export const Homecom = ({ product, changeProp, prodsPool }) => {
+export const Homecom = ({ product, changeProp, prodsPool, lProductos, user }) => {
   return (
     <div className="homecontain">
       <Headercom product={product} />
       <Slider product={product} changeProp={changeProp} prodsPool={prodsPool} />
-      <Products prodsPool={prodsPool} />
+      <Products lProductos={lProductos} user={user}/>
       <Footercom product={product} />
     </div>
   );

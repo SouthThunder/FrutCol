@@ -11,9 +11,11 @@ export const ShoppingCart = ({ visibility, changeCartVis }) => {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [totalp, setTotalp] = useState(0);
+  const [test2, setTest2] = useState(false);
   const [test, setTest] = useState({
     producto: [],
   });
+
   const refreshPage = () => {
     window.location.reload();
   };
@@ -28,17 +30,6 @@ export const ShoppingCart = ({ visibility, changeCartVis }) => {
     getProducts();
   }, [test.producto]);
 
-  const handleDelete = async (id) => {
-    try {
-      const URI = `https://frutcol-backend.onrender.com/productos/${id}`;
-      const res = await axios.delete(URI, {
-        headers,
-      });
-      console.log(res);
-    } catch (error) {
-      console.error(error);
-    }
-  };
   const id_h = jwt_decode(localStorage.getItem("token"));
 
   const handleReserve = async () => {
@@ -148,7 +139,13 @@ export const ShoppingCart = ({ visibility, changeCartVis }) => {
     // Actualiza el estado total con el nuevo precio total calculado
     setTotal(totalPrice);
     setTotalp(totalpruductos);
-  }, [active]);
+  }, [active, test2]);
+
+
+  const handleResCantidad = (element) => {
+      element.delProd(headers);
+      setTest2(!test2);
+  };
 
   const chkVis = () => {
     if (visibility === null || visibility === undefined) {
@@ -196,7 +193,7 @@ export const ShoppingCart = ({ visibility, changeCartVis }) => {
                           </div>
                         </div>
                         <div className="delete_prod">
-                          <button onClick={() => handleDelete(prods.id)}>
+                          <button onClick={() => handleResCantidad(prods)}>
                             Eliminar
                           </button>
                         </div>
