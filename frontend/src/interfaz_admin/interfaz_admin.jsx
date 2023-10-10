@@ -5,6 +5,8 @@ import { Footercom } from "../footer/footer";
 import LoadingSpinner from "../loading/LoadingSpinner";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
+import { Toaster, toast } from "sonner";
+
 
 const URI = "https://frutcol-backend.onrender.com/metadata/";
 const numeros = /^\d+$/; // Solo números
@@ -449,6 +451,13 @@ export const Productos = (prop) => {
 
   const updateCantidad = async (id) => {
     try {
+
+      const confirmacion = window.confirm('¿Quieres realmente eliminar el producto?');
+
+      if (!confirmacion) {
+        return; 
+      }
+
       const token = localStorage.getItem("token");
 
       if (!token) {
@@ -467,6 +476,7 @@ export const Productos = (prop) => {
           Authorization: `${token}`,
         },
       });
+      toast.success('Se elimino el producto')
 
       getProducts();
       prop.onSelectOption("productos");
@@ -474,6 +484,8 @@ export const Productos = (prop) => {
       console.error("ERROR: " + error);
     }
   };
+
+  
 
   return (
     <div className="infoproductos">
@@ -518,6 +530,7 @@ export const Productos = (prop) => {
       <div className="enter agregarp">
         <button onClick={() => prop.onSelectOption("agregar")}>Agregar</button>
       </div>
+      <Toaster richColors  />
     </div>
   );
 };
