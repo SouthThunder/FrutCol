@@ -216,9 +216,7 @@ export const Agregarproducto = (prop) => {
 export const Editarproducto = (prop) => {
   const headers = prop.headers;
 
-  useEffect(() =>{
-
-  }, [])
+  useEffect(() => {}, []);
   const handleActualizar = async () => {
     try {
       let nombre_producto = document.getElementById("nombre")?.value || "";
@@ -323,7 +321,10 @@ export const Editarproducto = (prop) => {
       <div className="editarcontent">
         <div className="left">
           <div className="product_image">
-            <img src={`../../images/${prop.product.image}`} alt="product image" />
+            <img
+              src={`../../images/${prop.product.image}`}
+              alt="product image"
+            />
           </div>
           <div className="input__info">
             <h3>Nombre del Producto</h3>
@@ -335,7 +336,6 @@ export const Editarproducto = (prop) => {
               placeholder={prop.product.nombre_producto}
             />
           </div>
-          
         </div>
         <div className="right">
           <div className="input__info">
@@ -404,20 +404,18 @@ export const Editarproducto = (prop) => {
                 />
               </div>
             </div>
-            
           </div>
         </div>
-        
       </div>
       <div className="input__description">
-            <h3>Descripción</h3>
-            <input
-              className=""
-              type="text"
-              id="descripcion"
-              placeholder={prop.product.descripcion_producto}
-            />
-          </div>
+        <h3>Descripción</h3>
+        <input
+          className=""
+          type="text"
+          id="descripcion"
+          placeholder={prop.product.descripcion_producto}
+        />
+      </div>
       <div className="enter actualizar_product">
         <button onClick={handleActualizar}>Actualizar</button>
       </div>
@@ -591,11 +589,43 @@ export const Reservas = (prop) => {
     prop.onSelectOption("productosreserva");
     prop.onSelectReservation(reserva);
   };
-
+  const [estado, setEstado] = useState("");
+  const [fecha, setFecha] = useState("");
+  const filtrarReservas = () => {
+    return prop.prod.userHistory.filter((userHistory) => {
+      console.log(estado);
+      
+      // Verificar si se cumple la condición de estado y fecha
+      const cumpleCondicionEstado = estado === "" || userHistory.estado_reserva.toString() === estado;
+      const cumpleCondicionFecha = fecha === "" || userHistory.fecha_reserva === fecha;
+      console.log(cumpleCondicionEstado)
+      // Si ambas condiciones se cumplen, se muestra el elemento
+      console.log(cumpleCondicionFecha && cumpleCondicionEstado)
+      return cumpleCondicionEstado && cumpleCondicionFecha;
+    });
+  };
   useEffect(() => {}, []);
+  
+  
   return (
     <div className="historialReserva">
       <div className="container">
+        <div className="filtro">
+          <h2>Filtros:</h2>
+          <div className="filtroestado">
+          <label >Estado : </label>
+          <select name="estado" id="estado" onChange={(e) => setEstado(e.target.value)} className="select">
+            <option value="">Todo</option>
+            <option value="true">Entregado</option>
+            <option value="false">En proceso</option>
+          </select>
+          </div>
+          <div className="filtrofecha">
+          <label >Fecha : </label> 
+          <input className="entry" type="date" id="start" name="trip-start" value={fecha} min="2023-01-01" max="2035-01-01" onChange={(e) => setFecha(e.target.value)}/>
+          </div>
+          
+        </div>
         <div className="labels">
           <div className="lItem">
             <p># Reserva</p>
@@ -613,7 +643,7 @@ export const Reservas = (prop) => {
             <p>Estado</p>
           </div>
         </div>
-        {prop.prod.userHistory.map((userHistory) => {
+        {filtrarReservas().map((userHistory) => {
           const chkStatus = () => {
             if (userHistory.estado_reserva === false) {
               return <li style={{ color: "#ff8c00" }}>En proceso</li>;
@@ -621,7 +651,7 @@ export const Reservas = (prop) => {
               return <li style={{ color: "green" }}>Entregado</li>;
             }
           };
-
+          
           return (
             <ul
               className="orders"
@@ -658,7 +688,7 @@ export const ProductosReserva = (prop) => {
   const [userData, setUserData] = useState(null);
   const [isLoading, setisLoading] = useState(true);
   const firstRender = useRef(true);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const metadata = prop.prodsPool;
   const accessToken = localStorage.getItem("token");
   const headers = {
@@ -666,7 +696,7 @@ export const ProductosReserva = (prop) => {
   };
   useEffect(() => {
     if (firstRender.current) {
-      console.log(prop.reservation)
+      console.log(prop.reservation);
       getProducts();
       getUserData();
       firstRender.current = false;
@@ -698,31 +728,34 @@ export const ProductosReserva = (prop) => {
   const handleEntregarOrden = async () => {
     const URI = `https://frutcol-backend.onrender.com/reserva/${prop.reservation.num_orden}`;
     try {
-      await axios.put(URI, {
-        id_reserva: prop.reservation.id_reserva,
-        id_usuario: prop.reservation.id_usuario,
-        num_productos_reserva: prop.reservation.num_productos_reserva,
-        valor_reserva: prop.reservation.valor_reserva,
-        fecha_reserva: prop.reservation.fecha_reserva,
-        num_orden: prop.reservation.num_orden,
-        estado_reserva: true
-      } ,{headers})
+      await axios.put(
+        URI,
+        {
+          id_reserva: prop.reservation.id_reserva,
+          id_usuario: prop.reservation.id_usuario,
+          num_productos_reserva: prop.reservation.num_productos_reserva,
+          valor_reserva: prop.reservation.valor_reserva,
+          fecha_reserva: prop.reservation.fecha_reserva,
+          num_orden: prop.reservation.num_orden,
+          estado_reserva: true,
+        },
+        { headers }
+      );
       window.location.reload(false);
     } catch (error) {
       console.error("ERROR: " + error);
     }
-
   };
 
   const checkNotProcessed = () => {
-    if (!(prop.reservation.estado_reserva)) {
+    if (!prop.reservation.estado_reserva) {
       return (
         <div className="control">
           <button onClick={() => handleEntregarOrden()}>Entregar orden</button>
         </div>
       );
-    }else{
-      return 
+    } else {
+      return;
     }
   };
 
@@ -813,9 +846,7 @@ export const ProductosReserva = (prop) => {
           </p>
         </div>
       </div>
-      {
-        checkNotProcessed()
-      }
+      {checkNotProcessed()}
     </div>
   );
 };
@@ -834,7 +865,7 @@ export const InterfazAdmincom = ({ product, prodsPool }) => {
   useEffect(() => {
     if (firstRender.current) {
       getHistoryData();
-      getAdmin()
+      getAdmin();
       document.documentElement.style.setProperty(
         "--background-btn",
         product.main_color
@@ -846,7 +877,7 @@ export const InterfazAdmincom = ({ product, prodsPool }) => {
       console.log(product.header_color);
       firstRender.current = false;
     } else {
-      if (prodsPool !== null && userHistory !== null && admin!==null) {
+      if (prodsPool !== null && userHistory !== null && admin !== null) {
         setisLoading(false);
       }
     }
@@ -862,16 +893,16 @@ export const InterfazAdmincom = ({ product, prodsPool }) => {
     }
   };
 
-  const getAdmin = async () =>{
+  const getAdmin = async () => {
     const lURI = "https://frutcol-backend.onrender.com/usuarios";
     try {
-      const res = await axios.get(lURI, {headers})
-      setAdming(res.data)
+      const res = await axios.get(lURI, { headers });
+      setAdming(res.data);
     } catch (error) {
-      setAdming(false)
-      console.error(error)
+      setAdming(false);
+      console.error(error);
     }
-  }
+  };
 
   if (isLoading && admin === null) {
     return <LoadingSpinner />;
