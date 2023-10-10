@@ -531,7 +531,6 @@ export const Informacionpagina = (prop) => {
   const [selectedOption, setSelectedOption] = useState("productos"); // Por defecto muestra "infocuenta"
   const [selectedProduct, setSelectedProduct] = useState(null);
   useEffect(() => {
-    console.log(prop.prodsPool);
   }, []);
   const [selectedReservation, setSelectedReservation] = useState(null);
 
@@ -593,14 +592,11 @@ export const Reservas = (prop) => {
   const [fecha, setFecha] = useState("");
   const filtrarReservas = () => {
     return prop.prod.userHistory.filter((userHistory) => {
-      console.log(estado);
       
       // Verificar si se cumple la condición de estado y fecha
       const cumpleCondicionEstado = estado === "" || userHistory.estado_reserva.toString() === estado;
       const cumpleCondicionFecha = fecha === "" || userHistory.fecha_reserva === fecha;
-      console.log(cumpleCondicionEstado)
       // Si ambas condiciones se cumplen, se muestra el elemento
-      console.log(cumpleCondicionFecha && cumpleCondicionEstado)
       return cumpleCondicionEstado && cumpleCondicionFecha;
     });
   };
@@ -696,7 +692,6 @@ export const ProductosReserva = (prop) => {
   };
   useEffect(() => {
     if (firstRender.current) {
-      console.log(prop.reservation);
       getProducts();
       getUserData();
       firstRender.current = false;
@@ -874,7 +869,6 @@ export const InterfazAdmincom = ({ product, prodsPool }) => {
         "--btn-color",
         product.header_color
       );
-      console.log(product.header_color);
       firstRender.current = false;
     } else {
       if (prodsPool !== null && userHistory !== null && admin !== null) {

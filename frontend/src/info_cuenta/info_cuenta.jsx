@@ -368,7 +368,6 @@ export const Informacioncuenta = (prop) => {
   const [selectedOption, setSelectedOption] = useState("infocuenta"); // Por defecto muestra "infocuenta"
   const [selectedReservation, setSelectedReservation] = useState(null);
   useEffect(() => {
-    console.log(prop.admin)
   }, []);
   const handleOptionChange = (option) => {
     setSelectedOption(option);
@@ -582,7 +581,6 @@ export const InfoCuentacom = ({ product, prodsPool }) => {
     try {
       const res = await axios.get(lURI, { headers });
       setUserHistory(res.data);
-      console.log(res.data);
     } catch (error) {
       console.error(error);
     }
