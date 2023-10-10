@@ -5,7 +5,7 @@ import axios from "axios";
 import jwt_decode from 'jwt-decode';
 
 
-export const Registrocom = () => {
+export const Registrocom = ({refresh}) => {
 
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -199,7 +199,8 @@ export const Registrocom = () => {
       });
       localStorage.setItem("token", res.data.token);
       getId(res.data.token)
-      navigate("/");
+      navigate('/')
+      refresh();
     } catch (error) {
       console.error(error);
     }

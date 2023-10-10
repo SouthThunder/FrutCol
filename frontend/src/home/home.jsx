@@ -5,7 +5,6 @@ import "./slider.css";
 import "./products.css";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
-import { Producto } from "./cartSlice";
 import { useNavigate } from "react-router-dom";
 
 export const Slider = ({ product, changeProp, prodsPool }) => {
@@ -312,12 +311,8 @@ export const ProdsComp = ({ product, headers, loged }) => {
   );
 };
 
-export const Products = ({lProductos, user}) => {
+export const Products = ({lProductos, user, headers, token}) => {
 
-  const accessToken = jwt_decode(localStorage.getItem("token"));
-  const headers = {
-    Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
-  };
   return (
     <div className="productsComp">
       <div className="title">
@@ -332,12 +327,12 @@ export const Products = ({lProductos, user}) => {
   );
 };
 
-export const Homecom = ({ product, changeProp, prodsPool, lProductos, user }) => {
+export const Homecom = ({ product, changeProp, prodsPool, lProductos, user, headers, token }) => {
   return (
     <div className="homecontain">
       <Headercom product={product} />
       <Slider product={product} changeProp={changeProp} prodsPool={prodsPool} />
-      <Products lProductos={lProductos} user={user}/>
+      <Products lProductos={lProductos} user={user} headers={headers} token={token}/>
       <Footercom product={product} />
     </div>
   );

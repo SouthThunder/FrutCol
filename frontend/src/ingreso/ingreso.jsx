@@ -5,7 +5,7 @@ import axios from "axios";
 
 const URI = "https://frutcol-backend.onrender.com/usuarios/login";
 
-export const Ingresocom = () => {
+export const Ingresocom = ({refresh}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [localuser, setLocalUser] = useState("");
   const [localpassword, setlocalPassword] = useState("");
@@ -53,7 +53,8 @@ export const Ingresocom = () => {
         contrasena_usuario: localpassword,
       });
       localStorage.setItem("token", res.data.token);
-      navigate("/");
+      navigate('/')
+      refresh();
     } catch (error) {
       console.error(error);
       setCredentialError("Credenciales incorrectas, intente una vez mas ");

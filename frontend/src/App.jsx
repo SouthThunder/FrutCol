@@ -18,11 +18,14 @@ export const App= () =>{
   const [prodsPool, setProdsPool] = useState(null);
   const [isLoading, setisLoading] = useState(true);
   const [lProductos, setLProductos] = useState(null);
+  const [token, setToken] = useState(null);
+  const [headers, setHeaders] = useState(null);
   const [user, setUser] = useState([]);
   const firstRender = useRef(true);
   const firstSet = useRef(true);
 
   useEffect(() => {
+    
     if (firstRender.current) {
        getProducts(); 
       firstRender.current = false;
@@ -30,11 +33,9 @@ export const App= () =>{
       if (prodsPool !== null && firstSet.current === true) {
         setProduct(prodsPool[0]);
         if(localStorage.getItem('token') === undefined || localStorage.getItem('token') === null){
-          setUser(false)
-          setProducts();
+          setItems(false)
         }else{
-          setUser(true)
-          getProductsFromCart();
+          setItems(true)
         }
         if (product !== null && lProductos!==null) {
           firstSet.current = false;
@@ -43,6 +44,24 @@ export const App= () =>{
       }
     }
   }, [prodsPool, product, lProductos]);
+
+  const setItems = async(cond) => {
+    if(cond){
+      setToken(jwt_decode(localStorage.getItem('token')))
+       setHeaders(() =>{
+        return {
+          Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
+        };
+      })
+      setUser(true)
+      getProductsFromCart();
+    }else{
+      setHeaders(null)
+      setToken(null)
+      setUser(false)
+      setProducts();
+    }
+  }
 
   const getProducts = async () => {
     const URI = "https://frutcol-backend.onrender.com/metadata";
@@ -66,15 +85,14 @@ export const App= () =>{
         );
       })
     );
-    console.log(lProductos)
   };
 
   const getProductsFromCart = async () => {
-    const accessToken = jwt_decode(localStorage.getItem("token"));
-    const headers = {
+    const headers= {
       Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
-    };
-    const URI = `https://frutcol-backend.onrender.com/carrito/${accessToken.id_usuario}`;
+    }
+    const token= jwt_decode(localStorage.getItem("token"));
+    const URI = `https://frutcol-backend.onrender.com/carrito/${token.id_usuario}`;
     try {
       const res = await axios.get(URI, {
         headers
@@ -110,6 +128,8 @@ export const App= () =>{
     }
   };
 
+  const refresh= () => window.location.reload(true)
+
 
   const changeProp = (element) => {
     setProduct(element);
@@ -123,12 +143,12 @@ export const App= () =>{
     <div className="principalContainer">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool} lProductos={lProductos} user={user}/>}/>
+          <Route path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool} lProductos={lProductos} user={user} headers={headers} token={token}/>}/>
           <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool}/>}/>
-          <Route path='/Ingreso' element={<Ingresocom/>}/>
+          <Route path='/Ingreso' element={<Ingresocom refresh={refresh}/>}/>
           <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} prodsPool={prodsPool}/>}/>
           <Route path='/QuienesSomos' element={<QuienesSomoscom product={product}/>}/>
-          <Route path='/Registro' element={<Registrocom/>}/>
+          <Route path='/Registro' element={<Registrocom refresh={refresh}/>}/>
           
         </Routes>
       </BrowserRouter>      
