@@ -21,7 +21,6 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
       if(!menuRef.current.contains(e.target)){
         setActive(false)
       }
-      console.log(menuRef.current.contains(e.target));
     }
     document.addEventListener('mousedown', handler)
     chkVis();

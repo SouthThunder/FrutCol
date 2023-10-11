@@ -913,7 +913,7 @@ export const InterfazAdmincom = ({ product, prodsPool, lProductos }) => {
 
   return (
     <div className="infopagecontain">
-      <Headercom product={product} lProductos={lProductos}/>
+      <Headercom product={product} lProductos={lProductos} prodsPool={prodsPool}/>
       <Informacionpagina
         product={product}
         headers={headers}
