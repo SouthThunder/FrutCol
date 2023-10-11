@@ -178,7 +178,7 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
                 <div className="noprod">
                   <img
                     className="emptycar"
-                    src="../../images/cesta-compra (1)/37459.jpg"
+                    src="../../images/37459.jpg"
                     alt="No hay productos"
                   />
                   <h5>Carrito vacío</h5>
