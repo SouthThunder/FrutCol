@@ -318,7 +318,7 @@ export const ProdsComp = ({ product, headers, loged, updateLProducts }) => {
 
 export const Products = ({lProductos, user, headers, updateLProducts}) => {
   return (
-    <div className="productsComp">
+    <div className="productsComp" id="products">
       <div className="title">
         <h1>Productos</h1>
       </div>
