@@ -29,16 +29,13 @@ export const Agregarproducto = (prop) => {
       let header_color = document.getElementById("headerc")?.value || "";
       let font_color = document.getElementById("fontc")?.value || "";
       let image = document.getElementById("image")?.value || "";
-      let stain_image = document.getElementById("stain_image")?.value || "";
+     
 
       if (image === "" || !regexNombreArchivo.test(image)) {
         alert("Ingrese un nombre de imagen válido (png,jpg,jpeg,bmp)");
         return;
       }
-      if (stain_image === "" || !regexNombreArchivo.test(stain_image)) {
-        alert("Ingrese un nombre de imagen stain válido (png,jpg,jpeg,bmp)");
-        return;
-      }
+     
 
       if (nombre_producto === "" || !texto.test(nombre_producto)) {
         alert("Ingrese un nombre válido");
@@ -78,7 +75,6 @@ export const Agregarproducto = (prop) => {
         header_color,
         comp_color,
         image,
-        stain_image,
         nombre_producto,
         descripcion_producto,
         stock_producto,
