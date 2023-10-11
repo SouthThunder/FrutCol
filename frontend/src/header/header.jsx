@@ -50,8 +50,7 @@ export const HeadPopUp = ({product, trigger}) => {
   );
 };
 
-export const Headercom = ({product}) => {
-  const token = localStorage.getItem("token");
+export const Headercom = ({product, lProductos, headers, token, prodsPool }) => {
   const [header, setHeader] = useState([]);
   const [popup, setPopup] = useState([]);
   const [cartVis, setCartVis] = useState(false);
@@ -183,7 +182,7 @@ export const Headercom = ({product}) => {
             </ul>
           </div>
         </nav>
-        <ShoppingCart visibility={cartVis} changeCartVis={changeCartVis}/>
+        <ShoppingCart visibility={cartVis} changeCartVis={changeCartVis} lProductos={lProductos} headers={headers} prodsPool={prodsPool}/>
       </div>
     );
   };

@@ -222,7 +222,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
   );
 };
 
-export const ProdsComp = ({ product, headers, loged }) => {
+export const ProdsComp = ({ product, headers, loged, updateLProducts }) => {
   const [element, setElement] = useState(product);
   const [test, setTest] = useState(false);
   const navigate = useNavigate();
@@ -233,15 +233,18 @@ export const ProdsComp = ({ product, headers, loged }) => {
   const handleResCantidad = () => {
     if (element.cantidad === 1) {
       element.delProd(headers);
+      updateLProducts(element)
       setTest(!test);
     } else {
       element.resCantidad(headers);
+      updateLProducts(element)
       setTest(!test);
     }
   };
 
   const handleSumCantidad = () => {
     element.sumCantidad(headers);
+    updateLProducts(element)
     setTest(!test);
   };
 
@@ -311,8 +314,7 @@ export const ProdsComp = ({ product, headers, loged }) => {
   );
 };
 
-export const Products = ({lProductos, user, headers, token}) => {
-
+export const Products = ({lProductos, user, headers, updateLProducts}) => {
   return (
     <div className="productsComp">
       <div className="title">
@@ -320,19 +322,19 @@ export const Products = ({lProductos, user, headers, token}) => {
       </div>
       <div className="elements">
         {lProductos?.map((prods) => {
-          return <ProdsComp product={prods} headers={headers} loged={user} />;
+          return <ProdsComp product={prods} headers={headers} loged={user} updateLProducts={updateLProducts}/>;
         })}
       </div>
     </div>
   );
 };
 
-export const Homecom = ({ product, changeProp, prodsPool, lProductos, user, headers, token }) => {
+export const Homecom = ({ product, changeProp, prodsPool, lProductos, user, headers, token, updateLProducts }) => {
   return (
     <div className="homecontain">
-      <Headercom product={product} />
+      <Headercom product={product} lProductos={lProductos} headers={headers} token={token} prodsPool={prodsPool}/>
       <Slider product={product} changeProp={changeProp} prodsPool={prodsPool} />
-      <Products lProductos={lProductos} user={user} headers={headers} token={token}/>
+      <Products lProductos={lProductos} user={user} headers={headers} updateLProducts={updateLProducts}/>
       <Footercom product={product} />
     </div>
   );
