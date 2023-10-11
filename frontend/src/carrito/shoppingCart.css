@@ -1,3 +1,21 @@
+.shoppingCart{
+    width: 35vw;
+    max-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 40vh;
+    margin-top: calc( var(--header-height) - var(--header-height) * 2);
+    position: fixed;
+    background-color: white;
+    right: 0;
+    border-radius: var(--sm-border);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
+    z-index: 1;
+    animation: popup 0.5s;
+    overflow-y:scroll;
+}
+
 .shoppingCart.active{
     width: 35vw;
     max-height: 60vh;
@@ -17,15 +35,8 @@
 }
 
 .shoppingCart.inactive{
-    position: fixed;
-    opacity: 0;
-    right: 0;
-    width: 35vw;
-    display: none;
-    flex-direction: column;
-    justify-content: flex-end;
-    z-index: -9999;
-    transform: translateY(-20px);
+    right: -35vw;
+    animation: hide 0.5s;
 }
 
 @keyframes popup {
@@ -36,6 +47,16 @@
         right: 0;
     }
 }
+
+@keyframes hide {
+    0%{
+        right: 0;
+    }
+    100%{
+        right: -35vw;
+    }
+}
+
 .toast2{
     position: top center;
     width: 100%;
