@@ -5,6 +5,8 @@ import { Footercom } from "../footer/footer";
 import LoadingSpinner from "../loading/LoadingSpinner";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
+import { Toaster, toast } from "sonner";
+
 
 const URI = "https://frutcol-backend.onrender.com/metadata/";
 const numeros = /^\d+$/; // Solo números
@@ -424,14 +426,16 @@ export const Editarproducto = (prop) => {
 };
 
 export const Productos = (prop) => {
-  const headers = prop.headers;
   const [products, setProducts] = useState(prop.prod.prodsPool);
-  const URI = "https://frutcol-backend.onrender.com/metadata/";
-  useEffect(() => {}, []);
+  //const URI = "https://frutcol-backend.onrender.com/metadata/";
+
+  const URI = "http://localhost:8000/metadata/"; //prueba
+
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   const handleEditClick = (product) => {
-    // Cuando se hace clic en "Editar", actualiza el producto seleccionado
-    // y cambia la opción seleccionada a "editarproducto"
     prop.onSelectOption("editarproducto");
     prop.onSelectProduct(product);
   };
@@ -444,18 +448,44 @@ export const Productos = (prop) => {
       console.error("ERROR: " + error);
     }
   };
-  const deleteProducto = async (id) => {
-    const confirmacion = window.confirm(
-      "¿Está seguro de que desea eliminar este producto?"
-    );
-    if (confirmacion) {
-      await axios.delete(`${URI}${id}`, {
-        headers,
+
+  const updateCantidad = async (id) => {
+    try {
+
+      const confirmacion = window.confirm('¿Quieres realmente eliminar el producto?');
+
+      if (!confirmacion) {
+        return; 
+      }
+
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        console.error("No se encontró el token de autorización en el localStorage.");
+        return;
+      }
+
+      const updatedProduct = {
+        id_metadata_producto: id,
+        stock_producto: 0,
+        // Agrega cualquier otro campo que necesites actualizar
+      };
+
+      await axios.put(`${URI}${id}`, updatedProduct, {
+        headers: {
+          Authorization: `${token}`,
+        },
       });
+      toast.success('Se elimino el producto')
+
       getProducts();
       prop.onSelectOption("productos");
+    } catch (error) {
+      console.error("ERROR: " + error);
     }
   };
+
+  
 
   return (
     <div className="infoproductos">
@@ -487,7 +517,7 @@ export const Productos = (prop) => {
                 <td>
                   <h4
                     className="tablebtn"
-                    onClick={() => deleteProducto(product.id_metadata_producto)}
+                    onClick={() => updateCantidad(product.id_metadata_producto)}
                   >
                     Eliminar
                   </h4>
@@ -500,9 +530,13 @@ export const Productos = (prop) => {
       <div className="enter agregarp">
         <button onClick={() => prop.onSelectOption("agregar")}>Agregar</button>
       </div>
+      <Toaster richColors  />
     </div>
   );
 };
+
+
+
 export const Infocontenidos = (prop) => {
   return (
     <div className="contenidos">
@@ -846,7 +880,7 @@ export const ProductosReserva = (prop) => {
   );
 };
 
-export const InterfazAdmincom = ({ product, prodsPool }) => {
+export const InterfazAdmincom = ({ product, prodsPool, lProductos }) => {
   const [isLoading, setisLoading] = useState(true);
   const [userHistory, setUserHistory] = useState(null);
   const [admin, setAdming] = useState(null);
@@ -913,7 +947,7 @@ export const InterfazAdmincom = ({ product, prodsPool }) => {
 
   return (
     <div className="infopagecontain">
-      <Headercom product={product} />
+      <Headercom product={product} lProductos={lProductos} prodsPool={prodsPool}/>
       <Informacionpagina
         product={product}
         headers={headers}

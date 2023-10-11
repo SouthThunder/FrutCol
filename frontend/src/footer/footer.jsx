@@ -29,7 +29,7 @@ export const Footercom = ({product}) => {
           <ul className="footer__links">
             <li>
               <Link to="#" className="footer__link">
-                <i className="ri-phone-line"> 571 3108621696</i> 
+                <i className="ri-phone-line"> 317 4358995</i> 
               </Link>
             </li>
             <li>
@@ -57,7 +57,7 @@ export const Footercom = ({product}) => {
               <i className="ri-facebook-fill"></i>
             </Link>
             <Link
-              to="https://wa.me/573108621696"
+              to="https://wa.me/573174358995"
               target="_blank"
               className="footer__social-link"
               style={{ backgroundColor: product.header_color }}

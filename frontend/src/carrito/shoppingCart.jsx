@@ -1,38 +1,68 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./shoppingCart.css";
-import { Producto } from "../home/cartSlice";
 import jwt_decode from "jwt-decode";
 import { Toaster, toast } from "sonner";
 
-export const ShoppingCart = ({ visibility, changeCartVis }) => {
+export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, prodsPool }) => {
   const [active, setActive] = useState([]);
-  const URI = "https://frutcol-backend.onrender.com/metadata";
-  const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [totalp, setTotalp] = useState(0);
   const [test2, setTest2] = useState(false);
-  const [test, setTest] = useState({
-    producto: [],
-  });
+  const menuRef = useRef();
 
   const refreshPage = () => {
     window.location.reload();
   };
-  const accessToken = localStorage.getItem("token");
-  const headers = {
-    Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
+  const openPopup = () => {
+    const popup = document.getElementById("popup");
+    if (popup) {
+      popup.style.visibility = "visible";
+      popup.style.transform = "translate(-50%, -50%) scale(1)";
+    }
   };
+  
+  const closePopup = () => {
+    const popup = document.getElementById("popup");
+    if (popup) {
+      popup.style.visibility = "hidden";
+      popup.style.transform = "translate(-50%, -50%) scale(0.1)";
+    }
+  };
+ 
   useEffect(() => {
+    
+    let handler = (e) =>{
+      if(menuRef.current !== null){
+        if(!menuRef.current.contains(e.target)){
+          setActive(false)
+        }
+      }
+    }
+    document.addEventListener('mousedown', handler)
     chkVis();
-  }, [visibility]);
-  useEffect(() => {
-    getProducts();
-  }, [test.producto]);
 
-  const id_h = jwt_decode(localStorage.getItem("token"));
+    const totalpruductos = lProductos.reduce((accumulator, prods) => {
+      if (prods.cantidad > 0) {
+        return (accumulator + prods.cantidad);
+      }
+      return accumulator;
+    }, 0);
+    const totalPrice = lProductos.reduce((accumulator, prods) => {
+      if (prods.cantidad > 0) {
+        return accumulator + prods.cantidad * prods.precio;
+      }
+      return accumulator;
+    }, 0);
+    // Actualiza el estado total con el nuevo precio total calculado
+    console.log(totalpruductos)
+    setTotal(totalPrice);
+    setTotalp(totalpruductos);
+  }, [visibility, lProductos, active, test2]);
+
 
   const handleReserve = async () => {
+    const id_h = jwt_decode(localStorage.getItem("token"));
     const URIR = "https://frutcol-backend.onrender.com/reserva";
     const URIRP = "https://frutcol-backend.onrender.com/reserprod";
     const URI = "https://frutcol-backend.onrender.com/carrito/mod";
@@ -48,7 +78,7 @@ export const ShoppingCart = ({ visibility, changeCartVis }) => {
           },
           { headers }
         );
-        test.producto.map(async (prod) => {
+        lProductos.map(async (prod) => {
           if (prod.cantidad > 0) {
             await axios.post(
               URIRP,
@@ -77,7 +107,7 @@ export const ShoppingCart = ({ visibility, changeCartVis }) => {
         });
         toast.success("La reserva ha sido creada");
         await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
-        refreshPage();
+        openPopup();
       } catch (error) {
         toast.error("Ha ocurrido un error creando la reserva");
         console.error(error);
@@ -87,64 +117,9 @@ export const ShoppingCart = ({ visibility, changeCartVis }) => {
     }
   };
 
-  const getProducts = async () => {
-    const id_carrito = jwt_decode(localStorage.getItem("token"));
-    const idk = `https://frutcol-backend.onrender.com/carrito/${id_carrito.id_usuario}`;
-
-    try {
-      const res = await axios.get(URI);
-      const res2 = await axios.get(idk, { headers });
-      setProducts(res.data);
-      setTest({
-        producto: res.data.map((prod) => {
-          const it = res2.data.find(
-            (lproduc) => lproduc.id_producto === prod.id_metadata_producto
-          );
-          if (it === undefined) {
-            return new Producto(
-              prod.id_metadata_producto,
-              prod.nombre_producto,
-              prod.precio_producto,
-              0
-            );
-          } else {
-            return new Producto(
-              it.id_producto,
-              prod.nombre_producto,
-              prod.precio_producto,
-              it.cantidad_producto
-            );
-          }
-        }),
-      });
-    } catch (error) {
-      console.error("ERROR: " + error);
-    }
-  };
-
-  useEffect(() => {
-    // Calcula el precio total sumando el precio de cada producto multiplicado por la cantidad
-    const totalpruductos = test.producto.reduce((accumulator, prods) => {
-      if (prods.cantidad > 0) {
-        return (accumulator += prods.cantidad);
-      }
-      return accumulator;
-    }, 0);
-    const totalPrice = test.producto.reduce((accumulator, prods) => {
-      if (prods.cantidad > 0) {
-        return accumulator + prods.cantidad * prods.precio;
-      }
-      return accumulator;
-    }, 0);
-    // Actualiza el estado total con el nuevo precio total calculado
-    setTotal(totalPrice);
-    setTotalp(totalpruductos);
-  }, [active, test2]);
-
-
   const handleResCantidad = (element) => {
-      element.delProd(headers);
-      setTest2(!test2);
+    element.delProd(headers);
+    setTest2(!test2);
   };
 
   const chkVis = () => {
@@ -156,9 +131,7 @@ export const ShoppingCart = ({ visibility, changeCartVis }) => {
   };
 
   return (
-    <div>
-      {active && (
-        <div className="shoppingCart">
+        <div className={`shoppingCart ${active? 'active' : 'inactive'}`} ref={menuRef}>
           <div className="top">
             <button onClick={() => changeCartVis(!active)}>
               <img src="../../images/x.png" alt="X" />
@@ -167,8 +140,8 @@ export const ShoppingCart = ({ visibility, changeCartVis }) => {
           <div className="body">
             <div className="elements">
               {totalp > 0 ? (
-                test.producto?.map((prods) => {
-                  const matchingProduct = products.find(
+                lProductos.map((prods) => {
+                  const matchingProduct = prodsPool.find(
                     (prod) => prod.nombre_producto === prods.nombre
                   );
 
@@ -217,10 +190,19 @@ export const ShoppingCart = ({ visibility, changeCartVis }) => {
           <div className="bottom">
             <p>Total: $ {total}</p>
             <button onClick={() => handleReserve()}>Reservar</button>
+            <div className="toast2" id="popup">
+              <h2>Pasos para hacer efectiva la reserva:</h2>
+              <div className="pasos">
+              <p>1. Realice el pago del valor del pedido a Bancolombia cuenta de Ahorros No. 601-000041-89
+                NIT: 901733392-6.
+              </p>
+                <p>2. Tome una foto o captura de pantalla del comprobante de la transacción.</p>
+              <p>3. Envíe la foto del comprobante a WhatsApp al número 3174358995 junto con un mensaje en el que indique el número de orden;Puede consultar a detalle las reservas en Ajustes-> Historial de Reservas.</p>
+              </div>
+              <button type="button" onClick={closePopup}>OK</button>
+            </div>
           </div>
           <Toaster richColors />
         </div>
-      )}
-    </div>
   );
 };
