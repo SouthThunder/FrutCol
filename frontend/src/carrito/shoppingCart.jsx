@@ -29,6 +29,7 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
       popup.style.visibility = "hidden";
       popup.style.transform = "translate(-50%, -50%) scale(0.1)";
     }
+    refreshPage();
   };
  
   useEffect(() => {
