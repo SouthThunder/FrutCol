@@ -427,9 +427,8 @@ export const Editarproducto = (prop) => {
 
 export const Productos = (prop) => {
   const [products, setProducts] = useState(prop.prod.prodsPool);
-  //const URI = "https://frutcol-backend.onrender.com/metadata/";
+  const URI = "https://frutcol-backend.onrender.com/metadata/";
 
-  const URI = "http://localhost:8000/metadata/"; //prueba
 
   useEffect(() => {
     getProducts();
