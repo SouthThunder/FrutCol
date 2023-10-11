@@ -269,8 +269,10 @@ export const ProdsComp = ({ product, headers, loged, updateLProducts }) => {
             onClick={() => {
               if (element.exists) {
                 element.sumCantidad(headers);
+                updateLProducts(element)
               } else {
                 element.insertIntoDb(headers);
+                updateLProducts(element)
               }
               setTest(!test);
             }}
