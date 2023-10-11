@@ -110,16 +110,7 @@ export const Agregarproducto = (prop) => {
               placeholder="image.jpg"
             />
           </div>
-          <div className="input__info">
-            <h3>Ruta imagen stain</h3>
-            <input
-              className=""
-              type="text"
-              name=""
-              id="stain_image"
-              placeholder="stain_image.jpg"
-            />
-          </div>
+          
           <div className="input__info">
             <h3>Nombre del Producto</h3>
             <input
