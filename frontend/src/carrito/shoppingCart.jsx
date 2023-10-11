@@ -10,6 +10,7 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
   const [totalp, setTotalp] = useState(0);
   const [test2, setTest2] = useState(false);
   const menuRef = useRef();
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
 
   const refreshPage = () => {
     window.location.reload();
@@ -63,6 +64,7 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
 
   const handleReserve = async () => {
     const id_h = jwt_decode(localStorage.getItem("token"));
+    setButtonDisabled(true);
     const URIR = "https://frutcol-backend.onrender.com/reserva";
     const URIRP = "https://frutcol-backend.onrender.com/reserprod";
     const URI = "https://frutcol-backend.onrender.com/carrito/mod";
@@ -106,6 +108,9 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
           }
         });
         toast.success("La reserva ha sido creada");
+        setTimeout(() => {
+          setButtonDisabled(false);
+        }, 5000);
         await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
         openPopup();
       } catch (error) {
@@ -189,7 +194,7 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
 
           <div className="bottom">
             <p>Total: $ {total}</p>
-            <button onClick={() => handleReserve()}>Reservar</button>
+            <button onClick={() => handleReserve()} disabled={isButtonDisabled}>Reservar</button>
             <div className="toast2" id="popup">
               <h2>Pasos para hacer efectiva la reserva:</h2>
               <div className="pasos">
