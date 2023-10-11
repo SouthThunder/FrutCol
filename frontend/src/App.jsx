@@ -75,15 +75,16 @@ export const App= () =>{
 
   const setProducts = () => {
     setLProductos(() =>
-      prodsPool.map((prod) => {
-        return new Producto(
-          prod.id_metadata_producto,
-          prod.nombre_producto,
-          prod.precio_producto,
-          0,
-          prod.image
-        );
-      })
+      prodsPool
+        .filter((prod) => prod.stock_producto > 0).map((prod) => {
+          return new Producto(
+            prod.id_metadata_producto,
+            prod.nombre_producto,
+            prod.precio_producto,
+            0,
+            prod.image
+          );
+        })
     );
   };
 
@@ -97,32 +98,34 @@ export const App= () =>{
       const res = await axios.get(URI, {
         headers
       });
-      setLProductos(() =>
-        prodsPool.map((prod) => {
-          const it = res.data.find(
-            (lproduc) => lproduc.id_producto === prod.id_metadata_producto
+      setLProductos(() => prodsPool
+        .filter((prod) => prod.stock_producto > 0) 
+        .map((prod) => {
+        const it = res.data.find(
+          (lproduc) => lproduc.id_producto === prod.id_metadata_producto
+        );
+        if (it === undefined) {
+          return new Producto(
+            prod.id_metadata_producto,
+            prod.nombre_producto,
+            prod.precio_producto,
+            0,
+            prod.image,
+            false
           );
-          if (it === undefined) {
-            return new Producto(
-              prod.id_metadata_producto,
-              prod.nombre_producto,
-              prod.precio_producto,
-              0,
-              prod.image,
-              false
-            );
-          } else {
-            return new Producto(
-              it.id_producto,
-              prod.nombre_producto,
-              prod.precio_producto,
-              it.cantidad_producto,
-              prod.image,
-              true
-            );
-          }
-        })
-      );
+        }else {
+          return new Producto(
+            it.id_producto,
+            prod.nombre_producto,
+            prod.precio_producto,
+            it.cantidad_producto,
+            prod.image,
+            true
+          );
+        }
+      })
+    );
+
     } catch (error) {
       console.error("ERROR: " + error);
     }
