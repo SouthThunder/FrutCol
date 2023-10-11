@@ -17,7 +17,15 @@
 }
 
 .shoppingCart.inactive{
-    display: none;
+    position: fixed;
+    opacity: 0;
+    right: 0;
+    width: 35vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    z-index: -9999;
+    transform: translateY(-20px);
 }
 
 @keyframes popup {

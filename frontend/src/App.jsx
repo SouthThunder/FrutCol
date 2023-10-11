@@ -151,7 +151,7 @@ export const App= () =>{
           <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool} lProductos={lProductos}/>}/>
           <Route path='/Ingreso' element={<Ingresocom refresh={refresh}/>}/>
           <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} prodsPool={prodsPool} lProductos={lProductos}/>}/>
-          <Route path='/QuienesSomos' element={<QuienesSomoscom product={product} lProductos={lProductos}/>}/>
+          <Route path='/QuienesSomos' element={<QuienesSomoscom product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
           <Route path='/Registro' element={<Registrocom refresh={refresh}/>}/>
         </Routes>
       </BrowserRouter>      

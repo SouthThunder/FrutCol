@@ -592,7 +592,7 @@ export const InfoCuentacom = ({ product, prodsPool, lProductos }) => {
 
   return (
     <div className="infoCuentacontain">
-      <Headercom product={product} lProductos={lProductos}/>
+      <Headercom product={product} lProductos={lProductos} prodsPool={prodsPool}/>
       <Informacioncuenta
         product={product}
         userData={userData}
