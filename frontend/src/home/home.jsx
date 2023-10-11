@@ -38,15 +38,20 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
     }
   }, [product]);
 
-  const chkLength= async() =>{
-     if(prodsPool.length > 5){
+  const chkLength= () =>{
+    const auxProdsPull = []
+    prodsPool.filter((prod) => prod.stock_producto > 0).map((prod) => {
+      auxProdsPull.push(prod)
+    })
+
+     if(auxProdsPull.length > 5){ 
       const auxProds= [];
       for(let i=0; i<5; i++){
-        auxProds.push(prodsPool[i]);
+        auxProds.push(auxProdsPull[i]);
       }
-     await setSliderProds(auxProds)
+      setSliderProds(auxProds)
     }else{
-      setSliderProds(prodsPool)
+      setSliderProds(auxProdsPull)
     }
   }
 
