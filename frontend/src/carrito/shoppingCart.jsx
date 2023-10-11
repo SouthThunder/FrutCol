@@ -197,7 +197,7 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
                 NIT: 901733392-6.
               </p>
                 <p>2. Tome una foto o captura de pantalla del comprobante de la transacción.</p>
-              <p>3. Envíe la foto del comprobante a WhatsApp al número 3174358995 junto con un mensaje en el que indique el número de orden;Puede consultar a detalle las reservas en Ajustes-> Historial de Reservas.</p>
+              <p>3. Envíe la foto del comprobante a WhatsApp al número 3174358995 junto con un mensaje en el que indique el número de orden;Puede consultar a detalle las reservas en Ajustes &#x2192; Historial de Reservas.</p>
               </div>
               <button type="button" onClick={closePopup}>OK</button>
             </div>
