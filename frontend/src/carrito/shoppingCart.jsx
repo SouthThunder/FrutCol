@@ -18,8 +18,10 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
   useEffect(() => {
     
     let handler = (e) =>{
-      if(!menuRef.current.contains(e.target)){
-        setActive(false)
+      if(menuRef.current !== null){
+        if(!menuRef.current.contains(e.target)){
+          setActive(false)
+        }
       }
     }
     document.addEventListener('mousedown', handler)
