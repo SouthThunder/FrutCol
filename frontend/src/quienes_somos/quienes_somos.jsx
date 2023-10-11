@@ -128,13 +128,13 @@ export const QuienesSomos = ({product}) => {
   );
 };
 
-export const QuienesSomoscom = ({product}) => {
+export const QuienesSomoscom = ({product, lProductos}) => {
   useEffect(() =>{
   }, [product]);
 
   return (
     <div className="QuienesSomoscontain" >
-      <Headercom product={product} />
+      <Headercom product={product} lProductos={lProductos}/>
       <QuienesSomos product={product} />
       <Footercom product={product} />
     </div>

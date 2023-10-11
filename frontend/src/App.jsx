@@ -130,6 +130,10 @@ export const App= () =>{
 
   const refresh= () => window.location.reload(true)
 
+  const updateLProducts= (element) =>{
+    let foundIndex = lProductos.findIndex(x => x.id === element.id)
+    lProductos[foundIndex].cantidad = element.cantidad
+  }
 
   const changeProp = (element) => {
     setProduct(element);
@@ -143,13 +147,12 @@ export const App= () =>{
     <div className="principalContainer">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool} lProductos={lProductos} user={user} headers={headers} token={token}/>}/>
-          <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool}/>}/>
+          <Route path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool} lProductos={lProductos} user={user} headers={headers} token={token} updateLProducts={updateLProducts}/>}/>
+          <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool} lProductos={lProductos}/>}/>
           <Route path='/Ingreso' element={<Ingresocom refresh={refresh}/>}/>
-          <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} prodsPool={prodsPool}/>}/>
-          <Route path='/QuienesSomos' element={<QuienesSomoscom product={product}/>}/>
+          <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} prodsPool={prodsPool} lProductos={lProductos}/>}/>
+          <Route path='/QuienesSomos' element={<QuienesSomoscom product={product} lProductos={lProductos}/>}/>
           <Route path='/Registro' element={<Registrocom refresh={refresh}/>}/>
-          
         </Routes>
       </BrowserRouter>      
     </div>
