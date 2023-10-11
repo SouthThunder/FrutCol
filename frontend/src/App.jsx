@@ -31,7 +31,10 @@ export const App= () =>{
       firstRender.current = false;
     } else {
       if (prodsPool !== null && firstSet.current === true) {
-        setProduct(prodsPool[0]);
+        const firstprod = prodsPool.filter((prod) => prod.stock_producto > 0).map((prod) => {
+          return prod
+        })
+        setProduct(firstprod[0]);
         if(localStorage.getItem('token') === undefined || localStorage.getItem('token') === null){
           setItems(false)
         }else{
