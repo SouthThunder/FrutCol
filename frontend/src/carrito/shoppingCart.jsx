@@ -11,7 +11,8 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
   const [test2, setTest2] = useState(false);
   const menuRef = useRef();
   const firstLoad  = useRef()
-  const [isButtonDisabled, setButtonDisabled] = useState(false);
+
+  const [isComponentDisabled, setComponentDisabled] = useState(false);
 
   const refreshPage = () => {
     window.location.reload();
@@ -69,7 +70,9 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
 
   const handleReserve = async () => {
     const id_h = jwt_decode(localStorage.getItem("token"));
-    setButtonDisabled(true);
+  
+    setComponentDisabled(true);
+    
     const URIR = "https://frutcol-backend.onrender.com/reserva";
     const URIRP = "https://frutcol-backend.onrender.com/reserprod";
     const URI = "https://frutcol-backend.onrender.com/carrito/mod";
@@ -113,9 +116,7 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
           }
         });
         toast.success("La reserva ha sido creada");
-        setTimeout(() => {
-          setButtonDisabled(false);
-        }, 5000);
+        
         await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
         openPopup();
       } catch (error) {
@@ -145,7 +146,7 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
   }
 
   return (
-        <div className={`shoppingCart ${active? 'active' : 'inactive'}`} ref={menuRef}>
+        <div className={`shoppingCart ${active? 'active' : 'inactive'}${isComponentDisabled ? 'disabled' : ''}`} ref={menuRef} >
           <div className="top">
             <button onClick={() => changeCartVis(!active)}>
               <img src="../../images/x.png" alt="X" />
@@ -180,7 +181,7 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
                           </div>
                         </div>
                         <div className="delete_prod">
-                          <button onClick={() => handleResCantidad(prods)}>
+                          <button disabled={isComponentDisabled} onClick={() => handleResCantidad(prods)}>
                             Eliminar
                           </button>
                         </div>
@@ -203,7 +204,7 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
 
           <div className="bottom">
             <p>Total: $ {total}</p>
-            <button onClick={() => handleReserve()} disabled={isButtonDisabled}>Reservar</button>
+            <button onClick={() => handleReserve()} disabled={isComponentDisabled}>Reservar</button>
             <div className="toast2" id="popup">
               <h2>Pasos para hacer efectiva la reserva:</h2>
               <div className="pasos">
