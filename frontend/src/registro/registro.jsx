@@ -305,7 +305,7 @@ export const Registrocom = ({refresh}) => {
 
       <div className="contizform">
         <div className="logo-container">
-          <a href="/" className="nav__logo">
+          <Link to={"/"} className="nav__logo">
             <img src="images/Frame 1.png" alt="" />
             <p
               style={{
@@ -313,7 +313,7 @@ export const Registrocom = ({refresh}) => {
               }}>
               FrutCol
             </p>
-          </a>
+          </Link>
         </div>
 
          <h1>¿Ya tienes cuenta?</h1>

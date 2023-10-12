@@ -136,7 +136,7 @@ export const Ingresocom = ({refresh}) => {
       </div>
 
       <div className="logo-container">
-        <a href="/" className="nav__logo">
+        <Link to={"/"} className="nav__logo">
           <img src="images/Frame 1.png" alt="" />
             <p
               style={{
@@ -144,7 +144,7 @@ export const Ingresocom = ({refresh}) => {
               }}>
               FrutCol
             </p>
-        </a>
+        </Link>
       </div>
 
     </div>
