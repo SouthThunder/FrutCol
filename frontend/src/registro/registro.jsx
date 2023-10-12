@@ -304,8 +304,20 @@ export const Registrocom = ({refresh}) => {
       </div>
 
       <div className="contizform">
-        <h1>¿Ya tienes cuenta?</h1>
-        <p>Si es así inicia sesión con nosotros</p>
+        <div className="logo-container">
+          <a href="/" className="nav__logo">
+            <img src="images/Frame 1.png" alt="" />
+            <p
+              style={{
+              transition: "all 1s var(--btn-cubic-bezier)",
+              }}>
+              FrutCol
+            </p>
+          </a>
+        </div>
+
+         <h1>¿Ya tienes cuenta?</h1>
+        <p>Si es así, inicia sesión con nosotros</p>
         <br />
         <br />
         <br />

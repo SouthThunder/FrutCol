@@ -164,3 +164,7 @@
       transform: translateX(-5px);
     }
   }
+
+.ingresocontain .logo-container{
+    padding-left: 89.5%;
+}
