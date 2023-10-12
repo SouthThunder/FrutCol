@@ -3,7 +3,9 @@ import "./footer.css";
 import { Link } from "react-router-dom";
 
 export const Footercom = ({product}) => {
-  useEffect(() => {}, [product]);
+  useEffect(() => {
+    
+  }, [product]);
   const Min = (e) => {
     e.target.style.backgroundColor = product.main_color;
   };

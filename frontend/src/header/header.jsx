@@ -65,7 +65,8 @@ export const Headercom = ({product, lProductos, headers, token, prodsPool }) => 
   }, [product, popup, cartVis]);
 
   const validateToken = () => {
-    if (token === null) setHeader(notAuthUser);
+    if (token === null || token===undefined) 
+      setHeader(notAuthUser);
     else {
       setHeader(authUser);
     }

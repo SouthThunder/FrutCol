@@ -10,6 +10,7 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
   const [totalp, setTotalp] = useState(0);
   const [test2, setTest2] = useState(false);
   const menuRef = useRef();
+  const firstLoad  = useRef()
   const [isButtonDisabled, setButtonDisabled] = useState(false);
 
   const refreshPage = () => {
@@ -33,8 +34,11 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
   };
  
   useEffect(() => {
+    if (firstLoad.current) {
+      firstLoad.current = false;
+    }
     
-    let handler = (e) =>{
+    const handler = (e) =>{
       if(menuRef.current !== null){
         if(!menuRef.current.contains(e.target)){
           setActive(false)
@@ -135,6 +139,10 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
       setActive(visibility);
     }
   };
+
+  if(firstLoad.current){
+    return <div></div>
+  }
 
   return (
         <div className={`shoppingCart ${active? 'active' : 'inactive'}`} ref={menuRef}>
