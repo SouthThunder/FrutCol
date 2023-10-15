@@ -7,7 +7,6 @@ import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 
-
 const URI = "https://frutcol-backend.onrender.com/metadata/";
 const numeros = /^\d+$/; // Solo números
 const texto = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
@@ -29,13 +28,11 @@ export const Agregarproducto = (prop) => {
       let header_color = document.getElementById("headerc")?.value || "";
       let font_color = document.getElementById("fontc")?.value || "";
       let image = document.getElementById("image")?.value || "";
-     
 
       if (image === "" || !regexNombreArchivo.test(image)) {
         alert("Ingrese un nombre de imagen válido (png,jpg,jpeg,bmp)");
         return;
       }
-     
 
       if (nombre_producto === "" || !texto.test(nombre_producto)) {
         alert("Ingrese un nombre válido");
@@ -106,7 +103,7 @@ export const Agregarproducto = (prop) => {
               placeholder="image.jpg"
             />
           </div>
-          
+
           <div className="input__info">
             <h3>Nombre del Producto</h3>
             <input
@@ -217,8 +214,7 @@ export const Editarproducto = (prop) => {
       let comp_color = document.getElementById("compc")?.value || "";
       let header_color = document.getElementById("headerc")?.value || "";
       let font_color = document.getElementById("fontc")?.value || "";
-      let image = prop.product.image;
-      let stain_image = prop.product.stain_image;
+      let image = document.getElementById("image")?.value || "";
 
       if (nombre_producto !== "" && !texto.test(nombre_producto)) {
         alert("Ingrese un nombre válido");
@@ -281,6 +277,9 @@ export const Editarproducto = (prop) => {
           font_color = prop.product.font_color;
         }
       }
+      if(image===''){
+        image= prop.product.image;
+      }
 
       const producto = {
         main_color,
@@ -288,7 +287,6 @@ export const Editarproducto = (prop) => {
         header_color,
         comp_color,
         image,
-        stain_image,
         nombre_producto,
         descripcion_producto,
         stock_producto,
@@ -323,6 +321,16 @@ export const Editarproducto = (prop) => {
               name=""
               id="nombre"
               placeholder={prop.product.nombre_producto}
+            />
+          </div>
+          <div className="input__info">
+            <h3>Ruta de imagen</h3>
+            <input
+              className=""
+              type="text"
+              name=""
+              id="image"
+              placeholder={prop.product.image}
             />
           </div>
         </div>
@@ -416,7 +424,6 @@ export const Productos = (prop) => {
   const [products, setProducts] = useState(prop.prod.prodsPool);
   const URI = "https://frutcol-backend.onrender.com/metadata/";
 
-
   useEffect(() => {
     getProducts();
   }, []);
@@ -437,17 +444,20 @@ export const Productos = (prop) => {
 
   const updateCantidad = async (id) => {
     try {
-
-      const confirmacion = window.confirm('¿Quieres realmente eliminar el producto?');
+      const confirmacion = window.confirm(
+        "¿Quieres realmente eliminar el producto?"
+      );
 
       if (!confirmacion) {
-        return; 
+        return;
       }
 
       const token = localStorage.getItem("token");
 
       if (!token) {
-        console.error("No se encontró el token de autorización en el localStorage.");
+        console.error(
+          "No se encontró el token de autorización en el localStorage."
+        );
         return;
       }
 
@@ -462,7 +472,7 @@ export const Productos = (prop) => {
           Authorization: `${token}`,
         },
       });
-      toast.success('Se elimino el producto')
+      toast.success("Se elimino el producto");
 
       getProducts();
       prop.onSelectOption("productos");
@@ -470,8 +480,6 @@ export const Productos = (prop) => {
       console.error("ERROR: " + error);
     }
   };
-
-  
 
   return (
     <div className="infoproductos">
@@ -516,12 +524,10 @@ export const Productos = (prop) => {
       <div className="enter agregarp">
         <button onClick={() => prop.onSelectOption("agregar")}>Agregar</button>
       </div>
-      <Toaster richColors  />
+      <Toaster richColors />
     </div>
   );
 };
-
-
 
 export const Infocontenidos = (prop) => {
   return (
@@ -550,8 +556,7 @@ export const Infocontenidos = (prop) => {
 export const Informacionpagina = (prop) => {
   const [selectedOption, setSelectedOption] = useState("productos"); // Por defecto muestra "infocuenta"
   const [selectedProduct, setSelectedProduct] = useState(null);
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
   const [selectedReservation, setSelectedReservation] = useState(null);
 
   const handleOptionChange = (option) => {
@@ -612,35 +617,48 @@ export const Reservas = (prop) => {
   const [fecha, setFecha] = useState("");
   const filtrarReservas = () => {
     return prop.prod.userHistory.filter((userHistory) => {
-      
       // Verificar si se cumple la condición de estado y fecha
-      const cumpleCondicionEstado = estado === "" || userHistory.estado_reserva.toString() === estado;
-      const cumpleCondicionFecha = fecha === "" || userHistory.fecha_reserva === fecha;
+      const cumpleCondicionEstado =
+        estado === "" || userHistory.estado_reserva.toString() === estado;
+      const cumpleCondicionFecha =
+        fecha === "" || userHistory.fecha_reserva === fecha;
       // Si ambas condiciones se cumplen, se muestra el elemento
       return cumpleCondicionEstado && cumpleCondicionFecha;
     });
   };
   useEffect(() => {}, []);
-  
-  
+
   return (
     <div className="historialReserva">
       <div className="container">
         <div className="filtro">
           <h2>Filtros:</h2>
           <div className="filtroestado">
-          <label >Estado : </label>
-          <select name="estado" id="estado" onChange={(e) => setEstado(e.target.value)} className="select">
-            <option value="">Todo</option>
-            <option value="true">Entregado</option>
-            <option value="false">En proceso</option>
-          </select>
+            <label>Estado : </label>
+            <select
+              name="estado"
+              id="estado"
+              onChange={(e) => setEstado(e.target.value)}
+              className="select"
+            >
+              <option value="">Todo</option>
+              <option value="true">Entregado</option>
+              <option value="false">En proceso</option>
+            </select>
           </div>
           <div className="filtrofecha">
-          <label >Fecha : </label> 
-          <input className="entry" type="date" id="start" name="trip-start" value={fecha} min="2023-01-01" max="2035-01-01" onChange={(e) => setFecha(e.target.value)}/>
+            <label>Fecha : </label>
+            <input
+              className="entry"
+              type="date"
+              id="start"
+              name="trip-start"
+              value={fecha}
+              min="2023-01-01"
+              max="2035-01-01"
+              onChange={(e) => setFecha(e.target.value)}
+            />
           </div>
-          
         </div>
         <div className="labels">
           <div className="lItem">
@@ -667,7 +685,7 @@ export const Reservas = (prop) => {
               return <li style={{ color: "green" }}>Entregado</li>;
             }
           };
-          
+
           return (
             <ul
               className="orders"
@@ -704,7 +722,6 @@ export const ProductosReserva = (prop) => {
   const [userData, setUserData] = useState(null);
   const [isLoading, setisLoading] = useState(true);
   const firstRender = useRef(true);
-  const navigate = useNavigate();
   const metadata = prop.prodsPool;
   const accessToken = localStorage.getItem("token");
   const headers = {
@@ -933,7 +950,11 @@ export const InterfazAdmincom = ({ product, prodsPool, lProductos }) => {
 
   return (
     <div className="infopagecontain">
-      <Headercom product={product} lProductos={lProductos} prodsPool={prodsPool}/>
+      <Headercom
+        product={product}
+        lProductos={lProductos}
+        prodsPool={prodsPool}
+      />
       <Informacionpagina
         product={product}
         headers={headers}
