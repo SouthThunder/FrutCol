@@ -71,6 +71,7 @@ export const Ingresocom = ({refresh}) => {
 
   return (
     <div className="ingresocontain" id="home">
+
       <div className="contizformlogin">
         <h1>¿Eres nuevo?</h1>
         <p>Se parte de FrutColA</p>
@@ -133,6 +134,19 @@ export const Ingresocom = ({refresh}) => {
           <p className={`error ${credentialInputClass}`}>{credentialError}</p>
         </div>
       </div>
+
+      <div className="logo-container">
+        <Link to={"/"} className="nav__logo">
+          <img src="images/Frame 1.png" alt="" />
+            <p
+              style={{
+              transition: "all 1s var(--btn-cubic-bezier)",
+              }}>
+              FrutCol
+            </p>
+        </Link>
+      </div>
+
     </div>
   );
 };

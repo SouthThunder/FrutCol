@@ -151,3 +151,23 @@ input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
 }
+
+.logo-container {
+  position: absolute;
+  top: 20px;
+  left: 20px; 
+  z-index: 2; 
+}
+
+.logo-container img {
+  max-width: 100px; 
+  height: auto;
+}
+
+.logo-container p {
+  font-size: 18px; 
+  margin-top: 5px;
+  font-weight: bold;
+  color: #FF355E;
+  padding-left: 20px;
+}
