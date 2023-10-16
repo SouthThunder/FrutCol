@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6bd9e88a.css",
+    "main.js": "/static/js/main.ee145e6d.js",
+    "static/js/787.cda612ba.chunk.js": "/static/js/787.cda612ba.chunk.js",
+    "static/media/minimalfrutas2.png": "/static/media/minimalfrutas2.68b523372488196dfd36.png",
+    "index.html": "/index.html",
+    "main.6bd9e88a.css.map": "/static/css/main.6bd9e88a.css.map",
+    "main.ee145e6d.js.map": "/static/js/main.ee145e6d.js.map",
+    "787.cda612ba.chunk.js.map": "/static/js/787.cda612ba.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6bd9e88a.css",
+    "static/js/main.ee145e6d.js"
+  ]
+}
