@@ -1,9 +1,0 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Noto+Sans:wght@200;300;400&display=swap');
-
-body{
-    font-family: 'Montserrat',sans-serif;
-    margin: 3rem 0 0 0;
-}
-:root{
-    --prueba:red;
-}
