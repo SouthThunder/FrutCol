@@ -1,3 +1,60 @@
-.holafoo{
-    color: blue;
+@import url("https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css");
+footer {
+    
+    background: var(--strawberry-header-color);
+    width: 200%;
+    transform: translate(-45%);
+    min-height: 30vh;
+    border-radius: 80% 80% 0 0;
+    position: relative;
+    bottom: 0;
+    margin-top: -5rem;
+ }
+.footer__section{
+    margin-top: 10rem;
+    padding-top: 3rem;
+    margin-left: 45%;
+    grid-template-columns:repeat(auto-fit,minmax(220px.1fr));
+    row-gap:2rem;
+    display:grid;
+    grid-template-columns: .2fr .2fr .2fr .1fr;
+}
+
+.footer__section > .footer__title{
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-medium);
+    margin-bottom: var(--mb-1);
+}
+.footer__section > .footer__links{
+    display:flex;
+    flex-direction: column;
+    row-gap: .5rem;
+}
+
+footer > .footer__section > .footer__content > .footer__links > li{
+    margin-top: .2rem;
+}
+
+footer > .footer__section > .footer__content > .footer__links > li > .footer__link {
+    color: black;
+}
+
+footer > .footer__section > .footer__content > .footer__links > li > .footer__link:hover{
+    color:var(--white-color);
+}
+footer > .footer__section > .footer__content > .footer__social{
+    display:flex;
+    column-gap: 1.25rem;
+}
+footer > .footer__section > .footer__content > .footer__social > .footer__social-link{
+    display:inline-flex;
+    color: var(--white-color);
+    background-color: var(--container-color);
+    padding: .5rem;
+    border-radius: .25rem;
+    font-size: 1rem;
+}
+footer > .footer__section > .footer__content > .footer__social > .footer__social-link:hover{
+    background-color: var(--strawberry-main-color);
+    transition: all 1s var(--btn-cubic-bezier);
 }

@@ -1,0 +1,284 @@
+.infocuenta{
+    display: flex;
+    text-align: left;
+    width: 90%;
+    min-height: 50vh;
+    margin: 8rem;
+}
+.infocuenta > .contenidos{
+    border-right: 2px solid black;
+    width: 25%;
+   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+   
+}
+.infocuenta > .contenidos > .imagecontain{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    
+}
+.infocuenta > .contenidos > .imagecontain > img{
+    width: 50%
+
+}
+.infocuenta > .contenidos > h4{
+    margin: 2rem 0 2rem 0;
+    cursor: pointer;
+
+}
+.infocuenta > .contenidos > h4:hover{
+    color:red;
+}
+
+.infocuenta > .contenidos > button {
+    height: 2rem;
+    width: 8rem;
+    border-radius: var(--md-border);
+    border: 1px solid black;
+    background-color: transparent;
+    color: var(--background-btn);
+}
+
+.infocuenta > .contenidos > button:hover{
+    color: white;
+    cursor: pointer;
+    background-color: var(--background-btn);
+    transition: all 1s var(--btn-cubic-bezier);
+}
+
+.infocuenta > .infogeneral{
+    width: 100%;
+    margin-left: 3rem;
+}
+.infocuenta > .cambiocontrasena{
+    width: 100%;
+    margin-left: 3rem;
+    display: flex;
+    align-items: center;
+}
+
+.infocuenta > .cambiocontrasena > .form{
+    width: 100%;
+}
+
+.infocuenta > .cambiocontrasena > .form > .input__info > .invisible{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    right: 0;
+}
+
+.infocuenta > .cambiocontrasena > .form > .input__info > .invisible > img{
+    width: 20px; 
+    height: 20px; 
+    display: block; 
+}
+.input__info > ion-icon{
+    position: absolute;
+    right: 8px;
+    top: 20px;
+    color:black;
+}
+.input__info {
+    position: relative;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    border-bottom: 1px solid black;
+}
+
+.input__info:hover {
+    border-bottom: 1px solid var(--primary-color);
+}
+ .input__info > label{
+    position: absolute;
+    top: 30%;
+    left: 5px;
+    color: black;
+    font-size: 1rem;
+    top:-4px;
+    pointer-events: none;
+    transition: 0.5s;
+}
+ .input__info > small{
+    color: #FFA500;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    visibility: hidden;
+}
+ .input__info > input {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 15px 5px 0 5px;
+}
+/* .input__info > input:focus ~ label,
+.input__info > input:invalid ~ label,
+.input__info > input[type="password"]:not(:placeholder-shown) {
+    top: -4px;
+} */
+.infoCuentacontain .enter{
+    display: flex;
+    justify-content: center;
+    margin-right: 16rem;
+}
+.infoCuentacontain .enter > button {
+    width: 22%;
+    height: 2.5rem;
+    font-size: calc(5px + .8vw);
+    padding: 0.3em .2em;
+    border: none;
+    border: 1px solid black;
+    background-color: transparent;
+    color: var(--background-btn);
+    cursor: pointer;
+    border-radius: var(--md-border);
+    transition: all .5s var(--btn-cubic-bezier);
+  }
+
+.infoCuentacontain .enter > button:hover,
+.infoCuentacontain .enter > button:active{
+    background-color: var(--btn-color);
+    color: #fff;
+  }
+
+
+.infocuenta > .historialReserva{
+    width: 100%;
+    margin-left: 3rem;
+    display: flex;
+    align-items: center;
+}
+
+.infocuenta > .historialReserva > .container{
+    width: 80%;
+    height: 100%;
+}
+
+.infocuenta > .historialReserva > .container > .labels{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 3rem;
+    border: 1px solid black;
+    border-radius: var(--sm-border);
+}
+
+.infocuenta > .historialReserva > .container > .labels .lItem {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.infocuenta > .historialReserva > .container > .orders {
+    display: flex;
+    height: 3rem;
+    border-bottom: 1px solid black;
+    align-items: center;
+}
+
+.infocuenta > .historialReserva > .container > .orders:hover{
+    cursor: pointer;
+    background-color: var(--btn-color);
+    border-radius: var(--sm-border);
+    transition: all 0.5s var(--btn-cubic-bezier);
+}
+
+.infocuenta > .historialReserva > .container > .orders > .lItem{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.infocuenta > .resprod {
+    width: 100%;
+    height: 100%;
+    margin-left: 3rem;
+}
+
+.infocuenta > .resprod > .elements > .labels{
+    display: flex;
+    width: 100%;
+    height: 3rem;
+    border-radius: var(--sm-border);
+    border: 1px solid   black;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.infocuenta > .resprod > .elements > .labels > .lItem{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.infocuenta > .resprod > .elements > .labels > .lItem > p{
+    margin-left: 1rem;
+}
+
+.infocuenta > .resprod > .elements{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.infocuenta > .resprod > .elements > .product{
+    display: flex;
+}
+
+.infocuenta > .resprod > .elements > .product > .pImg{
+    width: 100%;
+    margin-left: 1rem;
+}
+
+.infocuenta > .resprod > .elements > .product > .pImg > img{
+    margin-left: 2rem;
+    width: 100px;
+}
+
+.infocuenta > .resprod > .elements > .product > .promt{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
+.infocuenta > .resprod > .elements > .product > .unit{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.infocuenta > .resprod > .separator{
+    width: 80%;
+    height: 1.5px;
+    background-color: black;
+}
+
+.infocuenta > .resprod > .total{
+    margin-top: 1rem;
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.infocuenta > .resprod > .total > p{
+    grid-column: 3/3;
+}
