@@ -2,17 +2,17 @@ import React, { useEffect } from "react";
 import "./footer.css";
 import { Link } from "react-router-dom";
 
-export const Footercom = ({product}) => {
+export const Footercom = ({ product }) => {
   useEffect(() => {
-    
+    document.documentElement.style.setProperty(
+      "--container-color",
+      product.header_color
+    );
+    document.documentElement.style.setProperty(
+      "--btn-color",
+      product.main_color
+    );
   }, [product]);
-  const Min = (e) => {
-    e.target.style.backgroundColor = product.main_color;
-  };
-
-  const Mout = (e) => {
-    e.target.style.backgroundColor = product.header_color;
-  };
 
   return (
     <footer
@@ -31,7 +31,7 @@ export const Footercom = ({product}) => {
           <ul className="footer__links">
             <li>
               <Link to="#" className="footer__link">
-                <i className="ri-phone-line"> 317 4358995</i> 
+                <i className="ri-phone-line"> 317 4358995</i>
               </Link>
             </li>
             <li>
@@ -40,7 +40,7 @@ export const Footercom = ({product}) => {
                 className="footer__link"
                 target="_balnk"
               >
-                <i className="ri-mail-line"> frutcol0518@gmail.com</i> 
+                <i className="ri-mail-line"> frutcol0518@gmail.com</i>
               </a>
             </li>
           </ul>
@@ -52,9 +52,6 @@ export const Footercom = ({product}) => {
               to="https://www.facebook.com/"
               target="_blank"
               className="footer__social-link"
-              style={{ backgroundColor: product.header_color }}
-              onMouseLeave={(e) => Mout(e)}
-              onMouseEnter={(e) => Min(e)}
             >
               <i className="ri-facebook-fill"></i>
             </Link>
@@ -62,9 +59,6 @@ export const Footercom = ({product}) => {
               to="https://wa.me/573174358995"
               target="_blank"
               className="footer__social-link"
-              style={{ backgroundColor: product.header_color }}
-              onMouseLeave={(e) => Mout(e)}
-              onMouseEnter={(e) => Min(e)}
             >
               <i className="ri-whatsapp-line"></i>
             </Link>
@@ -72,9 +66,6 @@ export const Footercom = ({product}) => {
               to="https://www.instagram.com/"
               target="_blank"
               className="footer__social-link"
-              style={{ backgroundColor: product.header_color }}
-              onMouseLeave={(e) => Mout(e)}
-              onMouseEnter={(e) => Min(e)}
             >
               <i className="ri-instagram-line"></i>
             </Link>
@@ -89,11 +80,10 @@ export const Footercom = ({product}) => {
               </Link>
             </li>
             <li>
-              <Link to='/Privacidad' className="footer__link">
+              <Link to="/Privacidad" className="footer__link">
                 Políticas de privacidad
               </Link>
             </li>
-            
           </ul>
         </div>
       </div>
