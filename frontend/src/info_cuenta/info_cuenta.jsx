@@ -159,18 +159,19 @@ export const Infocuenta = (prop) => {
   );
 };
 export const Infocontenidos = (prop) => {
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
-
-  const extraOpt = () =>{
-    if(prop.admin){
-      return(
-        <button onClick={() => navigate('/InterfazAdmin')}>Administrador</button>
-      )
-    }else{
-      return
+  const extraOpt = () => {
+    if (prop.admin) {
+      return (
+        <button onClick={() => navigate("/InterfazAdmin")}>
+          Administrador
+        </button>
+      );
+    } else {
+      return;
     }
-  }
+  };
 
   return (
     <div className="contenidos">
@@ -209,9 +210,7 @@ export const Infocontenidos = (prop) => {
       >
         Cambio de contraseña
       </h4>
-      {
-        extraOpt()
-      }
+      {extraOpt()}
     </div>
   );
 };
@@ -329,9 +328,9 @@ export const HistorialReservas = (prop) => {
         {prop.userHistory.map((userHistory) => {
           const chkStatus = () => {
             if (userHistory.estado_reserva === false) {
-              return <li style={{color: "#ff8c00"}}>En proceso</li>;
-            }else{
-              return <li style={{color: "green"}}>Entregado</li>
+              return <li style={{ color: "#ff8c00" }}>En proceso</li>;
+            } else {
+              return <li style={{ color: "green" }}>Entregado</li>;
             }
           };
 
@@ -367,8 +366,7 @@ export const HistorialReservas = (prop) => {
 export const Informacioncuenta = (prop) => {
   const [selectedOption, setSelectedOption] = useState("infocuenta"); // Por defecto muestra "infocuenta"
   const [selectedReservation, setSelectedReservation] = useState(null);
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
   const handleOptionChange = (option) => {
     setSelectedOption(option);
   };
@@ -457,26 +455,6 @@ export const Cambiocontraseña = (prop) => {
           <ion-icon name="person"></ion-icon>
           <input
             type={showPassword ? "text" : "password"}
-            id="oldcontrasena"
-            name="oldcontrasena"
-          />
-          <label htmlFor="">Vieja contraseña</label>
-          <button
-            className="invisible"
-            type="button"
-            onClick={togglePasswordVisibility}
-          >
-            <img
-              src={showPassword ? "images/ojo.png" : "images/invisible.png"}
-              alt={showPassword ? "visible" : "invisible"}
-            />
-          </button>
-        </div>
-        <div className="input__info">
-          <small className="errores">Error message</small>
-          <ion-icon name="person"></ion-icon>
-          <input
-            type={showPassword ? "text" : "password"}
             id="contrasena"
             name="contrasena"
           />
@@ -495,7 +473,11 @@ export const Cambiocontraseña = (prop) => {
         <div className="input__info">
           <small className="errores">Error message</small>
           <ion-icon name="person"></ion-icon>
-          <input type="password" id="newcontrasena" name="newcontrasena" />
+          <input
+            type={showPassword ? "text" : "password"}
+            id="newcontrasena"
+            name="newcontrasena"
+          />
           <label htmlFor="">Confirmar nueva contraseña</label>
           <button
             className="invisible"
@@ -542,7 +524,7 @@ export const InfoCuentacom = ({ product, prodsPool, lProductos }) => {
         userData !== null &&
         headers.Authorization !== null &&
         userHistory !== null &&
-        admin!==null
+        admin !== null
       ) {
         document.documentElement.style.setProperty(
           "--background-btn",
@@ -560,12 +542,10 @@ export const InfoCuentacom = ({ product, prodsPool, lProductos }) => {
   const getAdmin = async () => {
     const URI = "https://frutcol-backend.onrender.com/usuarios";
     try {
-      const res = await axios.get(URI, {headers})
-      setAdmin(res.data)
-    } catch (error) {
-      
-    }
-  }
+      const res = await axios.get(URI, { headers });
+      setAdmin(res.data);
+    } catch (error) {}
+  };
 
   const getUserData = async () => {
     try {
@@ -592,7 +572,11 @@ export const InfoCuentacom = ({ product, prodsPool, lProductos }) => {
 
   return (
     <div className="infoCuentacontain">
-      <Headercom product={product} lProductos={lProductos} prodsPool={prodsPool}/>
+      <Headercom
+        product={product}
+        lProductos={lProductos}
+        prodsPool={prodsPool}
+      />
       <Informacioncuenta
         product={product}
         userData={userData}

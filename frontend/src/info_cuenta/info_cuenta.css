@@ -66,6 +66,8 @@
 }
 
 .infocuenta > .cambiocontrasena > .form > .input__info > .invisible{
+    position: absolute;
+    top: 20px;
     background: none;
     border: none;
     padding: 0;
@@ -78,9 +80,9 @@
     height: 20px; 
     display: block; 
 }
-.input__info > ion-icon{
+.input__info ion-icon{
     position: absolute;
-    right: 8px;
+    right: 200px;
     top: 20px;
     color:black;
 }
