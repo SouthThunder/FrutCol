@@ -6,6 +6,7 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import LoadingSpinner from "../loading/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
+import { Toaster, toast } from "sonner";
 
 const numeros = /^\d+$/; // Solo números
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -33,7 +34,7 @@ export const Infocuenta = (prop) => {
     let role = prop.user[0].role;
 
     if (nombre_usuario !== "" && !texto.test(nombre_usuario)) {
-      alert("Ingrese un nombre válido");
+      toast.error("Ingrese un nombre válido");
       return;
     } else {
       if (nombre_usuario === "") {
@@ -41,7 +42,7 @@ export const Infocuenta = (prop) => {
       }
     }
     if (apellido_usuario !== "" && !texto.test(apellido_usuario)) {
-      alert("Ingrese un apellido válido");
+      toast.error("Ingrese un apellido válido");
       return;
     } else {
       if (apellido_usuario === "") {
@@ -52,7 +53,7 @@ export const Infocuenta = (prop) => {
       cedula_usuario !== "" &&
       (!numeros.test(cedula_usuario) || cedula_usuario.lenght > 10)
     ) {
-      alert("Ingrese una cedula válido");
+      toast.error("Ingrese una cedula válido");
       return;
     } else {
       if (cedula_usuario === "") {
@@ -60,7 +61,7 @@ export const Infocuenta = (prop) => {
       }
     }
     if (correo_usuario !== "" && !emailRegex.test(correo_usuario)) {
-      alert("Ingrese un correo válido");
+      toast.error("Ingrese un correo válido");
       return;
     } else {
       if (correo_usuario === "") {
@@ -82,14 +83,14 @@ export const Infocuenta = (prop) => {
       role,
     };
     try {
-      await axios.put(`${URI}${prop.user[0].id_usuario}`, user, {
+      await axios.put(`${URI}`, user, {
         headers,
       });
-      alert("Los datos se actualizaron correctamente");
+      toast.success("Los datos se actualizaron correctamente");
       window.location.reload();
     } catch (error) {
       console.error(error);
-      alert("Error al actualizar los datos");
+      toast.error("Error al actualizar los datos");
     }
   };
   return (
@@ -154,6 +155,7 @@ export const Infocuenta = (prop) => {
         <div className="enter">
           <button onClick={handleActualizar}>Actualizar</button>
         </div>
+        <Toaster richColors/>
       </form>
     </div>
   );
