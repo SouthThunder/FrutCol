@@ -650,7 +650,7 @@ export const Reservas = (prop) => {
             </select>
           </div>
           <div className="filtrofecha">
-            <label>Fecha : </label>
+            <label>Fecha: </label>
             <input
               className="entry"
               type="date"
@@ -663,17 +663,10 @@ export const Reservas = (prop) => {
             />
           </div>
           <div className="search">
-            <input type="text" onChange={(e) =>{
+            <label>Buscar orden: </label>
+            <input type="text" placeholder="FC202310U1S1" onChange={(e) =>{
               setNumOrden(e.target.value);
             }}/>
-            <button
-              className="searchbtn"
-              onClick={() => {
-                alert(numOrden)
-              }}
-            >
-              Buscar
-            </button>
           </div>
         </div>
         <div className="labels">

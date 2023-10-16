@@ -347,13 +347,30 @@ input[type="number"] {
   align-items: flex-end;
   column-gap: 4rem;
 }
+
+.info_pagina > .historialReserva > .container > .filtro label{
+  font-size: .9rem;
+}
+
 .info_pagina > .historialReserva > .container > .filtro > .filtroestado > .select{
  width: 100px;
  height: 25px;
 }
+
+
+
 .info_pagina > .historialReserva > .container > .filtro > .filtrofecha > .entry{
   width: 100px;
   height: 25px;
+ }
+
+ .info_pagina > .historialReserva > .container > .filtro > .search{
+  height: 25px;
+ }
+
+ .info_pagina > .historialReserva > .container > .filtro > .search > input{
+  height: 100%;
+  padding-left: 4px;
  }
 
 .info_pagina > .historialReserva > .container > .labels{
