@@ -30,39 +30,39 @@ export const Agregarproducto = (prop) => {
       let image = document.getElementById("image")?.value || "";
 
       if (image === "" || !regexNombreArchivo.test(image)) {
-        alert("Ingrese un nombre de imagen válido (png,jpg,jpeg,bmp)");
+        toast.error("Ingrese un nombre de imagen válido (png,jpg,jpeg,bmp)");
         return;
       }
 
       if (nombre_producto === "" || !texto.test(nombre_producto)) {
-        alert("Ingrese un nombre válido");
+        toast.error("Ingrese un nombre válido");
         return;
       }
 
       if (stock_producto === "" || !numeros.test(stock_producto)) {
-        alert("Ingrese una cantidad válida");
+        toast.error("Ingrese una cantidad válida");
         return;
       }
 
       if (precio_producto === "" || !numeros.test(precio_producto)) {
-        alert("Ingrese un precio válido");
+        toast.error("Ingrese un precio válido");
         return;
       }
       if (main_color === "" || !regexHexadecimal.test(main_color)) {
-        alert("Ingrese un código hexadecimal de Principal válido");
+        toast.error("Ingrese un código hexadecimal de Principal válido");
         return;
       }
       if (header_color === "" || !regexHexadecimal.test(header_color)) {
-        alert("Ingrese un código hexadecimal de header y footer válido");
+        toast.error("Ingrese un código hexadecimal de header y footer válido");
         return;
       }
       if (comp_color === "" || !regexHexadecimal.test(comp_color)) {
-        alert("Ingrese un código hexadecimal de Componentes válido");
+        toast.error("Ingrese un código hexadecimal de Componentes válido");
         return;
       }
 
       if (font_color === "" || !regexHexadecimal.test(font_color)) {
-        alert("Ingrese un código hexadecimal de mancha válido");
+        toast.error("Ingrese un código hexadecimal de mancha válido");
         return;
       }
 
@@ -82,11 +82,11 @@ export const Agregarproducto = (prop) => {
         headers,
       });
 
-      alert("Se agregó el producto correctamente");
+      toast.success("Se agregó el producto correctamente");
       prop.onSelectOption("productos");
     } catch (error) {
       console.error(error);
-      alert("Error agregar el producto");
+      toast.error("Error agregar el producto");
     }
   };
   return (
@@ -195,6 +195,7 @@ export const Agregarproducto = (prop) => {
       <div className="enter agregar_product">
         <button onClick={handleAgregar}>Agregar</button>
       </div>
+      <Toaster richColors/>
     </div>
   );
 };
@@ -217,7 +218,7 @@ export const Editarproducto = (prop) => {
       let image = document.getElementById("image")?.value || "";
 
       if (nombre_producto !== "" && !texto.test(nombre_producto)) {
-        alert("Ingrese un nombre válido");
+        toast.error("Ingrese un nombre válido");
 
         return;
       } else {
@@ -230,7 +231,7 @@ export const Editarproducto = (prop) => {
       }
 
       if (stock_producto !== "" && !numeros.test(stock_producto)) {
-        alert("Ingrese una cantidad válida");
+        toast.error("Ingrese una cantidad válida");
         return;
       } else {
         if (stock_producto === "") {
@@ -238,7 +239,7 @@ export const Editarproducto = (prop) => {
         }
       }
       if (precio_producto !== "" && !numeros.test(precio_producto)) {
-        alert("Ingrese un precio válido");
+        toast.error("Ingrese un precio válido");
         return;
       } else {
         if (precio_producto === "") {
@@ -246,7 +247,7 @@ export const Editarproducto = (prop) => {
         }
       }
       if (main_color !== "" && !regexHexadecimal.test(main_color)) {
-        alert("Ingrese un código hexadecimal de Principal válido");
+        toast.error("Ingrese un código hexadecimal de Principal válido");
         return;
       } else {
         if (main_color === "") {
@@ -254,7 +255,7 @@ export const Editarproducto = (prop) => {
         }
       }
       if (header_color !== "" && !regexHexadecimal.test(header_color)) {
-        alert("Ingrese un código hexadecimal de header y footer válido");
+        toast.error("Ingrese un código hexadecimal de header y footer válido");
         return;
       } else {
         if (header_color === "") {
@@ -262,7 +263,7 @@ export const Editarproducto = (prop) => {
         }
       }
       if (comp_color !== "" && !regexHexadecimal.test(comp_color)) {
-        alert("Ingrese un código hexadecimal de Componentes válido");
+        toast.error("Ingrese un código hexadecimal de Componentes válido");
         return;
       } else {
         if (comp_color === "") {
@@ -270,7 +271,7 @@ export const Editarproducto = (prop) => {
         }
       }
       if (font_color !== "" && !regexHexadecimal.test(font_color)) {
-        alert("Ingrese un código hexadecimal de mancha válido");
+        toast.error("Ingrese un código hexadecimal de mancha válido");
         return;
       } else {
         if (font_color === "") {
@@ -295,11 +296,11 @@ export const Editarproducto = (prop) => {
       await axios.put(`${URI}${prop.product.id_metadata_producto}`, producto, {
         headers,
       });
-      alert("Los datos se actualizaron correctamente");
+      toast.success("Los datos se actualizaron correctamente");
       prop.onSelectOption("productos");
     } catch (error) {
       console.error(error);
-      alert("Error al actualizar los datos");
+      toast.error("Error al actualizar los datos");
     }
   };
 
@@ -416,6 +417,7 @@ export const Editarproducto = (prop) => {
       <div className="enter actualizar_product">
         <button onClick={handleActualizar}>Actualizar</button>
       </div>
+      <Toaster richColors />
     </div>
   );
 };
