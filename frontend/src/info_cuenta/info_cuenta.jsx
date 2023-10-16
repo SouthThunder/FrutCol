@@ -420,13 +420,13 @@ export const Cambiocontraseña = (prop) => {
 
     const passwordPattern = /^(?=.*\d)(?=.*[A-Z]).{8,}$/; // Al menos un número, una mayúscula y 8 o más caracteres
     if (!passwordPattern.test(contrasena_usuario1)) {
-      alert(
+      toast.error(
         "La contraseña debe contener al menos un número, una mayúscula y tener 8 o más caracteres."
       );
       return;
     }
     if (contrasena_usuario1 !== confirmacioncontra) {
-      alert("Las contraseñas deben coincidir");
+      toast.error("Las contraseñas deben coincidir");
       return;
     }
 
@@ -439,11 +439,11 @@ export const Cambiocontraseña = (prop) => {
         headers,
       });
 
-      alert("Los datos se actualizaron correctamente");
+      toast.success("Los datos se actualizaron correctamente");
       window.location.reload();
     } catch (error) {
       console.error(error);
-      alert("Error al actualizar los datos");
+      toast.error("Error al actualizar los datos");
     }
   };
   const togglePasswordVisibility = () => {
@@ -496,6 +496,7 @@ export const Cambiocontraseña = (prop) => {
         <div className="enter">
           <button onClick={handleActualizarContra}>Actualizar</button>
         </div>
+        <Toaster richColors/>
       </form>
     </div>
   );
