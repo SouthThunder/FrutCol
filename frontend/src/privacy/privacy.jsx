@@ -2,6 +2,16 @@ import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 import "./privacy.css";
 
+export const PrivacyComp = ({product, lProductos, prodsPool}) => {
+  return (
+    <div>
+      <Headercom product={product} lProductos={lProductos} prodsPool={prodsPool}/>
+      <Privacy/>
+      <Footercom product={product} />
+    </div>
+  )
+}
+
 export const Privacy = () => {
   return (
     <div className="privacy">
