@@ -88,6 +88,11 @@ export const Footercom = ({product}) => {
                 Nuestra Historia
               </Link>
             </li>
+            <li>
+              <Link to='/Privacidad' className="footer__link">
+                Políticas de privacidad
+              </Link>
+            </li>
             
           </ul>
         </div>
