@@ -1,14 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "./header.css";
 import { ShoppingCart } from "../carrito/shoppingCart";
 
-export const HeadPopUp = ({product, trigger}) => {
+export const HeadPopUp = ({ product, trigger, togglePopup }) => {
+  const menuRef = useRef();
+
   useEffect(() => {
     document.documentElement.style.setProperty(
       "--btn-color",
       product.main_color
     );
+
+    const handler = (e) => {
+      if (menuRef.current !== null) {
+        if (!menuRef.current.contains(e.target)) {
+          togglePopup(false);
+        }
+      }
+    };
+    document.addEventListener("mousedown", handler);
   }, [product]);
   const navigate = useNavigate();
 
@@ -17,47 +28,45 @@ export const HeadPopUp = ({product, trigger}) => {
     localStorage.clear();
   };
 
-  const reDirect =  () => {
-    navigate('/InformacionCuenta');
-  }
+  const reDirect = () => {
+    navigate("/InformacionCuenta");
+  };
 
   return (
-    <div>
-      {!trigger && (
-        <div
-          className="popup-header"
-          style={{ backgroundColor: product.header_color }}
-        >
-          <div className="popup-inner">
-            <button
-            onClick={reDirect}
-            >
-              Ajustes
-            </button>
-          </div>
-          <div className="separator">
-          </div>
-          <div className="popup-inner">
-            <button
-              onClick={logout}
-            >
-              Salir
-            </button>
-          </div>
-        </div>
-      )}
+    <div
+      className={`popup-header ${trigger? 'active' : 'inactive'}`}
+      ref={menuRef}
+      style={{ backgroundColor: product.header_color }}
+    >
+      <div className="popup-inner">
+        <button onClick={reDirect}>Ajustes</button>
+      </div>
+      <div className="separator"></div>
+      <div className="popup-inner">
+        <button onClick={logout}>Salir</button>
+      </div>
     </div>
   );
 };
 
-export const Headercom = ({product, lProductos, headers, token, prodsPool }) => {
+export const Headercom = ({
+  product,
+  lProductos,
+  headers,
+  token,
+  prodsPool,
+}) => {
   const [header, setHeader] = useState([]);
-  const [popup, setPopup] = useState([]);
+  const [popup, setPopup] = useState(false);
   const [cartVis, setCartVis] = useState(false);
 
-  const changeCartVis= (status) =>{
-    setCartVis(status)
-  }
+  const changeCartVis = (status) => {
+    setCartVis(status);
+  };
+
+  const changePopupVis = (status) => {
+    setPopup(status);
+  };
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -65,7 +74,10 @@ export const Headercom = ({product, lProductos, headers, token, prodsPool }) => 
   }, [product, popup, cartVis]);
 
   const validateToken = () => {
-    if (localStorage.getItem('token')===null || localStorage.getItem('token')===undefined) 
+    if (
+      localStorage.getItem("token") === null ||
+      localStorage.getItem("token") === undefined
+    )
       setHeader(notAuthUser);
     else {
       setHeader(authUser);
@@ -127,7 +139,7 @@ export const Headercom = ({product, lProductos, headers, token, prodsPool }) => 
                 </button>
               </li>
               <li className="nav__item">
-                <button onClick={()=> navigate('/ingreso')}>
+                <button onClick={() => navigate("/ingreso")}>
                   <img src="images/carrito.png" />
                 </button>
               </li>
@@ -144,7 +156,7 @@ export const Headercom = ({product, lProductos, headers, token, prodsPool }) => 
     };
 
     const toggleCart = () => {
-      setCartVis(!cartVis)
+      setCartVis(!cartVis);
     };
 
     return (
@@ -173,7 +185,11 @@ export const Headercom = ({product, lProductos, headers, token, prodsPool }) => 
                 <button id="userIcon" onClick={togglePopup}>
                   <img src="/images/userIcon.png" alt="" />
                 </button>
-                <HeadPopUp trigger={popup} product={product} />
+                <HeadPopUp
+                  trigger={popup}
+                  product={product}
+                  togglePopup={changePopupVis}
+                />
               </li>
               <li className="nav__item">
                 <button onClick={toggleCart}>
@@ -183,7 +199,13 @@ export const Headercom = ({product, lProductos, headers, token, prodsPool }) => 
             </ul>
           </div>
         </nav>
-        <ShoppingCart visibility={cartVis} changeCartVis={changeCartVis} lProductos={lProductos} headers={headers} prodsPool={prodsPool}/>
+        <ShoppingCart
+          visibility={cartVis}
+          changeCartVis={changeCartVis}
+          lProductos={lProductos}
+          headers={headers}
+          prodsPool={prodsPool}
+        />
       </div>
     );
   };

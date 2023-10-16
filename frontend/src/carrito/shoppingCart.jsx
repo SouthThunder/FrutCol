@@ -62,7 +62,6 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
       return accumulator;
     }, 0);
     // Actualiza el estado total con el nuevo precio total calculado
-    console.log(totalpruductos)
     setTotal(totalPrice);
     setTotalp(totalpruductos);
   }, [visibility, lProductos, active, test2]);

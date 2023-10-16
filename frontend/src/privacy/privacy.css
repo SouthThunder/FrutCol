@@ -1,0 +1,23 @@
+.privacy{
+    margin-top: calc(var(--header-height) + 2rem);
+}
+
+.privacy > .container {
+    width: 60%;
+    height: 100%;
+    margin: auto;
+}
+
+.privacy >.container > h1 {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.privacy >.container  p {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    text-align: justify;
+    text-justify: inter-word;
+}
