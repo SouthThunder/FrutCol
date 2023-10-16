@@ -615,6 +615,7 @@ export const Reservas = (prop) => {
   };
   const [estado, setEstado] = useState("");
   const [fecha, setFecha] = useState("");
+  const [numOrden, setNumOrden] = useState("");
   const filtrarReservas = () => {
     return prop.prod.userHistory.filter((userHistory) => {
       // Verificar si se cumple la condición de estado y fecha
@@ -622,8 +623,10 @@ export const Reservas = (prop) => {
         estado === "" || userHistory.estado_reserva.toString() === estado;
       const cumpleCondicionFecha =
         fecha === "" || userHistory.fecha_reserva === fecha;
+      const encontroNumOrden = 
+        numOrden === "" || userHistory.num_orden === numOrden;
       // Si ambas condiciones se cumplen, se muestra el elemento
-      return cumpleCondicionEstado && cumpleCondicionFecha;
+      return cumpleCondicionEstado && cumpleCondicionFecha && encontroNumOrden;
     });
   };
   useEffect(() => {}, []);
@@ -647,7 +650,7 @@ export const Reservas = (prop) => {
             </select>
           </div>
           <div className="filtrofecha">
-            <label>Fecha : </label>
+            <label>Fecha: </label>
             <input
               className="entry"
               type="date"
@@ -658,6 +661,12 @@ export const Reservas = (prop) => {
               max="2035-01-01"
               onChange={(e) => setFecha(e.target.value)}
             />
+          </div>
+          <div className="search">
+            <label>Buscar orden: </label>
+            <input type="text" placeholder="FC202310U1S1" onChange={(e) =>{
+              setNumOrden(e.target.value);
+            }}/>
           </div>
         </div>
         <div className="labels">
