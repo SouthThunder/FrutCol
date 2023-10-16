@@ -5,6 +5,7 @@ import {Ingresocom} from './ingreso/ingreso.jsx';
 import {InterfazAdmincom} from './interfaz_admin/interfaz_admin.jsx';
 import {QuienesSomoscom} from './quienes_somos/quienes_somos.jsx';
 import {Registrocom} from './registro/registro.jsx';
+import {Privacy} from './privacy/privacy.jsx'
 import { Producto } from "./home/cartSlice.js";
 import { useRef, useEffect } from 'react';
 import { useState } from 'react';
@@ -159,6 +160,7 @@ export const App= () =>{
           <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
           <Route path='/QuienesSomos' element={<QuienesSomoscom product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
           <Route path='/Registro' element={<Registrocom refresh={refresh}/>}/>
+          <Route path='/Privacidad' element={<Privacy/>}/>
         </Routes>
       </BrowserRouter>      
     </div>
