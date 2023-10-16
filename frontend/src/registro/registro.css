@@ -50,6 +50,26 @@
     border-color:var(--primary-color);
 }
 
+.contderform .terms_coditions{
+  width: 500px;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contderform .terms_coditions input{
+  width: 15px;
+  height: 100%;
+  margin: auto 0;
+}
+
+.contderform .terms_coditions label {
+    font-size: .8rem;
+    margin-top: -.1rem;
+    margin-left: 1rem;
+}
+
 .contderform button {
     margin-top: 4%;
     margin-left: 40%;
@@ -66,6 +86,13 @@
     background-color: var(--primary-color);
     color: white;
     border: none;
+}
+
+.contderform button[disabled]:hover {
+    cursor: not-allowed;
+    background-color: transparent;
+    border: 1px solid black;
+    color: black;
 }
 
 .contizform {

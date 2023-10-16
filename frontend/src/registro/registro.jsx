@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import "./registro.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import jwt_decode from 'jwt-decode';
+import jwt_decode from "jwt-decode";
 
-
-export const Registrocom = ({refresh}) => {
-
+export const Registrocom = ({ refresh }) => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [cedula, setCedula] = useState("");
@@ -25,14 +23,14 @@ export const Registrocom = ({refresh}) => {
   const [correoError, setcorreoError] = useState("");
   const [contrasenaInputClass, setcontrasenaInputClass] = useState("");
   const [contrasenaError, setcontrasenaError] = useState("");
+  const [terms_coditions, setTerms_coditions] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-
     //validaciones de contenido
     //validacion de contenido nombre
-    if (!nombre || nombre === undefined || nombre === '') {
+    if (!nombre || nombre === undefined || nombre === "") {
       setnombreError("Ingrese su nombre");
       setnombreInputClass("shake");
       setTimeout(() => {
@@ -45,7 +43,7 @@ export const Registrocom = ({refresh}) => {
     }
 
     //validacion de contenido apellido
-    if (!apellido || apellido === undefined || apellido === '') {
+    if (!apellido || apellido === undefined || apellido === "") {
       setapellidoError("Ingrese su apellido");
       setapellidoInputClass("shake");
       setTimeout(() => {
@@ -56,10 +54,9 @@ export const Registrocom = ({refresh}) => {
       setapellidoError("");
       setapellidoInputClass("");
     }
-    
 
     //validacion de contenido cedula
-    if (!cedula || cedula === undefined || cedula === '') {
+    if (!cedula || cedula === undefined || cedula === "") {
       setcedulaError("Ingrese su cedula");
       setcedulaInputClass("shake");
       setTimeout(() => {
@@ -72,7 +69,7 @@ export const Registrocom = ({refresh}) => {
     }
 
     //validacion de contenido direccion
-    if (!direccion || direccion === undefined || direccion === '') {
+    if (!direccion || direccion === undefined || direccion === "") {
       setdireccionError("Ingrese su dirección");
       setdireccionInputClass("shake");
       setTimeout(() => {
@@ -84,9 +81,8 @@ export const Registrocom = ({refresh}) => {
       setdireccionInputClass("");
     }
 
-
     //validacion de contenido correo
-    if (!correo || correo === undefined || correo === '') {
+    if (!correo || correo === undefined || correo === "") {
       setcorreoError("Ingrese su correo");
       setcorreoInputClass("shake");
       setTimeout(() => {
@@ -99,7 +95,7 @@ export const Registrocom = ({refresh}) => {
     }
 
     //validacion de contenido contrasena
-    if (!contrasena || contrasena === undefined || contrasena === '') {
+    if (!contrasena || contrasena === undefined || contrasena === "") {
       setcontrasenaError("Ingrese su contraseña");
       setcontrasenaInputClass("shake");
       setTimeout(() => {
@@ -111,9 +107,7 @@ export const Registrocom = ({refresh}) => {
       setcontrasenaInputClass("");
     }
 
-
     const URI = "https://frutcol-backend.onrender.com/usuarios/register";
-
 
     // Validaciones para nombres y apellidos
     const namePattern = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
@@ -125,9 +119,9 @@ export const Registrocom = ({refresh}) => {
         setnombreInputClass("");
       }, 500);
       return;
-    }else {
-    setnombreError("");
-    setnombreInputClass("");
+    } else {
+      setnombreError("");
+      setnombreInputClass("");
     }
 
     if (!namePattern.test(apellido)) {
@@ -137,9 +131,9 @@ export const Registrocom = ({refresh}) => {
         setapellidoInputClass("");
       }, 500);
       return;
-    }else {
-    setapellidoError("");
-    setapellidoInputClass("");
+    } else {
+      setapellidoError("");
+      setapellidoInputClass("");
     }
 
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -151,28 +145,27 @@ export const Registrocom = ({refresh}) => {
         setcorreoInputClass("");
       }, 500);
       return;
-    }else {
+    } else {
       setcorreoError("");
       setcorreoInputClass("");
     }
 
-
-
     // Validación para contraseña
     const passwordPattern = /^(?=.*\d)(?=.*[A-Z]).{8,}$/; // Al menos un número, una mayúscula y 8 o más caracteres
     if (!passwordPattern.test(contrasena)) {
-      setcontrasenaError("La contraseña debe contener al menos un número, una mayúscula y tener 8 o más caracteres");
+      setcontrasenaError(
+        "La contraseña debe contener al menos un número, una mayúscula y tener 8 o más caracteres"
+      );
       setcontrasenaInputClass("shake");
       setTimeout(() => {
         setcontrasenaInputClass("");
       }, 500);
       return;
-    }else {
+    } else {
       setcontrasenaError("");
       setcontrasenaInputClass("");
     }
 
-    
     // Queda por enviar
     try {
       await axios.post(URI, {
@@ -183,14 +176,14 @@ export const Registrocom = ({refresh}) => {
         correo_usuario: correo,
         direccion_usuario: direccion,
       });
-      authToken()
+      authToken();
       alert("Registro exitoso!");
     } catch (error) {
       console.error(error);
     }
   };
 
-  const authToken = async() =>{
+  const authToken = async () => {
     try {
       const URI = "https://frutcol-backend.onrender.com/usuarios/login";
       const res = await axios.post(URI, {
@@ -198,30 +191,38 @@ export const Registrocom = ({refresh}) => {
         contrasena_usuario: contrasena,
       });
       localStorage.setItem("token", res.data.token);
-      getId(res.data.token)
-      navigate('/')
+      getId(res.data.token);
+      navigate("/");
       refresh();
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleTerms = () => {
+    setTerms_coditions(!terms_coditions)
   }
 
-  const getId = async(token) =>{
+  const getId = async (token) => {
     const URI = "https://frutcol-backend.onrender.com/carrito/create";
     const headers = {
       Authorization: `${token}`, // Agrega "Bearer" antes del token si es necesario
     };
     try {
-      const decode= jwt_decode(token);
-      await axios.post(URI, {
-        id_carrito: decode.id_usuario
-      }, {
-        headers
-      })
+      const decode = jwt_decode(token);
+      await axios.post(
+        URI,
+        {
+          id_carrito: decode.id_usuario,
+        },
+        {
+          headers,
+        }
+      );
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   return (
     <div className="registrocontain">
@@ -297,7 +298,12 @@ export const Registrocom = ({refresh}) => {
           <p className={`error ${contrasenaInputClass}`}>{contrasenaError}</p>
           <br />
 
-          <button type="submit" onClick={handleSubmit}>
+          <div className="terms_coditions">
+            <input type="checkbox" name="terminos&condiciones" onClick={handleTerms}/>
+            <label htmlFor="terminos&condiciones">He leído  y acepto los <Link to='/Privacidad'>terminos y condiciones</Link></label>
+          </div>
+
+          <button disabled={!terms_coditions} type="submit" onClick={handleSubmit} >
             Registrarse
           </button>
         </div>
@@ -309,14 +315,15 @@ export const Registrocom = ({refresh}) => {
             <img src="images/Frame 1.png" alt="" />
             <p
               style={{
-              transition: "all 1s var(--btn-cubic-bezier)",
-              }}>
+                transition: "all 1s var(--btn-cubic-bezier)",
+              }}
+            >
               FrutCol
             </p>
           </Link>
         </div>
 
-         <h1>¿Ya tienes cuenta?</h1>
+        <h1>¿Ya tienes cuenta?</h1>
         <p>Si es así, inicia sesión con nosotros</p>
         <br />
         <br />
