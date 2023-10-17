@@ -1,11 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
 
 :root{
     --gray-color:#808080;
-    --header-height:3rem;
+    --header-height:8vh;
     --text-color: var(--gray-color);
     --text-color-light: (var(--hue-color));
     --text-gradient: linear-gradient(var(--gray-color), #357f27);
+    --primary-color: #6B8E23;
+    --background-btn: ;
+    --btn-color: ;
+    --secondary-color: white;
+        --strawberry-main-color:#FF355E;
+        --strawberry-font-color: #fc738f;
+        --strawberry-header-color: #ffb4bc;
+        --strawberry-comp-color: #f8ccd4;
+    /*Mora*/
+        --blackberry-main-color: #781fbb;
+        --blackberry-font-color:#a168cf;
+        --blackberry-header-color:#d6cee8;
+        --blackberry-comp-color:#e1dbed ;
+
 /*Fuente y tipografia*/
     --biggest-font-size:5rem;
     --bigger-font-size:3.5rem;
@@ -17,9 +33,11 @@
     --smaller-font-size:.75rem;
     --text-line-height:2rem;
 
-/*Tamaño fuente*/
+/*Tamaño negrita*/
     --font-medium: 500;
     --font-semi-bold: 600;
+    --font-bold: 700;
+    --font-bolder:800;
 
 /*Margenes */
     --mb-0-5: .5rem;
@@ -29,6 +47,25 @@
     --mb-2: 2rem;
     --mb-2-5: 2.5rem;
 
+/*Paddings*/
+    --sm-padding: .5rem;
+    --md-padding: .8rem;
+    --l-padding: 1rem;
+    --btn-padding: .5rem .8rem;
+    --lg-btn-padding: 1.2rem 1rem;
+
+/*Borders*/
+    --xs-border: 5px;
+    --sm-border: 10px;
+    --md-border: 25px;
+    --l-border: 50px;
+
+/*Transitions*/
+    --btn-cubic-bezier:cubic-bezier(0,.76,.28,.93);
+
+/*Card Size*/
+    --card-height:260px;
+    --card-width:250px;
 
 --z-tooltip: 10;
 --z-fixed: 100;
@@ -51,7 +88,20 @@
     padding: 0;
     box-sizing: border-box;
 }
-html{
-    font-family: Montserrat, sans-serif;
+body{
+    font-family: 'Montserrat';
     scroll-behavior: smooth;
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
+ul{
+    list-style:none;
+}
+a{
+    text-decoration: none;
+}
+

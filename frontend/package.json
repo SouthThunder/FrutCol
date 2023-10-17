@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-navigation/native": "^6.1.7",
+    "@react-navigation/stack": "^6.3.17",
+    "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -11,11 +14,16 @@
     "bootstrap": "^5.2.3",
     "crypto": "^1.0.1",
     "crypto-js": "^4.1.1",
+    "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-native": "^0.72.4",
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.13.8",
     "react-spring": "^9.7.1",
+    "redux": "^4.2.1",
+    "sonner": "^0.7.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
