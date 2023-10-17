@@ -3,7 +3,7 @@
 # dependencies
 /node_modules
 /.pnp
-/build
+/DataBase
 .pnp.js
 
 # testing
