@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 export const Footercom = ({ product }) => {
   useEffect(() => {
-    console.log(product)
     document.documentElement.style.setProperty(
       "--container-color",
       product.header_color

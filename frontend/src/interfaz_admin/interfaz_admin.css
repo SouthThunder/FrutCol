@@ -310,6 +310,7 @@ input[type="number"] {
 
 .notAuthorized > .container > h1 {
   color: black;
+  text-align: center;
 }
 
 .notAuthorized > .container > h1 + button {

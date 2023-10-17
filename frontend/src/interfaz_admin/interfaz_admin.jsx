@@ -948,7 +948,8 @@ export const InterfazAdmincom = ({ product, prodsPool, lProductos }) => {
 
   if (isLoading && admin === null) {
     return <LoadingSpinner />;
-  } else if (isLoading && admin === false) {
+  } else if (admin === false) {
+    console.log('enter')
     return (
       <div className="notAuthorized">
         <div className="container">
@@ -957,22 +958,22 @@ export const InterfazAdmincom = ({ product, prodsPool, lProductos }) => {
         </div>
       </div>
     );
+  }else if(admin === true) {
+    return (
+      <div className="infopagecontain">
+        <Headercom
+          product={product}
+          lProductos={lProductos}
+          prodsPool={prodsPool}
+        />
+        <Informacionpagina
+          product={product}
+          headers={headers}
+          prodsPool={prodsPool}
+          userHistory={userHistory}
+        />
+        <Footercom product={product} />
+      </div>
+    );
   }
-
-  return (
-    <div className="infopagecontain">
-      <Headercom
-        product={product}
-        lProductos={lProductos}
-        prodsPool={prodsPool}
-      />
-      <Informacionpagina
-        product={product}
-        headers={headers}
-        prodsPool={prodsPool}
-        userHistory={userHistory}
-      />
-      <Footercom product={product} />
-    </div>
-  );
 };
