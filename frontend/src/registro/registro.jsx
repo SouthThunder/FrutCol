@@ -3,6 +3,8 @@ import "./registro.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import { Toaster, toast } from "sonner";
+
 
 export const Registrocom = ({ refresh }) => {
   const [nombre, setNombre] = useState("");
@@ -177,7 +179,7 @@ export const Registrocom = ({ refresh }) => {
         direccion_usuario: direccion,
       });
       authToken();
-      alert("Registro exitoso!");
+      toast.success("Registro exitoso!");
     } catch (error) {
       console.error(error);
     }
@@ -307,6 +309,7 @@ export const Registrocom = ({ refresh }) => {
             Registrarse
           </button>
         </div>
+        <Toaster richColors />
       </div>
 
       <div className="contizform">
