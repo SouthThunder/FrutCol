@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
-import jwt_decode from "jwt-decode";
 import "./slider.css";
 import "./products.css";
 import { Headercom } from "../header/header";
@@ -107,14 +105,14 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
             type="range"
             min={0}
             max={100}
-            step={20}
-            value={(activeProductIndex + 1) * 20}
+            step={(100/sliderProds.length)}
+            value={(activeProductIndex + 1) * (100/sliderProds.length)}
             disabled
             className="progress"
             style={{
               backgroundImage: `linear-gradient(${primaryColor}, ${primaryColor})`,
-              backgroundSize: `${(activeProductIndex + 1) * 20}% 100%`,
-              transition: "all 5s var(--btn-cubic-bezier)",
+              backgroundSize: `${(activeProductIndex + 1) * (100/sliderProds.length)}% 100%`,
+              transition: "all 1s var(--btn-cubic-bezier)",
             }}
           ></input>
           <p>0{sliderProds.length}</p>
