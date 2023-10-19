@@ -4,7 +4,8 @@ import {InfoCuentacom} from './info_cuenta/info_cuenta.jsx';
 import {Ingresocom} from './ingreso/ingreso.jsx';
 import {InterfazAdmincom} from './interfaz_admin/interfaz_admin.jsx';
 import {QuienesSomoscom} from './quienes_somos/quienes_somos.jsx';
-import {Registrocom} from './registro/registro.jsx';
+import {Registrocom,RegistroOp} from './registro/registro.jsx';
+
 import {PrivacyComp} from './privacy/privacy.jsx'
 import { Producto } from "./home/cartSlice.js";
 import { useRef, useEffect } from 'react';
@@ -12,8 +13,14 @@ import { useState } from 'react';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import LoadingSpinner from "./loading/LoadingSpinner";
+import { gapi } from 'gapi-script';
 
-
+gapi.load('client:auth2', () => {
+  gapi.client.init({
+      clientId: process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID,
+      plugin_name: 'chat',
+  });
+});
 export const App= () =>{
   const [product, setProduct] = useState(null);
   const [prodsPool, setProdsPool] = useState(null);
@@ -160,6 +167,7 @@ export const App= () =>{
           <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
           <Route path='/QuienesSomos' element={<QuienesSomoscom product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
           <Route path='/Registro' element={<Registrocom refresh={refresh}/>}/>
+          <Route path='/RegistroOp' element={<RegistroOp refresh={refresh}/>}/>
           <Route path='/Privacidad' element={<PrivacyComp product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
         </Routes>
       </BrowserRouter>      

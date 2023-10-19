@@ -89,7 +89,7 @@ export const Headercom = ({
       navigate("/Ingreso");
     };
     const signUp = () => {
-      navigate("/Registro");
+      navigate("/RegistroOp");
     };
 
     return (
