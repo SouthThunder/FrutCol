@@ -1,20 +1,166 @@
-.cartComp{
-    margin: 0 auto;
-    margin-top: calc(var(--header-height)*2);
-    width: 70%;
-    min-height: 60vh;
-    border: 1px solid black;
+.cartComp {
+  margin: 0 auto;
+  margin-top: calc(var(--header-height) * 1.5);
+  width: 70%;
+  min-height: 60vh;
+}
+
+.cartComp > .title {
+  margin-bottom: 2rem;
+}
+
+.cartComp > .info {
+  display: flex;
+  justify-content: space-between;
+  border-radius: var(--sm-border);
+}
+
+.cartComp > .info > .items {
+  width: 60%;
+}
+
+.cartComp > .info > .items > .elements {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--sm-border);
+  box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.2);
+}
+.cartComp > .info > .items > .elements > .card {
+  display: flex;
+  height: 10rem;
+  margin: 0 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgb(158, 158, 158);
+}
+
+.cartComp > .info > .items > .elements > .card:last-child {
+  border-bottom: none;
+}
+
+.cartComp > .info > .items > .elements > .card > .name {
+  display: flex;
+  height: 100%;
+  align-items: start;
+  justify-content: center;
+  margin: 1rem -4rem 0 1rem;
+}
+.cartComp > .info > .items > .elements > .card > .name > p {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.cartComp > .info > .items > .elements > .card > .delete_prod {
+  margin-left: auto;
+  margin-right: 2rem;
+  width: 20%;
+  height: 3rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 10%;
+  transition: background-color 0.3s, color 0.3s;
+  border: 2px solid #cccccc; /* Agrega un borde */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
+}
+
+.cartComp > .info > .items > .elements > .card > .delete_prod > button {
+  margin-left: auto;
+  width: 100%;
+  height: 3rem;
+  border-radius: 10%;
+  background-color: #ff6b6b;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  border: 2px solid #cccccc; /* Agrega un borde */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
+}
+.cartComp > .info > .items > .elements > .card > .pImg {
+  width: 8rem;
+}
+.cartComp > .info > .items > .elements > .card > .pImg > img {
+  width: 100%;
+}
+.cartComp > .info > .items > .elements > .noprod > .emptycar {
+  width: 200px;
+  height: 200px;
+}
+.cartComp > .info > .items > .elements > .noprod {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  text-align: center;
+}
+
+.cartComp > .info > .checkout {
+  width: 35%;
+  height: 15rem;
+  border-radius: var(--sm-border);
+  box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.cartComp > .info > .checkout .top{
+    width: 100%;
+    flex: 1;
+}
+
+.cartComp > .info > .checkout .top > .row{
     display: flex;
-    justify-content: space-between;
+    margin: 1rem;
+    width: 100%;
+    margin-top: 1rem;
+    justify-content: space-around;
 }
 
-.cartComp > .items{
-    width: 60%;
-    border: 1px solid black;
+.cartComp > .info > .checkout .top > .separator{
+    border-bottom: 1px solid rgb(204, 204, 204);
+    width: 95%;
+    margin: auto;
+    display: flex;
+    margin-top: 3rem;
+    margin-bottom: -1rem;
 }
 
-.cartComp > .checkout{
-    width: 35%;
-    height: 15rem;
-    border: 1px solid black;
+.cartComp > .info > .checkout .top > .row:last-child{
+    margin-top: 2rem;
+}
+
+.cartComp >.info >.checkout .top >.row >th{
+    flex: 1;
+    display: flex;
+}
+
+.cartComp >.info >.checkout .top >.row >p{
+    flex: 1;
+    margin-right: 2rem;
+    display: flex;
+    justify-content: end;
+}
+
+.cartComp > .info > .checkout .bottom{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    flex: 1;
+}
+
+.cartComp > .info > .checkout .bottom > button{
+    margin-top: .5rem;
+    width: 100%;
+    height: 3rem;
+    background-color: transparent;
+    border-bottom-left-radius: var(--sm-border);
+    border-bottom-right-radius: var(--sm-border);
+    border: none;
+}
+
+.cartComp > .info > .checkout .bottom > button:hover{
+    background-color: var(--primary-color);
+    cursor: pointer;
+    transition: all .5s var(--btn-cubic-bezier);
 }

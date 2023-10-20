@@ -163,7 +163,7 @@ export const App= () =>{
           <Route path='/QuienesSomos' element={<QuienesSomoscom product={product} lProductos={lProductos} prodsPool={prodsPool} updateLProducts={updateLProducts}/>}/>
           <Route path='/Registro' element={<Registrocom refresh={refresh}/>}/>
           <Route path='/Privacidad' element={<PrivacyComp product={product} lProductos={lProductos} prodsPool={prodsPool} updateLProducts={updateLProducts}/>}/>
-          <Route path='/Carrito' element={<Carritocom product={product}/>}/>
+          <Route path='/carrito' element={<Carritocom product={product} lProductos={lProductos}/>}/>
         </Routes>
       </BrowserRouter>      
     </div>
