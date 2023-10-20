@@ -12,6 +12,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import LoadingSpinner from "./loading/LoadingSpinner";
+import { Carritocom } from './carrito/carrito.jsx';
 
 
 export const App= () =>{
@@ -138,7 +139,8 @@ export const App= () =>{
   const refresh= () => window.location.reload(true)
 
   const updateLProducts= (element) =>{
-    let foundIndex = lProductos.findIndex(x => x.id === element.id)
+    const foundIndex = lProductos.findIndex(x => x.id === element.id)
+    console.log(element.cantidad)
     lProductos[foundIndex].cantidad = element.cantidad
   }
 
@@ -155,12 +157,13 @@ export const App= () =>{
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool} lProductos={lProductos} user={user} headers={headers} token={token} updateLProducts={updateLProducts}/>}/>
-          <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool} lProductos={lProductos}/>}/>
+          <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool} lProductos={lProductos} updateLProducts={updateLProducts}/>}/>
           <Route path='/Ingreso' element={<Ingresocom refresh={refresh}/>}/>
-          <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
-          <Route path='/QuienesSomos' element={<QuienesSomoscom product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
+          <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} lProductos={lProductos} prodsPool={prodsPool} updateLProducts={updateLProducts}/>}/>
+          <Route path='/QuienesSomos' element={<QuienesSomoscom product={product} lProductos={lProductos} prodsPool={prodsPool} updateLProducts={updateLProducts}/>}/>
           <Route path='/Registro' element={<Registrocom refresh={refresh}/>}/>
-          <Route path='/Privacidad' element={<PrivacyComp product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
+          <Route path='/Privacidad' element={<PrivacyComp product={product} lProductos={lProductos} prodsPool={prodsPool} updateLProducts={updateLProducts}/>}/>
+          <Route path='/Carrito' element={<Carritocom product={product}/>}/>
         </Routes>
       </BrowserRouter>      
     </div>

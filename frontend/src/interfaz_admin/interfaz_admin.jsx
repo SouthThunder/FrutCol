@@ -9,7 +9,7 @@ import { Toaster, toast } from "sonner";
 
 const URI = "https://frutcol-backend.onrender.com/metadata/";
 const numeros = /^\d+$/; // Solo números
-const texto = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
+const texto = /^[A-Za-zÁ-ÿ0-9\s]+$/;
 
 const regexHexadecimal = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 const regexNombreArchivo = /^[A-Za-z0-9]+.*\.(jpg|jpeg|png|gif|bmp)$/;

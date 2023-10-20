@@ -4,7 +4,7 @@ import "./shoppingCart.css";
 import jwt_decode from "jwt-decode";
 import { Toaster, toast } from "sonner";
 
-export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, prodsPool }) => {
+export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, prodsPool, updateLProducts }) => {
   const [active, setActive] = useState([]);
   const [total, setTotal] = useState(0);
   const [totalp, setTotalp] = useState(0);
@@ -180,7 +180,10 @@ export const ShoppingCart = ({ visibility, changeCartVis, lProductos, headers, p
                           </div>
                         </div>
                         <div className="delete_prod">
-                          <button disabled={isComponentDisabled} onClick={() => handleResCantidad(prods)}>
+                          <button disabled={isComponentDisabled} onClick={() => {
+                            handleResCantidad(prods)
+                            updateLProducts(prods)
+                          }}>
                             Eliminar
                           </button>
                         </div>

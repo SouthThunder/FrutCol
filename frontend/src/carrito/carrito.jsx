@@ -1,16 +1,14 @@
 import React,{useState} from "react";
 import './carrito.css'
-import Headercom from "../header/header";
-import Footercom from "../footer/footer";
+import { Headercom } from "../header/header";
+import { Footercom } from "../footer/footer";
 
-export default function Carritocom(){
-
-
+export const Carritocom = ({product}) =>{
     return(
         <div className="carritocontain" id="home">
-            <Headercom/>
+            <Headercom product={product}/>
             <p>hola soy el carrito</p>
-            <Footercom/>
+            <Footercom product={product}/>
         </div>
     )
 

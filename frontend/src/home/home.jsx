@@ -225,13 +225,13 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
   );
 };
 
-export const ProdsComp = ({ product, headers, loged, updateLProducts }) => {
+export const ProdsComp = ({ product, headers, loged, updateLProducts, reloader }) => {
   const [element, setElement] = useState(product);
   const [test, setTest] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-  }, [test]);
+  }, [test, reloader]);
 
   const handleResCantidad = () => {
     if (element.cantidad === 1) {
@@ -320,6 +320,9 @@ export const ProdsComp = ({ product, headers, loged, updateLProducts }) => {
 };
 
 export const Products = ({lProductos, user, headers, updateLProducts}) => {
+  useEffect(() =>{
+  }, [])
+
   return (
     <div className="productsComp" id="products">
       <div className="title">
@@ -327,7 +330,7 @@ export const Products = ({lProductos, user, headers, updateLProducts}) => {
       </div>
       <div className="elements">
         {lProductos?.map((prods) => {
-          return <ProdsComp product={prods} headers={headers} loged={user} updateLProducts={updateLProducts}/>;
+          return <ProdsComp product={prods} headers={headers} loged={user} updateLProducts={updateLProducts} key={prods.id_producto}/>;
         })}
       </div>
     </div>
@@ -337,7 +340,7 @@ export const Products = ({lProductos, user, headers, updateLProducts}) => {
 export const Homecom = ({ product, changeProp, prodsPool, lProductos, user, headers, token, updateLProducts }) => {
   return (
     <div className="homecontain">
-      <Headercom product={product} lProductos={lProductos} headers={headers} token={token} prodsPool={prodsPool}/>
+      <Headercom product={product} lProductos={lProductos} headers={headers} token={token} prodsPool={prodsPool} updateLProducts={updateLProducts}/>
       <Slider product={product} changeProp={changeProp} prodsPool={prodsPool} />
       <Products lProductos={lProductos} user={user} headers={headers} updateLProducts={updateLProducts}/>
       <Footercom product={product} />

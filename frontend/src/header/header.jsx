@@ -34,7 +34,7 @@ export const HeadPopUp = ({ product, trigger, togglePopup }) => {
 
   return (
     <div
-      className={`popup-header ${trigger? 'active' : 'inactive'}`}
+      className={`popup-header ${trigger ? "active" : "inactive"}`}
       ref={menuRef}
       style={{ backgroundColor: product.header_color }}
     >
@@ -55,6 +55,7 @@ export const Headercom = ({
   headers,
   token,
   prodsPool,
+  updateLProducts
 }) => {
   const [header, setHeader] = useState([]);
   const [popup, setPopup] = useState(false);
@@ -109,7 +110,7 @@ export const Headercom = ({
                 transition: "all 1s var(--btn-cubic-bezier)",
               }}
             >
-             FrutCol - A
+              FrutCol - A
             </p>
           </a>
           <div className="nav__menu">
@@ -205,6 +206,7 @@ export const Headercom = ({
           lProductos={lProductos}
           headers={headers}
           prodsPool={prodsPool}
+          updateLProducts={updateLProducts}
         />
       </div>
     );
