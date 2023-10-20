@@ -5,7 +5,6 @@ import { Footercom } from "../footer/footer";
 import jwt_decode from "jwt-decode";
 import { Toaster, toast } from "sonner";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 export const Card = ({ prods, updateReloader }) => {
   const [reloader, setReloader] = useState(false);

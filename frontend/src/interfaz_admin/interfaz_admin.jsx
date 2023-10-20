@@ -4,7 +4,7 @@ import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 import LoadingSpinner from "../loading/LoadingSpinner";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 
 const URI = "https://frutcol-backend.onrender.com/metadata/";
