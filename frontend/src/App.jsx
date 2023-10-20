@@ -157,12 +157,12 @@ export const App= () =>{
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool} lProductos={lProductos} user={user} headers={headers} token={token} updateLProducts={updateLProducts}/>}/>
-          <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool} lProductos={lProductos} updateLProducts={updateLProducts}/>}/>
+          <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool}/>}/>
           <Route path='/Ingreso' element={<Ingresocom refresh={refresh}/>}/>
-          <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} lProductos={lProductos} prodsPool={prodsPool} updateLProducts={updateLProducts}/>}/>
-          <Route path='/QuienesSomos' element={<QuienesSomoscom product={product} lProductos={lProductos} prodsPool={prodsPool} updateLProducts={updateLProducts}/>}/>
-          <Route path='/Registro' element={<Registrocom refresh={refresh}/>}/>
-          <Route path='/Privacidad' element={<PrivacyComp product={product} lProductos={lProductos} prodsPool={prodsPool} updateLProducts={updateLProducts}/>}/>
+          <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} prodsPool={prodsPool}/>}/> 
+          <Route path='/QuienesSomos' element={<QuienesSomoscom product={product}/>}/> 
+          <Route path='/Registro' element={<Registrocom refresh={refresh}/>}/> 
+          <Route path='/Privacidad' element={<PrivacyComp product={product}/>}/>
           <Route path='/carrito' element={<Carritocom product={product} lProductos={lProductos}/>}/>
         </Routes>
       </BrowserRouter>      

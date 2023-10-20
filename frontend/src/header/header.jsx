@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./header.css";
-import { ShoppingCart } from "../carrito/shoppingCart";
 
 export const HeadPopUp = ({ product, trigger, togglePopup }) => {
   const menuRef = useRef();
@@ -49,21 +48,10 @@ export const HeadPopUp = ({ product, trigger, togglePopup }) => {
   );
 };
 
-export const Headercom = ({
-  product,
-  lProductos,
-  headers,
-  token,
-  prodsPool,
-  updateLProducts
-}) => {
+export const Headercom = ({product}) => {
   const [header, setHeader] = useState([]);
   const [popup, setPopup] = useState(false);
-  const [cartVis, setCartVis] = useState(false);
 
-  const changeCartVis = (status) => {
-    setCartVis(status);
-  };
 
   const changePopupVis = (status) => {
     setPopup(status);
@@ -72,7 +60,7 @@ export const Headercom = ({
   const navigate = useNavigate();
   useEffect(() => {
     validateToken();
-  }, [product, popup, cartVis]);
+  }, [product, popup]);
 
   const validateToken = () => {
     if (
@@ -156,10 +144,6 @@ export const Headercom = ({
       setPopup(!popup);
     };
 
-    const toggleCart = () => {
-      setCartVis(!cartVis);
-    };
-
     return (
       <div className="header">
         <nav
@@ -193,21 +177,13 @@ export const Headercom = ({
                 />
               </li>
               <li className="nav__item">
-                <button onClick={toggleCart}>
+                <button onClick={() => navigate('/carrito')}>
                   <img src="images/carrito.png" />
                 </button>
               </li>
             </ul>
           </div>
         </nav>
-        <ShoppingCart
-          visibility={cartVis}
-          changeCartVis={changeCartVis}
-          lProductos={lProductos}
-          headers={headers}
-          prodsPool={prodsPool}
-          updateLProducts={updateLProducts}
-        />
       </div>
     );
   };

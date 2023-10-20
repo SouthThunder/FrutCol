@@ -337,10 +337,10 @@ export const Products = ({lProductos, user, headers, updateLProducts}) => {
   );
 };
 
-export const Homecom = ({ product, changeProp, prodsPool, lProductos, user, headers, token, updateLProducts }) => {
+export const Homecom = ({ product, changeProp, prodsPool, lProductos, user, headers, updateLProducts }) => {
   return (
     <div className="homecontain">
-      <Headercom product={product} lProductos={lProductos} headers={headers} token={token} prodsPool={prodsPool} updateLProducts={updateLProducts}/>
+      <Headercom product={product}/>
       <Slider product={product} changeProp={changeProp} prodsPool={prodsPool} />
       <Products lProductos={lProductos} user={user} headers={headers} updateLProducts={updateLProducts}/>
       <Footercom product={product} />

@@ -894,7 +894,7 @@ export const ProductosReserva = (prop) => {
   );
 };
 
-export const InterfazAdmincom = ({ product, prodsPool, lProductos }) => {
+export const InterfazAdmincom = ({ product, prodsPool}) => {
   const [isLoading, setisLoading] = useState(true);
   const [userHistory, setUserHistory] = useState(null);
   const [admin, setAdming] = useState(null);
@@ -963,8 +963,6 @@ export const InterfazAdmincom = ({ product, prodsPool, lProductos }) => {
       <div className="infopagecontain">
         <Headercom
           product={product}
-          lProductos={lProductos}
-          prodsPool={prodsPool}
         />
         <Informacionpagina
           product={product}
