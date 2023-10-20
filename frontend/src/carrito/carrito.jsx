@@ -3,6 +3,51 @@ import "./carrito.css";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 
+export const Card = ({prods}) => {
+  const [reloader, setReloader] = useState(false)
+  useEffect(() => {
+
+  }, [reloader])
+
+  const formatPrice = (price) => {
+    return price.toLocaleString("en-US"); 
+  }
+  return(
+    <div className="card" key={prods.id_producto}>
+    <div className="name">
+      <p>{prods.nombre}</p>
+    </div>
+    <div className="pImg">
+      <img
+        src={"../../images/" + prods.image}
+        alt={prods.nombre_producto}
+      />
+    </div>
+      <div className="price">
+        <p>$ {formatPrice(prods.precio)}</p>
+      </div>
+      <div className="quantity">
+          <p>{prods.cantidad}</p>
+      </div>
+      <div className="subtotal">
+          <p>$ {formatPrice(((prods.precio) * prods.cantidad))}</p>
+      </div>
+      <button>X</button>
+    {/* <div className="delete_prod">
+      <button
+        //</div>disabled={isComponentDisabled}
+        onClick={() => {
+          // handleResCantidad(prods)
+          // updateLProducts(prods)
+        }}
+      >
+        Eliminar
+      </button>
+    </div> */}
+  </div>
+  )
+}
+
 export const Cart = ({ lProductos }) => {
   const [total, setTotal] = useState(0);
   const [totalp, setTotalp] = useState(0);
@@ -24,6 +69,11 @@ export const Cart = ({ lProductos }) => {
     setTotal(totalPrice);
     setTotalp(totalpruductos);
   }, []);
+
+  const formatPrice = (price) => {
+    return price.toLocaleString("en-US"); 
+  }
+
   return (
     <div className="cartComp">
       <div className="title">
@@ -32,43 +82,18 @@ export const Cart = ({ lProductos }) => {
       <div className="info">
         <div className="items">
           <div className="elements">
+            <div className="labels">
+              <h3>Producto</h3>
+              <h3>Precio</h3>
+              <h3>Cantidad</h3>
+              <h3>Subtotal</h3>
+              <span></span>
+            </div>
             {totalp > 0 ? (
               lProductos.map((prods) => {
                 if (prods.cantidad > 0) {
                   return (
-                    <div className="card" key={prods.id_producto}>
-                      <div className="name">
-                        <p>{prods.nombre}</p>
-                      </div>
-                      <div className="pImg">
-                        <img
-                          src={"../../images/" + prods.image}
-                          alt={prods.nombre_producto}
-                        />
-                      </div>
-                      <div className="title">
-                        <div className="promt">
-                          <h3>{prods.nombre_producto}</h3>
-                          <p>Cantidad: {prods.cantidad}</p>
-                        </div>
-                        <div className="unit">
-                          <div className="container">
-                            <p>$ {prods.precio} c/u</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="delete_prod">
-                        <button
-                          //</div>disabled={isComponentDisabled}
-                          onClick={() => {
-                            // handleResCantidad(prods)
-                            // updateLProducts(prods)
-                          }}
-                        >
-                          Eliminar
-                        </button>
-                      </div>
-                    </div>
+                    <Card prods={prods} key={prods.id_producto}/>
                   );
                 }
               })
@@ -88,7 +113,7 @@ export const Cart = ({ lProductos }) => {
           <div className="top">
             <div className="row">
             <th>SubTotal:</th>
-            <p>$ {total}</p>
+            <p>$ {formatPrice(total)}</p>
             </div>
             <div className="row">
             <th>IVA:</th>
@@ -97,7 +122,7 @@ export const Cart = ({ lProductos }) => {
             <span className="separator"></span>
             <div className="row">
             <th>Total:  </th>
-            <p>$ {(total + total*0)}</p>
+            <p>$ {formatPrice((total + total*0))}</p>
             </div>
           </div>
           <div className="bottom">

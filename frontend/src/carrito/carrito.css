@@ -25,11 +25,31 @@
   border-radius: var(--sm-border);
   box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.2);
 }
+
+.cartComp > .info > .items > .elements > .labels{
+  width: 100%;
+  display: flex;
+  margin: 1rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid black;
+}
+
+.cartComp >.info >.items >.elements >.labels > h3{
+  display: flex;
+  font-size: 90%;
+  width: 100%;
+  margin-left: 1.5rem;
+}
+
+.cartComp >.info >.items >.elements >.labels > span {
+  width: 3rem;
+  margin-right: 1rem;
+}
+
 .cartComp > .info > .items > .elements > .card {
   display: flex;
   height: 10rem;
   margin: 0 0.5rem;
-  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid rgb(158, 158, 158);
 }
@@ -41,13 +61,45 @@
 .cartComp > .info > .items > .elements > .card > .name {
   display: flex;
   height: 100%;
-  align-items: start;
-  justify-content: center;
-  margin: 1rem -4rem 0 1rem;
+  margin: 1rem -6rem 0 1rem;
 }
 .cartComp > .info > .items > .elements > .card > .name > p {
   font-size: 1.1rem;
   font-weight: bold;
+}
+
+.cartComp > .info > .items > .elements > .card > .pImg {
+  flex: 1;
+  margin-left: 1.5rem;
+
+}
+.cartComp > .info > .items > .elements > .card > .pImg > img {
+  width: 100%;
+  max-width: 120px;
+}
+
+.cartComp > .info > .items > .elements > .card > .price{
+  flex: 1;
+  margin-left: 1.5rem;
+}
+
+.cartComp > .info > .items > .elements > .card > .quantity{
+  flex: 1;
+  display: flex;
+  margin-left: 1.5rem;
+}
+
+.cartComp > .info > .items > .elements > .card > .subtotal{
+  flex: 1;
+  margin-left: 1.5rem;
+
+}
+
+.cartComp > .info > .items > .elements > .card > button{
+  background-color: transparent;
+  font-size: 1.2rem;
+  border: none;
+  margin-right: 1rem;
 }
 
 .cartComp > .info > .items > .elements > .card > .delete_prod {
@@ -58,33 +110,22 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
-  border-radius: 10%;
   transition: background-color 0.3s, color 0.3s;
-  border: 2px solid #cccccc; /* Agrega un borde */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
 }
 
 .cartComp > .info > .items > .elements > .card > .delete_prod > button {
   margin-left: auto;
   width: 100%;
   height: 3rem;
-  border-radius: 10%;
-  background-color: #ff6b6b;
+  border-radius: var(--sm-border);
+  color: white;
+  background-color: var(--primary-color);
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-  border: 2px solid #cccccc; /* Agrega un borde */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
-}
-.cartComp > .info > .items > .elements > .card > .pImg {
-  width: 8rem;
-}
-.cartComp > .info > .items > .elements > .card > .pImg > img {
-  width: 100%;
 }
 .cartComp > .info > .items > .elements > .noprod > .emptycar {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
 }
 .cartComp > .info > .items > .elements > .noprod {
   display: flex;
