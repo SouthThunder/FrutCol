@@ -85,21 +85,21 @@
         }
 
 
-        .homecontain > .slider > .first > .n4 > input[type="range"]{
+        input[type="range"]{
             width: 60%;
             -webkit-appearance: none;
+            appearance: none;
             height: 2px;
             background: white;
             border-radius: 5px;
-            background-size: 20% 100%;
             background-repeat: no-repeat;
         }
 
-        .homecontain > .slider > .first > .n4 > input[type="range"]::-webkit-slider-thumb{
+        input[type="range"]::-webkit-slider-thumb{
             -webkit-appearance: none;
         }
 
-        .homecontain > .slider > .first > .n4 > input[type="range"]::-webkit-slider-runnable-track{
+        input[type="range"]::-webkit-slider-runnable-track{
             -webkit-appearance: none;
             box-shadow: none;
             border: none;

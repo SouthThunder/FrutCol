@@ -50,23 +50,28 @@ export const Card = ({ prods, updateReloader }) => {
       <div className="name">
         <p>{prods.nombre}</p>
       </div>
-      <div className="pImg">
-        <img src={"../../images/" + prods.image} alt={prods.nombre_producto} />
-      </div>
-      <div className="price">
-        <p>$ {formatPrice(prods.precio)}</p>
-      </div>
-      <div className="quantity">
-        <div className="panel">
-          <button onClick={() => handleResCantidad()}>-</button>
-          <p>{prods.cantidad}</p>
-          <button onClick={() => handleSumCantidad()}>+</button>
+      <div className="info">
+        <div className="pImg">
+          <img
+            src={"../../images/" + prods.image}
+            alt={prods.nombre_producto}
+          />
         </div>
+        <div className="price">
+          <p>$ {formatPrice(prods.precio)}</p>
+        </div>
+        <div className="quantity">
+          <div className="panel">
+            <button onClick={() => handleResCantidad()}>-</button>
+            <p>{prods.cantidad}</p>
+            <button onClick={() => handleSumCantidad()}>+</button>
+          </div>
+        </div>
+        <div className="subtotal">
+          <p>$ {formatPrice(prods.precio * prods.cantidad)}</p>
+        </div>
+        <button onClick={() => handleDelete()}>X</button>
       </div>
-      <div className="subtotal">
-        <p>$ {formatPrice(prods.precio * prods.cantidad)}</p>
-      </div>
-      <button onClick={() => handleDelete()}>X</button>
     </div>
   );
 };
@@ -75,6 +80,9 @@ export const Cart = ({ lProductos }) => {
   const [total, setTotal] = useState(0);
   const [totalp, setTotalp] = useState(0);
   const [reloader, setReloader] = useState(false);
+  const [weight, setWeight] = useState(0);
+  const [indicator, setIndicator] = useState([]);
+  const [promt, setPromt] = useState([]);
   const [isComponentDisabled, setComponentDisabled] = useState(false);
 
   const headers = {
@@ -82,6 +90,7 @@ export const Cart = ({ lProductos }) => {
   };
 
   useEffect(() => {
+
     const totalpruductos = lProductos.reduce((accumulator, prods) => {
       if (prods.cantidad > 0) {
         return accumulator + prods.cantidad;
@@ -94,16 +103,33 @@ export const Cart = ({ lProductos }) => {
       }
       return accumulator;
     }, 0);
+
+    const totalWeight = lProductos.reduce((accumulator, prods) => {
+      if(prods.cantidad > 0) {
+        return accumulator + ((prods.peso/1000) * prods.cantidad);
+      }
+      return accumulator;
+    }, 0);
+    if(totalWeight >= 20) {
+      setComponentDisabled(false)
+      setIndicator('green')
+      setPromt('Todo listo para reservar!')
+    }else{
+      setComponentDisabled(true)
+      setIndicator('orange')
+      setPromt('Pedido mínimo: 20Kg')
+    }
     // Actualiza el estado total con el nuevo precio total calculado
     setTotal(totalPrice);
     setTotalp(totalpruductos);
+    setWeight(totalWeight);
   }, [reloader]);
 
   const formatPrice = (price) => {
     const formattedNumber = price.toFixed(2);
-    const parts = formattedNumber.split('.');
-    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    return parts.join('.');
+    const parts = formattedNumber.split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
   };
 
   const updateReloader = () => {
@@ -234,11 +260,26 @@ export const Cart = ({ lProductos }) => {
           <div className="top">
             <div className="row">
               <th>SubTotal ({totalp}):</th>
-              <p>$ {formatPrice(total/1.19)}</p>
+              <p>$ {formatPrice(total / 1.19)}</p>
             </div>
             <div className="row">
               <th>IVA:</th>
-              <p>$ {formatPrice(total-(total/1.19))}</p>
+              <p>$ {formatPrice(total - total / 1.19)}</p>
+            </div>
+            <div className="progress">
+              <p>{weight} Kg</p>
+              <input
+                type="range"
+                min={0}
+                max={100}
+                value={weight}
+                disabled
+                style={{backgroundSize: `${weight}% 100%`}}
+              ></input>
+              <p>100Kg</p>
+            </div>
+            <div className="indicator">
+              <p style={{color: indicator}}>{promt}</p>
             </div>
             <span className="separator"></span>
             <div className="row">

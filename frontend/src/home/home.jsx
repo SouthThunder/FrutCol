@@ -12,6 +12,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
   const [primaryColor, setPrimaryColor] = useState([]);
   const [currentWord, setCurrentWord] = useState([]);
   const [currentPrice, setCurrentprice] = useState([]);
+  const [currentWeight, setCurrentWeight] = useState([]);
   const [sliderProds, setSliderProds] = useState([]);
   const firstLoad= useRef(false);
 
@@ -21,6 +22,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
     setCurrentImage(`../../images/${product.image}`);
     setCurrentWord(element.nombre_producto);
     setCurrentprice(element.precio_producto);
+    setCurrentWeight(element.peso_producto);
   };
   const updateProp = (element) => {
     changeProp(element);
@@ -86,7 +88,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
           </h1>
         </div>
         <div className="n2">
-          <h1>$ {currentPrice} c/u</h1>
+          <h1>{currentWeight} Gramos</h1>
         </div>
         <div className="n3">
           <button
@@ -108,7 +110,6 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
             step={(100/sliderProds.length)}
             value={(activeProductIndex + 1) * (100/sliderProds.length)}
             disabled
-            className="progress"
             style={{
               backgroundImage: `linear-gradient(${primaryColor}, ${primaryColor})`,
               backgroundSize: `${(activeProductIndex + 1) * (100/sliderProds.length)}% 100%`,

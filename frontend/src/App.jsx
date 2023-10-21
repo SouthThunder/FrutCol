@@ -93,7 +93,7 @@ export const App= () =>{
             prod.nombre_producto,
             prod.precio_producto,
             0,
-            prod.image
+            prod.image,
           );
         })
     );
@@ -122,7 +122,8 @@ export const App= () =>{
             prod.precio_producto,
             0,
             prod.image,
-            false
+            false,
+            prod.peso_producto
           );
         }else {
           return new Producto(
@@ -131,7 +132,8 @@ export const App= () =>{
             prod.precio_producto,
             it.cantidad_producto,
             prod.image,
-            true
+            true,
+            prod.peso_producto
           );
         }
       })

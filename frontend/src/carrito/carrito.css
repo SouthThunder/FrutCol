@@ -47,7 +47,6 @@
 }
 
 .cartComp > .info > .items > .elements > .card {
-  display: flex;
   height: 10rem;
   margin: 0 0.5rem;
   align-items: center;
@@ -59,41 +58,46 @@
 }
 
 .cartComp > .info > .items > .elements > .card > .name {
-  display: flex;
-  height: 100%;
-  margin: 1rem -6rem 0 1rem;
+  width: 100%;
 }
+
 .cartComp > .info > .items > .elements > .card > .name > p {
   font-size: 1.1rem;
   font-weight: bold;
 }
 
-.cartComp > .info > .items > .elements > .card > .pImg {
+.cartComp >.info >.items >.elements >.card >.info{
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.cartComp > .info > .items > .elements > .card > .info > .pImg {
   flex: 1;
   margin-left: 1.5rem;
 
 }
-.cartComp > .info > .items > .elements > .card > .pImg > img {
+.cartComp > .info > .items > .elements > .card > .info > .pImg > img {
   width: 100%;
   max-width: 120px;
 }
 
-.cartComp > .info > .items > .elements > .card > .price{
+.cartComp > .info > .items > .elements > .card > .info > .price{
   flex: 1;
   margin-left: 1.5rem;
 }
 
-.cartComp > .info > .items > .elements > .card > .quantity{
+.cartComp > .info > .items > .elements > .card > .info > .quantity{
   flex: 1;
   display: flex;
   margin-left: 1rem;
 }
 
-.cartComp > .info > .items > .elements > .card > .quantity > .panel{
+.cartComp > .info > .items > .elements > .card > .info > .quantity > .panel{
   display: flex;
 }
 
-.cartComp >.info >.items >.elements >.card >.quantity >.panel >button{
+.cartComp >.info >.items >.elements >.card > .info > .quantity >.panel >button{
   width: 1.5rem;
   height: 100%;
   border-radius: 7px;
@@ -103,17 +107,17 @@
   cursor: pointer;
 }
 
-.cartComp >.info >.items >.elements >.card >.quantity >.panel > p {
+.cartComp >.info >.items >.elements >.card > .info > .quantity >.panel > p {
   margin: 0 1rem;
 }
 
-.cartComp > .info > .items > .elements > .card > .subtotal{
+.cartComp > .info > .items > .elements > .card > .info > .subtotal{
   flex: 1;
-  margin-left: 1.5rem;
+  margin-left: 2rem;
 
 }
 
-.cartComp > .info > .items > .elements > .card > button{
+.cartComp > .info > .items > .elements > .card > .info > button{
   background-color: transparent;
   font-size: 1.2rem;
   border: none;
@@ -139,7 +143,7 @@
 
 .cartComp > .info > .checkout {
   width: 35%;
-  height: 15rem;
+  height: 18rem;
   border-radius: var(--sm-border);
   box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -159,12 +163,37 @@
     justify-content: space-around;
 }
 
+.cartComp > .info > .checkout .top > .progress {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.cartComp > .info > .checkout .top > .progress > input[type="range"]{
+  margin: 0 1rem;
+  border-radius: var(--sm-border);
+  width: 60%;
+  height: 5px;
+  appearance: none;
+  border: 1px solid grey;
+  background-image: linear-gradient(var(--primary-color), var(--primary-color));
+}
+
+.cartComp > .info > .checkout .top > .indicator{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: .5rem;
+}
+
 .cartComp > .info > .checkout .top > .separator{
     border-bottom: 1px solid rgb(204, 204, 204);
     width: 95%;
     margin: auto;
     display: flex;
-    margin-top: 3rem;
+    margin-top: 2rem;
     margin-bottom: -1rem;
 }
 

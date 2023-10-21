@@ -28,6 +28,7 @@ export const Agregarproducto = (prop) => {
       let header_color = document.getElementById("headerc")?.value || "";
       let font_color = document.getElementById("fontc")?.value || "";
       let image = document.getElementById("image")?.value || "";
+      let peso_producto = document.getElementById("peso")?.value || "";
 
       if (image === "" || !regexNombreArchivo.test(image)) {
         toast.error("Ingrese un nombre de imagen válido (png,jpg,jpeg,bmp)");
@@ -76,6 +77,7 @@ export const Agregarproducto = (prop) => {
         descripcion_producto,
         stock_producto,
         precio_producto,
+        peso_producto
       };
       console.log(producto);
       await axios.post(`${URI}`, producto, {
@@ -143,6 +145,16 @@ export const Agregarproducto = (prop) => {
               name=""
               id="precio"
               placeholder="Precio en COP"
+            />
+          </div>
+          <div className="input__info">
+            <h4>Peso en gramos</h4>
+            <input
+              className=""
+              type="text"
+              name=""
+              id="precio"
+              placeholder="Peso en gramos"
             />
           </div>
           <div className="producto_estilo">
@@ -216,6 +228,8 @@ export const Editarproducto = (prop) => {
       let header_color = document.getElementById("headerc")?.value || "";
       let font_color = document.getElementById("fontc")?.value || "";
       let image = document.getElementById("image")?.value || "";
+      let peso_producto = document.getElementById("peso")?.value || "";
+
 
       if (nombre_producto !== "" && !texto.test(nombre_producto)) {
         toast.error("Ingrese un nombre válido");
@@ -281,6 +295,9 @@ export const Editarproducto = (prop) => {
       if(image===''){
         image= prop.product.image;
       }
+      if(peso_producto===''){
+        peso_producto= prop.product.peso_producto;
+      }
 
       const producto = {
         main_color,
@@ -292,6 +309,7 @@ export const Editarproducto = (prop) => {
         descripcion_producto,
         stock_producto,
         precio_producto,
+        peso_producto
       };
       await axios.put(`${URI}${prop.product.id_metadata_producto}`, producto, {
         headers,
@@ -356,6 +374,17 @@ export const Editarproducto = (prop) => {
               id="precio"
               inputMode="numeric"
               placeholder={prop.product.precio_producto}
+            />
+          </div>
+          <div className="input__info">
+            <h4>Peso en gramos</h4>
+            <input
+              className=""
+              type="number"
+              name=""
+              id="peso"
+              inputMode="numeric"
+              placeholder={prop.product.peso_producto}
             />
           </div>
           <div className="producto_estilo">
