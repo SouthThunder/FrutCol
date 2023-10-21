@@ -257,3 +257,19 @@
             padding-right: 5rem;
             
         }
+
+
+/* Position the WhatsApp container */
+.whatsapp-container {
+    position: fixed;
+    bottom: 40px; /* Adjust the distance from the bottom as needed */
+    right: 40px; /* Adjust the distance from the right as needed */
+    z-index: 999; /* To ensure it's above other content */
+}
+
+/* Style the WhatsApp logo */
+.whatsapp-container img {
+    width: 128px; /* Adjust the width as needed */
+    height: 91px; /* Adjust the height as needed */
+    border: none; /* Remove the border if it exists */
+}
