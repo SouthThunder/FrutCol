@@ -100,7 +100,10 @@ export const Cart = ({ lProductos }) => {
   }, [reloader]);
 
   const formatPrice = (price) => {
-    return price.toLocaleString("en-US");
+    const formattedNumber = price.toFixed(2);
+    const parts = formattedNumber.split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return parts.join('.');
   };
 
   const updateReloader = () => {
@@ -133,9 +136,9 @@ export const Cart = ({ lProductos }) => {
 
     setComponentDisabled(true);
 
-    const URIR = "https://frutcol-backend.onrender.com/reserva";
-    const URIRP = "https://frutcol-backend.onrender.com/reserprod";
-    const URI = "https://frutcol-backend.onrender.com/carrito/mod";
+    const URIR = "https://frutcol-backend-r3lq.onrender.com/reserva";
+    const URIRP = "https://frutcol-backend-r3lq.onrender.com/reserprod";
+    const URI = "https://frutcol-backend-r3lq.onrender.com/carrito/mod";
     if (totalp > 0) {
       try {
         const testing = await axios.post(
@@ -231,11 +234,11 @@ export const Cart = ({ lProductos }) => {
           <div className="top">
             <div className="row">
               <th>SubTotal ({totalp}):</th>
-              <p>$ {formatPrice(total)}</p>
+              <p>$ {formatPrice(total/1.19)}</p>
             </div>
             <div className="row">
               <th>IVA:</th>
-              <p>0%</p>
+              <p>$ {formatPrice(total-(total/1.19))}</p>
             </div>
             <span className="separator"></span>
             <div className="row">

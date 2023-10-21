@@ -251,6 +251,10 @@ export const ProdsComp = ({ product, headers, loged, updateLProducts, reloader }
     setTest(!test);
   };
 
+  const formatPrice = (price) => {
+    return price.toLocaleString("en-US");
+  }
+
   const controls = (
     <div className="controls">
       <div className="panel">
@@ -259,7 +263,7 @@ export const ProdsComp = ({ product, headers, loged, updateLProducts, reloader }
         <button onClick={() => handleSumCantidad()}>+</button>
       </div>
       <div className="value">
-        <p>$ {element.calcularPrecioTotal()}</p>
+        <p>$ {formatPrice(element.calcularPrecioTotal())}</p>
       </div>
     </div>
   );
@@ -307,7 +311,7 @@ export const ProdsComp = ({ product, headers, loged, updateLProducts, reloader }
         </div>
         <div className="unit">
           <div className="container">
-            <p>$ {element.precio} c/u</p>
+            <p>$ {formatPrice(element.precio)} c/u</p>
           </div>
         </div>
       </div>

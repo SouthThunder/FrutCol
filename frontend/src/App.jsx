@@ -7,8 +7,7 @@ import {QuienesSomoscom} from './quienes_somos/quienes_somos.jsx';
 import {Registrocom} from './registro/registro.jsx';
 import {PrivacyComp} from './privacy/privacy.jsx'
 import { Producto } from "./home/cartSlice.js";
-import { useRef, useEffect } from 'react';
-import { useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import LoadingSpinner from "./loading/LoadingSpinner";
@@ -69,7 +68,7 @@ export const App= () =>{
   }
 
   const getProducts = async () => {
-    const URI = "https://frutcol-backend.onrender.com/metadata";
+    const URI = "https://frutcol-backend-r3lq.onrender.com/metadata";
     try {
       const response = await axios.get(URI);
       setProdsPool(response.data);
@@ -98,7 +97,7 @@ export const App= () =>{
       Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
     }
     const token= jwt_decode(localStorage.getItem("token"));
-    const URI = `https://frutcol-backend.onrender.com/carrito/${token.id_usuario}`;
+    const URI = `https://frutcol-backend-r3lq.onrender.com/carrito/${token.id_usuario}`;
     try {
       const res = await axios.get(URI, {
         headers
