@@ -53,8 +53,9 @@ export const Ingresocom = ({refresh}) => {
         contrasena_usuario: localpassword,
       });
       localStorage.setItem("token", res.data.token);
-      navigate('/')
-      refresh();
+      console.log(res);
+      // navigate('/')
+      // refresh();
     } catch (error) {
       console.error(error);
       setCredentialError("Credenciales incorrectas, intente una vez mas ");

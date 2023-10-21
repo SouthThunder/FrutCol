@@ -351,13 +351,63 @@ export const Registrocom = ({ refresh }) => {
   );
 };
 
-export const RegistroOp = () => {
+export const RegistroOp = ({ refresh }) => {
+  const navigate = useNavigate();
   const responseGoogleS = async (response) => {
     console.log(response.profileObj);
     toast.success("Cuenta creada exitosamente");
     await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
+    const URI = "https://frutcol-backend.onrender.com/usuarios/registerg";
+    try {
+      await axios.post(URI, {
+        nombre_usuario: response.profileObj.givenName,
+        apellido_usuario: response.profileObj.familyName,
+        correo_usuario: response.profileObj.email,
+      });
+      console.log("lleguee2")
+      authToken(response);
+      toast.success("Registro exitoso!");
+      console.log("lleguee2")
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const authToken = async (response) => {
+    try {
+      const URI = "https://frutcol-backend.onrender.com/usuarios/loging";
+      const res = await axios.post(URI, {
+        correo_usuario: response.profileObj.email
+      });
+      localStorage.setItem("token", res.data.token);
+      getId(res.data.token);
+      navigate("/");
+      refresh();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+ 
+  const getId = async (token) => {
+    const URI = "https://frutcol-backend.onrender.com/carrito/create";
+    const headers = {
+      Authorization: `${token}`, // Agrega "Bearer" antes del token si es necesario
+    };
+    try {
+      const decode = jwt_decode(token);
+      await axios.post(
+        URI,
+        {
+          id_carrito: decode.id_usuario,
+        },
+        {
+          headers,
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  }
   const responseGoogleE = async (response) => {
     console.log(response.profileObj);
     toast.error("Error al crear la cuenta");
