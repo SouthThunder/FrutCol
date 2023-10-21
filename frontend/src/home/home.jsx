@@ -82,7 +82,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
       <div className="first">
         <div className="n1">
           <h1>
-            Pulpa de <br /> {currentWord}
+             {currentWord}
           </h1>
         </div>
         <div className="n2">
