@@ -78,7 +78,7 @@ export const Headercom = ({product}) => {
       navigate("/Ingreso");
     };
     const signUp = () => {
-      navigate("/Registro");
+      navigate("/RegistroOp");
     };
 
     return (

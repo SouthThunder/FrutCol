@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { Toaster, toast } from "sonner";
-
+import GoogleLogin from "react-google-login";
 
 export const Registrocom = ({ refresh }) => {
   const [nombre, setNombre] = useState("");
@@ -202,8 +202,8 @@ export const Registrocom = ({ refresh }) => {
   };
 
   const handleTerms = () => {
-    setTerms_coditions(!terms_coditions)
-  }
+    setTerms_coditions(!terms_coditions);
+  };
 
   const getId = async (token) => {
     const URI = "https://frutcol-backend-r3lq.onrender.com/carrito/create";
@@ -301,11 +301,22 @@ export const Registrocom = ({ refresh }) => {
           <br />
 
           <div className="terms_coditions">
-            <input type="checkbox" name="terminos&condiciones" onClick={handleTerms}/>
-            <label htmlFor="terminos&condiciones">He leído  y acepto los <Link to='/Privacidad'>terminos y condiciones</Link></label>
+            <input
+              type="checkbox"
+              name="terminos&condiciones"
+              onClick={handleTerms}
+            />
+            <label htmlFor="terminos&condiciones">
+              He leído y acepto los{" "}
+              <Link to="/Privacidad">terminos y condiciones</Link>
+            </label>
           </div>
 
-          <button disabled={!terms_coditions} type="submit" onClick={handleSubmit} >
+          <button
+            disabled={!terms_coditions}
+            type="submit"
+            onClick={handleSubmit}
+          >
             Registrarse
           </button>
         </div>
@@ -336,6 +347,38 @@ export const Registrocom = ({ refresh }) => {
           <button className="botonizform">Iniciar sesión</button>
         </Link>
       </div>
+    </div>
+  );
+};
+
+export const RegistroOp = () => {
+  const responseGoogleS = async (response) => {
+    console.log(response.profileObj);
+    toast.success("Cuenta creada exitosamente");
+    await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
+
+  }
+  const responseGoogleE = async (response) => {
+    console.log(response.profileObj);
+    toast.error("Error al crear la cuenta");
+    await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
+  }
+  return (
+    <div className="optioncontainer">
+      <div className="options">
+        <h1>Registrate</h1>
+        <Link to={"/Registro"}>
+          <button> Crear una cuenta</button>
+        </Link>
+        <GoogleLogin
+          clientId="173629652834-49cdcatljk2nkkmhs2qsbq57rt2slhvs.apps.googleusercontent.com"
+          buttonText="Registrate con Google"
+          onSuccess={responseGoogleS}
+          onFailure={responseGoogleE}
+          cookiePolicy={"single_host_origin"}
+        />
+      </div>
+      <Toaster richColors />
     </div>
   );
 };
