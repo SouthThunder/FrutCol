@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./header.css";
-import { ShoppingCart } from "../carrito/shoppingCart";
 
 export const HeadPopUp = ({ product, trigger, togglePopup }) => {
   const menuRef = useRef();
@@ -34,7 +33,7 @@ export const HeadPopUp = ({ product, trigger, togglePopup }) => {
 
   return (
     <div
-      className={`popup-header ${trigger? 'active' : 'inactive'}`}
+      className={`popup-header ${trigger ? "active" : "inactive"}`}
       ref={menuRef}
       style={{ backgroundColor: product.header_color }}
     >
@@ -49,20 +48,10 @@ export const HeadPopUp = ({ product, trigger, togglePopup }) => {
   );
 };
 
-export const Headercom = ({
-  product,
-  lProductos,
-  headers,
-  token,
-  prodsPool,
-}) => {
+export const Headercom = ({product}) => {
   const [header, setHeader] = useState([]);
   const [popup, setPopup] = useState(false);
-  const [cartVis, setCartVis] = useState(false);
 
-  const changeCartVis = (status) => {
-    setCartVis(status);
-  };
 
   const changePopupVis = (status) => {
     setPopup(status);
@@ -71,7 +60,7 @@ export const Headercom = ({
   const navigate = useNavigate();
   useEffect(() => {
     validateToken();
-  }, [product, popup, cartVis]);
+  }, [product, popup]);
 
   const validateToken = () => {
     if (
@@ -86,10 +75,10 @@ export const Headercom = ({
 
   const notAuthUser = () => {
     const logIn = () => {
-      navigate("/Ingreso");
+      navigate("/ingreso");
     };
     const signUp = () => {
-      navigate("/Registro");
+      navigate("/registro");
     };
 
     return (
@@ -109,7 +98,7 @@ export const Headercom = ({
                 transition: "all 1s var(--btn-cubic-bezier)",
               }}
             >
-             FrutCol - A
+              FrutCol
             </p>
           </a>
           <div className="nav__menu">
@@ -155,10 +144,6 @@ export const Headercom = ({
       setPopup(!popup);
     };
 
-    const toggleCart = () => {
-      setCartVis(!cartVis);
-    };
-
     return (
       <div className="header">
         <nav
@@ -176,7 +161,7 @@ export const Headercom = ({
                 transition: "all 1s var(--btn-cubic-bezier)",
               }}
             >
-              FrutCol
+              FrutCol - A
             </p>
           </a>
           <div className="nav__menu">
@@ -192,20 +177,13 @@ export const Headercom = ({
                 />
               </li>
               <li className="nav__item">
-                <button onClick={toggleCart}>
+                <button onClick={() => navigate('/carrito')}>
                   <img src="images/carrito.png" />
                 </button>
               </li>
             </ul>
           </div>
         </nav>
-        <ShoppingCart
-          visibility={cartVis}
-          changeCartVis={changeCartVis}
-          lProductos={lProductos}
-          headers={headers}
-          prodsPool={prodsPool}
-        />
       </div>
     );
   };

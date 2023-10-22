@@ -4,15 +4,21 @@
     height: 100%;
 }
 
+.registrocontain .googleAuth {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 4rem;
+  justify-content: start;
+}
+
 .contderform {
     flex: 1;
     /* border: 1px solid black; */
     height: 90vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: center;
-    margin-left: 20px;
 }
 
 .contderform h1 {
@@ -49,7 +55,28 @@
     outline: none; 
     border-color:var(--primary-color);
 }
-
+.optioncontainer{
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--primary-color);
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+.optioncontainer > .options{
+ background-color: whitesmoke;
+ border-radius: var(--sm-border);
+ width: 30%;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ height: 40%;
+ gap: 2rem;
+ box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Agrega una sombra */
+}
 .contderform .terms_coditions{
   width: 500px;
   height: 2rem;

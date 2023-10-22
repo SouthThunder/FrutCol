@@ -55,6 +55,6 @@ footer > .footer__section > .footer__content > .footer__social > .footer__social
     font-size: 1rem;
 }
 footer > .footer__section > .footer__content > .footer__social > .footer__social-link:hover{
-    background-color: var(--strawberry-main-color);
+    background-color: var(--btn-color);
     transition: all 1s var(--btn-cubic-bezier);
 }

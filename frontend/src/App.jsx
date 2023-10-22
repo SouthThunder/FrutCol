@@ -5,15 +5,22 @@ import {Ingresocom} from './ingreso/ingreso.jsx';
 import {InterfazAdmincom} from './interfaz_admin/interfaz_admin.jsx';
 import {QuienesSomoscom} from './quienes_somos/quienes_somos.jsx';
 import {Registrocom} from './registro/registro.jsx';
+
 import {PrivacyComp} from './privacy/privacy.jsx'
 import { Producto } from "./home/cartSlice.js";
-import { useRef, useEffect } from 'react';
-import { useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import LoadingSpinner from "./loading/LoadingSpinner";
+import { gapi } from 'gapi-script';
+import { Carritocom } from './carrito/carrito.jsx';
 
-
+gapi.load('client:auth2', () => {
+  gapi.client.init({
+      clientId: process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID,
+      plugin_name: 'chat',
+  });
+});
 export const App= () =>{
   const [product, setProduct] = useState(null);
   const [prodsPool, setProdsPool] = useState(null);
@@ -68,7 +75,7 @@ export const App= () =>{
   }
 
   const getProducts = async () => {
-    const URI = "https://frutcol-backend.onrender.com/metadata";
+    const URI = "https://frutcol-backend-r3lq.onrender.com/metadata";
     try {
       const response = await axios.get(URI);
       setProdsPool(response.data);
@@ -86,7 +93,7 @@ export const App= () =>{
             prod.nombre_producto,
             prod.precio_producto,
             0,
-            prod.image
+            prod.image,
           );
         })
     );
@@ -97,7 +104,7 @@ export const App= () =>{
       Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
     }
     const token= jwt_decode(localStorage.getItem("token"));
-    const URI = `https://frutcol-backend.onrender.com/carrito/${token.id_usuario}`;
+    const URI = `https://frutcol-backend-r3lq.onrender.com/carrito/${token.id_usuario}`;
     try {
       const res = await axios.get(URI, {
         headers
@@ -115,7 +122,8 @@ export const App= () =>{
             prod.precio_producto,
             0,
             prod.image,
-            false
+            false,
+            prod.peso_producto
           );
         }else {
           return new Producto(
@@ -124,7 +132,8 @@ export const App= () =>{
             prod.precio_producto,
             it.cantidad_producto,
             prod.image,
-            true
+            true,
+            prod.peso_producto
           );
         }
       })
@@ -138,7 +147,8 @@ export const App= () =>{
   const refresh= () => window.location.reload(true)
 
   const updateLProducts= (element) =>{
-    let foundIndex = lProductos.findIndex(x => x.id === element.id)
+    const foundIndex = lProductos.findIndex(x => x.id === element.id)
+    console.log(element.cantidad)
     lProductos[foundIndex].cantidad = element.cantidad
   }
 
@@ -155,11 +165,13 @@ export const App= () =>{
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool} lProductos={lProductos} user={user} headers={headers} token={token} updateLProducts={updateLProducts}/>}/>
-          <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool} lProductos={lProductos}/>}/>
+          <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool}/>}/>
           <Route path='/Ingreso' element={<Ingresocom refresh={refresh}/>}/>
-          <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
-          <Route path='/QuienesSomos' element={<QuienesSomoscom product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
-          <Route path='/Registro' element={<Registrocom refresh={refresh}/>}/>
+          <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} prodsPool={prodsPool}/>}/> 
+          <Route path='/QuienesSomos' element={<QuienesSomoscom product={product}/>}/> 
+          <Route path='/registro' element={<Registrocom refresh={refresh}/>}/> 
+          <Route path='/Privacidad' element={<PrivacyComp product={product}/>}/>
+          <Route path='/carrito' element={<Carritocom product={product} lProductos={lProductos}/>}/>
           <Route path='/Privacidad' element={<PrivacyComp product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
         </Routes>
       </BrowserRouter>      
