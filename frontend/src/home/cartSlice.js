@@ -2,13 +2,14 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 export class Producto {
-  constructor(id, nombre, precio, cantidad, image, exists) {
+  constructor(id, nombre, precio, cantidad, image, exists, peso) {
     this.id = id;
     this.nombre = nombre;
     this.precio = precio;
     this.cantidad = cantidad;
     this.image = image;
     this.exists = exists;
+    this.peso = peso;
   }
 
 

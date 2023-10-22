@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
-import jwt_decode from "jwt-decode";
 import "./slider.css";
 import "./products.css";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Slider = ({ product, changeProp, prodsPool }) => {
   const [activeProductIndex, setActiveProductIndex] = useState(0);
@@ -14,8 +12,9 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
   const [primaryColor, setPrimaryColor] = useState([]);
   const [currentWord, setCurrentWord] = useState([]);
   const [currentPrice, setCurrentprice] = useState([]);
+  const [currentWeight, setCurrentWeight] = useState([]);
   const [sliderProds, setSliderProds] = useState([]);
-  const firstLoad= useRef(false);
+  const firstLoad = useRef(false);
 
   const changestyle = (element) => {
     setBackgroundColor(element.comp_color);
@@ -23,13 +22,14 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
     setCurrentImage(`../../images/${product.image}`);
     setCurrentWord(element.nombre_producto);
     setCurrentprice(element.precio_producto);
+    setCurrentWeight(element.peso_producto);
   };
   const updateProp = (element) => {
     changeProp(element);
   };
 
   useEffect(() => {
-    if(!firstLoad.current){
+    if (!firstLoad.current) {
       chkLength();
       firstLoad.current = true;
     }
@@ -38,22 +38,24 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
     }
   }, [product]);
 
-  const chkLength= () =>{
-    const auxProdsPull = []
-    prodsPool.filter((prod) => prod.stock_producto > 0).map((prod) => {
-      auxProdsPull.push(prod)
-    })
+  const chkLength = () => {
+    const auxProdsPull = [];
+    prodsPool
+      .filter((prod) => prod.stock_producto > 0)
+      .map((prod) => {
+        auxProdsPull.push(prod);
+      });
 
-     if(auxProdsPull.length > 5){ 
-      const auxProds= [];
-      for(let i=0; i<5; i++){
+    if (auxProdsPull.length > 5) {
+      const auxProds = [];
+      for (let i = 0; i < 5; i++) {
         auxProds.push(auxProdsPull[i]);
       }
-      setSliderProds(auxProds)
-    }else{
-      setSliderProds(auxProdsPull)
+      setSliderProds(auxProds);
+    } else {
+      setSliderProds(auxProdsPull);
     }
-  }
+  };
 
   const handleAddToCart = () => {
     // Realiza cualquier acción relacionada con agregar al carrito aquí
@@ -75,7 +77,6 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
     updateProp(nextProduct);
   };
 
-
   return (
     <div
       className="slider"
@@ -83,12 +84,10 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
     >
       <div className="first">
         <div className="n1">
-          <h1>
-            Pulpa de <br /> {currentWord}
-          </h1>
+          <h1>{currentWord}</h1>
         </div>
         <div className="n2">
-          <h1>$ {currentPrice} c/u</h1>
+          <h1>{currentWeight} Gramos</h1>
         </div>
         <div className="n3">
           <button
@@ -107,14 +106,15 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
             type="range"
             min={0}
             max={100}
-            step={20}
-            value={(activeProductIndex + 1) * 20}
+            step={100 / sliderProds.length}
+            value={(activeProductIndex + 1) * (100 / sliderProds.length)}
             disabled
-            className="progress"
             style={{
               backgroundImage: `linear-gradient(${primaryColor}, ${primaryColor})`,
-              backgroundSize: `${(activeProductIndex + 1) * 20}% 100%`,
-              transition: "all 5s var(--btn-cubic-bezier)",
+              backgroundSize: `${
+                (activeProductIndex + 1) * (100 / sliderProds.length)
+              }% 100%`,
+              transition: "all 1s var(--btn-cubic-bezier)",
             }}
           ></input>
           <p>0{sliderProds.length}</p>
@@ -227,30 +227,39 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
   );
 };
 
-export const ProdsComp = ({ product, headers, loged, updateLProducts }) => {
+export const ProdsComp = ({
+  product,
+  headers,
+  loged,
+  updateLProducts,
+  reloader,
+}) => {
   const [element, setElement] = useState(product);
   const [test, setTest] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-  }, [test]);
+  useEffect(() => {}, [test, reloader]);
 
   const handleResCantidad = () => {
     if (element.cantidad === 1) {
       element.delProd(headers);
-      updateLProducts(element)
+      updateLProducts(element);
       setTest(!test);
     } else {
       element.resCantidad(headers);
-      updateLProducts(element)
+      updateLProducts(element);
       setTest(!test);
     }
   };
 
   const handleSumCantidad = () => {
     element.sumCantidad(headers);
-    updateLProducts(element)
+    updateLProducts(element);
     setTest(!test);
+  };
+
+  const formatPrice = (price) => {
+    return price.toLocaleString("en-US");
   };
 
   const controls = (
@@ -261,7 +270,7 @@ export const ProdsComp = ({ product, headers, loged, updateLProducts }) => {
         <button onClick={() => handleSumCantidad()}>+</button>
       </div>
       <div className="value">
-        <p>$ {element.calcularPrecioTotal()}</p>
+        <p>$ {formatPrice(element.calcularPrecioTotal())}</p>
       </div>
     </div>
   );
@@ -274,10 +283,10 @@ export const ProdsComp = ({ product, headers, loged, updateLProducts }) => {
             onClick={() => {
               if (element.exists) {
                 element.sumCantidad(headers);
-                updateLProducts(element)
+                updateLProducts(element);
               } else {
                 element.insertIntoDb(headers);
-                updateLProducts(element)
+                updateLProducts(element);
               }
               setTest(!test);
             }}
@@ -309,7 +318,7 @@ export const ProdsComp = ({ product, headers, loged, updateLProducts }) => {
         </div>
         <div className="unit">
           <div className="container">
-            <p>$ {element.precio} c/u</p>
+            <p>$ {formatPrice(element.precio)} c/u</p>
           </div>
         </div>
       </div>
@@ -321,7 +330,9 @@ export const ProdsComp = ({ product, headers, loged, updateLProducts }) => {
   );
 };
 
-export const Products = ({lProductos, user, headers, updateLProducts}) => {
+export const Products = ({ lProductos, user, headers, updateLProducts }) => {
+  useEffect(() => {}, []);
+
   return (
     <div className="productsComp" id="products">
       <div className="title">
@@ -329,19 +340,48 @@ export const Products = ({lProductos, user, headers, updateLProducts}) => {
       </div>
       <div className="elements">
         {lProductos?.map((prods) => {
-          return <ProdsComp product={prods} headers={headers} loged={user} updateLProducts={updateLProducts}/>;
+          return (
+            <ProdsComp
+              product={prods}
+              headers={headers}
+              loged={user}
+              updateLProducts={updateLProducts}
+              key={prods.id_producto}
+            />
+          );
         })}
       </div>
     </div>
   );
 };
 
-export const Homecom = ({ product, changeProp, prodsPool, lProductos, user, headers, token, updateLProducts }) => {
+export const Homecom = ({
+  product,
+  changeProp,
+  prodsPool,
+  lProductos,
+  user,
+  headers,
+  updateLProducts,
+}) => {
   return (
     <div className="homecontain">
-      <Headercom product={product} lProductos={lProductos} headers={headers} token={token} prodsPool={prodsPool}/>
+      <Headercom product={product} />
       <Slider product={product} changeProp={changeProp} prodsPool={prodsPool} />
-      <Products lProductos={lProductos} user={user} headers={headers} updateLProducts={updateLProducts}/>
+      <Products
+        lProductos={lProductos}
+        user={user}
+        headers={headers}
+        updateLProducts={updateLProducts}
+      />
+      <div class="whatsapp-container">
+        <Link 
+          to="https://wa.me/573174358995"
+          target="_blank"
+        >
+          <img src="../../images/wpp_logo.png" alt="WhatsApp Logo" />
+        </Link>
+      </div>
       <Footercom product={product} />
     </div>
   );

@@ -4,12 +4,12 @@ import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 import LoadingSpinner from "../loading/LoadingSpinner";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 
 const URI = "https://frutcol-backend-r3lq.onrender.com/metadata/";
 const numeros = /^\d+$/; // Solo números
-const texto = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
+const texto = /^[A-Za-zÁ-ÿ0-9\s]+$/;
 
 const regexHexadecimal = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 const regexNombreArchivo = /^[A-Za-z0-9]+.*\.(jpg|jpeg|png|gif|bmp)$/;
@@ -28,6 +28,7 @@ export const Agregarproducto = (prop) => {
       let header_color = document.getElementById("headerc")?.value || "";
       let font_color = document.getElementById("fontc")?.value || "";
       let image = document.getElementById("image")?.value || "";
+      let peso_producto = document.getElementById("peso")?.value || "";
 
       if (image === "" || !regexNombreArchivo.test(image)) {
         toast.error("Ingrese un nombre de imagen válido (png,jpg,jpeg,bmp)");
@@ -76,6 +77,7 @@ export const Agregarproducto = (prop) => {
         descripcion_producto,
         stock_producto,
         precio_producto,
+        peso_producto
       };
       console.log(producto);
       await axios.post(`${URI}`, producto, {
@@ -143,6 +145,16 @@ export const Agregarproducto = (prop) => {
               name=""
               id="precio"
               placeholder="Precio en COP"
+            />
+          </div>
+          <div className="input__info">
+            <h4>Peso en gramos</h4>
+            <input
+              className=""
+              type="text"
+              name=""
+              id="precio"
+              placeholder="Peso en gramos"
             />
           </div>
           <div className="producto_estilo">
@@ -216,6 +228,8 @@ export const Editarproducto = (prop) => {
       let header_color = document.getElementById("headerc")?.value || "";
       let font_color = document.getElementById("fontc")?.value || "";
       let image = document.getElementById("image")?.value || "";
+      let peso_producto = document.getElementById("peso")?.value || "";
+
 
       if (nombre_producto !== "" && !texto.test(nombre_producto)) {
         toast.error("Ingrese un nombre válido");
@@ -281,6 +295,9 @@ export const Editarproducto = (prop) => {
       if(image===''){
         image= prop.product.image;
       }
+      if(peso_producto===''){
+        peso_producto= prop.product.peso_producto;
+      }
 
       const producto = {
         main_color,
@@ -292,6 +309,7 @@ export const Editarproducto = (prop) => {
         descripcion_producto,
         stock_producto,
         precio_producto,
+        peso_producto
       };
       await axios.put(`${URI}${prop.product.id_metadata_producto}`, producto, {
         headers,
@@ -356,6 +374,17 @@ export const Editarproducto = (prop) => {
               id="precio"
               inputMode="numeric"
               placeholder={prop.product.precio_producto}
+            />
+          </div>
+          <div className="input__info">
+            <h4>Peso en gramos</h4>
+            <input
+              className=""
+              type="number"
+              name=""
+              id="peso"
+              inputMode="numeric"
+              placeholder={prop.product.peso_producto}
             />
           </div>
           <div className="producto_estilo">
@@ -894,7 +923,7 @@ export const ProductosReserva = (prop) => {
   );
 };
 
-export const InterfazAdmincom = ({ product, prodsPool, lProductos }) => {
+export const InterfazAdmincom = ({ product, prodsPool}) => {
   const [isLoading, setisLoading] = useState(true);
   const [userHistory, setUserHistory] = useState(null);
   const [admin, setAdming] = useState(null);
@@ -948,7 +977,8 @@ export const InterfazAdmincom = ({ product, prodsPool, lProductos }) => {
 
   if (isLoading && admin === null) {
     return <LoadingSpinner />;
-  } else if (isLoading && admin === false) {
+  } else if (admin === false) {
+    console.log('enter')
     return (
       <div className="notAuthorized">
         <div className="container">
@@ -957,22 +987,20 @@ export const InterfazAdmincom = ({ product, prodsPool, lProductos }) => {
         </div>
       </div>
     );
+  }else if(admin === true) {
+    return (
+      <div className="infopagecontain">
+        <Headercom
+          product={product}
+        />
+        <Informacionpagina
+          product={product}
+          headers={headers}
+          prodsPool={prodsPool}
+          userHistory={userHistory}
+        />
+        <Footercom product={product} />
+      </div>
+    );
   }
-
-  return (
-    <div className="infopagecontain">
-      <Headercom
-        product={product}
-        lProductos={lProductos}
-        prodsPool={prodsPool}
-      />
-      <Informacionpagina
-        product={product}
-        headers={headers}
-        prodsPool={prodsPool}
-        userHistory={userHistory}
-      />
-      <Footercom product={product} />
-    </div>
-  );
 };

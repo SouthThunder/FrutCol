@@ -1,0 +1,280 @@
+.cartComp {
+  margin: 0 auto;
+  margin-top: calc(var(--header-height) * 1.5);
+  width: 70%;
+  min-height: 60vh;
+}
+
+.cartComp > .title {
+  margin-bottom: 2rem;
+}
+
+.cartComp > .info {
+  display: flex;
+  justify-content: space-between;
+  border-radius: var(--sm-border);
+}
+
+.cartComp > .info > .items {
+  width: 60%;
+}
+
+.cartComp > .info > .items > .elements {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--sm-border);
+  box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.2);
+}
+
+.cartComp > .info > .items > .elements > .labels{
+  width: 100%;
+  display: flex;
+  margin: 1rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid black;
+}
+
+.cartComp >.info >.items >.elements >.labels > h3{
+  display: flex;
+  font-size: 90%;
+  width: 100%;
+  margin-left: 1.5rem;
+}
+
+.cartComp >.info >.items >.elements >.labels > span {
+  width: 3rem;
+  margin-right: 1rem;
+}
+
+.cartComp > .info > .items > .elements > .card {
+  height: 10rem;
+  margin: 0 0.5rem;
+  align-items: center;
+  border-bottom: 1px solid rgb(158, 158, 158);
+}
+
+.cartComp > .info > .items > .elements > .card:last-child {
+  border-bottom: none;
+}
+
+.cartComp > .info > .items > .elements > .card > .name {
+  width: 100%;
+}
+
+.cartComp > .info > .items > .elements > .card > .name > p {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.cartComp >.info >.items >.elements >.card >.info{
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.cartComp > .info > .items > .elements > .card > .info > .pImg {
+  flex: 1;
+  margin-left: 1.5rem;
+
+}
+.cartComp > .info > .items > .elements > .card > .info > .pImg > img {
+  width: 100%;
+  max-width: 120px;
+}
+
+.cartComp > .info > .items > .elements > .card > .info > .price{
+  flex: 1;
+  margin-left: 1.5rem;
+}
+
+.cartComp > .info > .items > .elements > .card > .info > .quantity{
+  flex: 1;
+  display: flex;
+  margin-left: 1rem;
+}
+
+.cartComp > .info > .items > .elements > .card > .info > .quantity > .panel{
+  display: flex;
+}
+
+.cartComp >.info >.items >.elements >.card > .info > .quantity >.panel >button{
+  width: 1.5rem;
+  height: 100%;
+  border-radius: 7px;
+  background-color: var(--primary-color);
+  color: white;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.cartComp >.info >.items >.elements >.card > .info > .quantity >.panel > p {
+  margin: 0 1rem;
+}
+
+.cartComp > .info > .items > .elements > .card > .info > .subtotal{
+  flex: 1;
+  margin-left: 2rem;
+
+}
+
+.cartComp > .info > .items > .elements > .card > .info > button{
+  background-color: transparent;
+  font-size: 1.2rem;
+  border: none;
+  margin-right: 1rem;
+}
+
+.cartComp > .info > .items > .elements > .card > button:hover{
+  cursor: pointer;
+}
+
+.cartComp > .info > .items > .elements > .noprod > .emptycar {
+  width: 300px;
+  height: 300px;
+}
+.cartComp > .info > .items > .elements > .noprod {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  text-align: center;
+  margin-bottom: 5rem;
+
+}
+
+.cartComp > .info > .checkout {
+  width: 35%;
+  height: 18rem;
+  border-radius: var(--sm-border);
+  box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.cartComp > .info > .checkout .top{
+    width: 100%;
+    flex: 1;
+}
+
+.cartComp > .info > .checkout .top > .row{
+    display: flex;
+    margin: 1rem;
+    width: 100%;
+    margin-top: 1rem;
+    justify-content: space-around;
+}
+
+.cartComp > .info > .checkout .top > .progress {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.cartComp > .info > .checkout .top > .progress > input[type="range"]{
+  margin: 0 1rem;
+  border-radius: var(--sm-border);
+  width: 60%;
+  height: 5px;
+  appearance: none;
+  border: 1px solid grey;
+  background-image: linear-gradient(var(--primary-color), var(--primary-color));
+}
+
+.cartComp > .info > .checkout .top > .indicator{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: .5rem;
+}
+
+.cartComp > .info > .checkout .top > .separator{
+    border-bottom: 1px solid rgb(204, 204, 204);
+    width: 95%;
+    margin: auto;
+    display: flex;
+    margin-top: 2rem;
+    margin-bottom: -1rem;
+}
+
+.cartComp > .info > .checkout .top > .row:last-child{
+    margin-top: 2rem;
+}
+
+.cartComp >.info >.checkout .top >.row >th{
+    flex: 1;
+    display: flex;
+}
+
+.cartComp >.info >.checkout .top >.row >p{
+    flex: 1;
+    margin-right: 2rem;
+    display: flex;
+    justify-content: end;
+}
+
+.cartComp > .info > .checkout .bottom{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    flex: 1;
+}
+
+.cartComp > .info > .checkout .bottom > button{
+    margin-top: .5rem;
+    width: 100%;
+    height: 3rem;
+    background-color: transparent;
+    border-bottom-left-radius: var(--sm-border);
+    border-bottom-right-radius: var(--sm-border);
+    border: none;
+}
+
+.cartComp > .info > .checkout .bottom > button:hover{
+    background-color: var(--primary-color);
+    cursor: pointer;
+    transition: all .5s var(--btn-cubic-bezier);
+}
+
+.cartComp > .info > .checkout > .bottom > .toast2{
+  width: 500px;
+  height: auto;
+  background-color: white;
+  border-radius: 6px;
+  position: fixed;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Agrega una sombra */
+  text-align: center;
+   padding: 0 30px 30px;
+   color: #333;
+   visibility:hidden;
+   transition: transform 0.4s, top 0.4s;
+}
+.cartComp > .info > .checkout > .bottom > .toast2 > .pasos{
+   margin-top: 1rem;
+   text-align: left;
+   display: flex;
+   flex-direction: column;
+   gap: 1rem;
+}
+.cartComp > .info > .checkout > .bottom > .toast2 > h2{
+   margin-top: 1rem;
+}
+
+.cartComp > .info > .checkout > .bottom > .toast2 > button{
+   width: 100%;
+   margin-top: 50px;
+   padding: 10px 0;
+   background: var(--primary-color);
+   color:#fff;
+   border: 0;
+   outline: none;
+   font-size: 18px;
+   border-radius: 4px;
+   cursor:pointer;
+   box-shadow:0 5px 5px rgba(0, 0, 0, 0.2);
+}

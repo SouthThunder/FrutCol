@@ -577,8 +577,6 @@ export const InfoCuentacom = ({ product, prodsPool, lProductos }) => {
     <div className="infoCuentacontain">
       <Headercom
         product={product}
-        lProductos={lProductos}
-        prodsPool={prodsPool}
       />
       <Informacioncuenta
         product={product}

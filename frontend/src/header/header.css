@@ -12,7 +12,6 @@
 .header > .nav-bar{
     height: var(--header-height);
     max-width: 70%;
-    background-color: var(--strawberry-header-color);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     margin: 0 auto;
     display:flex;
