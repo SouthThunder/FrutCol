@@ -226,6 +226,44 @@ export const Registrocom = ({ refresh }) => {
     }
   };
 
+  const responseGoogleS = async (response) => {
+    console.log(response.profileObj);
+    await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
+    const URI = "https://frutcol-backend-r3lq.onrender.com/usuarios/registerg";
+    try {
+      await axios.post(URI, {
+        nombre_usuario: response.profileObj.givenName,
+        apellido_usuario: response.profileObj.familyName,
+        correo_usuario: response.profileObj.email,
+      });
+      authTokenn(response);
+      toast.success("Registro exitoso!");
+    } catch (error) {
+      toast.error("El correo ya se encuentra en uso");
+      console.error(error);
+    }
+  };
+  const authTokenn = async (response) => {
+    try {
+      const URI = "https://frutcol-backend-r3lq.onrender.com/usuarios/loging";
+      const res = await axios.post(URI, {
+        correo_usuario: response.profileObj.email,
+      });
+      localStorage.setItem("token", res.data.token);
+      getId(res.data.token);
+      navigate("/");
+      refresh();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const responseGoogleE = async (response) => {
+    console.log(response.profileObj);
+    toast.error("Error al crear la cuenta");
+    await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
+  };
+
   return (
     <div className="registrocontain">
       <div className="contderform">
@@ -320,6 +358,15 @@ export const Registrocom = ({ refresh }) => {
             Registrarse
           </button>
         </div>
+        <div className="googleAuth">
+          <GoogleLogin
+            clientId="173629652834-49cdcatljk2nkkmhs2qsbq57rt2slhvs.apps.googleusercontent.com"
+            buttonText="Registrate con Google"
+            onSuccess={responseGoogleS}
+            onFailure={responseGoogleE}
+            cookiePolicy={"single_host_origin"}
+          />
+        </div>
         <Toaster richColors />
       </div>
 
@@ -365,7 +412,6 @@ export const RegistroOp = ({ refresh }) => {
       });
       authToken(response);
       toast.success("Registro exitoso!");
-      
     } catch (error) {
       toast.error("El correo ya se encuentra en uso");
       console.error(error);
@@ -375,7 +421,7 @@ export const RegistroOp = ({ refresh }) => {
     try {
       const URI = "https://frutcol-backend-r3lq.onrender.com/usuarios/loging";
       const res = await axios.post(URI, {
-        correo_usuario: response.profileObj.email
+        correo_usuario: response.profileObj.email,
       });
       localStorage.setItem("token", res.data.token);
       getId(res.data.token);
@@ -385,7 +431,7 @@ export const RegistroOp = ({ refresh }) => {
       console.error(error);
     }
   };
- 
+
   const getId = async (token) => {
     const URI = "https://frutcol-backend-r3lq.onrender.com/carrito/create";
     const headers = {
@@ -411,7 +457,7 @@ export const RegistroOp = ({ refresh }) => {
     console.log(response.profileObj);
     toast.error("Error al crear la cuenta");
     await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
-  }
+  };
   return (
     <div className="optioncontainer">
       <div className="options">

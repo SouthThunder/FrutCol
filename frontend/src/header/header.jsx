@@ -75,10 +75,10 @@ export const Headercom = ({product}) => {
 
   const notAuthUser = () => {
     const logIn = () => {
-      navigate("/IngresoOp");
+      navigate("/ingreso");
     };
     const signUp = () => {
-      navigate("/RegistroOp");
+      navigate("/registro");
     };
 
     return (

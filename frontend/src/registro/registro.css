@@ -4,15 +4,21 @@
     height: 100%;
 }
 
+.registrocontain .googleAuth {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 4rem;
+  justify-content: start;
+}
+
 .contderform {
     flex: 1;
     /* border: 1px solid black; */
     height: 90vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: center;
-    margin-left: 20px;
 }
 
 .contderform h1 {

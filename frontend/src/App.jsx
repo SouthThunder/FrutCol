@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import {Homecom} from './home/home.jsx';
 import {InfoCuentacom} from './info_cuenta/info_cuenta.jsx';
-import {Ingresocom,InicioOp} from './ingreso/ingreso.jsx';
+import {Ingresocom} from './ingreso/ingreso.jsx';
 import {InterfazAdmincom} from './interfaz_admin/interfaz_admin.jsx';
 import {QuienesSomoscom} from './quienes_somos/quienes_somos.jsx';
-import {Registrocom,RegistroOp} from './registro/registro.jsx';
+import {Registrocom} from './registro/registro.jsx';
 
 import {PrivacyComp} from './privacy/privacy.jsx'
 import { Producto } from "./home/cartSlice.js";
@@ -169,11 +169,9 @@ export const App= () =>{
           <Route path='/Ingreso' element={<Ingresocom refresh={refresh}/>}/>
           <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} prodsPool={prodsPool}/>}/> 
           <Route path='/QuienesSomos' element={<QuienesSomoscom product={product}/>}/> 
-          <Route path='/Registro' element={<Registrocom refresh={refresh}/>}/> 
+          <Route path='/registro' element={<Registrocom refresh={refresh}/>}/> 
           <Route path='/Privacidad' element={<PrivacyComp product={product}/>}/>
           <Route path='/carrito' element={<Carritocom product={product} lProductos={lProductos}/>}/>
-          <Route path='/RegistroOp' element={<RegistroOp refresh={refresh}/>}/>
-          <Route path='/IngresoOp' element={<InicioOp refresh={refresh}/>}/>
           <Route path='/Privacidad' element={<PrivacyComp product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
         </Routes>
       </BrowserRouter>      

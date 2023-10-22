@@ -294,7 +294,7 @@ export const ProdsComp = ({
             + Añadir al carrito
           </button>
         ) : (
-          <button onClick={() => navigate("/Ingreso")}>
+          <button onClick={() => navigate("/ingreso")}>
             + Añadir al carrito
           </button>
         )}
