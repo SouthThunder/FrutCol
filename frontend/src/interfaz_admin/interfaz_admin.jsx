@@ -7,7 +7,7 @@ import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 
-const URI = "https://frutcol-backend.onrender.com/metadata/";
+const URI = "https://frutcol-backend-r3lq.onrender.com/metadata/";
 const numeros = /^\d+$/; // Solo números
 const texto = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
 
@@ -424,7 +424,7 @@ export const Editarproducto = (prop) => {
 
 export const Productos = (prop) => {
   const [products, setProducts] = useState(prop.prod.prodsPool);
-  const URI = "https://frutcol-backend.onrender.com/metadata/";
+  const URI = "https://frutcol-backend-r3lq.onrender.com/metadata/";
 
   useEffect(() => {
     getProducts();
@@ -727,8 +727,8 @@ export const Reservas = (prop) => {
 };
 
 export const ProductosReserva = (prop) => {
-  const URI = `https://frutcol-backend.onrender.com/reserprod/${prop.reservation.num_orden}`;
-  const URI2 = `https://frutcol-backend.onrender.com/reserva/${prop.reservation.num_orden}`;
+  const URI = `https://frutcol-backend-r3lq.onrender.com/reserprod/${prop.reservation.num_orden}`;
+  const URI2 = `https://frutcol-backend-r3lq.onrender.com/reserva/${prop.reservation.num_orden}`;
   const [products, setProducts] = useState(null);
   const [userData, setUserData] = useState(null);
   const [isLoading, setisLoading] = useState(true);
@@ -769,7 +769,7 @@ export const ProductosReserva = (prop) => {
   };
 
   const handleEntregarOrden = async () => {
-    const URI = `https://frutcol-backend.onrender.com/reserva/${prop.reservation.num_orden}`;
+    const URI = `https://frutcol-backend-r3lq.onrender.com/reserva/${prop.reservation.num_orden}`;
     try {
       await axios.put(
         URI,
@@ -926,7 +926,7 @@ export const InterfazAdmincom = ({ product, prodsPool, lProductos }) => {
   }, [userHistory, admin]);
 
   const getHistoryData = async () => {
-    const lURI = "https://frutcol-backend.onrender.com/reserva/";
+    const lURI = "https://frutcol-backend-r3lq.onrender.com/reserva/";
     try {
       const res = await axios.get(lURI, { headers });
       setUserHistory(res.data);
@@ -936,7 +936,7 @@ export const InterfazAdmincom = ({ product, prodsPool, lProductos }) => {
   };
 
   const getAdmin = async () => {
-    const lURI = "https://frutcol-backend.onrender.com/usuarios";
+    const lURI = "https://frutcol-backend-r3lq.onrender.com/usuarios";
     try {
       const res = await axios.get(lURI, { headers });
       setAdming(res.data);

@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import {Homecom} from './home/home.jsx';
 import {InfoCuentacom} from './info_cuenta/info_cuenta.jsx';
-import {Ingresocom} from './ingreso/ingreso.jsx';
+import {Ingresocom,InicioOp} from './ingreso/ingreso.jsx';
 import {InterfazAdmincom} from './interfaz_admin/interfaz_admin.jsx';
 import {QuienesSomoscom} from './quienes_somos/quienes_somos.jsx';
 import {Registrocom,RegistroOp} from './registro/registro.jsx';
@@ -75,7 +75,7 @@ export const App= () =>{
   }
 
   const getProducts = async () => {
-    const URI = "https://frutcol-backend.onrender.com/metadata";
+    const URI = "https://frutcol-backend-r3lq.onrender.com/metadata";
     try {
       const response = await axios.get(URI);
       setProdsPool(response.data);
@@ -104,7 +104,7 @@ export const App= () =>{
       Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
     }
     const token= jwt_decode(localStorage.getItem("token"));
-    const URI = `https://frutcol-backend.onrender.com/carrito/${token.id_usuario}`;
+    const URI = `https://frutcol-backend-r3lq.onrender.com/carrito/${token.id_usuario}`;
     try {
       const res = await axios.get(URI, {
         headers
@@ -168,6 +168,7 @@ export const App= () =>{
           <Route path='/QuienesSomos' element={<QuienesSomoscom product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
           <Route path='/Registro' element={<Registrocom refresh={refresh}/>}/>
           <Route path='/RegistroOp' element={<RegistroOp refresh={refresh}/>}/>
+          <Route path='/IngresoOp' element={<InicioOp refresh={refresh}/>}/>
           <Route path='/Privacidad' element={<PrivacyComp product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
         </Routes>
       </BrowserRouter>      

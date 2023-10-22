@@ -86,7 +86,7 @@ export const Headercom = ({
 
   const notAuthUser = () => {
     const logIn = () => {
-      navigate("/Ingreso");
+      navigate("/IngresoOp");
     };
     const signUp = () => {
       navigate("/RegistroOp");

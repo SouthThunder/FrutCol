@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./ingreso.css";
 import { Link, useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import { Toaster, toast } from "sonner";
+import GoogleLogin from "react-google-login";
 import axios from "axios";
 
-const URI = "https://frutcol-backend.onrender.com/usuarios/login";
+const URI = "https://frutcol-backend-r3lq.onrender.com/usuarios/login";
 
 export const Ingresocom = ({refresh}) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -148,6 +151,76 @@ export const Ingresocom = ({refresh}) => {
         </Link>
       </div>
 
+    </div>
+  );
+};
+export const InicioOp = ({ refresh }) => {
+  const navigate = useNavigate();
+  const responseGoogleS = async (response) => {
+    console.log("entree");
+    authToken(response);
+  };
+  const authToken = async (response) => {
+    try {
+      const URI = "https://frutcol-backend-r3lq.onrender.com/usuarios/loging";
+      const res = await axios.post(URI, {
+        correo_usuario: response.profileObj.email
+      });
+      localStorage.setItem("token", res.data.token);
+      getId(res.data.token);
+      navigate("/");
+      refresh();
+    } catch (error) {
+      toast.error("No existe una cuenta registrada con este correo.")
+      console.error(error);
+    }
+  };
+ 
+  const getId = async (token) => {
+    const URI = "https://frutcol-backend-r3lq.onrender.com/carrito/create";
+    const headers = {
+      Authorization: `${token}`, // Agrega "Bearer" antes del token si es necesario
+    };
+    try {
+      const decode = jwt_decode(token);
+      await axios.post(
+        URI,
+        {
+          id_carrito: decode.id_usuario,
+        },
+        {
+          headers,
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const responseGoogleE = async (response) => {
+    console.log(response.profileObj);
+    toast.error("Error al iniciar sesión");
+    await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
+  }
+  return (
+    <div className="optioncontainer">
+      <div className="options">
+        <h1>Iniciar Sesión</h1>
+        <Link to={"/Ingreso"}>
+          <button> Cuenta FrutCol</button>
+        </Link>
+        <GoogleLogin
+          clientId="173629652834-49cdcatljk2nkkmhs2qsbq57rt2slhvs.apps.googleusercontent.com"
+          buttonText="Inicia sesión con Google"
+          onSuccess={responseGoogleS}
+          onFailure={responseGoogleE}
+          cookiePolicy={"single_host_origin"}
+        />
+        <Link to={"/RegistroOp"}>
+          <h4>Haz click acá para registrarte</h4>
+        </Link>
+      </div>
+      <Toaster richColors />
     </div>
   );
 };

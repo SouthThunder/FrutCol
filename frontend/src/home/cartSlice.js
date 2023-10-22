@@ -18,7 +18,7 @@ export class Producto {
     const idUser= jwt_decode(localStorage.getItem('token'))
     this.cantidad = this.cantidad + 1;
     try {
-      const URI = "https://frutcol-backend.onrender.com/carrito/mod";
+      const URI = "https://frutcol-backend-r3lq.onrender.com/carrito/mod";
       await axios.put(URI, {
         id_carrito: idUser.id_usuario,
         id_producto: this.id,
@@ -35,7 +35,7 @@ export class Producto {
     const idUser= jwt_decode(localStorage.getItem('token'))
     this.cantidad = this.cantidad - 1;
     try {
-      const URI = "https://frutcol-backend.onrender.com/carrito/mod";
+      const URI = "https://frutcol-backend-r3lq.onrender.com/carrito/mod";
       await axios.put(URI, {
         id_carrito: idUser.id_usuario,
         id_producto: this.id,
@@ -52,7 +52,7 @@ export class Producto {
     this.cantidad=0;
     const idUser= jwt_decode(localStorage.getItem('token'))
     try {
-      const URI = "https://frutcol-backend.onrender.com/carrito/mod";
+      const URI = "https://frutcol-backend-r3lq.onrender.com/carrito/mod";
       await axios.put(URI, {
         id_carrito: idUser.id_usuario,
         id_producto: this.id,
@@ -74,7 +74,7 @@ export class Producto {
     const idUser= jwt_decode(localStorage.getItem('token'))
     this.cantidad += 1;
     try {
-      const URI = "https://frutcol-backend.onrender.com/carrito/";
+      const URI = "https://frutcol-backend-r3lq.onrender.com/carrito/";
       await axios.post(URI, {
         id_producto: this.id,
         cantidad_producto: this.cantidad,
