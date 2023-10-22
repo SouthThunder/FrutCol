@@ -182,7 +182,7 @@ export const Ingresocom = ({ refresh }) => {
 
           <div className="googleAuth">
             <GoogleLogin 
-              clientId="173629652834-49cdcatljk2nkkmhs2qsbq57rt2slhvs.apps.googleusercontent.com"
+              clientId="336496153339-bfh9gkv3l2ktbgnq5725nba8kp84u5ff.apps.googleusercontent.com"
               buttonText="Inicia sesión con Google"
               onSuccess={responseGoogleS}
               onFailure={responseGoogleE}
