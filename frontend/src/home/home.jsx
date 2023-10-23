@@ -316,11 +316,6 @@ export const ProdsComp = ({
         <div className="promt">
           <p>{element.nombre}</p>
         </div>
-        <div className="unit">
-          <div className="container">
-            <p>$ {formatPrice(element.precio)} c/u</p>
-          </div>
-        </div>
       </div>
       <div className="pImg">
         <img src={"../../images/" + element.image} alt={element.nombre} />

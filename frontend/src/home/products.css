@@ -38,6 +38,7 @@
     height:2.5rem;
     margin: auto;
     display: flex;
+    justify-content: center;
 }
 
  .productsComp > .elements > .card > .title > .promt{
@@ -46,30 +47,9 @@
     width: 100%;
     display: flex;
     align-items: center;
-}
-
- .productsComp > .elements > .card >.title > .unit{
-    width: 100%;
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-}
-
- .productsComp > .elements > .card >.title > .unit > .container{
-    width: 7rem;
-    height: 100%;
-    position: absolute;
-    top: -15px;
-    right: -55px;
-    border-radius: var(--md-border);
-    border: 1px solid black;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    display: flex;
     justify-content: center;
-    align-items: center;
+    text-align: center;
 }
-
 
  .productsComp > .elements > .card .pImg{
     width: 100%;
