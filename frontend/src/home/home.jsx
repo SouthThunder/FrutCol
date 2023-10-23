@@ -4,6 +4,7 @@ import "./products.css";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 import { Link, useNavigate } from "react-router-dom";
+import { Selement } from "../s_element/s_element";
 
 export const Slider = ({ product, changeProp, prodsPool }) => {
   const [activeProductIndex, setActiveProductIndex] = useState(0);
@@ -229,85 +230,30 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
 
 export const ProdsComp = ({
   product,
-  headers,
   loged,
-  updateLProducts,
   reloader,
 }) => {
-  const [element, setElement] = useState(product);
-  const [test, setTest] = useState(false);
+  const element = product;
   const navigate = useNavigate();
 
-  useEffect(() => {}, [test, reloader]);
+  useEffect(() => {}, [reloader]);
 
-  const handleResCantidad = () => {
-    if (element.cantidad === 1) {
-      element.delProd(headers);
-      updateLProducts(element);
-      setTest(!test);
-    } else {
-      element.resCantidad(headers);
-      updateLProducts(element);
-      setTest(!test);
-    }
-  };
-
-  const handleSumCantidad = () => {
-    element.sumCantidad(headers);
-    updateLProducts(element);
-    setTest(!test);
-  };
-
-  const formatPrice = (price) => {
-    return price.toLocaleString("en-US");
-  };
-
-  const controls = (
-    <div className="controls">
-      <div className="panel">
-        <button onClick={() => handleResCantidad()}>-</button>
-        <p>{element.cantidad}</p>
-        <button onClick={() => handleSumCantidad()}>+</button>
-      </div>
-      <div className="value">
-        <p>$ {formatPrice(element.calcularPrecioTotal())}</p>
-      </div>
-    </div>
-  );
-
-  const noControls = () => {
+  const navBtn = () => {
     return (
       <div className="noControls">
         {loged ? (
           <button
-            onClick={() => {
-              if (element.exists) {
-                element.sumCantidad(headers);
-                updateLProducts(element);
-              } else {
-                element.insertIntoDb(headers);
-                updateLProducts(element);
-              }
-              setTest(!test);
-            }}
+            onClick={() => navigate(`/${element.id}`)}
           >
-            + Añadir al carrito
+            Ver opciones
           </button>
         ) : (
           <button onClick={() => navigate("/ingreso")}>
-            + Añadir al carrito
+            Ver opciones
           </button>
         )}
       </div>
     );
-  };
-
-  const fDisplay = () => {
-    if (element.cantidad === 0) {
-      return noControls();
-    } else {
-      return controls;
-    }
   };
 
   return (
@@ -320,7 +266,7 @@ export const ProdsComp = ({
       <div className="pImg">
         <img src={"../../images/" + element.image} alt={element.nombre} />
       </div>
-      {fDisplay()}
+      {navBtn()}
     </div>
   );
 };
@@ -369,7 +315,7 @@ export const Homecom = ({
         headers={headers}
         updateLProducts={updateLProducts}
       />
-      <div class="whatsapp-container">
+      <div className="whatsapp-container">
         <Link 
           to="https://wa.me/573174358995"
           target="_blank"

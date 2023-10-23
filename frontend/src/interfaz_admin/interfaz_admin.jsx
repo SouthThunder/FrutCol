@@ -369,6 +369,7 @@ export const InterfazAdmincom = ({ product, prodsPool}) => {
       firstRender.current = false;
     } else {
       if (prodsPool !== null && userHistory !== null && admin !== null) {
+        console.log(userHistory)
         setisLoading(false);
       }
     }
@@ -398,7 +399,6 @@ export const InterfazAdmincom = ({ product, prodsPool}) => {
   if (isLoading && admin === null) {
     return <LoadingSpinner />;
   } else if (admin === false) {
-    console.log('enter')
     return (
       <div className="notAuthorized">
         <div className="container">

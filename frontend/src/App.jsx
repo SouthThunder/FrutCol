@@ -14,6 +14,7 @@ import jwt_decode from "jwt-decode";
 import LoadingSpinner from "./loading/LoadingSpinner";
 import { gapi } from 'gapi-script';
 import { Carritocom } from './carrito/carrito.jsx';
+import { Selement } from './s_element/s_element.jsx';
 
 gapi.load('client:auth2', () => {
   gapi.client.init({
@@ -173,6 +174,7 @@ export const App= () =>{
           <Route path='/Privacidad' element={<PrivacyComp product={product}/>}/>
           <Route path='/carrito' element={<Carritocom product={product} lProductos={lProductos}/>}/>
           <Route path='/Privacidad' element={<PrivacyComp product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
+          <Route path='/:id' element={<Selement product={product}/>}/>
         </Routes>
       </BrowserRouter>      
     </div>
