@@ -40,7 +40,7 @@ export const App= () =>{
       firstRender.current = false;
     } else {
       if (prodsPool !== null && firstSet.current === true) {
-        const firstprod = prodsPool.filter((prod) => prod.stock_producto > 0).map((prod) => {
+        const firstprod = prodsPool.map((prod) => {
           return prod
         })
         setProduct(firstprod[0]);
@@ -51,6 +51,7 @@ export const App= () =>{
         }
         if (product !== null && lProductos!==null) {
           firstSet.current = false;
+          console.log(lProductos)
           setisLoading(false);
         }
       }
@@ -71,33 +72,18 @@ export const App= () =>{
       setHeaders(null)
       setToken(null)
       setUser(false)
-      setProducts();
     }
   }
 
   const getProducts = async () => {
-    const URI = "https://frutcol-backend-r3lq.onrender.com/metadata";
+    const URI = "http://localhost:8000/metadata";
     try {
       const response = await axios.get(URI);
+      console.log(response.data)
       setProdsPool(response.data);
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const setProducts = () => {
-    setLProductos(() =>
-      prodsPool
-        .filter((prod) => prod.stock_producto > 0).map((prod) => {
-          return new Producto(
-            prod.id_metadata_producto,
-            prod.nombre_producto,
-            prod.precio_producto,
-            0,
-            prod.image,
-          );
-        })
-    );
   };
 
   const getProductsFromCart = async () => {
@@ -111,32 +97,33 @@ export const App= () =>{
         headers
       });
       setLProductos(() => prodsPool
-        .filter((prod) => prod.stock_producto > 0) 
         .map((prod) => {
-        const it = res.data.find(
-          (lproduc) => lproduc.id_producto === prod.id_metadata_producto
-        );
-        if (it === undefined) {
-          return new Producto(
-            prod.id_metadata_producto,
-            prod.nombre_producto,
-            prod.precio_producto,
-            0,
-            prod.image,
-            false,
-            prod.peso_producto
-          );
-        }else {
-          return new Producto(
-            it.id_producto,
-            prod.nombre_producto,
-            prod.precio_producto,
-            it.cantidad_producto,
-            prod.image,
-            true,
-            prod.peso_producto
-          );
-        }
+          return prod.SubMetadata_productos.map((sub) => {
+            const it = res.data.find(
+              (lproduc) => lproduc.id_producto === sub.id_subMetadata_producto
+            );
+            if (it === undefined) {
+              return new Producto(
+                sub.id_metadata_producto,
+                sub.nombre_producto,
+                sub.precio_producto,
+                0,
+                sub.image,
+                false,
+                sub.peso_producto
+              );
+            }else {
+              return new Producto(
+                it.id_producto,
+                sub.nombre_producto,
+                sub.precio_producto,
+                it.cantidad_producto,
+                sub.image,
+                true,
+                sub.peso_producto
+              );
+            }
+          })
       })
     );
 

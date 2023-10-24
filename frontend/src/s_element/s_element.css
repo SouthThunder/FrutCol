@@ -1,0 +1,57 @@
+.elementComp{
+    margin-top: calc(var(--header-height)*2);
+    min-height: 54vh;
+}
+
+.elementComp > .container{
+    width: 70%;
+    margin: auto;
+    background-color: beige;
+}
+
+.elementComp > .container > .product{
+    margin-top: 4rem;
+    display: flex;
+}
+
+.elementComp > .container > .product > .imageHolder{
+    flex: 2;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+}
+
+.elementComp > .container > .product > .imageHolder > img{
+    width: 100%;
+    max-width: 300px;
+}
+
+.elementComp > .container > .product > .info{
+    margin-left: 2rem;
+    border: 1px solid black;
+    flex: 4;
+}
+
+
+.elementComp > .container > .product > .info > .presentaciones {
+
+}
+
+.elementComp > .container > .product > .info > .presentaciones > .panel{
+    display: flex;
+}
+
+.elementComp > .container > .product > .info > .presentaciones > .panel > button{
+    width: 1.5rem;
+    height: 100%;
+    border-radius: 7px;
+    background-color: var(--primary-color);
+    color: white;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+
+.elementComp > .container > .product > .info > .presentaciones > .panel > p{
+    margin: 0 1rem;
+}
