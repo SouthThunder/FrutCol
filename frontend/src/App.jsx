@@ -27,8 +27,6 @@ export const App= () =>{
   const [prodsPool, setProdsPool] = useState(null);
   const [isLoading, setisLoading] = useState(true);
   const [lProductos, setLProductos] = useState(null);
-  const [token, setToken] = useState(null);
-  const [headers, setHeaders] = useState(null);
   const [user, setUser] = useState([]);
   const firstRender = useRef(true);
   const firstSet = useRef(true);
@@ -51,7 +49,6 @@ export const App= () =>{
         }
         if (product !== null && lProductos!==null) {
           firstSet.current = false;
-          console.log(lProductos)
           setisLoading(false);
         }
       }
@@ -60,17 +57,9 @@ export const App= () =>{
 
   const setItems = async(cond) => {
     if(cond){
-      setToken(jwt_decode(localStorage.getItem('token')))
-       setHeaders(() =>{
-        return {
-          Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
-        };
-      })
       setUser(true)
       getProductsFromCart();
     }else{
-      setHeaders(null)
-      setToken(null)
       setUser(false)
     }
   }
@@ -79,7 +68,6 @@ export const App= () =>{
     const URI = "http://localhost:8000/metadata";
     try {
       const response = await axios.get(URI);
-      console.log(response.data)
       setProdsPool(response.data);
     } catch (error) {
       console.error(error);
@@ -104,7 +92,7 @@ export const App= () =>{
             );
             if (it === undefined) {
               return new Producto(
-                sub.id_metadata_producto,
+                sub.id_subMetadata_producto,
                 sub.nombre_producto,
                 sub.precio_producto,
                 0,
@@ -135,9 +123,13 @@ export const App= () =>{
   const refresh= () => window.location.reload(true)
 
   const updateLProducts= (element) =>{
-    const foundIndex = lProductos.findIndex(x => x.id === element.id)
-    console.log(element.cantidad)
-    lProductos[foundIndex].cantidad = element.cantidad
+    lProductos.map((prod, index) => {
+      prod.map((sub) => {
+        if(sub.id === element.id){
+          lProductos[index].cantidad = element.cantidad;
+        }
+      })
+    })
   }
 
   const changeProp = (element) => {
@@ -152,7 +144,7 @@ export const App= () =>{
     <div className="principalContainer">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool} lProductos={lProductos} user={user} headers={headers} token={token} updateLProducts={updateLProducts}/>}/>
+          <Route path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool} user={user}/>}/>
           <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool}/>}/>
           <Route path='/Ingreso' element={<Ingresocom refresh={refresh}/>}/>
           <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} prodsPool={prodsPool}/>}/> 
@@ -161,7 +153,7 @@ export const App= () =>{
           <Route path='/Privacidad' element={<PrivacyComp product={product}/>}/>
           <Route path='/carrito' element={<Carritocom product={product} lProductos={lProductos}/>}/>
           <Route path='/Privacidad' element={<PrivacyComp product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
-          <Route path='/:id' element={<Selement product={product}/>}/>
+          <Route path='/:id' element={<Selement product={product} lProductos={lProductos} updateLProducts={updateLProducts}/>}/>
         </Routes>
       </BrowserRouter>      
     </div>

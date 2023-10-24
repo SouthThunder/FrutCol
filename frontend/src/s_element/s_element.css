@@ -37,11 +37,11 @@
 
 }
 
-.elementComp > .container > .product > .info > .presentaciones > .panel{
+.elementComp > .container > .product > .info > .presentaciones > .controls > .panel{
     display: flex;
 }
 
-.elementComp > .container > .product > .info > .presentaciones > .panel > button{
+.elementComp > .container > .product > .info > .presentaciones > .controls > .panel > button{
     width: 1.5rem;
     height: 100%;
     border-radius: 7px;
@@ -52,6 +52,27 @@
 }
 
 
-.elementComp > .container > .product > .info > .presentaciones > .panel > p{
+.elementComp > .container > .product > .info > .presentaciones > .controls > .panel > p{
     margin: 0 1rem;
+}
+
+
+.elementComp > .container > .product > .info > .presentaciones >.noControls{
+    display: flex;
+    justify-content: center;
+}
+
+.elementComp > .container > .product > .info > .presentaciones >.noControls > button{
+    margin-top: -1rem;
+    width: 9rem;
+    height: 2rem;
+    border-radius: var(--xs-border);
+    border: 1px solid black;
+    color: var(--secondary-color);
+    font-weight: var(--font-bold);
+    background-color: var(--primary-color);
+}
+
+.elementComp > .container > .product > .info > .presentaciones >.noControls > button:hover{
+    cursor: pointer;
 }

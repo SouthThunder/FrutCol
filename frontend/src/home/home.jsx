@@ -227,19 +227,22 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
 export const ProdsComp = ({
   product,
   loged,
-  reloader,
+  changeProp
 }) => {
   const element = product;
   const navigate = useNavigate();
 
-  useEffect(() => {}, [reloader]);
+  useEffect(() => {}, []);
 
   const navBtn = () => {
     return (
       <div className="noControls">
         {loged ? (
           <button
-            onClick={() => navigate(`/${element.id_metadata_producto}`)}
+            onClick={() => {
+              changeProp(element);
+              navigate(`/${element.id_metadata_producto}`)
+            }}
           >
             Ver opciones
           </button>
@@ -267,7 +270,7 @@ export const ProdsComp = ({
   );
 };
 
-export const Products = ({ prodsPool, user, headers, updateLProducts }) => {
+export const Products = ({ prodsPool, user, changeProp }) => {
   useEffect(() => {}, []);
 
   return (
@@ -279,11 +282,10 @@ export const Products = ({ prodsPool, user, headers, updateLProducts }) => {
         {prodsPool?.map((prods) => {
           return (
             <ProdsComp
-              product={prods}
-              headers={headers}
-              loged={user}
-              updateLProducts={updateLProducts}
               key={prods.id_producto}
+              product={prods}
+              loged={user}
+              changeProp={changeProp}
             />
           );
         })}
@@ -296,9 +298,7 @@ export const Homecom = ({
   product,
   changeProp,
   prodsPool,
-  user,
-  headers,
-  updateLProducts,
+  user
 }) => {
   return (
     <div className="homecontain">
@@ -307,8 +307,7 @@ export const Homecom = ({
       <Products
         prodsPool={prodsPool}
         user={user}
-        headers={headers}
-        updateLProducts={updateLProducts}
+        changeProp={changeProp}
       />
       <div className="whatsapp-container">
         <Link 

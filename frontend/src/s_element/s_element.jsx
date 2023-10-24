@@ -2,18 +2,105 @@ import React, { useEffect, useRef, useState } from "react";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 import LoadingSpinner from "../loading/LoadingSpinner";
-import axios from "axios";
 import "./s_element.css";
-import { useParams } from "react-router-dom";
 
-export const Element = ({ elements, father }) => {
-  const [activeElement, setActiveElement] = useState([]);
+export const Element = ({ elements, father, lProductos, updateLProducts }) => {
+  const [activeElement, setActiveElement] = useState(null);
+  const [isFather, setIsFather] = useState(true);
+  const [test, setTest] = useState(false);
+  const [activeObject, setActiveObject] = useState(null);
 
   useEffect(() => {
-    if (activeElement?.length === 0) {
+    if (activeElement === undefined || activeElement === null) {
       setActiveElement(father);
+      setActiveObject(null);
+    } else {
+      getObject(activeElement.id_subMetadata_producto);
     }
-  }, [activeElement]);
+    console.log(activeObject)
+  }, [activeElement, isFather, activeObject]);
+
+  const headers = {
+    Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
+  };
+
+
+  const getObject = (id) => {
+    return lProductos.map((obj) => {
+      obj.map((sub) => {
+        if (sub.id === id) {
+          setActiveObject(sub);
+        }
+      });
+    });
+  };
+
+  const handleResCantidad = () => {
+    if (activeObject.cantidad === 1) {
+      activeObject.delProd(headers);
+      updateLProducts(activeObject);
+      setTest(!test);
+    } else {
+      activeObject.resCantidad(headers);
+      updateLProducts(activeObject);
+      setTest(!test);
+    }
+  };
+
+  const handleSumCantidad = () => {
+    activeObject.sumCantidad(headers);
+    updateLProducts(activeObject);
+    setTest(!test);
+  };
+
+  const formatPrice = (price) => {
+    return price?.toLocaleString("en-US");
+  };
+
+  const controls = (
+    <div className="controls">
+      <div className="panel">
+        <button onClick={() => handleResCantidad()}>-</button>
+        <p>{activeObject?.cantidad}</p>
+        <button onClick={() => handleSumCantidad()}>+</button>
+      </div>
+      <div className="value">
+        <p>$ {formatPrice(activeObject?.calcularPrecioTotal())}</p>
+      </div>
+    </div>
+  );
+
+  const noControls = () => {
+    return (
+      <div className="noControls">
+        <button
+          onClick={() => {
+            if (activeObject.exists) {
+              activeObject.sumCantidad(headers);
+              updateLProducts(activeObject);
+            } else {
+              activeObject.insertIntoDb(headers);
+              updateLProducts(activeObject);
+            }
+            setTest(!test);
+          }}
+        >
+          + Añadir al carrito
+        </button>
+
+      </div>
+    );
+  };
+
+  const fDisplay = () => {
+    if (activeObject?.cantidad === 0) {
+      return noControls();
+    }else if(activeObject===null){
+      return 
+    } else {
+      return controls;
+    }
+  };
 
   return (
     <div className="elementComp">
@@ -37,28 +124,26 @@ export const Element = ({ elements, father }) => {
               <select
                 name="estado"
                 onChange={(e) => {
-                  setActiveElement(elements[e.target.value])
+                  if (e.target.value === "") {
+                    setActiveElement(father);
+                    setActiveObject(null)
+                  } else {
+                    setIsFather(false);
+                    setActiveElement(elements[e.target.value]);
+                  }
                 }}
-                id=""
               >
                 <option value="">Elija una opcion</option>
                 {elements.map((op, index) => {
                   return (
-                    <option
-                      value={index}
-                      key={op.id_subMetadata_producto}
-                    >
+                    <option value={index} key={op.id_subMetadata_producto}>
                       {op.nombre_producto}
                     </option>
                   );
                 })}
               </select>
               <p>{activeElement?.descripcion_producto}</p>
-              <div className="panel">
-                {/* <button onClick={() => handleResCantidad()}>-</button>
-                <p>{prods.cantidad}</p>
-                <button onClick={() => handleSumCantidad()}>+</button> */}
-              </div>
+              {fDisplay()}
             </div>
           </div>
         </div>
@@ -67,23 +152,14 @@ export const Element = ({ elements, father }) => {
   );
 };
 
-export const Selement = ({ product }) => {
+export const Selement = ({ product, lProductos, updateLProducts }) => {
   const [elements, setElements] = useState(null);
-  const [father, setFather] = useState(null);
   const [loader, setLoader] = useState(true);
   const firstLoad = useRef(true);
-  const { id } = useParams();
 
   useEffect(() => {
     if (firstLoad.current) {
-      Promise.all([getElements(), getFather()])
-        .then(([data1, data2]) => {
-          setElements(data1);
-          setFather(data2);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      getElements();
       firstLoad.current = false;
     } else {
       if (elements !== null) {
@@ -92,24 +168,12 @@ export const Selement = ({ product }) => {
     }
   }, [elements]);
 
-  const getElements = async () => {
-    try {
-      const URI = `http://localhost:8000/smetadata/${id}`;
-      const res = await axios.get(URI);
-      return res.data;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getFather = async () => {
-    try {
-      const URI = `http://localhost:8000/metadata/${id}`;
-      const res = await axios.get(URI);
-      return res.data;
-    } catch (error) {
-      console.error(error);
-    }
+  const getElements = () => {
+    setElements(() => {
+      return product.SubMetadata_productos.map((sub) => {
+        return sub;
+      });
+    });
   };
 
   if (loader) {
@@ -119,7 +183,7 @@ export const Selement = ({ product }) => {
   return (
     <div className="selement">
       <Headercom product={product} />
-      <Element elements={elements} father={father} />
+      <Element elements={elements} father={product} lProductos={lProductos} updateLProducts={updateLProducts}/>
       <Footercom product={product} />
     </div>
   );
