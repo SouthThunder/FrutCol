@@ -28,11 +28,12 @@
 
 .header > .nav-bar .nav__logo > img{
     width: calc((var(--header-height)) + var(--header-height)/2);
+    height: auto;
 }
 
 .header > .nav-bar .nav__logo p{
     margin-top: .5rem;
-    margin-left: -1.5rem;
+    margin-right: calc((var(--header-height)) + var(--header-height)/2);
     color: var(--strawberry-main-color);
     font-size: 1.2rem;
     font-weight: var(--font-bolder);
@@ -62,6 +63,7 @@
 
     .header > .nav-bar .nav__menu > .nav__list > .nav__item > #userIcon > img{
         width: 100%;
+        height: auto;
     }
 
 /*DROPDOWN USER OPTIONS*/
@@ -149,6 +151,7 @@
 
 .header > .nav-bar .nav__menu > .nav__list > .nav__item:nth-child(2) > button > img{
     width: inherit;
+    height: auto;
 }
 
 .header > .nav-bar .nav__menu > .nav__list > .nav__item:nth-child(3) > button{
@@ -161,6 +164,7 @@
 
 .header > .nav-bar .nav__menu > .nav__list > .nav__item:nth-child(3) > button > img{
     width: inherit;
+    height: auto;
 }
 
 .header >.nav  .inicios {

@@ -17,13 +17,12 @@ export const Element = ({ elements, father, lProductos, updateLProducts }) => {
     } else {
       getObject(activeElement.id_subMetadata_producto);
     }
-    console.log(activeObject)
+    console.log(activeObject);
   }, [activeElement, isFather, activeObject]);
 
   const headers = {
     Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
   };
-
 
   const getObject = (id) => {
     return lProductos.map((obj) => {
@@ -65,6 +64,7 @@ export const Element = ({ elements, father, lProductos, updateLProducts }) => {
         <button onClick={() => handleSumCantidad()}>+</button>
       </div>
       <div className="value">
+        <p>Subtotal: </p>
         <p>$ {formatPrice(activeObject?.calcularPrecioTotal())}</p>
       </div>
     </div>
@@ -87,18 +87,28 @@ export const Element = ({ elements, father, lProductos, updateLProducts }) => {
         >
           + Añadir al carrito
         </button>
-
       </div>
     );
+  };
+  const pricing = () => {
+    return <h4>$ {formatPrice(activeObject?.precio)}</h4>;
   };
 
   const fDisplay = () => {
     if (activeObject?.cantidad === 0) {
       return noControls();
-    }else if(activeObject===null){
-      return 
+    } else if (activeObject === null) {
+      return;
     } else {
       return controls;
+    }
+  };
+
+  const pDisplay = () => {
+    if (activeObject === null) {
+      return;
+    } else {
+      return pricing();
     }
   };
 
@@ -126,7 +136,7 @@ export const Element = ({ elements, father, lProductos, updateLProducts }) => {
                 onChange={(e) => {
                   if (e.target.value === "") {
                     setActiveElement(father);
-                    setActiveObject(null)
+                    setActiveObject(null);
                   } else {
                     setIsFather(false);
                     setActiveElement(elements[e.target.value]);
@@ -143,6 +153,7 @@ export const Element = ({ elements, father, lProductos, updateLProducts }) => {
                 })}
               </select>
               <p>{activeElement?.descripcion_producto}</p>
+              {pDisplay()}
               {fDisplay()}
             </div>
           </div>
@@ -183,7 +194,12 @@ export const Selement = ({ product, lProductos, updateLProducts }) => {
   return (
     <div className="selement">
       <Headercom product={product} />
-      <Element elements={elements} father={product} lProductos={lProductos} updateLProducts={updateLProducts}/>
+      <Element
+        elements={elements}
+        father={product}
+        lProductos={lProductos}
+        updateLProducts={updateLProducts}
+      />
       <Footercom product={product} />
     </div>
   );

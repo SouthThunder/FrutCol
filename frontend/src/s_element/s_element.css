@@ -6,7 +6,16 @@
 .elementComp > .container{
     width: 70%;
     margin: auto;
-    background-color: beige;
+}
+
+.elementComp > .container > .title{
+    margin: auto;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: var(--font-bold);
+    color: black;
+    border-bottom: 1px solid black;
+    padding-bottom: 1rem;
 }
 
 .elementComp > .container > .product{
@@ -16,25 +25,56 @@
 
 .elementComp > .container > .product > .imageHolder{
     flex: 2;
-    border: 1px solid black;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .elementComp > .container > .product > .imageHolder > img{
     width: 100%;
+    height: auto;
+    max-height: 300px;
     max-width: 300px;
 }
 
 .elementComp > .container > .product > .info{
     margin-left: 2rem;
-    border: 1px solid black;
     flex: 4;
 }
 
 
 .elementComp > .container > .product > .info > .presentaciones {
+    border-top: 1px solid black;
+    margin-top: 1rem;
+}
 
+.elementComp > .container > .product > .info > .presentaciones > h4{
+    margin: 1rem ;
+    font-size: 1.2rem;
+    font-weight: var(--font-bold);
+}
+
+.elementComp > .container > .product > .info > .presentaciones > select{
+    height: 2rem;
+    font-size: 1rem;
+    border-radius: 15px;
+    padding-right: 1rem;
+    padding-left: .2rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
+
+.elementComp > .container > .product > .info > .presentaciones > select + p{
+    margin-left: 1rem;
+    font-size: 1rem;
+    text-align: justify;
+    margin-bottom: 1rem;
+}
+
+.elementComp > .container > .product > .info > .presentaciones > .controls {
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .elementComp > .container > .product > .info > .presentaciones > .controls > .panel{
@@ -43,7 +83,7 @@
 
 .elementComp > .container > .product > .info > .presentaciones > .controls > .panel > button{
     width: 1.5rem;
-    height: 100%;
+    height: 1.5rem;
     border-radius: 7px;
     background-color: var(--primary-color);
     color: white;
@@ -53,7 +93,21 @@
 
 
 .elementComp > .container > .product > .info > .presentaciones > .controls > .panel > p{
-    margin: 0 1rem;
+    margin: auto 1rem;
+}
+
+.elementComp > .container > .product > .info > .presentaciones > .controls > .value{
+    display: flex;
+    margin-top: 1rem;
+    width: 100%;
+    border-top: 1px solid black;
+}
+
+.elementComp > .container > .product > .info > .presentaciones > .controls > .value > p{
+    font-size: 1.2rem;
+    padding-top: 1rem;
+    margin-right: .5rem;
+    font-weight: var(--font-bold);
 }
 
 
