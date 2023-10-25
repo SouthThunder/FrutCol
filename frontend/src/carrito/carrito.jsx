@@ -46,7 +46,7 @@ export const Card = ({ prods, updateReloader }) => {
   };
 
   return (
-    <div className="card" key={prods.id_producto}>
+    <div className="card" key={prods.id}>
       <div className="name">
         <p>{prods.nombre}</p>
       </div>
@@ -90,38 +90,60 @@ export const Cart = ({ lProductos }) => {
   };
 
   useEffect(() => {
+    // Calcula el número total de productos en el carrito
+    const totalpruductos = lProductos.map((prods) => {
+      return prods.reduce((accumulator, sub) => {
+        if (sub.cantidad > 0) {
+          return accumulator + sub.cantidad;
+        } else {
+          return accumulator;
+        }
+      }, 0);
+    });
+    const totalProductos = totalpruductos.reduce((accumulator, prods) => {
+      return accumulator + prods;
+    });
 
-    const totalpruductos = lProductos.reduce((accumulator, prods) => {
-      if (prods.cantidad > 0) {
-        return accumulator + prods.cantidad;
-      }
-      return accumulator;
-    }, 0);
-    const totalPrice = lProductos.reduce((accumulator, prods) => {
-      if (prods.cantidad > 0) {
-        return accumulator + prods.cantidad * prods.precio;
-      }
-      return accumulator;
-    }, 0);
+    // Calcula el precio total de los productos en el carrito
+    const totalprice = lProductos.map((prods) => {
+      return prods.reduce((accumulator, sub) => {
+        if (sub.cantidad > 0) {
+          return accumulator + sub.cantidad * sub.precio;
+        }
+        return accumulator;
+      }, 0);
+    });
+    const totalPrice = totalprice.reduce((accumulator, prods) => {
+      return accumulator + prods;
+    });
 
-    const totalWeight = lProductos.reduce((accumulator, prods) => {
-      if(prods.cantidad > 0) {
-        return accumulator + ((prods.peso/1000) * prods.cantidad);
-      }
-      return accumulator;
-    }, 0);
-    if(totalWeight >= 20) {
-      setComponentDisabled(false)
-      setIndicator('green')
-      setPromt('Todo listo para reservar!')
-    }else{
-      setComponentDisabled(true)
-      setIndicator('orange')
-      setPromt('Pedido mínimo: 20Kg')
+    // Calcula el peso total de los productos en el carrito
+
+    const totalweight = lProductos.map((prods) => {
+      return prods.reduce((accumulator, sub) => {
+        if (sub.cantidad > 0) {
+          return accumulator + (sub.peso / 1000) * sub.cantidad;
+        }
+        return accumulator;
+      }, 0);
+    });
+
+    const totalWeight = totalweight.reduce((accumulator, prods) => {
+      return accumulator + prods;
+    });
+
+    if (totalWeight >= 5) {
+      setComponentDisabled(false);
+      setIndicator("green");
+      setPromt("Todo listo para reservar!");
+    } else {
+      setComponentDisabled(true);
+      setIndicator("orange");
+      setPromt("Pedido mínimo: 5Kg");
     }
     // Actualiza el estado total con el nuevo precio total calculado
     setTotal(totalPrice);
-    setTotalp(totalpruductos);
+    setTotalp(totalProductos);
     setWeight(totalWeight);
   }, [reloader]);
 
@@ -177,32 +199,34 @@ export const Cart = ({ lProductos }) => {
           },
           { headers }
         );
-        lProductos.map(async (prod) => {
-          if (prod.cantidad > 0) {
-            await axios.post(
-              URIRP,
-              {
-                num_orden: testing.data,
-                id_producto: prod.id,
-                cantidad_producto: prod.cantidad,
-              },
-              {
-                headers,
-              }
-            );
+        lProductos.map((prod) => {
+          prod.map(async (sub) => {
+            if (sub.cantidad > 0) {
+              await axios.post(
+                URIRP,
+                {
+                  num_orden: testing.data,
+                  id_producto: sub.id,
+                  cantidad_producto: sub.cantidad,
+                },
+                {
+                  headers,
+                }
+              );
 
-            await axios.put(
-              URI,
-              {
-                id_carrito: id_h.id_usuario,
-                id_producto: prod.id,
-                cantidad_producto: 0,
-              },
-              {
-                headers,
-              }
-            );
-          }
+              await axios.put(
+                URI,
+                {
+                  id_carrito: id_h.id_usuario,
+                  id_producto: sub.id,
+                  cantidad_producto: 0,
+                },
+                {
+                  headers,
+                }
+              );
+            }
+          });
         });
         toast.success("La reserva ha sido creada");
 
@@ -234,15 +258,17 @@ export const Cart = ({ lProductos }) => {
             </div>
             {totalp > 0 ? (
               lProductos.map((prods) => {
-                if (prods.cantidad > 0) {
-                  return (
-                    <Card
-                      prods={prods}
-                      updateReloader={updateReloader}
-                      key={prods.id_producto}
-                    />
-                  );
-                }
+                return prods.map((sub) => {
+                  if (sub.cantidad > 0) {
+                    return (
+                      <Card
+                        prods={sub}
+                        updateReloader={updateReloader}
+                        key={sub.id_producto}
+                      />
+                    );
+                  }
+                });
               })
             ) : (
               <div className="noprod">
@@ -274,12 +300,12 @@ export const Cart = ({ lProductos }) => {
                 max={100}
                 value={weight}
                 disabled
-                style={{backgroundSize: `${weight}% 100%`}}
+                style={{ backgroundSize: `${weight}% 100%` }}
               ></input>
               <p>100Kg</p>
             </div>
             <div className="indicator">
-              <p style={{color: indicator}}>{promt}</p>
+              <p style={{ color: indicator }}>{promt}</p>
             </div>
             <span className="separator"></span>
             <div className="row">
