@@ -65,7 +65,7 @@ export const App= () =>{
   }
 
   const getProducts = async () => {
-    const URI = "http://localhost:8000/metadata";
+    const URI = "https://frutcol-backend.onrender.com/metadata";
     try {
       const response = await axios.get(URI);
       setProdsPool(response.data);
@@ -79,7 +79,7 @@ export const App= () =>{
       Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
     }
     const token= jwt_decode(localStorage.getItem("token"));
-    const URI = `https://frutcol-backend-r3lq.onrender.com/carrito/${token.id_usuario}`;
+    const URI = `https://frutcol-backend.onrender.com/carrito/${token.id_usuario}`;
     try {
       const res = await axios.get(URI, {
         headers

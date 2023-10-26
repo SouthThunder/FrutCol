@@ -182,9 +182,9 @@ export const Cart = ({ lProductos }) => {
 
     setComponentDisabled(true);
 
-    const URIR = "https://frutcol-backend-r3lq.onrender.com/reserva";
-    const URIRP = "https://frutcol-backend-r3lq.onrender.com/reserprod";
-    const URI = "https://frutcol-backend-r3lq.onrender.com/carrito/mod";
+    const URIR = "https://frutcol-backend.onrender.com/reserva";
+    const URIRP = "https://frutcol-backend.onrender.com/reserprod";
+    const URI = "https://frutcol-backend.onrender.com/carrito/mod";
     if (totalp > 0) {
       try {
         const testing = await axios.post(

@@ -6,7 +6,7 @@ import LoadingSpinner from "../loading/LoadingSpinner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const URI = "https://frutcol-backend-r3lq.onrender.com/metadata/";
+const URI = "https://frutcol-backend.onrender.com/metadata/";
 
 export const Infocontenidos = (prop) => {
   return (
@@ -183,8 +183,8 @@ export const Reservas = (prop) => {
 };
 
 export const ProductosReserva = (prop) => {
-  const URI = `https://frutcol-backend-r3lq.onrender.com/reserprod/${prop.reservation.num_orden}`;
-  const URI2 = `https://frutcol-backend-r3lq.onrender.com/reserva/${prop.reservation.num_orden}`;
+  const URI = `https://frutcol-backend.onrender.com/reserprod/${prop.reservation.num_orden}`;
+  const URI2 = `https://frutcol-backend.onrender.com/reserva/${prop.reservation.num_orden}`;
   const [products, setProducts] = useState(null);
   const [userData, setUserData] = useState(null);
   const [isLoading, setisLoading] = useState(true);
@@ -227,7 +227,7 @@ export const ProductosReserva = (prop) => {
   };
 
   const handleEntregarOrden = async () => {
-    const URI = `https://frutcol-backend-r3lq.onrender.com/reserva/${prop.reservation.num_orden}`;
+    const URI = `https://frutcol-backend.onrender.com/reserva/${prop.reservation.num_orden}`;
     try {
       await axios.put(
         URI,
@@ -389,7 +389,7 @@ export const InterfazAdmincom = ({ product, prodsPool}) => {
   }, [userHistory, admin]);
 
   const getHistoryData = async () => {
-    const lURI = "https://frutcol-backend-r3lq.onrender.com/reserva/";
+    const lURI = "https://frutcol-backend.onrender.com/reserva/";
     try {
       const res = await axios.get(lURI, { headers });
       setUserHistory(res.data);
@@ -399,7 +399,7 @@ export const InterfazAdmincom = ({ product, prodsPool}) => {
   };
 
   const getAdmin = async () => {
-    const lURI = "https://frutcol-backend-r3lq.onrender.com/usuarios";
+    const lURI = "https://frutcol-backend.onrender.com/usuarios";
     try {
       const res = await axios.get(lURI, { headers });
       setAdming(res.data);
