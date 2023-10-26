@@ -65,6 +65,7 @@ export const Reservas = (prop) => {
   const [estado, setEstado] = useState("");
   const [fecha, setFecha] = useState("");
   const [numOrden, setNumOrden] = useState("");
+  const [loader , setLoader] = useState(true);
   const filtrarReservas = () => {
     return prop.prod.userHistory.filter((userHistory) => {
       // Verificar si se cumple la condición de estado y fecha
@@ -78,7 +79,15 @@ export const Reservas = (prop) => {
       return cumpleCondicionEstado && cumpleCondicionFecha && encontroNumOrden;
     });
   };
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if(prop.prod.userHistory !== null){
+      setLoader(false);
+    }
+  }, [prop.prod.userHistory]);
+
+  if(loader){
+    return 
+  }
 
   return (
     <div className="historialReserva">
@@ -307,9 +316,14 @@ export const ProductosReserva = (prop) => {
             </div>
           </div>
           {products?.map((products) => {
-            const matchingProduct = metadata.find(
-              (prod) => prod.id_metadata_producto === products.id_producto
-            );
+          let matchingProduct = null;
+          metadata.map((prod) => {
+            return prod.SubMetadata_productos.map((sub) => {
+              if (sub.id_subMetadata_producto === products.id_producto) {
+                matchingProduct = sub;
+              }
+            })
+          })
             return (
               <div className="product" key={products.id_producto}>
                 <div className="pImg">
@@ -369,7 +383,6 @@ export const InterfazAdmincom = ({ product, prodsPool}) => {
       firstRender.current = false;
     } else {
       if (prodsPool !== null && userHistory !== null && admin !== null) {
-        console.log(userHistory)
         setisLoading(false);
       }
     }

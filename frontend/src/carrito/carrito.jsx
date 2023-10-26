@@ -5,6 +5,7 @@ import { Footercom } from "../footer/footer";
 import jwt_decode from "jwt-decode";
 import { Toaster, toast } from "sonner";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const Card = ({ prods, updateReloader }) => {
   const [reloader, setReloader] = useState(false);
@@ -84,6 +85,7 @@ export const Cart = ({ lProductos }) => {
   const [indicator, setIndicator] = useState([]);
   const [promt, setPromt] = useState([]);
   const [isComponentDisabled, setComponentDisabled] = useState(false);
+  const navigate = useNavigate();
 
   const headers = {
     Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
@@ -158,10 +160,6 @@ export const Cart = ({ lProductos }) => {
     setReloader(!reloader);
   };
 
-  const refreshPage = () => {
-    window.location.reload();
-  };
-
   const openPopup = () => {
     const popup = document.getElementById("popup");
     if (popup) {
@@ -176,7 +174,7 @@ export const Cart = ({ lProductos }) => {
       popup.style.visibility = "hidden";
       popup.style.transform = "translate(-50%, -50%) scale(0.1)";
     }
-    refreshPage();
+    navigate('/')
   };
 
   const handleReserve = async () => {

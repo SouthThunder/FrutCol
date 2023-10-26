@@ -233,7 +233,6 @@ export const ProductosReserva = (prop) => {
     } else {
       if (products !== null) {
         setisLoading(false);
-        console.log(products);
       }
     }
   }, [products]);
@@ -267,9 +266,14 @@ export const ProductosReserva = (prop) => {
           </div>
         </div>
         {products?.map((products) => {
-          const matchingProduct = metadata.find(
-            (prod) => prod.id_metadata_producto === products.id_producto
-          );
+          let matchingProduct = null;
+          metadata.map((prod) => {
+            return prod.SubMetadata_productos.map((sub) => {
+              if (sub.id_subMetadata_producto === products.id_producto) {
+                matchingProduct = sub;
+              }
+            })
+          })
           return (
             <div className="product" key={products.id_producto}>
               <div className="pImg">
