@@ -86,7 +86,7 @@
 
 
         input[type="range"]{
-            width: 60%;
+            width: 70%;
             -webkit-appearance: none;
             appearance: none;
             height: 2px;
@@ -131,21 +131,17 @@
         max-height: 512px;
         margin-left: -7%;
         width: 30vw;
-       
         min-width: 30vw;
         min-height: 30vh;
-      
-       
-        
         transition: all 1s var(--btn-cubic-bezier);
     }
 
     
 
     .homecontain > .slider > .second > img:nth-child(2){
-        width: 15vw;
+        width: auto;
+        min-width: 100px;
         max-width: 260px;
-        min-width: 200px;
         z-index: 1;
     }
 

@@ -213,13 +213,13 @@
     flex: 1;
     margin-right: 2rem;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .cartComp > .info > .checkout .bottom{
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     width: 100%;
     flex: 1;
