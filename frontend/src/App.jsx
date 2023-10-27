@@ -47,7 +47,7 @@ export const App= () =>{
         }else{
           setItems(true)
         }
-        if (product !== null && lProductos!==null) {
+        if (product !== null) {
           firstSet.current = false;
           setisLoading(false);
         }

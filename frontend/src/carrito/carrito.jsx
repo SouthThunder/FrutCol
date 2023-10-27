@@ -198,7 +198,7 @@ export const Cart = ({ lProductos }) => {
           { headers }
         );
         lProductos.map((prod) => {
-          prod.map(async (sub) => {
+          return prod.map(async (sub) => {
             if (sub.cantidad > 0) {
               await axios.post(
                 URIRP,
@@ -316,7 +316,7 @@ export const Cart = ({ lProductos }) => {
               onClick={() => handleReserve()}
               disabled={isComponentDisabled}
             >
-              Reservar
+              Comprar
             </button>
             <div className="toast2" id="popup">
               <h2>Pasos para hacer efectiva la reserva:</h2>

@@ -4,7 +4,7 @@
 
 :root{
     --gray-color:#808080;
-    --header-height:8vh;
+    --header-height:80px;
     --text-color: var(--gray-color);
     --text-color-light: (var(--hue-color));
     --text-gradient: linear-gradient(var(--gray-color), #357f27);

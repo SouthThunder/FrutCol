@@ -11,7 +11,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
   const [currentImage, setCurrentImage] = useState([]);
   const [primaryColor, setPrimaryColor] = useState([]);
   const [currentWord, setCurrentWord] = useState([]);
-  const [currentPrice, setCurrentprice] = useState([]);
+  // const [currentPrice, setCurrentprice] = useState([]);
   const [sliderProds, setSliderProds] = useState([]);
   const firstLoad = useRef(false);
 
@@ -20,7 +20,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
     setPrimaryColor(element.main_color);
     setCurrentImage(`../../images/${product.image}`);
     setCurrentWord(element.nombre_producto);
-    setCurrentprice(element.precio_producto);
+    // setCurrentprice(element.precio_producto);
   };
   const updateProp = (element) => {
     changeProp(element);
@@ -40,7 +40,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
     const auxProdsPull = [];
     prodsPool
       .map((prod) => {
-        auxProdsPull.push(prod);
+        return auxProdsPull.push(prod);
       });
 
     if (auxProdsPull.length > 5) {
@@ -84,7 +84,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
           <h1>{currentWord}</h1>
         </div>
         <div className="n2">
-          <h1>$ {currentPrice}</h1>
+          {/* <h1>$ {currentPrice}</h1> */}
         </div>
         <div className="n3">
           <button
@@ -212,7 +212,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
                   }}
                 >
                   <div className="fruit__container">
-                    <img src={`../../images/${element.image}`} />
+                    <img src={`../../images/${element.image}`} alt=""/>
                   </div>
                 </button>
               );
