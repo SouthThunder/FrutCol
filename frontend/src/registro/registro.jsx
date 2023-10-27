@@ -109,7 +109,7 @@ export const Registrocom = ({ refresh }) => {
       setcontrasenaInputClass("");
     }
 
-    const URI = "https://frutcol-backend-r3lq.onrender.com/usuarios/register";
+    const URI = "https://frutcol-backend.onrender.com/usuarios/register";
 
     // Validaciones para nombres y apellidos
     const namePattern = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
@@ -187,7 +187,7 @@ export const Registrocom = ({ refresh }) => {
 
   const authToken = async () => {
     try {
-      const URI = "https://frutcol-backend-r3lq.onrender.com/usuarios/login";
+      const URI = "https://frutcol-backend.onrender.com/usuarios/login";
       const res = await axios.post(URI, {
         correo_usuario: correo,
         contrasena_usuario: contrasena,
@@ -206,7 +206,7 @@ export const Registrocom = ({ refresh }) => {
   };
 
   const getId = async (token) => {
-    const URI = "https://frutcol-backend-r3lq.onrender.com/carrito/create";
+    const URI = "https://frutcol-backend.onrender.com/carrito/create";
     const headers = {
       Authorization: `${token}`, // Agrega "Bearer" antes del token si es necesario
     };
@@ -229,7 +229,7 @@ export const Registrocom = ({ refresh }) => {
   const responseGoogleS = async (response) => {
     console.log(response.profileObj);
     await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
-    const URI = "https://frutcol-backend-r3lq.onrender.com/usuarios/registerg";
+    const URI = "https://frutcol-backend.onrender.com/usuarios/registerg";
     try {
       await axios.post(URI, {
         nombre_usuario: response.profileObj.givenName,
@@ -245,7 +245,7 @@ export const Registrocom = ({ refresh }) => {
   };
   const authTokenn = async (response) => {
     try {
-      const URI = "https://frutcol-backend-r3lq.onrender.com/usuarios/loging";
+      const URI = "https://frutcol-backend.onrender.com/usuarios/loging";
       const res = await axios.post(URI, {
         correo_usuario: response.profileObj.email,
       });
@@ -394,86 +394,6 @@ export const Registrocom = ({ refresh }) => {
           <button className="botonizform">Iniciar sesión</button>
         </Link>
       </div>
-    </div>
-  );
-};
-
-export const RegistroOp = ({ refresh }) => {
-  const navigate = useNavigate();
-  const responseGoogleS = async (response) => {
-    console.log(response.profileObj);
-    await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
-    const URI = "https://frutcol-backend-r3lq.onrender.com/usuarios/registerg";
-    try {
-      await axios.post(URI, {
-        nombre_usuario: response.profileObj.givenName,
-        apellido_usuario: response.profileObj.familyName,
-        correo_usuario: response.profileObj.email,
-      });
-      authToken(response);
-      toast.success("Registro exitoso!");
-    } catch (error) {
-      toast.error("El correo ya se encuentra en uso");
-      console.error(error);
-    }
-  };
-  const authToken = async (response) => {
-    try {
-      const URI = "https://frutcol-backend-r3lq.onrender.com/usuarios/loging";
-      const res = await axios.post(URI, {
-        correo_usuario: response.profileObj.email,
-      });
-      localStorage.setItem("token", res.data.token);
-      getId(res.data.token);
-      navigate("/");
-      refresh();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getId = async (token) => {
-    const URI = "https://frutcol-backend-r3lq.onrender.com/carrito/create";
-    const headers = {
-      Authorization: `${token}`, // Agrega "Bearer" antes del token si es necesario
-    };
-    try {
-      const decode = jwt_decode(token);
-      await axios.post(
-        URI,
-        {
-          id_carrito: decode.id_usuario,
-        },
-        {
-          headers,
-        }
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const responseGoogleE = async (response) => {
-    console.log(response.profileObj);
-    toast.error("Error al crear la cuenta");
-    await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
-  };
-  return (
-    <div className="optioncontainer">
-      <div className="options">
-        <h1>Registrate</h1>
-        <Link to={"/Registro"}>
-          <button> Crear una cuenta</button>
-        </Link>
-        <GoogleLogin
-          clientId="173629652834-49cdcatljk2nkkmhs2qsbq57rt2slhvs.apps.googleusercontent.com"
-          buttonText="Registrate con Google"
-          onSuccess={responseGoogleS}
-          onFailure={responseGoogleE}
-          cookiePolicy={"single_host_origin"}
-        />
-      </div>
-      <Toaster richColors />
     </div>
   );
 };

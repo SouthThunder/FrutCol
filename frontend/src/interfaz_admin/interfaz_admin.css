@@ -59,6 +59,7 @@
 
  .info_pagina > .editar_container > .editarcontent > .left > .product_image > img{
   width: 100%;
+  object-fit: contain;
  }
 
  .info_pagina > .editar_container > .editarcontent > .right > .producto_estilo{
@@ -76,12 +77,7 @@
     display: flex;
     width: 72.2%;
  }
- .info_pagina > .editar_container > .editarcontent > .left > .product_image > img{
-     object-fit: cover;
- }
- .info_pagina > .editar_container > .editarcontent > .left > .product_image > img{
-    object-fit: cover;
-}
+
 .info_pagina > .contenidos > h4{
     margin: 2rem 0 2rem 0;
     cursor: pointer;
@@ -132,7 +128,6 @@
 
  .input__info > label{
     position: absolute;
-    top: 30%;
     left: 5px;
     color: black;
     font-size: 1rem;
@@ -166,11 +161,16 @@
     font-size: 1rem;
     padding: 15px 5px 0 5px;
 }
-/* .input__info > input:focus ~ label,
-.input__info > input:invalid ~ label,
-.input__info > input[type="password"]:not(:placeholder-shown) {
-    top: -4px;
-} */
+
+.info_pagina > .editar_container > .addSubP{
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.info_pagina > .editar_container > .addSubP > p{
+  margin-left: 1rem;
+}
+
 .info_pagina > .editar_container > .actualizar_product{
     margin-top: 2rem;
     margin-left: -20%;

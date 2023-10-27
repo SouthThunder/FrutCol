@@ -14,6 +14,7 @@ import jwt_decode from "jwt-decode";
 import LoadingSpinner from "./loading/LoadingSpinner";
 import { gapi } from 'gapi-script';
 import { Carritocom } from './carrito/carrito.jsx';
+import { Selement } from './s_element/s_element.jsx';
 
 gapi.load('client:auth2', () => {
   gapi.client.init({
@@ -26,8 +27,6 @@ export const App= () =>{
   const [prodsPool, setProdsPool] = useState(null);
   const [isLoading, setisLoading] = useState(true);
   const [lProductos, setLProductos] = useState(null);
-  const [token, setToken] = useState(null);
-  const [headers, setHeaders] = useState(null);
   const [user, setUser] = useState([]);
   const firstRender = useRef(true);
   const firstSet = useRef(true);
@@ -39,7 +38,7 @@ export const App= () =>{
       firstRender.current = false;
     } else {
       if (prodsPool !== null && firstSet.current === true) {
-        const firstprod = prodsPool.filter((prod) => prod.stock_producto > 0).map((prod) => {
+        const firstprod = prodsPool.map((prod) => {
           return prod
         })
         setProduct(firstprod[0]);
@@ -58,24 +57,15 @@ export const App= () =>{
 
   const setItems = async(cond) => {
     if(cond){
-      setToken(jwt_decode(localStorage.getItem('token')))
-       setHeaders(() =>{
-        return {
-          Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
-        };
-      })
       setUser(true)
       getProductsFromCart();
     }else{
-      setHeaders(null)
-      setToken(null)
       setUser(false)
-      setProducts();
     }
   }
 
   const getProducts = async () => {
-    const URI = "https://frutcol-backend-r3lq.onrender.com/metadata";
+    const URI = "https://frutcol-backend.onrender.com/metadata";
     try {
       const response = await axios.get(URI);
       setProdsPool(response.data);
@@ -84,58 +74,44 @@ export const App= () =>{
     }
   };
 
-  const setProducts = () => {
-    setLProductos(() =>
-      prodsPool
-        .filter((prod) => prod.stock_producto > 0).map((prod) => {
-          return new Producto(
-            prod.id_metadata_producto,
-            prod.nombre_producto,
-            prod.precio_producto,
-            0,
-            prod.image,
-          );
-        })
-    );
-  };
-
   const getProductsFromCart = async () => {
     const headers= {
       Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
     }
     const token= jwt_decode(localStorage.getItem("token"));
-    const URI = `https://frutcol-backend-r3lq.onrender.com/carrito/${token.id_usuario}`;
+    const URI = `https://frutcol-backend.onrender.com/carrito/${token.id_usuario}`;
     try {
       const res = await axios.get(URI, {
         headers
       });
       setLProductos(() => prodsPool
-        .filter((prod) => prod.stock_producto > 0) 
         .map((prod) => {
-        const it = res.data.find(
-          (lproduc) => lproduc.id_producto === prod.id_metadata_producto
-        );
-        if (it === undefined) {
-          return new Producto(
-            prod.id_metadata_producto,
-            prod.nombre_producto,
-            prod.precio_producto,
-            0,
-            prod.image,
-            false,
-            prod.peso_producto
-          );
-        }else {
-          return new Producto(
-            it.id_producto,
-            prod.nombre_producto,
-            prod.precio_producto,
-            it.cantidad_producto,
-            prod.image,
-            true,
-            prod.peso_producto
-          );
-        }
+          return prod.SubMetadata_productos.map((sub) => {
+            const it = res.data.find(
+              (lproduc) => lproduc.id_producto === sub.id_subMetadata_producto
+            );
+            if (it === undefined) {
+              return new Producto(
+                sub.id_subMetadata_producto,
+                sub.nombre_producto,
+                sub.precio_producto,
+                0,
+                sub.image,
+                false,
+                sub.peso_producto
+              );
+            }else {
+              return new Producto(
+                it.id_producto,
+                sub.nombre_producto,
+                sub.precio_producto,
+                it.cantidad_producto,
+                sub.image,
+                true,
+                sub.peso_producto
+              );
+            }
+          })
       })
     );
 
@@ -147,9 +123,13 @@ export const App= () =>{
   const refresh= () => window.location.reload(true)
 
   const updateLProducts= (element) =>{
-    const foundIndex = lProductos.findIndex(x => x.id === element.id)
-    console.log(element.cantidad)
-    lProductos[foundIndex].cantidad = element.cantidad
+    lProductos.map((prod, index) => {
+      prod.map((sub) => {
+        if(sub.id === element.id){
+          lProductos[index].cantidad = element.cantidad;
+        }
+      })
+    })
   }
 
   const changeProp = (element) => {
@@ -164,7 +144,7 @@ export const App= () =>{
     <div className="principalContainer">
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool} lProductos={lProductos} user={user} headers={headers} token={token} updateLProducts={updateLProducts}/>}/>
+          <Route path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool} user={user}/>}/>
           <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool}/>}/>
           <Route path='/Ingreso' element={<Ingresocom refresh={refresh}/>}/>
           <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} prodsPool={prodsPool}/>}/> 
@@ -173,6 +153,7 @@ export const App= () =>{
           <Route path='/Privacidad' element={<PrivacyComp product={product}/>}/>
           <Route path='/carrito' element={<Carritocom product={product} lProductos={lProductos}/>}/>
           <Route path='/Privacidad' element={<PrivacyComp product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
+          <Route path='/:id' element={<Selement product={product} lProductos={lProductos} updateLProducts={updateLProducts}/>}/>
         </Routes>
       </BrowserRouter>      
     </div>

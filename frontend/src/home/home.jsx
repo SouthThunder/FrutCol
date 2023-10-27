@@ -12,7 +12,6 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
   const [primaryColor, setPrimaryColor] = useState([]);
   const [currentWord, setCurrentWord] = useState([]);
   const [currentPrice, setCurrentprice] = useState([]);
-  const [currentWeight, setCurrentWeight] = useState([]);
   const [sliderProds, setSliderProds] = useState([]);
   const firstLoad = useRef(false);
 
@@ -22,7 +21,6 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
     setCurrentImage(`../../images/${product.image}`);
     setCurrentWord(element.nombre_producto);
     setCurrentprice(element.precio_producto);
-    setCurrentWeight(element.peso_producto);
   };
   const updateProp = (element) => {
     changeProp(element);
@@ -41,7 +39,6 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
   const chkLength = () => {
     const auxProdsPull = [];
     prodsPool
-      .filter((prod) => prod.stock_producto > 0)
       .map((prod) => {
         auxProdsPull.push(prod);
       });
@@ -87,7 +84,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
           <h1>{currentWord}</h1>
         </div>
         <div className="n2">
-          <h1>{currentWeight} Gramos</h1>
+          <h1>$ {currentPrice}</h1>
         </div>
         <div className="n3">
           <button
@@ -229,108 +226,51 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
 
 export const ProdsComp = ({
   product,
-  headers,
   loged,
-  updateLProducts,
-  reloader,
+  changeProp
 }) => {
-  const [element, setElement] = useState(product);
-  const [test, setTest] = useState(false);
+  const element = product;
   const navigate = useNavigate();
 
-  useEffect(() => {}, [test, reloader]);
+  useEffect(() => {}, []);
 
-  const handleResCantidad = () => {
-    if (element.cantidad === 1) {
-      element.delProd(headers);
-      updateLProducts(element);
-      setTest(!test);
-    } else {
-      element.resCantidad(headers);
-      updateLProducts(element);
-      setTest(!test);
-    }
-  };
-
-  const handleSumCantidad = () => {
-    element.sumCantidad(headers);
-    updateLProducts(element);
-    setTest(!test);
-  };
-
-  const formatPrice = (price) => {
-    return price.toLocaleString("en-US");
-  };
-
-  const controls = (
-    <div className="controls">
-      <div className="panel">
-        <button onClick={() => handleResCantidad()}>-</button>
-        <p>{element.cantidad}</p>
-        <button onClick={() => handleSumCantidad()}>+</button>
-      </div>
-      <div className="value">
-        <p>$ {formatPrice(element.calcularPrecioTotal())}</p>
-      </div>
-    </div>
-  );
-
-  const noControls = () => {
+  const navBtn = () => {
     return (
       <div className="noControls">
         {loged ? (
           <button
             onClick={() => {
-              if (element.exists) {
-                element.sumCantidad(headers);
-                updateLProducts(element);
-              } else {
-                element.insertIntoDb(headers);
-                updateLProducts(element);
-              }
-              setTest(!test);
+              changeProp(element);
+              navigate(`/${element.id_metadata_producto}`)
             }}
           >
-            + Añadir al carrito
+            Ver opciones
           </button>
         ) : (
           <button onClick={() => navigate("/ingreso")}>
-            + Añadir al carrito
+            Ver opciones
           </button>
         )}
       </div>
     );
   };
 
-  const fDisplay = () => {
-    if (element.cantidad === 0) {
-      return noControls();
-    } else {
-      return controls;
-    }
-  };
-
   return (
-    <div className="card" key={element.id_producto}>
+    <div className="card" key={element.id_metadata_producto} >
       <div className="title">
         <div className="promt">
-          <p>{element.nombre}</p>
-        </div>
-        <div className="unit">
-          <div className="container">
-            <p>$ {formatPrice(element.precio)} c/u</p>
-          </div>
+          <p>{element.nombre_producto}</p>
         </div>
       </div>
       <div className="pImg">
-        <img src={"../../images/" + element.image} alt={element.nombre} />
+        <img src={"../../images/" + element.image} alt={element.nombre_producto} />
       </div>
-      {fDisplay()}
+      {navBtn()}
     </div>
   );
 };
 
-export const Products = ({ lProductos, user, headers, updateLProducts }) => {
+export const Products = ({ prodsPool, user, changeProp }) => {
   useEffect(() => {}, []);
 
   return (
@@ -339,14 +279,13 @@ export const Products = ({ lProductos, user, headers, updateLProducts }) => {
         <h1>Productos</h1>
       </div>
       <div className="elements">
-        {lProductos?.map((prods) => {
+        {prodsPool?.map((prods) => {
           return (
             <ProdsComp
-              product={prods}
-              headers={headers}
-              loged={user}
-              updateLProducts={updateLProducts}
               key={prods.id_producto}
+              product={prods}
+              loged={user}
+              changeProp={changeProp}
             />
           );
         })}
@@ -359,22 +298,18 @@ export const Homecom = ({
   product,
   changeProp,
   prodsPool,
-  lProductos,
-  user,
-  headers,
-  updateLProducts,
+  user
 }) => {
   return (
     <div className="homecontain">
       <Headercom product={product} />
       <Slider product={product} changeProp={changeProp} prodsPool={prodsPool} />
       <Products
-        lProductos={lProductos}
+        prodsPool={prodsPool}
         user={user}
-        headers={headers}
-        updateLProducts={updateLProducts}
+        changeProp={changeProp}
       />
-      <div class="whatsapp-container">
+      <div className="whatsapp-container">
         <Link 
           to="https://wa.me/573174358995"
           target="_blank"

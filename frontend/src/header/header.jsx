@@ -98,7 +98,7 @@ export const Headercom = ({product}) => {
                 transition: "all 1s var(--btn-cubic-bezier)",
               }}
             >
-              FrutCol
+              FrutCol - A
             </p>
           </a>
           <div className="nav__menu">

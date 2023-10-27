@@ -6,7 +6,7 @@ import { Toaster, toast } from "sonner";
 import GoogleLogin from "react-google-login";
 import axios from "axios";
 
-const URI = "https://frutcol-backend-r3lq.onrender.com/usuarios/login";
+const URI = "https://frutcol-backend.onrender.com/usuarios/login";
 
 export const Ingresocom = ({ refresh }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -78,7 +78,7 @@ export const Ingresocom = ({ refresh }) => {
   };
   const authToken = async (response) => {
     try {
-      const URI = "https://frutcol-backend-r3lq.onrender.com/usuarios/loging";
+      const URI = "https://frutcol-backend.onrender.com/usuarios/loging";
       const res = await axios.post(URI, {
         correo_usuario: response.profileObj.email,
       });
@@ -93,7 +93,7 @@ export const Ingresocom = ({ refresh }) => {
   };
 
   const getId = async (token) => {
-    const URI = "https://frutcol-backend-r3lq.onrender.com/carrito/create";
+    const URI = "https://frutcol-backend.onrender.com/carrito/create";
     const headers = {
       Authorization: `${token}`, // Agrega "Bearer" antes del token si es necesario
     };
@@ -182,7 +182,7 @@ export const Ingresocom = ({ refresh }) => {
 
           <div className="googleAuth">
             <GoogleLogin 
-              clientId="173629652834-49cdcatljk2nkkmhs2qsbq57rt2slhvs.apps.googleusercontent.com"
+              clientId="336496153339-bfh9gkv3l2ktbgnq5725nba8kp84u5ff.apps.googleusercontent.com"
               buttonText="Inicia sesión con Google"
               onSuccess={responseGoogleS}
               onFailure={responseGoogleE}

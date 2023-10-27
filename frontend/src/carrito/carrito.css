@@ -75,7 +75,9 @@
 .cartComp > .info > .items > .elements > .card > .info > .pImg {
   flex: 1;
   margin-left: 1.5rem;
-
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 .cartComp > .info > .items > .elements > .card > .info > .pImg > img {
   width: 100%;
@@ -122,6 +124,7 @@
   font-size: 1.2rem;
   border: none;
   margin-right: 1rem;
+  cursor: pointer;
 }
 
 .cartComp > .info > .items > .elements > .card > button:hover{
@@ -277,4 +280,5 @@
    border-radius: 4px;
    cursor:pointer;
    box-shadow:0 5px 5px rgba(0, 0, 0, 0.2);
+   cursor: pointer;
 }

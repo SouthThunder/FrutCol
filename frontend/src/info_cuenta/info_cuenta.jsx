@@ -12,8 +12,8 @@ const numeros = /^\d+$/; // Solo números
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 const texto = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
 
-const URI = "https://frutcol-backend-r3lq.onrender.com/usuarios/";
-const URI2 = "https://frutcol-backend-r3lq.onrender.com/usuarios/contrasena/";
+const URI = "https://frutcol-backend.onrender.com/usuarios/";
+const URI2 = "https://frutcol-backend.onrender.com/usuarios/contrasena/";
 
 export const Infocuenta = (prop) => {
   const headers = prop.headers;
@@ -218,7 +218,7 @@ export const Infocontenidos = (prop) => {
 };
 
 export const ProductosReserva = (prop) => {
-  const URI = `https://frutcol-backend-r3lq.onrender.com/reserprod/${prop.reservation.num_orden}`;
+  const URI = `https://frutcol-backend.onrender.com/reserprod/${prop.reservation.num_orden}`;
   const [products, setProducts] = useState(null);
   const [isLoading, setisLoading] = useState(true);
   const firstRender = useRef(true);
@@ -233,7 +233,6 @@ export const ProductosReserva = (prop) => {
     } else {
       if (products !== null) {
         setisLoading(false);
-        console.log(products);
       }
     }
   }, [products]);
@@ -267,9 +266,14 @@ export const ProductosReserva = (prop) => {
           </div>
         </div>
         {products?.map((products) => {
-          const matchingProduct = metadata.find(
-            (prod) => prod.id_metadata_producto === products.id_producto
-          );
+          let matchingProduct = null;
+          metadata.map((prod) => {
+            return prod.SubMetadata_productos.map((sub) => {
+              if (sub.id_subMetadata_producto === products.id_producto) {
+                matchingProduct = sub;
+              }
+            })
+          })
           return (
             <div className="product" key={products.id_producto}>
               <div className="pImg">
@@ -543,7 +547,7 @@ export const InfoCuentacom = ({ product, prodsPool, lProductos }) => {
   }, [userData, headers, userHistory, admin]);
 
   const getAdmin = async () => {
-    const URI = "https://frutcol-backend-r3lq.onrender.com/usuarios";
+    const URI = "https://frutcol-backend.onrender.com/usuarios";
     try {
       const res = await axios.get(URI, { headers });
       setAdmin(res.data);
@@ -560,7 +564,7 @@ export const InfoCuentacom = ({ product, prodsPool, lProductos }) => {
   };
 
   const getHistoryData = async () => {
-    const lURI = "https://frutcol-backend-r3lq.onrender.com/reserva/usuario";
+    const lURI = "https://frutcol-backend.onrender.com/reserva/usuario";
     try {
       const res = await axios.get(lURI, { headers });
       setUserHistory(res.data);
