@@ -38,7 +38,7 @@ export const Ingresocom = ({ refresh }) => {
       setEmailInputClass("");
     }
 
-    if (!localpassword || localpassword == undefined) {
+    if (!localpassword || localpassword === undefined) {
       setPasswordError("Ingrese su contraseña");
       setPasswordInputClass("shake");
       setTimeout(() => {
@@ -123,7 +123,6 @@ export const Ingresocom = ({ refresh }) => {
     <div className="ingresocontain" id="home">
       <div className="contizformlogin">
         <h1>¿Eres nuevo?</h1>
-        <p>Se parte de FrutColA</p>
         <br />
         <br />
         <br />

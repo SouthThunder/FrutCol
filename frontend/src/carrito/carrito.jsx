@@ -77,6 +77,142 @@ export const Card = ({ prods, updateReloader }) => {
   );
 };
 
+export const ReceiptInfo = () => {
+  const [formData, setFormData] = useState({
+    nombre: '',
+    ciudad: '',
+    direccion: '',
+    telefono: '',
+    correo: '',
+    cedula: '',
+    direccionEnvio: '',
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const validateEmail = (email) => {
+    const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    return emailPattern.test(email);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleConfirm = () => {
+    const newErrors = {};
+
+    // Validar campos obligatorios
+    for (const key in formData) {
+      if (formData[key] === '') {
+        newErrors[key] = 'Este campo es obligatorio';
+      }
+    }
+
+    // Validar correo electrónico
+    if (formData.correo && !validateEmail(formData.correo)) {
+      newErrors.correo = 'El correo electrónico no es válido';
+    }
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      // Aquí puedes enviar los datos o realizar la acción de confirmación
+      alert('sucess')
+      console.log('Datos confirmados:', formData);
+    }
+    
+  };
+
+  return (
+    <div className="captureReceiptData" id="captureReceiptData">
+      <div className="inner">
+        <h1>Datos de facturación</h1>
+        <div className="grid">
+          <div className="n1">
+            <label htmlFor="nombre">Nombre</label>
+            <input
+              type="text"
+              name="nombre"
+              value={formData.nombre}
+              onChange={handleInputChange}
+            />
+            {errors.nombre && <div className="error">{errors.nombre}</div>}
+          </div>
+          <div className="n2">
+            <label htmlFor="ciudad">Ciudad</label>
+            <input
+              type="text"
+              name="ciudad"
+              value={formData.ciudad}
+              onChange={handleInputChange}
+            />
+            {errors.ciudad && <div className="error">{errors.ciudad}</div>}
+          </div>
+          <div className="n3">
+            <label htmlFor="direccion">Dirección</label>
+            <input
+              type="text"
+              name="direccion"
+              value={formData.direccion}
+              onChange={handleInputChange}
+            />
+            {errors.direccion && <div className="error">{errors.direccion}</div>}
+          </div>
+          <div className="n4">
+            <label htmlFor="telefono">Teléfono</label>
+            <input
+              type="text"
+              name="telefono"
+              value={formData.telefono}
+              onChange={handleInputChange}
+            />
+            {errors.telefono && <div className="error">{errors.telefono}</div>}
+          </div>
+          <div className="n5">
+            <label htmlFor="correo">Correo</label>
+            <input
+              type="text"
+              name="correo"
+              value={formData.correo}
+              onChange={handleInputChange}
+            />
+            {errors.correo && <div className="error">{errors.correo}</div>}
+          </div>
+          <div className="n6">
+            <label htmlFor="cedula">Cédula o NIT</label>
+            <input
+              type="text"
+              name="cedula"
+              value={formData.cedula}
+              onChange={handleInputChange}
+            />
+            {errors.cedula && <div className="error">{errors.cedula}</div>}
+          </div>
+        </div>
+        <div className="additional">
+          <h1>Dirección de envío</h1>
+          <input
+            type="text"
+            name="direccionEnvio"
+            value={formData.direccionEnvio}
+            onChange={handleInputChange}
+          />
+          {errors.direccionEnvio && <div className="error">{errors.direccionEnvio}</div>}
+        </div>
+        <div className="confirm">
+          <button onClick={handleConfirm}>Confirmar</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
 export const Cart = ({ lProductos }) => {
   const [total, setTotal] = useState(0);
   const [totalp, setTotalp] = useState(0);
@@ -85,6 +221,7 @@ export const Cart = ({ lProductos }) => {
   const [indicator, setIndicator] = useState([]);
   const [promt, setPromt] = useState([]);
   const [isComponentDisabled, setComponentDisabled] = useState(false);
+  const [receipt, setReceipt] = useState(false);
   const navigate = useNavigate();
 
   const headers = {
@@ -174,69 +311,69 @@ export const Cart = ({ lProductos }) => {
       popup.style.visibility = "hidden";
       popup.style.transform = "translate(-50%, -50%) scale(0.1)";
     }
-    navigate('/')
+    navigate("/");
   };
 
   const handleReserve = async () => {
     const id_h = jwt_decode(localStorage.getItem("token"));
-
-    setComponentDisabled(true);
+    // setComponentDisabled(true);
+    setReceipt(true);
 
     const URIR = "https://frutcol-backend.onrender.com/reserva";
     const URIRP = "https://frutcol-backend.onrender.com/reserprod";
     const URI = "https://frutcol-backend.onrender.com/carrito/mod";
-    if (totalp > 0) {
-      try {
-        const testing = await axios.post(
-          URIR,
-          {
-            id_usuario: id_h.id_usuario,
-            num_productos_reserva: totalp,
-            valor_reserva: total,
-            fecha_reserva: new Date().toISOString().slice(0, 10),
-          },
-          { headers }
-        );
-        lProductos.map((prod) => {
-          return prod.map(async (sub) => {
-            if (sub.cantidad > 0) {
-              await axios.post(
-                URIRP,
-                {
-                  num_orden: testing.data,
-                  id_producto: sub.id,
-                  cantidad_producto: sub.cantidad,
-                },
-                {
-                  headers,
-                }
-              );
+    // if (totalp > 0) {
+    //   try {
+    //     const testing = await axios.post(
+    //       URIR,
+    //       {
+    //         id_usuario: id_h.id_usuario,
+    //         num_productos_reserva: totalp,
+    //         valor_reserva: total,
+    //         fecha_reserva: new Date().toISOString().slice(0, 10),
+    //       },
+    //       { headers }
+    //     );
+    //     lProductos.map((prod) => {
+    //       return prod.map(async (sub) => {
+    //         if (sub.cantidad > 0) {
+    //           await axios.post(
+    //             URIRP,
+    //             {
+    //               num_orden: testing.data,
+    //               id_producto: sub.id,
+    //               cantidad_producto: sub.cantidad,
+    //             },
+    //             {
+    //               headers,
+    //             }
+    //           );
 
-              await axios.put(
-                URI,
-                {
-                  id_carrito: id_h.id_usuario,
-                  id_producto: sub.id,
-                  cantidad_producto: 0,
-                },
-                {
-                  headers,
-                }
-              );
-            }
-          });
-        });
-        toast.success("La reserva ha sido creada");
+    //           await axios.put(
+    //             URI,
+    //             {
+    //               id_carrito: id_h.id_usuario,
+    //               id_producto: sub.id,
+    //               cantidad_producto: 0,
+    //             },
+    //             {
+    //               headers,
+    //             }
+    //           );
+    //         }
+    //       });
+    //     });
+    //     toast.success("La reserva ha sido creada");
 
-        await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
-        openPopup();
-      } catch (error) {
-        toast.error("Ha ocurrido un error creando la reserva");
-        console.error(error);
-      }
-    } else {
-      toast.error("Agrega productos al carrito antes de reservar");
-    }
+    //     await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
+    //     openPopup();
+    //   } catch (error) {
+    //     toast.error("Ha ocurrido un error creando la reserva");
+    //     console.error(error);
+    //   }
+    // } else {
+    //   toast.error("Agrega productos al carrito antes de reservar");
+    // }
   };
 
   return (
@@ -318,12 +455,20 @@ export const Cart = ({ lProductos }) => {
             >
               Comprar
             </button>
+              {
+                receipt ? (
+                  <ReceiptInfo/>
+                ) : (
+                  null
+                )
+              }
             <div className="toast2" id="popup">
-              <h2>Pasos para hacer efectiva la reserva:</h2>
+              <h2>Pasos para hacer efectiva la compra:</h2>
               <div className="pasos">
                 <p>
-                  1. Realice el pago del valor del pedido a Bancolombia cuenta
-                  de Ahorros No. 601-000041-89 NIT: 901733392-6.
+                  1. Realice el pago del valor del pedido a Bancolombia a nombre
+                  de <strong>Frutcol - A SAS</strong> cuenta de Ahorros No.
+                  601-000041-89 NIT: 901733392-6.
                 </p>
                 <p>
                   2. Tome una foto o captura de pantalla del comprobante de la
@@ -331,9 +476,14 @@ export const Cart = ({ lProductos }) => {
                 </p>
                 <p>
                   3. Envíe la foto del comprobante a WhatsApp al número
-                  3174358995 junto con un mensaje en el que indique el número de
-                  orden;Puede consultar a detalle las reservas en Ajustes
-                  &#x2192; Historial de Reservas.
+                  3174358995 y/o al correo email{" "}
+                  <strong>frutcol0518@gmail.com</strong>, junto con un mensaje
+                  que indique el número de orden de la compra
+                </p>
+                <p>
+                  Nota: Para ver el número de orden de la compra, hacer click en
+                  el ícono de usuario, ir a ajustes, y dar click en historial de
+                  compras para ver la última compra que se realizó
                 </p>
               </div>
               <button type="button" onClick={closePopup}>
