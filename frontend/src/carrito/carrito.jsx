@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./carrito.css";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
@@ -77,7 +77,9 @@ export const Card = ({ prods, updateReloader }) => {
   );
 };
 
-export const ReceiptInfo = () => {
+export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, openPopup }) => {
+  const firstLoad = useRef(true);
+  const [localProds, setLocalProds] = useState([]);
   const [formData, setFormData] = useState({
     nombre: '',
     ciudad: '',
@@ -87,6 +89,19 @@ export const ReceiptInfo = () => {
     cedula: '',
     direccionEnvio: '',
   });
+
+  useEffect(() => {
+    if(firstLoad.current) {
+      lProductos.map((prods) => { 
+        return prods.map((sub) => {
+          if (sub.cantidad > 0) {          
+            setLocalProds((pro) => [...pro,sub])
+          }
+        })
+      })
+      firstLoad.current = false;
+    }
+  }, [localProds])
 
   const [errors, setErrors] = useState({});
 
@@ -122,11 +137,35 @@ export const ReceiptInfo = () => {
 
     if (Object.keys(newErrors).length === 0) {
       // Aquí puedes enviar los datos o realizar la acción de confirmación
-      alert('sucess')
-      console.log('Datos confirmados:', formData);
+      handlePurchase()
     }
     
   };
+
+  const headers = {
+    Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
+  };
+
+  const handlePurchase = async() => {
+    const id_h = jwt_decode(localStorage.getItem("token"));
+    const URI = 'http://localhost:8000/reserva/';
+    try {
+      const res = await axios.post(URI, {
+        id_usuario: id_h.id_usuario,
+        valor_reserva: valor_reserva,
+        num_productos_reserva: num_productos_reserva,
+        fecha_reserva: new Date().toISOString().slice(0, 10),          
+        formData, localProds
+      }, { headers })
+      if(res.data){
+        toast.success('La compra ha sido creada');
+        await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
+        openPopup()
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <div className="captureReceiptData" id="captureReceiptData">
@@ -224,9 +263,7 @@ export const Cart = ({ lProductos }) => {
   const [receipt, setReceipt] = useState(false);
   const navigate = useNavigate();
 
-  const headers = {
-    Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
-  };
+
 
   useEffect(() => {
     // Calcula el número total de productos en el carrito
@@ -315,65 +352,8 @@ export const Cart = ({ lProductos }) => {
   };
 
   const handleReserve = async () => {
-    const id_h = jwt_decode(localStorage.getItem("token"));
-    // setComponentDisabled(true);
+    setComponentDisabled(true);
     setReceipt(true);
-
-    const URIR = "https://frutcol-backend.onrender.com/reserva";
-    const URIRP = "https://frutcol-backend.onrender.com/reserprod";
-    const URI = "https://frutcol-backend.onrender.com/carrito/mod";
-    // if (totalp > 0) {
-    //   try {
-    //     const testing = await axios.post(
-    //       URIR,
-    //       {
-    //         id_usuario: id_h.id_usuario,
-    //         num_productos_reserva: totalp,
-    //         valor_reserva: total,
-    //         fecha_reserva: new Date().toISOString().slice(0, 10),
-    //       },
-    //       { headers }
-    //     );
-    //     lProductos.map((prod) => {
-    //       return prod.map(async (sub) => {
-    //         if (sub.cantidad > 0) {
-    //           await axios.post(
-    //             URIRP,
-    //             {
-    //               num_orden: testing.data,
-    //               id_producto: sub.id,
-    //               cantidad_producto: sub.cantidad,
-    //             },
-    //             {
-    //               headers,
-    //             }
-    //           );
-
-    //           await axios.put(
-    //             URI,
-    //             {
-    //               id_carrito: id_h.id_usuario,
-    //               id_producto: sub.id,
-    //               cantidad_producto: 0,
-    //             },
-    //             {
-    //               headers,
-    //             }
-    //           );
-    //         }
-    //       });
-    //     });
-    //     toast.success("La reserva ha sido creada");
-
-    //     await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
-    //     openPopup();
-    //   } catch (error) {
-    //     toast.error("Ha ocurrido un error creando la reserva");
-    //     console.error(error);
-    //   }
-    // } else {
-    //   toast.error("Agrega productos al carrito antes de reservar");
-    // }
   };
 
   return (
@@ -457,7 +437,7 @@ export const Cart = ({ lProductos }) => {
             </button>
               {
                 receipt ? (
-                  <ReceiptInfo/>
+                  <ReceiptInfo lProductos={lProductos} num_productos_reserva={totalp} valor_reserva={total} openPopup={openPopup}/>
                 ) : (
                   null
                 )
@@ -467,8 +447,8 @@ export const Cart = ({ lProductos }) => {
               <div className="pasos">
                 <p>
                   1. Realice el pago del valor del pedido a Bancolombia a nombre
-                  de <strong>Frutcol - A SAS</strong> cuenta de Ahorros No.
-                  601-000041-89 NIT: 901733392-6.
+                  de <strong>Frutcol - A SAS</strong> cuenta de Ahorros <strong>No.
+                  601-000041-89</strong> NIT: <strong>901733392-6.</strong>
                 </p>
                 <p>
                   2. Tome una foto o captura de pantalla del comprobante de la
@@ -476,7 +456,7 @@ export const Cart = ({ lProductos }) => {
                 </p>
                 <p>
                   3. Envíe la foto del comprobante a WhatsApp al número
-                  3174358995 y/o al correo email{" "}
+                  <strong> 3174358995</strong> y/o al correo email{" "}
                   <strong>frutcol0518@gmail.com</strong>, junto con un mensaje
                   que indique el número de orden de la compra
                 </p>

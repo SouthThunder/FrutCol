@@ -270,6 +270,7 @@
   color: #333;
   visibility: hidden;
   transition: transform 0.4s, top 0.4s;
+  z-index: 999;
 }
 .cartComp > .info > .checkout > .bottom > .toast2 > .pasos {
   margin-top: 1rem;
