@@ -159,6 +159,14 @@ export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, o
       }, { headers })
       if(res.data){
         toast.success('La compra ha sido creada');
+        //eliminar productos del carrito
+        lProductos.map((prods) => {
+          return prods.map((sub) => {
+            if (sub.cantidad > 0) {
+              sub.delProd(headers);
+            }
+          });
+        });
         await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
         openPopup()
       }

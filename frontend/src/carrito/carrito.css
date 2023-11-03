@@ -323,16 +323,6 @@
   margin: 1rem;
 }
 
-.captureReceiptData > .inner > input {
-  width: 80%;
-  height: 2rem;
-  border-radius: var(--sm-border);
-  border: 1px solid black;
-  outline: none;
-  padding-left: 1rem;
-  margin: 1rem auto;
-}
-
 .captureReceiptData > .inner > .grid {
   margin-top: 2rem;
   display: grid;
@@ -346,7 +336,7 @@
 .captureReceiptData > .inner > .grid input {
   width: 80%;
   height: 2rem;
-  border-radius: var(--sm-border);
+  border-radius: var(--xs-border);
   border: 1px solid black;
   outline: none;
   padding-left: 1rem;
