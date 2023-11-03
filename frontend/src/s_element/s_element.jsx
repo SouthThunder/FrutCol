@@ -3,12 +3,14 @@ import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 import LoadingSpinner from "../loading/LoadingSpinner";
 import "./s_element.css";
+import { useNavigate } from "react-router-dom";
 
 export const Element = ({ elements, father, lProductos, updateLProducts }) => {
   const [activeElement, setActiveElement] = useState(null);
   const [isFather, setIsFather] = useState(true);
   const [test, setTest] = useState(false);
   const [activeObject, setActiveObject] = useState(null);
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (activeElement === undefined || activeElement === null) {
@@ -63,8 +65,8 @@ export const Element = ({ elements, father, lProductos, updateLProducts }) => {
         <button onClick={() => handleSumCantidad()}>+</button>
       </div>
       <div className="value">
-        <p>Subtotal: </p>
-        <p>$ {formatPrice(activeObject?.calcularPrecioTotal())}</p>
+        <p>Subtotal: <p>$ {formatPrice(activeObject?.calcularPrecioTotal())}</p></p>
+        <button onClick={() => navigate('/carrito')}>Ir al carrito</button>
       </div>
     </div>
   );
