@@ -60,8 +60,8 @@
 }
 
  .productsComp > .elements > .card > .pImg > img{
-    width: calc(var(--card-width) - (var(--card-width) / 3));
-    height: calc(var(--card-width) - (var(--card-width) / 3));
+    width: calc(var(--card-width) - (var(--card-width) / 2));
+    height: calc(var(--card-width) - (var(--card-width) / 2));
 }
 
  .productsComp > .elements > .card > .controls{
