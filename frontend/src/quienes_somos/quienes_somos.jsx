@@ -9,7 +9,7 @@ export const QuienesSomos = ({ product }) => {
       <h1 className="tittlequienes" style={{ color: product.main_color }}>
         FrutCol-A
       </h1>
-      <h3 className="sloganquienes">Apasionante y natural</h3>
+      <h3 className="sloganquienes">Apasionante y Natural</h3>
       <div className="first containerquienes">
         <h2
           className="subtittleQuienes tittlequienes"
@@ -89,9 +89,12 @@ export const QuienesSomos = ({ product }) => {
         </ul>
       </div>
       <div className="values ">
-        {/* <h2 className="tittlequienes">Valores</h2> */}
-        <div class="animated-title">
-          <div class="text-top">
+        {/* <h1 className="tittlequienes">Valores</h1> */}
+        
+
+
+        <div className="animated-title">
+          <div className="text-top">
             <div>
               <span>Ética Empresarial</span>
               <span>Compromiso</span>
@@ -99,7 +102,7 @@ export const QuienesSomos = ({ product }) => {
               <span>Excelencia</span>
             </div>
           </div>
-          <div class="text-bottom">
+          <div className="text-bottom">
             <div>Estos son nuestros valores</div>
           </div>
         </div>
@@ -133,9 +136,6 @@ export const QuienesSomos = ({ product }) => {
               Contribuir al desarrollo de nuestro país generando empleo en todos
               nuestros procesos de producción.
             </p>
-          </li>
-          <li>
-            <p>Favorecer el desarrollo alimentario del campo colombiano</p>
           </li>
           <li>
             <p>

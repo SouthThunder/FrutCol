@@ -74,6 +74,7 @@ export class Producto {
   async insertIntoDb(headers) {
     const idUser= jwt_decode(localStorage.getItem('token'))
     this.cantidad += 1;
+    this.exists = true;
     try {
       const URI = "https://frutcol-backend.onrender.com/carrito/";
       await axios.post(URI, {

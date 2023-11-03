@@ -148,7 +148,7 @@ export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, o
 
   const handlePurchase = async() => {
     const id_h = jwt_decode(localStorage.getItem("token"));
-    const URI = 'https://frutcol-backend.onrender.com';
+    const URI = 'https://frutcol-backend.onrender.com/reserva/';
     try {
       const res = await axios.post(URI, {
         id_usuario: id_h.id_usuario,

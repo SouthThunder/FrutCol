@@ -1,5 +1,9 @@
+.quienesomos{
+  margin-top: calc(var(--header-height)/1.5 + 1rem);
+}
+
 .tittlequienes{
-    margin-bottom: 1%;
+  margin-bottom: 1rem;
 }
 .containerquienes  {
     display: grid;
@@ -31,13 +35,11 @@
 /*VALORES CSS */
 .values{
     display: flex;
-    height: 78vh;
     width: 100%;
-    margin-top: 4rem;
+    height: 700px;
+    margin-top: 5rem;
     position: relative; 
-    justify-content: center;
-    margin-bottom: -10rem;
-    
+    justify-content: center;    
 }
 
 @keyframes showTopText {

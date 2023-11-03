@@ -17,7 +17,6 @@ export const Element = ({ elements, father, lProductos, updateLProducts }) => {
     } else {
       getObject(activeElement.id_subMetadata_producto);
     }
-    console.log(activeObject);
   }, [activeElement, isFather, activeObject]);
 
   const headers = {
@@ -77,9 +76,11 @@ export const Element = ({ elements, father, lProductos, updateLProducts }) => {
           onClick={() => {
             if (activeObject.exists) {
               activeObject.sumCantidad(headers);
+              console.log('enter exists')
               updateLProducts(activeObject);
             } else {
               activeObject.insertIntoDb(headers);
+              console.log('enter not exists')
               updateLProducts(activeObject);
             }
             setTest(!test);
