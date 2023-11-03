@@ -1,69 +1,102 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./quienes_somos.css";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
 
-export const QuienesSomos = ({product}) => {
-
+export const QuienesSomos = ({ product }) => {
   return (
     <div className="quienesomos containerquienes">
-      <h1 className="tittlequienes" style={{color:product.main_color}}>FrutCol-A</h1>
+      <h1 className="tittlequienes" style={{ color: product.main_color }}>
+        FrutCol-A
+      </h1>
       <h3 className="sloganquienes">Apasionante y natural</h3>
       <div className="first containerquienes">
-        <h2 className="subtittleQuienes tittlequienes" style={{color:product.main_color}}>Quienes Somos</h2>
+        <h2
+          className="subtittleQuienes tittlequienes"
+          style={{ color: product.main_color }}
+        >
+          Quienes Somos
+        </h2>
         <p>
-          FrutCol -A SAS es una empresa dedicada a la producción y
-          comercialización de pulpa de fruta y otros alimentos 100% naturales.
-          Nuestro principal producto es la pulpa de fruta congelada que
-          comercializamos bajo nuestra marca FrutCol - A para satisfacer y
-          contribuir al bienestar de los diversos consumidores.
-        </p>
-        <p>
-          FrutCol-A es la marca que representa la calidad natural de las frutas
-          frescas conservando su aroma, color y sabor original, producida con
-          calidad bajo los estándares y lineamientos establecidos para ofrecer
-          el mejor producto a nuestros consumidores.
+          FructCol – A SAS es una empresa colombiana del sector agroindustrial
+          dedicada al procesamiento y comercialización de pulpa de frutas de
+          óptima calidad 100% natural.
         </p>
       </div>
-      <div className="misionvision containerquienes" style={{backgroundColor:product.comp_color}}>
+      <div
+        className="misionvision containerquienes"
+        style={{ backgroundColor: product.comp_color }}
+      >
         <div className="mision containerquienes">
-          <h2 className="tittlequienes" style={{color:product.main_color}}>Mision</h2>
+          <h2 className="tittlequienes" style={{ color: product.main_color }}>
+            Mision
+          </h2>
           <p>
-            Producir Pulpa de fruta y otros alimentos 100% naturales usando
-            frutas, vegetales, hortalizas y tubérculos de las diferentes
-            regiones de nuestro campo colombiano de la mejor calidad, generando
-            un impacto positivo en la calidad de vida de los agricultores y
-            satisfaciendo a nuestros clientes y asumiendo responsabilidad con el
-            cuidado del medio ambiente con las buenas prácticas. Promover
-            hábitos saludables en la población, generar empleo favoreciendo el
-            desarrollo del campo colombiano.
+            Producir y comercializar pulpa de frutas de óptima calidad 100%
+            natural, sin aditivos ni conservantes, bajo el concepto de ALIMENTO
+            SALUDABLE con buenas prácticas de manufactura y de economía
+            circular.
           </p>
         </div>
 
         <div className="vision containerquienes">
-          <h2 className="tittlequienes" style={{color:product.main_color}}>Vision</h2>
+          <h2 className="tittlequienes" style={{ color: product.main_color }}>
+            Vision
+          </h2>
           <p>
             FrutCol – A SAS será una empresa consolidada con reconocimiento
             nacional e internacional por la producción y comercialización de
-            pulpa de frutas congeladas y otros alimentos naturales con los más
-            altos estándares de calidad en todos y cada uno de sus procesos.
-            Estará comprometida con las buenas practicas ambientales y en el
-            desarrollo de hábitos saludables y de mejoramiento continuo en sus
-            procesos y de fortalecimiento en el desarrollo del campo colombiano.
+            pulpa de frutas congeladas 100% natural con los más altos estándares
+            de calidad en todos y cada uno de sus procesos.
           </p>
         </div>
       </div>
-      <div className="values " >
+      <div
+        className="objectives containerquienes"
+        style={{ backgroundColor: "white" }}
+      >
+        <h2 className="tittlequienes" style={{ color: product.main_color }}>
+          Beneficios
+        </h2>
+        <ul className="objectives__list">
+          <li>
+            <p>
+            	La pulpa de fruta fresca envasada y congelada conserva sus nutrientes, sabor, aroma y color de la fruta de la cual es extraída.
+            </p>
+          </li>
+          <li>
+            <p>
+              La pulpa de fruta se utiliza para la elaboración de jugos naturales, batidos, heladería, confitería, refrescos, conservas, postres, cocteles, mermeladas, etc.
+            </p>
+          </li>
+          <li>
+            <p>Usar pulpa de fruta optimiza y ahorra tiempo en el proceso de elaboración de los diferentes productos, economiza dinero y evita desperdicios</p>
+          </li>
+          <li>
+            <p>
+              Permite disfrutar de ciertas frutas fuera de temporada.
+            </p>
+          </li>
+          <li>
+            <p>Consumir frutas contribuye a mantener hábitos de vida saludable.</p>
+          </li>
+          <li>
+            <p>
+            Contribuir en la cadena de producción y desarrollo del campo colombiano.
+            </p>
+          </li>
+
+        </ul>
+      </div>
+      <div className="values ">
         {/* <h2 className="tittlequienes">Valores</h2> */}
         <div class="animated-title">
           <div class="text-top">
             <div>
-            <span>Ética</span>
-            <span>Respeto</span>
-            <span>Responsabilidad</span>
-            <span>Calidad</span>
-            <span>Honestidad</span>
-            <span>Solidaridad</span>
+              <span>Ética Empresarial</span>
+              <span>Compromiso</span>
+              <span>Confianza</span>
+              <span>Excelencia</span>
             </div>
           </div>
           <div class="text-bottom">
@@ -71,20 +104,25 @@ export const QuienesSomos = ({product}) => {
           </div>
         </div>
       </div>
-      <div className="objectives containerquienes" style={{backgroundColor:product.comp_color}}>
-        <h2 className="tittlequienes" style={{color:product.main_color}}>Objetivos</h2>
+      <div
+        className="objectives containerquienes"
+        style={{ backgroundColor: product.comp_color }}
+      >
+        <h2 className="tittlequienes" style={{ color: product.main_color }}>
+          Objetivos
+        </h2>
         <ul className="objectives__list">
           <li>
             <p>
               {" "}
-              Garantizar el procesamiento del producto con estándares de
-              calidad.
+              Garantizar el procesamiento del producto con buenas practica de
+              manufactura (BPM)
             </p>
           </li>
           <li>
             <p>
-              Ofrecer al mercado un producto con calidad, capaz de satisfacer
-              las necesidades de los consumidores.
+              Ofrecer un producto de la mejor calidad para que nuestros clientes
+              disfruten de los beneficios que aportan las frutas.
             </p>
           </li>
           <li>
@@ -92,49 +130,53 @@ export const QuienesSomos = ({product}) => {
           </li>
           <li>
             <p>
-              Motivar al cuidado y responsabilidad con el medio ambiente, dando
-              uso adecuado de los recursos utilizados.
+              Contribuir al desarrollo de nuestro país generando empleo en todos
+              nuestros procesos de producción.
             </p>
           </li>
           <li>
             <p>Favorecer el desarrollo alimentario del campo colombiano</p>
           </li>
           <li>
-            <p>Crear fuentes de empleo, apoyando las nuevas generaciones.</p>
+            <p>
+              Fomentar voluntariamente el cuidado del medio ambiente
+              adaptándonos a la aplicación del modelo de economía circular
+              (Extraer – Consumir – Desechar)
+            </p>
           </li>
           <li>
             <p>
-              Posicionar a FrutCol-A como la marca líder del mercado con
-              reconocimiento a nivel mundial.
+              Posicionar a FrutCol-A SAS como la marca líder del mercado con
+              reconocimiento a nivel nacional e internacional.
             </p>
           </li>
         </ul>
       </div>
-    
+
       <div className="qualitypolicies containerquienes">
-        <h2 className="tittlequienes" style={{color:product.main_color}}>Politicas de Calidad</h2>
+        <h2 className="tittlequienes" style={{ color: product.main_color }}>
+          Politicas de Calidad
+        </h2>
         <p>
-          FrutCol-A Establece una política de calidad basada en la normativa
+          FrutCol-A SAS establece una política de calidad basada en la normativa
           nacional y en las mejores prácticas higiénico-sanitarias, dando
           cumplimiento a las exigencias de las entidades de control
-          correspondientes. Con el propósito de procesar, producir y
-          comercializar la pulpa de fruta, con los mejores estándares de
-          calidad, para satisfacer y cumplir con las necesidades de nuestros
-          consumidores, bajo el principio de optimización y mejora continua en
-          todos nuestros procesos.
+          correspondientes, con el propósito de procesar, producir y
+          comercializar la pulpa de fruta, para satisfacer y cumplir con las
+          necesidades de nuestros consumidores, bajo el principio de
+          optimización y mejora continua en todos nuestros procesos.
         </p>
       </div>
     </div>
   );
 };
 
-export const QuienesSomoscom = ({product}) => {
-  useEffect(() =>{
-  }, [product]);
+export const QuienesSomoscom = ({ product }) => {
+  useEffect(() => {}, [product]);
 
   return (
-    <div className="QuienesSomoscontain" >
-      <Headercom product={product}/>
+    <div className="QuienesSomoscontain">
+      <Headercom product={product} />
       <QuienesSomos product={product} />
       <Footercom product={product} />
     </div>

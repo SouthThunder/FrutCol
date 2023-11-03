@@ -185,8 +185,10 @@ export const Reservas = (prop) => {
 export const ProductosReserva = (prop) => {
   const URI = `https://frutcol-backend.onrender.com/reserprod/${prop.reservation.num_orden}`;
   const URI2 = `https://frutcol-backend.onrender.com/reserva/${prop.reservation.num_orden}`;
+  const URI3 = `https://frutcol-backend.onrender.com/facturacion/${prop.reservation.num_orden}`;
   const [products, setProducts] = useState(null);
   const [userData, setUserData] = useState(null);
+  const [receiptData, setReceiptData] = useState(null);
   const [isLoading, setisLoading] = useState(true);
   const firstRender = useRef(true);
   const metadata = prop.prodsPool;
@@ -196,17 +198,16 @@ export const ProductosReserva = (prop) => {
   };
   useEffect(() => {
     if (firstRender.current) {
-      getProducts();
-      getUserData();
+      Promise.all([getProducts(), getUserData(), getReceiptData()]);
       firstRender.current = false;
     } else {
-      if (products !== null && userData !== null) {
+      if (products !== null && userData !== null && receiptData !== null) {
         setisLoading(false);
       }else{
         setisLoading(true);
       }
     }
-  }, [products, userData]);
+  }, [products, userData, receiptData]);
 
   const getProducts = async () => {
     try {
@@ -225,6 +226,14 @@ export const ProductosReserva = (prop) => {
       console.error("ERROR: " + error);
     }
   };
+  const getReceiptData = async () => {
+    try {
+      const res = await axios.get(URI3, { headers });
+      setReceiptData(res.data);
+    } catch (error) {
+      console.error("ERROR: " + error);
+    }
+  }
 
   const handleEntregarOrden = async () => {
     const URI = `https://frutcol-backend.onrender.com/reserva/${prop.reservation.num_orden}`;
@@ -283,7 +292,7 @@ export const ProductosReserva = (prop) => {
             </div>
             <div className="c3">
               <p>
-                <strong>Dirección:</strong> {userData.direccion_usuario}
+                <strong>Dirección:</strong> {prop.reservation.direccion_reserva}
               </p>
             </div>
           </div>
@@ -296,6 +305,43 @@ export const ProductosReserva = (prop) => {
             <div className="c2">
               <p>
                 <strong>Apellido:</strong> {userData.apellido_usuario}
+              </p>
+            </div>
+          </div>
+        </div>
+        <h3>Datos de facturación</h3>
+        <div className="grid">
+          <div className="r1">
+            <div className="c1">
+              <p>
+                <strong>Cédula:</strong> {receiptData.iden_facturacion}
+              </p>
+            </div>
+            <div className="c2">
+              <p>
+                <strong>Correo:</strong> {receiptData.correo_facturacion}
+              </p>
+            </div>
+            <div className="c3">
+              <p>
+                <strong>Dirección:</strong> {receiptData.direccion_facturacion}
+              </p>
+            </div>
+          </div>
+          <div className="r2">
+            <div className="c1">
+              <p>
+                <strong>Nombre:</strong> {receiptData.nombre_facturacion}
+              </p>
+            </div>
+            <div className="c2">
+              <p>
+                <strong>Telefono:</strong> {receiptData.telefono_facturacion}
+              </p>
+            </div>
+            <div className="c3">
+              <p>
+                <strong>Ciudad:</strong> {receiptData.ciudad_facturacion}
               </p>
             </div>
           </div>
