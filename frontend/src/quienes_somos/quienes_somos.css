@@ -18,7 +18,7 @@
 }
 .quienesomos > .misionvision > .vision{
     border-left: 2px solid black;
-    
+    margin-left: 5%;
 }
 .quienesomos > .objectives {
     border-radius: var(--sm-border);
@@ -35,70 +35,65 @@
 /*VALORES CSS */
 .values{
     display: flex;
-    width: 100%;
+    width: 90%;
     height: 700px;
     margin-top: 5rem;
     position: relative; 
-    justify-content: center;    
+    justify-content: center;
+    flex-direction: column;
 }
 
-@keyframes showTopText {
-  0% { transform: translate3d(0, 100%, 0); }
-  40%, 60% { transform: translate3d(0, 50%, 0); }
-  100% { transform: translate3d(0, 0, 0); }
+.values > h1{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    padding: 1rem 0 1rem 0;
 }
-@keyframes showBottomText {
-  0% { transform: translate3d(0, -100%, 0); }
-  100% { transform: translate3d(0, 0, 0); }
+
+.values > .holder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
-.animated-title {
-  color: #222;
-  
-  height: 50vmin;
-  left: 50%;
-  top: 50%;
- 
-  width: 90vmin;
+
+.values > .holder > .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    position: absolute;
+    border: 1px solid var(--primary-color);
+    padding: 1.5rem;
+    width: 30%;
+    height: 8rem;
+    border-radius: var(--md-border);
 }
-.animated-title > div {
-  height: 50%;
-  overflow: hidden;
-  position: absolute;
-  width: 100%;
+
+
+.values > .holder > .container:nth-child(5){
+    left: 5rem;
+    top: 5rem;
 }
-.animated-title > div div {
-  font-size: 5vmin;
-  padding: 2vmin 0;
-  position: absolute;
+.values > .holder > .container:nth-child(2){
+    right: 5rem;
+    top: 5rem;
 }
-.animated-title > div div span {
-  display: block;
+.values > .holder > .container:nth-child(3){
+    right: 5rem;
+    bottom: 5rem;
 }
-.animated-title > div.text-top {
-  border-bottom: 0.5vmin solid #000;
-  width: 50%;
-  top: 0;
+.values > .holder > .container:nth-child(4){
+    left: 5rem;
+    bottom: 5rem;
 }
-.animated-title > div.text-top div {
-  animation: showTopText 1s;
-  animation-delay: 0.5s;
-  animation-fill-mode: forwards;
-  bottom: 0;
-  transform: translate(0, 100%);
-}
-.animated-title > div.text-top div span:first-child {
-  color: #767676;
-}
-.animated-title > div.text-bottom {
-  bottom: 0;
-}
-.animated-title > div.text-bottom div {
-  animation: showBottomText 0.5s;
-  animation-delay: 1.75s;
-  animation-fill-mode: forwards;
-  top: 0;
-  transform: translate(0, -100%);
-}
+
 
 .qualitypolicies {
   width: 80%;

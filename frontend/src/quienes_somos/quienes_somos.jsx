@@ -89,21 +89,25 @@ export const QuienesSomos = ({ product }) => {
         </ul>
       </div>
       <div className="values ">
-        {/* <h1 className="tittlequienes">Valores</h1> */}
-        
-
-
-        <div className="animated-title">
-          <div className="text-top">
-            <div>
-              <span>Ética Empresarial</span>
-              <span>Compromiso</span>
-              <span>Confianza</span>
-              <span>Excelencia</span>
-            </div>
+        <h1 className="tittlequienes" style={{ color: product.main_color }}>Valores</h1>
+        <div className="holder">
+          <img src="./images/Frame 1.png" alt="Logo" />
+          <div className="container">
+            <h2 className="tittlequienes" >COMPROMISO</h2>
+            <p>Hacer todo bien con honestidad</p>
           </div>
-          <div className="text-bottom">
-            <div>Estos son nuestros valores</div>
+          <div className="container">
+          <h2 className="tittlequienes" >CONFIANZA</h2>
+            <p>Convicción propia para alcanzar los objetivos trazados</p>
+            
+          </div>
+          <div className="container">
+          <h2 className="tittlequienes">EXCELENCIA</h2>
+            <p>Obtener la máxima eficacia en la gestión para obtener los mejores resultados</p>
+          </div>
+          <div className="container">
+          <h2 className="tittlequienes" >ÉTICA EMPRESARIAL</h2>
+            <p>Hacer todo bien con honestidad</p>
           </div>
         </div>
       </div>
