@@ -469,6 +469,11 @@ input[type="number"] {
   margin: auto;
 }
 
+.info_pagina > .reserva > .resuser > .grid > .r2 > .c3{
+  grid-column: 4/4;
+  margin: auto;
+}
+
 .info_pagina > .reserva > .resprod {
   margin-top: 2rem;
   width: 100%;

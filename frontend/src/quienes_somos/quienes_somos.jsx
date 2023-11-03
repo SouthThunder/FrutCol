@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./quienes_somos.css";
 import { Headercom } from "../header/header";
 import { Footercom } from "../footer/footer";
