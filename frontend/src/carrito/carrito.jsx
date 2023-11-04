@@ -190,7 +190,7 @@ export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, o
             />
             {errors.nombre && <div className="error">{errors.nombre}</div>}
           </div>
-          <div className="n2">
+          <div className="n6">
             <label htmlFor="ciudad">Ciudad</label>
             <input
               type="text"
@@ -200,7 +200,7 @@ export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, o
             />
             {errors.ciudad && <div className="error">{errors.ciudad}</div>}
           </div>
-          <div className="n3">
+          <div className="n4">
             <label htmlFor="direccion">Dirección</label>
             <input
               type="text"
@@ -210,7 +210,7 @@ export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, o
             />
             {errors.direccion && <div className="error">{errors.direccion}</div>}
           </div>
-          <div className="n4">
+          <div className="n5">
             <label htmlFor="telefono">Teléfono</label>
             <input
               type="text"
@@ -220,7 +220,7 @@ export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, o
             />
             {errors.telefono && <div className="error">{errors.telefono}</div>}
           </div>
-          <div className="n5">
+          <div className="n3">
             <label htmlFor="correo">Correo</label>
             <input
               type="text"
@@ -230,7 +230,7 @@ export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, o
             />
             {errors.correo && <div className="error">{errors.correo}</div>}
           </div>
-          <div className="n6">
+          <div className="n2">
             <label htmlFor="cedula">Cédula o NIT</label>
             <input
               type="text"
@@ -464,7 +464,7 @@ export const Cart = ({ lProductos }) => {
                 </p>
                 <p>
                   3. Envíe la foto del comprobante a WhatsApp al número
-                  <strong> 3174358995</strong> y/o al correo email{" "}
+                  <strong> 3174358995</strong> y/o al E-mail{" "}
                   <strong>frutcol0518@gmail.com</strong>, junto con un mensaje
                   que indique el número de orden de la compra
                 </p>
