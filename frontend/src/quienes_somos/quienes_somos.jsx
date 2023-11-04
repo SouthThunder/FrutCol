@@ -107,7 +107,7 @@ export const QuienesSomos = ({ product }) => {
           </div>
           <div className="container">
           <h2 className="tittlequienes" >ÉTICA EMPRESARIAL</h2>
-            <p>Hacer todo bien con honestidad</p>
+            <p>Fomentar la convivencia y ambiente laboral con respeto y libertad</p>
           </div>
         </div>
       </div>

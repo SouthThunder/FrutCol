@@ -126,6 +126,7 @@
     border-radius: var(--sm-border);
     background-color: var(--primary-color);
     border: 1px solid black;
+    cursor: pointer;
 }
 
 

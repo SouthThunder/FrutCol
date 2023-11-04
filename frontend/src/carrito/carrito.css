@@ -274,7 +274,7 @@
 }
 .cartComp > .info > .checkout > .bottom > .toast2 > .pasos {
   margin-top: 1rem;
-  text-align: left;
+  text-align: justify;
   display: flex;
   flex-direction: column;
   gap: 1rem;
