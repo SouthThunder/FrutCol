@@ -175,9 +175,10 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
       <div className="third">
         <div className="n1">
           <h1>Apasionante y Natural</h1>
-          <h3>
-            Pulpa de fruta 100% <div className="test">natural</div>
-          </h3>
+          <h2>
+            Pulpa de fruta 100% natural
+          </h2>
+          <h3>Sin aditivos ni conservantes</h3>
         </div>
         <div className="n2">
           <button
