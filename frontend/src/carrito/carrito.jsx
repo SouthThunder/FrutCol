@@ -456,7 +456,7 @@ export const Cart = ({ lProductos }) => {
                 <p>
                   1. Realice el pago del valor del pedido a Bancolombia a nombre
                   de <strong>Frutcol - A SAS</strong> cuenta de Ahorros <strong>No.
-                  601-000041-89</strong> NIT: <strong>901733392-6.</strong>
+                  601-000041-89</strong> NIT: <strong>901733392-6.</strong> o a Nequi, al número <strong>3108621696</strong>
                 </p>
                 <p>
                   2. Tome una foto o captura de pantalla del comprobante de la
