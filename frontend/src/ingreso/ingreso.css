@@ -181,6 +181,9 @@
 
 /* Ajustes generales para dispositivos móviles */
 @media (max-width: 768px) {
+    .ingresocontain .logo-container{
+        padding-left: 0;
+    }
     .ingresocontain {
         flex-direction: column-reverse;
         padding-top: 10%;
@@ -190,7 +193,10 @@
         flex-direction: column;
         align-items: center;
     }
-
+    .ingresocontain >.contizformlogin {
+        flex: 0 0 100%; /* Ocupa todo el ancho en dispositivos móviles */
+        margin-left: 0;
+    }
     .ingresocontain > .contderformlogin {
        
         width: 100%; /* Ocupa todo el ancho en dispositivos móviles */
