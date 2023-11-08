@@ -19,6 +19,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-google-login": "^5.2.2",
+    "react-icons": "^4.11.0",
     "react-native": "^0.72.4",
     "react-refresh": "^0.14.0",
     "react-router-dom": "^6.10.0",

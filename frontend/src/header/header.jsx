@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaBars, FaTimes } from "react-icons/fa";
 import "./header.css";
 
 export const HeadPopUp = ({ product, trigger, togglePopup }) => {
@@ -48,10 +49,20 @@ export const HeadPopUp = ({ product, trigger, togglePopup }) => {
   );
 };
 
-export const Headercom = ({product}) => {
+export const Headercom = ({ product }) => {
   const [header, setHeader] = useState([]);
   const [popup, setPopup] = useState(false);
+  const [faItems, setFaItems] = useState(true);
 
+  const navRef = useRef();
+
+  const togglePopup = () => {
+    setPopup(!popup);
+  };
+
+  const showNavBar = () => {
+    navRef.current.classList.toggle("responsive_nav");
+  };
 
   const changePopupVis = (status) => {
     setPopup(status);
@@ -66,107 +77,36 @@ export const Headercom = ({product}) => {
     if (
       localStorage.getItem("token") === null ||
       localStorage.getItem("token") === undefined
-    )
-      setHeader(notAuthUser);
-    else {
-      setHeader(authUser);
+    ) {
+      setHeader(false);
+    } else {
+      setHeader(true);
     }
   };
 
-  const notAuthUser = () => {
-    const logIn = () => {
-      navigate("/ingreso");
-    };
-    const signUp = () => {
-      navigate("/registro");
-    };
-
-    return (
-      <div className="header">
+  return (
+    <header>
+      <div
+        className="totalheader"
+        style={{
+          backgroundColor: product.header_color,
+          transition: "all 1s var(--btn-cubic-bezier)",
+        }}
+      >
+        <div className="logo" onClick={() => navigate("/")}>
+          <img src="images/Frame 1.png" alt="" />
+          <h1>Frutcol - A </h1>
+        </div>
         <nav
-          className="nav-bar"
+          ref={navRef}
           style={{
             backgroundColor: product.header_color,
             transition: "all 1s var(--btn-cubic-bezier)",
           }}
         >
-          <a href="/" className="nav__logo">
-            <img src="images/Frame 1.png" alt="" />
-            <p
-              style={{
-                color: product.main_color,
-                transition: "all 1s var(--btn-cubic-bezier)",
-              }}
-            >
-              FrutCol - A
-            </p>
-          </a>
-          <div className="nav__menu">
-            <ul className="nav__list">
-              <li className="nav__item">
-                <button
-                  className="nav__link"
-                  onClick={signUp}
-                  style={{
-                    backgroundColor: product.main_color,
-                    transition: "all 1s var(--btn-cubic-bezier)",
-                  }}
-                >
-                  Registrarse
-                </button>
-              </li>
-              <li className="nav__item">
-                <button
-                  className="nav__link"
-                  onClick={logIn}
-                  style={{
-                    color: product.main_color,
-                    transition: "all 1s var(--btn-cubic-bezier)",
-                  }}
-                >
-                  Iniciar sesión
-                </button>
-              </li>
-              <li className="nav__item">
-                <button onClick={() => navigate("/ingreso")}>
-                  <img src="images/carrito.png" />
-                </button>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-    );
-  };
-
-  const authUser = () => {
-    const togglePopup = () => {
-      setPopup(!popup);
-    };
-
-    return (
-      <div className="header">
-        <nav
-          className="nav-bar"
-          style={{
-            backgroundColor: product.header_color,
-            transition: "all 1s var(--btn-cubic-bezier)",
-          }}
-        >
-          <a href="/" className="nav__logo">
-            <img src="images/Frame 1.png" alt="" />
-            <p
-              style={{
-                color: product.main_color,
-                transition: "all 1s var(--btn-cubic-bezier)",
-              }}
-            >
-              FrutCol - A
-            </p>
-          </a>
-          <div className="nav__menu">
-            <ul className="nav__list">
-              <li className="nav__item">
+          {header ? (
+            <ul>
+              <li>
                 <button id="userIcon" onClick={togglePopup}>
                   <img src="/images/userIcon.png" alt="" />
                 </button>
@@ -176,17 +116,43 @@ export const Headercom = ({product}) => {
                   togglePopup={changePopupVis}
                 />
               </li>
-              <li className="nav__item">
-                <button onClick={() => navigate('/carrito')}>
+              <li>
+                <button id="cartIcon" onClick={() => navigate("/carrito")}>
                   <img src="images/carrito.png" />
                 </button>
               </li>
             </ul>
-          </div>
+          ) : (
+            <ul>
+              <li>
+                <a href="/Ingreso">Ingresar</a>
+              </li>
+              <li>
+                <a href="/registro">Registrarse</a>
+              </li>
+            </ul>
+          )}
         </nav>
+        {faItems ? (
+          <div className="burger-menu">
+            <button className="nav-btn" onClick={() => {
+              showNavBar()
+              setFaItems(!faItems)
+            }}>
+              <FaBars />
+            </button>
+          </div>
+        ) : (
+          <div className="burger-menu">
+            <button className="nav-btns" onClick={() => {
+              showNavBar()
+              setFaItems(!faItems)
+            }}>
+              <FaTimes />
+            </button>
+          </div>
+        )}
       </div>
-    );
-  };
-
-  return header;
+    </header>
+  );
 };
