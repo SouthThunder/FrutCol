@@ -22,7 +22,7 @@ export const Footercom = ({ product }) => {
       }}
     >
       <div className="footer__section">
-        <Link to="#" className="footer__logo">
+        <Link to="/" className="footer__logo">
           <img src="images/Frame 1.png" alt="" />
         </Link>
 
