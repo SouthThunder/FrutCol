@@ -11,7 +11,6 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
   const [currentImage, setCurrentImage] = useState([]);
   const [primaryColor, setPrimaryColor] = useState([]);
   const [currentWord, setCurrentWord] = useState([]);
-  // const [currentPrice, setCurrentprice] = useState([]);
   const [sliderProds, setSliderProds] = useState([]);
   const firstLoad = useRef(false);
 
@@ -20,7 +19,6 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
     setPrimaryColor(element.main_color);
     setCurrentImage(`../../images/${product.image}`);
     setCurrentWord(element.nombre_producto);
-    // setCurrentprice(element.precio_producto);
   };
   const updateProp = (element) => {
     changeProp(element);

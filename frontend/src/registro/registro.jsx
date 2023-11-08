@@ -15,11 +15,9 @@ export const Registrocom = ({ refresh }) => {
     correo: "",
     direccion: "",
   });
-
   const [formError, setFormError] = useState("");
-
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const navigate = useNavigate();
-
 
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -31,16 +29,27 @@ export const Registrocom = ({ refresh }) => {
     });
   };
 
+  const isEmailValid = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = async () => {
-    //validaciones de contenido
-    //validacion de contenido nombre
     for (const key in formData) {
       if (!formData[key]) {
         setFormError("Por favor, llena todos los campos vacíos.");
         return;
       }
     }
-    setFormError(""); // Borrar el mensaje de error si no hay campos vacíos
+    if (!termsAccepted) {
+      setFormError("Debes aceptar los términos y condiciones.");
+      return;
+    }
+    if (!isEmailValid(formData.correo)) {
+      setFormError("El formato del correo electrónico no es válido.");
+      return;
+    }
+    setFormError("");
     const URI = "https://frutcol-backend.onrender.com/usuarios/register";
 
     // Queda por enviar
@@ -75,7 +84,6 @@ export const Registrocom = ({ refresh }) => {
       console.error(error);
     }
   };
-
 
   const getId = async (token) => {
     const URI = "https://frutcol-backend.onrender.com/carrito/create";
@@ -203,7 +211,18 @@ export const Registrocom = ({ refresh }) => {
             value={formData.contrasena}
           />
           <br />
-
+          <div className="terms_coditions">
+            <input
+              type="checkbox"
+              name="terminos&condiciones"
+              onChange={() => setTermsAccepted(!termsAccepted)}
+              checked={termsAccepted}
+            />
+            <label htmlFor="terminos&condiciones">
+              He leído y acepto los{" "}
+              <Link to="/Privacidad">términos y condiciones</Link>
+            </label>
+          </div>
           <button type="submit" onClick={handleSubmit}>
             Registrarse
           </button>
