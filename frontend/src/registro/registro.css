@@ -225,3 +225,44 @@ input[type="number"] {
   color: #FF355E;
   padding-left: 20px;
 }
+@media (max-width: 768px) {
+  .registrocontain {
+      flex-direction: column;
+      align-items: center;
+      row-gap: 2rem;
+      padding-top: 10%;
+      margin-bottom: 2rem;
+  }
+
+  .contderform .form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+   
+    align-items:center ;
+}
+.contderform input {
+ width: 50%;
+}
+.contderform button {
+  margin:2rem 0 2rem 0;
+}
+.registrocontain .googleAuth {
+  justify-content: center;
+  margin: 0;
+}
+
+  .contizform {
+      flex: 0 0 100%; /* Ocupa todo el ancho en dispositivos móviles */
+      margin-right: 0;
+      background-size: contain; /* Ajusta el tamaño de la imagen */
+  }
+  .botonizform {
+    margin-bottom: 1rem;
+}
+}
+
+
+
+
+
