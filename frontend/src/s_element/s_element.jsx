@@ -10,7 +10,7 @@ export const Element = ({ elements, father, lProductos, updateLProducts }) => {
   const [isFather, setIsFather] = useState(true);
   const [test, setTest] = useState(false);
   const [activeObject, setActiveObject] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (activeElement === undefined || activeElement === null) {
@@ -65,8 +65,10 @@ export const Element = ({ elements, father, lProductos, updateLProducts }) => {
         <button onClick={() => handleSumCantidad()}>+</button>
       </div>
       <div className="value">
-        <p>Subtotal: <p>$ {formatPrice(activeObject?.calcularPrecioTotal())}</p></p>
-        <button onClick={() => navigate('/carrito')}>Ir al carrito</button>
+        <p>
+          Subtotal: <p>$ {formatPrice(activeObject?.calcularPrecioTotal())}</p>
+        </p>
+        <button onClick={() => navigate("/carrito")}>Ir al carrito</button>
       </div>
     </div>
   );
@@ -78,11 +80,11 @@ export const Element = ({ elements, father, lProductos, updateLProducts }) => {
           onClick={() => {
             if (activeObject.exists) {
               activeObject.sumCantidad(headers);
-              console.log('enter exists')
+              console.log("enter exists");
               updateLProducts(activeObject);
             } else {
               activeObject.insertIntoDb(headers);
-              console.log('enter not exists')
+              console.log("enter not exists");
               updateLProducts(activeObject);
             }
             setTest(!test);

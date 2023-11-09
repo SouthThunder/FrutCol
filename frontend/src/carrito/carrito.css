@@ -1,22 +1,24 @@
 .cartComp {
   margin: 0 auto;
   margin-top: calc(var(--header-height) * 1.5);
-  width: 70%;
+  width: 100%;
   min-height: 60vh;
 }
 
 .cartComp > .title {
   margin-bottom: 2rem;
+  margin-left: 10%;
 }
 
 .cartComp > .info {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   border-radius: var(--sm-border);
 }
 
 .cartComp > .info > .items {
-  width: 60%;
+  max-width: 700px;
+  width: 50%;
 }
 
 .cartComp > .info > .items > .elements {
@@ -48,8 +50,6 @@
 
 .cartComp > .info > .items > .elements > .card {
   height: 10rem;
-  margin: 0 0.5rem;
-  align-items: center;
   border-bottom: 1px solid rgb(158, 158, 158);
 }
 
@@ -59,6 +59,7 @@
 
 .cartComp > .info > .items > .elements > .card > .name {
   width: 100%;
+  margin-left: 1rem;
 }
 
 .cartComp > .info > .items > .elements > .card > .name > p {
@@ -70,17 +71,19 @@
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .cartComp > .info > .items > .elements > .card > .info > .pImg {
   flex: 1;
-  margin-left: 1.5rem;
   display: flex;
+  height: 120px;
   align-items: center;
   justify-content: flex-start;
 }
 .cartComp > .info > .items > .elements > .card > .info > .pImg > img {
   width: 100%;
+  min-width: 80px;
   max-width: 120px;
 }
 
@@ -159,8 +162,9 @@
 }
 
 .cartComp > .info > .checkout {
-  width: 35%;
-  height: 18rem;
+  max-width: 450px;
+  width:100%;
+  height: 100%;
   border-radius: var(--sm-border);
   box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -437,4 +441,20 @@
 .captureReceiptData > .inner > .confirm > button:hover{
   color: black;
   transition: all 1s var(--btn-cubic-bezier);
+}
+
+
+@media only screen and (max-width: 1024px) {
+  .cartComp > .info{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cartComp > .info > .items{
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+
 }
