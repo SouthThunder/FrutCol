@@ -21,6 +21,7 @@
 .elementComp > .container > .product{
     margin-top: 4rem;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .elementComp > .container > .product > .imageHolder{
@@ -42,14 +43,13 @@
     flex: 4;
 }
 
-
 .elementComp > .container > .product > .info > .presentaciones {
     border-top: 1px solid black;
     margin-top: 1rem;
 }
 
 .elementComp > .container > .product > .info > .presentaciones > h4{
-    margin: 1rem ;
+    margin: 1rem 0;
     font-size: 1.2rem;
     font-weight: var(--font-bold);
 }
@@ -61,18 +61,15 @@
     padding-right: 1rem;
     padding-left: .2rem;
     margin-bottom: 1rem;
-    margin-left: 1rem;
 }
 
 .elementComp > .container > .product > .info > .presentaciones > select + p{
-    margin-left: 1rem;
     font-size: 1rem;
     text-align: justify;
     margin-bottom: 1rem;
 }
 
 .elementComp > .container > .product > .info > .presentaciones > .controls {
-    margin-left: 1rem;
     display: flex;
     flex-direction: column;
 }
@@ -112,11 +109,6 @@
     font-weight: var(--font-bold);
 }
 
-.elementComp > .container > .product > .info > .presentaciones > .controls > .value > p > p{
-    margin-left: 1rem;
-}
-
-
 .elementComp > .container > .product > .info > .presentaciones > .controls >  .value > button{
     margin-top: .5rem;
     margin-right: 2rem;
@@ -149,3 +141,20 @@
 .elementComp > .container > .product > .info > .presentaciones >.noControls > button:hover{
     cursor: pointer;
 }
+
+@media only screen and (max-width: 1024px) {
+    .product{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product > .imageHolder{
+        margin-top: -4rem;
+        width: 100%;
+    }
+
+    .product > .imageHolder > img{
+        width: 250px !important;
+    }
+  
+  }

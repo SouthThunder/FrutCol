@@ -25,10 +25,13 @@ footer {
     display:flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     row-gap: 1.5rem;
 }
 footer > .footer__section > .footer__content > .footer__links > li{
     margin-top: .2rem;
+    display: flex;
+    justify-content: center;
 }
 
 footer > .footer__section > .footer__content > .footer__links > li > .footer__link {
