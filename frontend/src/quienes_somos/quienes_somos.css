@@ -12,6 +12,11 @@
     text-align: justify;
     text-justify: inter-word;
 }
+
+.containerquienes > p {
+    text-align: center;
+}
+
 .quienesomos > .misionvision{
     display: flex;
     border-radius: var(--sm-border);
@@ -26,10 +31,14 @@
 }
 .quienesomos > .objectives > .objectives__list{
     list-style:circle;
-
 }
+
 .quienesomos > .objectives > .objectives__list > li{
     margin: 3% 0 3% 0;
+}
+
+.quienesomos > .objectives > .objectives__list > li > p{
+    text-align: justify;
 }
 
 /*VALORES CSS */
@@ -94,7 +103,39 @@
     bottom: 5rem;
 }
 
-
 .qualitypolicies {
   width: 80%;
 }
+
+@media only screen and (max-width: 1024px) {
+
+    .values > .holder{
+        display: flex;
+        flex-direction: column;
+        margin-top: 2rem;
+    }
+
+    .values > .holder > img{
+        display: none;
+    }
+
+    .values > .holder > .container{
+        position: relative;
+        height: 8rem;
+        margin: 1rem;
+        width: 100%;
+    }
+
+    .values > .holder > .container:nth-child(2),
+    .values > .holder > .container:nth-child(3),
+    .values > .holder > .container:nth-child(4),
+    .values > .holder > .container:nth-child(5) {
+        left: auto;
+        right: auto;
+        top: auto;
+        bottom: auto;
+    }
+
+  
+  }
+  
