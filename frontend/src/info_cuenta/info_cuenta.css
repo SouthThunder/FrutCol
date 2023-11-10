@@ -22,7 +22,8 @@
     
 }
 .infocuenta > .contenidos > .imagecontain > svg{
-    width: 50%
+    height: 100px;
+    width: 100px;
 
 }
 .infocuenta > .contenidos > h4{
@@ -300,6 +301,7 @@
   
     .infocuenta > .contenidos > .imagecontain > svg {
       height: 100px;
+      width: 100px;
     }
   
   
