@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes, FaUserCircle, FaShoppingBasket } from "react-icons/fa";
 import "./header.css";
 
 export const HeadPopUp = ({ product, trigger, togglePopup }) => {
@@ -95,7 +95,7 @@ export const Headercom = ({ product }) => {
       >
         <div className="logo" onClick={() => navigate("/")}>
           <img src="images/Frame 1.png" alt="" />
-          <h1>Frutcol - A </h1>
+          <h1>Frutcol - A SAS</h1>
         </div>
         <nav
           ref={navRef}
@@ -108,7 +108,7 @@ export const Headercom = ({ product }) => {
             <ul>
               <li>
                 <button id="userIcon" onClick={togglePopup}>
-                  <img src="/images/userIcon.png" alt="" />
+                  <FaUserCircle />
                 </button>
                 <HeadPopUp
                   trigger={popup}
@@ -118,7 +118,7 @@ export const Headercom = ({ product }) => {
               </li>
               <li>
                 <button id="cartIcon" onClick={() => navigate("/carrito")}>
-                  <img src="images/carrito.png" />
+                  <FaShoppingBasket />
                 </button>
               </li>
             </ul>
@@ -135,19 +135,25 @@ export const Headercom = ({ product }) => {
         </nav>
         {faItems ? (
           <div className="burger-menu">
-            <button className="nav-btn" onClick={() => {
-              showNavBar()
-              setFaItems(!faItems)
-            }}>
+            <button
+              className="nav-btn"
+              onClick={() => {
+                showNavBar();
+                setFaItems(!faItems);
+              }}
+            >
               <FaBars />
             </button>
           </div>
         ) : (
           <div className="burger-menu">
-            <button className="nav-btns" onClick={() => {
-              showNavBar()
-              setFaItems(!faItems)
-            }}>
+            <button
+              className="nav-btns"
+              onClick={() => {
+                showNavBar();
+                setFaItems(!faItems);
+              }}
+            >
               <FaTimes />
             </button>
           </div>

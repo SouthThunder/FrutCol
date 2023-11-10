@@ -286,7 +286,7 @@
 .infocuenta > .resprod > .total > p{
     grid-column: 3/3;
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
     .infocuenta {
       flex-direction: column;
       margin: 0; 
@@ -311,8 +311,18 @@
       width: 100%;
       margin-left: 0;
     }
+
+    .infocuenta > .infogeneral > form{
+        width: 70%;
+    }
+
+    .infocuenta > .infogeneral > form button{
+        font-size: 1rem;
+    }
+
     .infocuenta > .cambiocontrasena{
         width: 70%;
+        margin: auto;
     }
   
     .infoCuentacontain .enter{

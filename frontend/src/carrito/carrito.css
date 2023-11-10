@@ -457,4 +457,34 @@
     width: 100%;
   }
 
+  .cartComp > .info  .price, .subtotal{
+    font-size: .9rem;
+  }
+
+  .cartComp .quantity > .panel > p{
+    margin: 0 0.5rem !important;
+  }
+
+  .cartComp .quantity > .panel > button{
+    width: 1.2rem !important;
+  }
+
+  .toast2{
+    width: 90% !important;
+  }
+
+  .captureReceiptData > .inner{
+    width: 90%;
+  }
+
+  .captureReceiptData > .inner > h1{
+    margin: 0;
+    font-size: 1.7rem;
+  }
+
+  .captureReceiptData > .inner > .grid{
+    display: flex !important;
+    flex-direction: column;
+  }
+
 }

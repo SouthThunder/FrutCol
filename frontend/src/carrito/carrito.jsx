@@ -80,6 +80,7 @@ export const Card = ({ prods, updateReloader }) => {
 export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, openPopup }) => {
   const firstLoad = useRef(true);
   const [localProds, setLocalProds] = useState([]);
+  const [deActive, setDeActive] = useState(false);
   const [formData, setFormData] = useState({
     nombre: '',
     ciudad: '',
@@ -137,6 +138,7 @@ export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, o
 
     if (Object.keys(newErrors).length === 0) {
       // Aquí puedes enviar los datos o realizar la acción de confirmación
+      setDeActive(true);
       handlePurchase()
     }
     
@@ -252,7 +254,7 @@ export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, o
           {errors.direccionEnvio && <div className="error">{errors.direccionEnvio}</div>}
         </div>
         <div className="confirm">
-          <button onClick={handleConfirm}>Confirmar</button>
+          <button disabled={deActive} onClick={handleConfirm}>Confirmar</button>
         </div>
       </div>
     </div>
