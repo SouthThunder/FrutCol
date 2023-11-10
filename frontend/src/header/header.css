@@ -1,4 +1,3 @@
-
 header {
   position: fixed;
   top: 0.5rem;
@@ -30,7 +29,7 @@ header .logo img {
 }
 
 header h1 {
-  color: var(--light-color);
+  color: var(--btn-color);
   font-size: calc(var(--font-size) * 2);
   line-height: 80px;
   font-weight: bold;
@@ -52,6 +51,7 @@ nav > ul > li {
   justify-content: center;
   align-items: center;
   margin: 0 5px;
+  height: 100%;
 }
 
 nav > ul > li > button {
@@ -66,12 +66,22 @@ nav > ul > li > button svg {
   height: 100%;
 }
 
+nav > ul > li:nth-child(2) > a {
+  color: white;
+  background-color: var(--btn-color);
+  border: 1px solid black;
+  border-radius: var(--sm-border);
+  font-weight: 100;
+}
+
 nav > ul > li > a {
-  color: var(--light-color);
-  font-size: var(--font-size);
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--btn-color);
+  font-weight: bold;
   padding: 7px 14px;
-  border-radius: var(--xs-border);
-  text-transform: uppercase;
 }
 
 nav > ul > li > a.active,
@@ -88,20 +98,7 @@ header .burger-menu {
   margin-right: 2rem;
 }
 
-header .close-menu{
-    padding: 5px;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    color: var(--light-color);
-    visibility: hidden;
-    display: none;
-    opacity: 0;
-    font-size: var(--font-size);
-}
-
-header .nav-btn {
+header .close-menu {
   padding: 5px;
   cursor: pointer;
   background-color: transparent;
@@ -109,8 +106,19 @@ header .nav-btn {
   outline: none;
   color: var(--light-color);
   visibility: hidden;
+  display: none;
   opacity: 0;
   font-size: var(--font-size);
+}
+
+header .nav-btn, .nav-btns {
+  padding: 5px;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  visibility: hidden;
+  opacity: 0;
 }
 
 header .popup-header {
@@ -180,16 +188,19 @@ header .popup-header .popup-inner:nth-child(3) button:hover {
 
   header nav {
     position: fixed;
-    top: .5rem;
+    top: 0.5rem;
     right: 0;
     width: 400px;
-    height: 80%;
+    height: 40%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     transition: 1s;
     transform: translateY(-100vh);
+    border-top-left-radius: var(--md-border);
+    border-bottom-left-radius: var(--md-border);
+    box-shadow: 2px 8px 8px 4px rgba(0, 0, 0, 0.2);
     z-index: 2;
   }
 
@@ -198,17 +209,28 @@ header .popup-header .popup-inner:nth-child(3) button:hover {
   }
 
   header nav ul {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 50%;
+  }
+
+  header nav ul > li > .nav-btn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  header nav ul button{
     display: none;
-    opacity: 0;
-    visibility: hidden;
   }
 
   nav a {
     font-size: var(--font-size);
   }
 
-
-  header .nav-btns{
+  header .nav-btns {
     z-index: 2;
     position: absolute;
     top: 1rem;
@@ -216,10 +238,8 @@ header .popup-header .popup-inner:nth-child(3) button:hover {
     background-color: transparent;
     border: none;
     cursor: pointer;
-  }
-
-  header .nav-btns svg{
-    height: 2rem;
+    visibility: visible;
+    opacity: 1;
   }
 
 }

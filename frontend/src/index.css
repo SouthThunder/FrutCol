@@ -105,6 +105,10 @@ a{
     text-decoration: none;
 }
 
+a:hover{
+    background-color: transparent;
+}
+
 .error{
     margin-top: 1rem;
 }

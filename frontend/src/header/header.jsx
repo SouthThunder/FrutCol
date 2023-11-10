@@ -84,6 +84,11 @@ export const Headercom = ({ product }) => {
     }
   };
 
+  const logout = () => {
+    window.location.href = "/";
+    localStorage.clear();
+  };
+
   return (
     <header>
       <div
@@ -107,6 +112,11 @@ export const Headercom = ({ product }) => {
           {header ? (
             <ul>
               <li>
+                <div className="nav-btn">
+                  <p onClick={() => navigate('/carrito')}>Carrito</p>
+                  <p onClick={() => navigate('/InformacionCuenta')}>Ajustes</p>
+                  <p onClick={() => logout()}>Salir</p>
+                </div>
                 <button id="userIcon" onClick={togglePopup}>
                   <FaUserCircle />
                 </button>

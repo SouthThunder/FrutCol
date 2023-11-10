@@ -180,7 +180,7 @@
     
 
 /* Ajustes generales para dispositivos móviles */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .ingresocontain .logo-container{
         padding-left: 0;
     }
@@ -192,6 +192,11 @@
         row-gap: 1rem;
         flex-direction: column;
         align-items: center;
+        width: 80%;
+    }
+
+    .ingresocontain >.contderformlogin .form .password{
+        width: 100%;
     }
     .ingresocontain >.contizformlogin {
         flex: 0 0 100%; /* Ocupa todo el ancho en dispositivos móviles */
