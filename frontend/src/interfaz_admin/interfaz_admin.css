@@ -561,3 +561,57 @@ input[type="number"] {
    background-color: var(--background-btn);
    transition: all 1s var(--btn-cubic-bezier);
 }
+@media screen and (max-width: 1024px) {
+  .info_pagina {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 8rem 0 0 0;
+    justify-content: center;
+    align-items: center;
+  }
+  .info_pagina > .reserva {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+}
+.info_pagina > .reserva > .resuser {
+  font-size: 9px;
+}
+  .info_pagina > .contenidos {
+    width: 100%;
+    border-right: none;
+    
+    padding-bottom: 1rem;
+    
+  }
+  .info_pagina > .reserva .control {
+    width: 100%;
+    
+}
+  .info_pagina > .editar_container {
+    margin: 0;
+  }
+  .info_pagina > .historialReserva {
+
+    width: 110%;
+    font-size: 10px;
+    margin: auto;
+}
+
+  .info_pagina > .historialReserva > .container {
+    width: 80%;
+    font-size: 10px;
+}
+  .info_pagina > .historialReserva > .container > .filtro {
+    
+    flex-direction: column;
+    row-gap: 2rem;
+    align-items: flex-start;
+}
+
+
+ 
+}

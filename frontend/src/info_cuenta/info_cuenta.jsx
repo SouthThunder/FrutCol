@@ -7,6 +7,7 @@ import axios from "axios";
 import LoadingSpinner from "../loading/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
+import { FaUser } from "react-icons/fa";
 
 const numeros = /^\d+$/; // Solo números
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -178,7 +179,7 @@ export const Infocontenidos = (prop) => {
   return (
     <div className="contenidos">
       <div className="imagecontain">
-        <img src="../../images/userIcon.png" alt="" />
+      <FaUser/>
       </div>
 
       <h4

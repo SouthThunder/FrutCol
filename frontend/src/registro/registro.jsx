@@ -7,176 +7,60 @@ import { Toaster, toast } from "sonner";
 import GoogleLogin from "react-google-login";
 
 export const Registrocom = ({ refresh }) => {
-  const [nombre, setNombre] = useState("");
-  const [apellido, setApellido] = useState("");
-  const [cedula, setCedula] = useState("");
-  const [contrasena, setContrasena] = useState("");
-  const [correo, setCorreo] = useState("");
-  const [direccion, setDireccion] = useState("");
-  const [nombreError, setnombreError] = useState("");
-  const [nombreInputClass, setnombreInputClass] = useState("");
-  const [apellidoInputClass, setapellidoInputClass] = useState("");
-  const [apellidoError, setapellidoError] = useState("");
-  const [cedulaInputClass, setcedulaInputClass] = useState("");
-  const [cedulaError, setcedulaError] = useState("");
-  const [direccionInputClass, setdireccionInputClass] = useState("");
-  const [direccionError, setdireccionError] = useState("");
-  const [correoInputClass, setcorreoInputClass] = useState("");
-  const [correoError, setcorreoError] = useState("");
-  const [contrasenaInputClass, setcontrasenaInputClass] = useState("");
-  const [contrasenaError, setcontrasenaError] = useState("");
-  const [terms_coditions, setTerms_coditions] = useState(false);
-
+  const [formData, setFormData] = useState({
+    nombre: "",
+    apellido: "",
+    cedula: "",
+    contrasena: "",
+    correo: "",
+    direccion: "",
+  });
+  const [formError, setFormError] = useState("");
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
-    //validaciones de contenido
-    //validacion de contenido nombre
-    if (!nombre || nombre === undefined || nombre === "") {
-      setnombreError("Ingrese su nombre");
-      setnombreInputClass("shake");
-      setTimeout(() => {
-        setnombreInputClass("");
-      }, 500);
-      return;
-    } else {
-      setnombreError("");
-      setnombreInputClass("");
-    }
+  const handleInputChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    const inputValue = type === "checkbox" ? checked : value;
 
-    //validacion de contenido apellido
-    if (!apellido || apellido === undefined || apellido === "") {
-      setapellidoError("Ingrese su apellido");
-      setapellidoInputClass("shake");
-      setTimeout(() => {
-        setapellidoInputClass("");
-      }, 500);
-      return;
-    } else {
-      setapellidoError("");
-      setapellidoInputClass("");
-    }
+    setFormData({
+      ...formData,
+      [name]: inputValue,
+    });
+  };
 
-    //validacion de contenido cedula
-    if (!cedula || cedula === undefined || cedula === "") {
-      setcedulaError("Ingrese su cedula");
-      setcedulaInputClass("shake");
-      setTimeout(() => {
-        setcedulaInputClass("");
-      }, 500);
-      return;
-    } else {
-      setcedulaError("");
-      setcedulaInputClass("");
-    }
-
-    //validacion de contenido direccion
-    if (!direccion || direccion === undefined || direccion === "") {
-      setdireccionError("Ingrese su dirección");
-      setdireccionInputClass("shake");
-      setTimeout(() => {
-        setdireccionInputClass("");
-      }, 500);
-      return;
-    } else {
-      setdireccionError("");
-      setdireccionInputClass("");
-    }
-
-    //validacion de contenido correo
-    if (!correo || correo === undefined || correo === "") {
-      setcorreoError("Ingrese su correo");
-      setcorreoInputClass("shake");
-      setTimeout(() => {
-        setcorreoInputClass("");
-      }, 500);
-      return;
-    } else {
-      setcorreoError("");
-      setcorreoInputClass("");
-    }
-
-    //validacion de contenido contrasena
-    if (!contrasena || contrasena === undefined || contrasena === "") {
-      setcontrasenaError("Ingrese su contraseña");
-      setcontrasenaInputClass("shake");
-      setTimeout(() => {
-        setcontrasenaInputClass("");
-      }, 500);
-      return;
-    } else {
-      setcontrasenaError("");
-      setcontrasenaInputClass("");
-    }
-
-    const URI = "https://frutcol-backend.onrender.com/usuarios/register";
-
-    // Validaciones para nombres y apellidos
-    const namePattern = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
-
-    if (!namePattern.test(nombre)) {
-      setnombreError("Los nombres solo pueden contener letras y espacios");
-      setnombreInputClass("shake");
-      setTimeout(() => {
-        setnombreInputClass("");
-      }, 500);
-      return;
-    } else {
-      setnombreError("");
-      setnombreInputClass("");
-    }
-
-    if (!namePattern.test(apellido)) {
-      setapellidoError("Losapellidos solo pueden contener letras y espacios");
-      setapellidoInputClass("shake");
-      setTimeout(() => {
-        setapellidoInputClass("");
-      }, 500);
-      return;
-    } else {
-      setapellidoError("");
-      setapellidoInputClass("");
-    }
-
+  const isEmailValid = (email) => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailRegex.test(email);
+  };
 
-    if (!emailRegex.test(correo)) {
-      setcorreoError("Ingrese un formato de correo valido");
-      setcorreoInputClass("shake");
-      setTimeout(() => {
-        setcorreoInputClass("");
-      }, 500);
-      return;
-    } else {
-      setcorreoError("");
-      setcorreoInputClass("");
+  const handleSubmit = async () => {
+    for (const key in formData) {
+      if (!formData[key]) {
+        setFormError("Por favor, llena todos los campos vacíos.");
+        return;
+      }
     }
-
-    // Validación para contraseña
-    const passwordPattern = /^(?=.*\d)(?=.*[A-Z]).{8,}$/; // Al menos un número, una mayúscula y 8 o más caracteres
-    if (!passwordPattern.test(contrasena)) {
-      setcontrasenaError(
-        "La contraseña debe contener al menos un número, una mayúscula y tener 8 o más caracteres"
-      );
-      setcontrasenaInputClass("shake");
-      setTimeout(() => {
-        setcontrasenaInputClass("");
-      }, 500);
+    if (!termsAccepted) {
+      setFormError("Debes aceptar los términos y condiciones.");
       return;
-    } else {
-      setcontrasenaError("");
-      setcontrasenaInputClass("");
     }
+    if (!isEmailValid(formData.correo)) {
+      setFormError("El formato del correo electrónico no es válido.");
+      return;
+    }
+    setFormError("");
+    const URI = "https://frutcol-backend.onrender.com/usuarios/register";
 
     // Queda por enviar
     try {
       await axios.post(URI, {
-        nombre_usuario: nombre,
-        apellido_usuario: apellido,
-        cedula_usuario: cedula,
-        contrasena_usuario: contrasena,
-        correo_usuario: correo,
-        direccion_usuario: direccion,
+        nombre_usuario: formData.nombre,
+        apellido_usuario: formData.apellido,
+        cedula_usuario: formData.cedula,
+        contrasena_usuario: formData.contrasena,
+        correo_usuario: formData.correo,
+        direccion_usuario: formData.direccion,
       });
       authToken();
       toast.success("Registro exitoso!");
@@ -189,8 +73,8 @@ export const Registrocom = ({ refresh }) => {
     try {
       const URI = "https://frutcol-backend.onrender.com/usuarios/login";
       const res = await axios.post(URI, {
-        correo_usuario: correo,
-        contrasena_usuario: contrasena,
+        correo_usuario: formData.correo,
+        contrasena_usuario: formData.contrasena,
       });
       localStorage.setItem("token", res.data.token);
       getId(res.data.token);
@@ -199,10 +83,6 @@ export const Registrocom = ({ refresh }) => {
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const handleTerms = () => {
-    setTerms_coditions(!terms_coditions);
   };
 
   const getId = async (token) => {
@@ -276,10 +156,9 @@ export const Registrocom = ({ refresh }) => {
             type="text"
             id="nombre"
             name="nombre"
-            onChange={(e) => setNombre(e.target.value)}
-            required
+            onChange={handleInputChange}
+            value={formData.nombre}
           />
-          <p className={`error ${nombreInputClass}`}>{nombreError}</p>
           <br />
 
           <label htmlFor="apellido">Apellido:</label>
@@ -287,10 +166,9 @@ export const Registrocom = ({ refresh }) => {
             type="text"
             id="apellido"
             name="apellido"
-            onChange={(e) => setApellido(e.target.value)}
-            required
+            onChange={handleInputChange}
+            value={formData.apellido}
           />
-          <p className={`error ${apellidoInputClass}`}>{apellidoError}</p>
           <br />
 
           <label htmlFor="cedula">Cédula:</label>
@@ -299,21 +177,19 @@ export const Registrocom = ({ refresh }) => {
             id="cedula"
             name="cedula"
             inputMode="numeric"
-            onChange={(e) => setCedula(e.target.value)}
-            required
+            onChange={handleInputChange}
+            value={formData.cedula}
           />
-          <p className={`error ${cedulaInputClass}`}>{cedulaError}</p>
           <br />
 
-          <label htmlFor="Direccion">Dirección:</label>
+          <label htmlFor="direccion">Dirección:</label>
           <input
             type="text"
             id="direccion"
             name="direccion"
-            onChange={(e) => setDireccion(e.target.value)}
-            required
+            onChange={handleInputChange}
+            value={formData.direccion}
           />
-          <p className={`error ${direccionInputClass}`}>{direccionError}</p>
           <br />
 
           <label htmlFor="correo">Correo:</label>
@@ -321,10 +197,9 @@ export const Registrocom = ({ refresh }) => {
             type="email"
             id="correo"
             name="correo"
-            onChange={(e) => setCorreo(e.target.value)}
-            required
+            onChange={handleInputChange}
+            value={formData.correo}
           />
-          <p className={`error ${correoInputClass}`}>{correoError}</p>
           <br />
 
           <label htmlFor="contrasena">Contraseña:</label>
@@ -332,32 +207,28 @@ export const Registrocom = ({ refresh }) => {
             type="password"
             id="contrasena"
             name="contrasena"
-            onChange={(e) => setContrasena(e.target.value)}
-            required
+            onChange={handleInputChange}
+            value={formData.contrasena}
           />
-          <p className={`error ${contrasenaInputClass}`}>{contrasenaError}</p>
           <br />
-
           <div className="terms_coditions">
             <input
               type="checkbox"
               name="terminos&condiciones"
-              onClick={handleTerms}
+              onChange={() => setTermsAccepted(!termsAccepted)}
+              checked={termsAccepted}
             />
             <label htmlFor="terminos&condiciones">
               He leído y acepto los{" "}
-              <Link to="/Privacidad">terminos y condiciones</Link>
+              <Link to="/Privacidad">términos y condiciones</Link>
             </label>
           </div>
-
-          <button
-            disabled={!terms_coditions}
-            type="submit"
-            onClick={handleSubmit}
-          >
+          <button type="submit" onClick={handleSubmit}>
             Registrarse
           </button>
         </div>
+
+        {formError && <p className="error">{formError}</p>}
         <div className="googleAuth">
           <GoogleLogin
             clientId="336496153339-bfh9gkv3l2ktbgnq5725nba8kp84u5ff.apps.googleusercontent.com"

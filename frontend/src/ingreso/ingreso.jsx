@@ -1,81 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./ingreso.css";
 import { Link, useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
-import { Toaster, toast } from "sonner";
-import GoogleLogin from "react-google-login";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
+import { toast } from "sonner";
+import GoogleLogin from "react-google-login";
 
 const URI = "https://frutcol-backend.onrender.com/usuarios/login";
 
 export const Ingresocom = ({ refresh }) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [localuser, setLocalUser] = useState("");
-  const [localpassword, setlocalPassword] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [emailInputClass, setEmailInputClass] = useState("");
-  const [passwordInputClass, setPasswordInputClass] = useState("");
-  const [credentialError, setCredentialError] = useState("");
-  const [credentialInputClass, setCredentialInputClass] = useState("");
+  const [formData, setFormData] = useState({
+    localuser: "",
+    localpassword: "",
+  });
 
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+    credential: "",
+  });
+
+  const [inputClasses, setInputClasses] = useState({
+    email: "",
+    password: "",
+    credential: "",
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {}, []);
-
-  const test = async () => {
-    console.log("validating...");
-
-    if (!localuser || localuser === undefined || localuser === "") {
-      setEmailError("Ingrese su correo");
-      setEmailInputClass("shake");
-      setTimeout(() => {
-        setEmailInputClass("");
-      }, 500);
-      return;
-    } else {
-      setEmailError("");
-      setEmailInputClass("");
-    }
-
-    if (!localpassword || localpassword === undefined) {
-      setPasswordError("Ingrese su contraseña");
-      setPasswordInputClass("shake");
-      setTimeout(() => {
-        setPasswordInputClass("");
-      }, 500);
-      return;
-    } else {
-      setPasswordError("");
-      setPasswordInputClass("");
-    }
-
-    try {
-      const res = await axios.post(URI, {
-        correo_usuario: localuser,
-        contrasena_usuario: localpassword,
-      });
-      localStorage.setItem("token", res.data.token);
-      navigate("/");
-      refresh();
-    } catch (error) {
-      console.error(error);
-      setCredentialError("Credenciales incorrectas, intente una vez mas ");
-      setCredentialInputClass("shake");
-      setTimeout(() => {
-        setCredentialInputClass("");
-      }, 500);
-    }
+  const handleFieldChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
-  const togglePasswordVisibility = () => {
+  const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const responseGoogleS = async (response) => {
-    console.log("entree");
+  const handleResponseGoogleSuccess = async (response) => {
     authToken(response);
   };
+
   const authToken = async (response) => {
     try {
       const URI = "https://frutcol-backend.onrender.com/usuarios/loging";
@@ -95,7 +64,7 @@ export const Ingresocom = ({ refresh }) => {
   const getId = async (token) => {
     const URI = "https://frutcol-backend.onrender.com/carrito/create";
     const headers = {
-      Authorization: `${token}`, // Agrega "Bearer" antes del token si es necesario
+      Authorization: `${token}`,
     };
     try {
       const decode = jwt_decode(token);
@@ -113,10 +82,56 @@ export const Ingresocom = ({ refresh }) => {
     }
   };
 
-  const responseGoogleE = async (response) => {
+  const handleResponseGoogleFailure = async (response) => {
     console.log(response.profileObj);
     toast.error("Error al iniciar sesión");
-    await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
+    await new Promise((resolve) => setTimeout(resolve, 2500));
+  };
+
+  const handleLogin = async () => {
+    // Verificar campos vacíos
+    const { localuser, localpassword } = formData;
+    const emailError = !localuser ? "Ingrese su correo" : "";
+    const passwordError = !localpassword ? "Ingrese su contraseña" : "";
+
+    setErrors({
+      email: emailError,
+      password: passwordError,
+      credential: "",
+    });
+
+    setInputClasses({
+      email: emailError ? "shake" : "",
+      password: passwordError ? "shake" : "",
+      credential: "",
+    });
+
+    if (emailError || passwordError) {
+      return;
+    }
+
+    try {
+      const res = await axios.post(URI, {
+        correo_usuario: localuser,
+        contrasena_usuario: localpassword,
+      });
+      localStorage.setItem("token", res.data.token);
+      navigate("/");
+      refresh();
+    } catch (error) {
+      console.error(error);
+      setErrors({
+        email: "",
+        password: "",
+        credential: "Credenciales incorrectas, intente una vez más.",
+      });
+
+      setInputClasses({
+        email: "",
+        password: "",
+        credential: "shake",
+      });
+    }
   };
 
   return (
@@ -139,11 +154,11 @@ export const Ingresocom = ({ refresh }) => {
           <input
             type="email"
             id="correo"
-            name="correo"
-            required
-            onChange={(e) => setLocalUser(e.target.value)}
+            name="localuser"
+            onChange={handleFieldChange}
+            className={inputClasses.email}
           />
-          <p className={`error ${emailInputClass}`}>{emailError}</p>
+          <p className={`error ${inputClasses.email}`}>{errors.email}</p>
           <br />
           <br />
           <br />
@@ -154,9 +169,9 @@ export const Ingresocom = ({ refresh }) => {
             <input
               type={showPassword ? "text" : "password"}
               id="contrasena"
-              name="contrasena"
-              required
-              onChange={(e) => setlocalPassword(e.target.value)}
+              name="localpassword"
+              onChange={handleFieldChange}
+              className={inputClasses.password}
             />
             <br />
             <br />
@@ -164,7 +179,7 @@ export const Ingresocom = ({ refresh }) => {
             <button
               className="invisible"
               type="button"
-              onClick={togglePasswordVisibility}
+              onClick={handleTogglePasswordVisibility}
             >
               <img
                 src={showPassword ? "images/ojo.png" : "images/invisible.png"}
@@ -174,22 +189,22 @@ export const Ingresocom = ({ refresh }) => {
             <br />
             <br />
           </div>
-          <p className={`error ${passwordInputClass}`}>{passwordError}</p>
-          <button className="enviar" onClick={test}>
+          <p className={`error ${inputClasses.password}`}>{errors.password}</p>
+          <button className="enviar" onClick={handleLogin}>
             Iniciar sesión
           </button>
 
           <div className="googleAuth">
-            <GoogleLogin 
+            <GoogleLogin
               clientId="336496153339-bfh9gkv3l2ktbgnq5725nba8kp84u5ff.apps.googleusercontent.com"
               buttonText="Inicia sesión con Google"
-              onSuccess={responseGoogleS}
-              onFailure={responseGoogleE}
+              onSuccess={handleResponseGoogleSuccess}
+              onFailure={handleResponseGoogleFailure}
               cookiePolicy={"single_host_origin"}
             />
           </div>
           <br />
-          <p className={`error ${credentialInputClass}`}>{credentialError}</p>
+          <p className={`error ${inputClasses.credential}`}>{errors.credential}</p>
         </div>
       </div>
 

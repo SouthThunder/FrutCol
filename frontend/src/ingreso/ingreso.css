@@ -176,3 +176,52 @@
 .ingresocontain .logo-container{
     padding-left: 89.5%;
 }
+
+    
+
+/* Ajustes generales para dispositivos móviles */
+@media (max-width: 1024px) {
+    .ingresocontain .logo-container{
+        padding-left: 0;
+    }
+    .ingresocontain {
+        flex-direction: column-reverse;
+        padding-top: 10%;
+    }
+    .ingresocontain >.contderformlogin .form {
+        row-gap: 1rem;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+    }
+
+    .ingresocontain >.contderformlogin .form .password{
+        width: 100%;
+    }
+    .ingresocontain >.contizformlogin {
+        flex: 0 0 100%; /* Ocupa todo el ancho en dispositivos móviles */
+        margin-left: 0;
+    }
+    .ingresocontain > .contderformlogin {
+       
+        width: 100%; /* Ocupa todo el ancho en dispositivos móviles */
+        margin-right: 0;
+    }
+
+    .ingresocontain > .contderformlogin h1 {
+        font-size: 20px; /* Reduce el tamaño de la fuente */
+        margin-bottom: 10px;
+    }
+
+    .ingresocontain > .contderformlogin input {
+        width: 100%; /* Ocupa todo el ancho en dispositivos móviles */
+    }
+
+    .ingresocontain > .contderformlogin .enviar {
+        margin-left: 0; /* Alinea el botón al centro en dispositivos móviles */
+    }
+
+    .ingresocontain > .contderformlogin .googleAuth {
+        margin-top: 1rem; /* Agrega un espacio entre los elementos */
+    }
+}

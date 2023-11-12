@@ -11,7 +11,6 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
   const [currentImage, setCurrentImage] = useState([]);
   const [primaryColor, setPrimaryColor] = useState([]);
   const [currentWord, setCurrentWord] = useState([]);
-  // const [currentPrice, setCurrentprice] = useState([]);
   const [sliderProds, setSliderProds] = useState([]);
   const firstLoad = useRef(false);
 
@@ -20,7 +19,6 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
     setPrimaryColor(element.main_color);
     setCurrentImage(`../../images/${product.image}`);
     setCurrentWord(element.nombre_producto);
-    // setCurrentprice(element.precio_producto);
   };
   const updateProp = (element) => {
     changeProp(element);
@@ -82,6 +80,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
       <div className="first">
         <div className="n1">
           <h1>{currentWord}</h1>
+          <h3 className="responsiveText">Apasionante y natural</h3>
         </div>
         <div className="n2">
           {/* <h1>$ {currentPrice}</h1> */}
@@ -174,7 +173,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
 
       <div className="third">
         <div className="n1">
-          <h1>Apasionante y Natural</h1>
+          <h1>¡Apasionante y Natural!</h1>
           <h2>
             Pulpa de fruta 100% natural
           </h2>
