@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaBars, FaTimes, FaUserCircle, FaShoppingBasket } from "react-icons/fa";
 import "./header.css";
+import {AiOutlineUser} from "react-icons/ai";
+import {BsCart2} from "react-icons/bs";
 
 export const HeadPopUp = ({ product, trigger, togglePopup }) => {
   const menuRef = useRef();
@@ -118,7 +120,7 @@ export const Headercom = ({ product }) => {
                   <p onClick={() => logout()}>Salir</p>
                 </div>
                 <button id="userIcon" onClick={togglePopup}>
-                  <FaUserCircle />
+                  <AiOutlineUser />
                 </button>
                 <HeadPopUp
                   trigger={popup}
@@ -128,7 +130,7 @@ export const Headercom = ({ product }) => {
               </li>
               <li>
                 <button id="cartIcon" onClick={() => navigate("/carrito")}>
-                  <FaShoppingBasket />
+                  <BsCart2 />
                 </button>
               </li>
             </ul>
