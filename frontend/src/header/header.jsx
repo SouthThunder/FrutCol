@@ -102,7 +102,7 @@ export const Headercom = ({ product }) => {
       >
         <div className="logo" onClick={() => navigate("/")}>
           <img src="images/Frame 1.png" alt="" />
-          <h1>Frutcol - A SAS</h1>
+          <h1>Frutcol - A</h1>
         </div>
         <nav
           ref={navRef}
