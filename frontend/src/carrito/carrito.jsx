@@ -192,15 +192,25 @@ export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, o
             />
             {errors.nombre && <div className="error">{errors.nombre}</div>}
           </div>
-          <div className="n6">
-            <label htmlFor="ciudad">Ciudad</label>
+          <div className="n2">
+            <label htmlFor="cedula">Cédula o NIT</label>
             <input
               type="text"
-              name="ciudad"
-              value={formData.ciudad}
+              name="cedula"
+              value={formData.cedula}
               onChange={handleInputChange}
             />
-            {errors.ciudad && <div className="error">{errors.ciudad}</div>}
+            {errors.cedula && <div className="error">{errors.cedula}</div>}
+          </div>
+          <div className="n3">
+            <label htmlFor="correo">Correo</label>
+            <input
+              type="text"
+              name="correo"
+              value={formData.correo}
+              onChange={handleInputChange}
+            />
+            {errors.correo && <div className="error">{errors.correo}</div>}
           </div>
           <div className="n4">
             <label htmlFor="direccion">Dirección</label>
@@ -222,25 +232,15 @@ export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, o
             />
             {errors.telefono && <div className="error">{errors.telefono}</div>}
           </div>
-          <div className="n3">
-            <label htmlFor="correo">Correo</label>
+          <div className="n6">
+            <label htmlFor="ciudad">Ciudad</label>
             <input
               type="text"
-              name="correo"
-              value={formData.correo}
+              name="ciudad"
+              value={formData.ciudad}
               onChange={handleInputChange}
             />
-            {errors.correo && <div className="error">{errors.correo}</div>}
-          </div>
-          <div className="n2">
-            <label htmlFor="cedula">Cédula o NIT</label>
-            <input
-              type="text"
-              name="cedula"
-              value={formData.cedula}
-              onChange={handleInputChange}
-            />
-            {errors.cedula && <div className="error">{errors.cedula}</div>}
+            {errors.ciudad && <div className="error">{errors.ciudad}</div>}
           </div>
         </div>
         <div className="additional">

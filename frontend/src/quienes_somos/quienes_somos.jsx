@@ -29,7 +29,7 @@ export const QuienesSomos = ({ product }) => {
       >
         <div className="mision containerquienes">
           <h2 className="tittlequienes" style={{ color: product.main_color }}>
-            Mision
+            Misión
           </h2>
           <p>
             Producir y comercializar pulpa de frutas de óptima calidad 100%
@@ -41,7 +41,7 @@ export const QuienesSomos = ({ product }) => {
 
         <div className="vision containerquienes">
           <h2 className="tittlequienes" style={{ color: product.main_color }}>
-            Vision
+            Visión
           </h2>
           <p>
             FrutCol – A SAS será una empresa consolidada con reconocimiento

@@ -44,7 +44,7 @@
 /*VALORES CSS */
 .values{
     display: flex;
-    width: 90%;
+    width: 100%;
     height: 700px;
     margin-top: 5rem;
     position: relative; 
@@ -80,7 +80,8 @@
     position: absolute;
     border: 1px solid var(--primary-color);
     padding: 1.5rem;
-    width: 30%;
+    width: 100%;
+    max-width: 30vw;
     height: 8rem;
     border-radius: var(--md-border);
 }
@@ -108,6 +109,55 @@
 }
 
 @media only screen and (max-width: 1024px) {
+    .values > .holder > .container{
+        width: 320px !important;
+    }
+
+    .values > .holder > .container:nth-child(5){
+        left: 0rem;
+        top: 6rem;
+    }
+    .values > .holder > .container:nth-child(2){
+        right: 0;
+        top: 6rem;
+    }
+    .values > .holder > .container:nth-child(3){
+        right: 0;
+        bottom: 6rem;
+    }
+    .values > .holder > .container:nth-child(4){
+        left: 0;
+        bottom: 6rem;
+    }
+
+}
+
+@media only screen and (max-width: 900px) {
+    .values > .holder > .container{
+        max-width: 320px !important;
+    }
+
+    .values > .holder > .container:nth-child(5){
+        left: 0rem;
+        top: 6rem;
+    }
+    .values > .holder > .container:nth-child(2){
+        right: 0;
+        top: 6rem;
+    }
+    .values > .holder > .container:nth-child(3){
+        right: 0;
+        bottom: 6rem;
+    }
+    .values > .holder > .container:nth-child(4){
+        left: 0;
+        bottom: 6rem;
+    }
+
+}
+
+
+@media only screen and (max-width: 768px) {
 
     .values > .holder{
         display: flex;
@@ -123,7 +173,7 @@
         position: relative;
         height: 8rem;
         margin: 1rem;
-        width: 100%;
+        max-width: 100% !important;
     }
 
     .values > .holder > .container:nth-child(2),

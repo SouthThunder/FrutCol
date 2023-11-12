@@ -43,6 +43,7 @@ nav > ul {
   width: 30%;
   display: flex;
   justify-content: space-around;
+  align-items: center;
   height: 80px;
 }
 
@@ -98,6 +99,11 @@ header .burger-menu {
   margin-right: 2rem;
 }
 
+header .burger-menu svg,
+header .close-menu svg {
+  color: black;
+}
+
 header .close-menu {
   padding: 5px;
   cursor: pointer;
@@ -114,6 +120,7 @@ header .close-menu {
 header .nav-btn, .nav-btns {
   padding: 5px;
   cursor: pointer;
+  display: none;
   background-color: transparent;
   border: none;
   outline: none;
@@ -171,6 +178,8 @@ header .popup-header .popup-inner:nth-child(1) button:hover {
   color: white;
 }
 
+
+
 header .popup-header .popup-inner:nth-child(3) button:hover {
   cursor: pointer;
   border-bottom-left-radius: var(--xs-border);
@@ -180,17 +189,29 @@ header .popup-header .popup-inner:nth-child(3) button:hover {
   color: white;
 }
 
-@media only screen and (max-width: 1024px) {
+
+
+@media only screen and (max-width: 768px) {
+
+  header{
+    width: 100vw;
+  }
+
   header .nav-btn {
     visibility: visible;
     opacity: 1;
+    display: flex;
+  }
+
+  header .logo img{
+    margin-left: -1rem;
   }
 
   header nav {
     position: fixed;
     top: 0.5rem;
     right: 0;
-    width: 400px;
+    width: 375px;
     height: 40%;
     display: flex;
     flex-direction: column;
@@ -240,6 +261,7 @@ header .popup-header .popup-inner:nth-child(3) button:hover {
     cursor: pointer;
     visibility: visible;
     opacity: 1;
+    display: flex;
   }
 
 }
