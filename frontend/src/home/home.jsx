@@ -79,8 +79,10 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
     >
       <div className="first">
         <div className="n1">
-          <h1>{currentWord}</h1>
-          <h3 className="responsiveText">Apasionante y natural</h3>
+          <h1 id="desktop">{currentWord}</h1>
+          <h1 className="responsiveText">Pulpa de fruta 100% natural</h1>
+          <h3 className="responsiveText">Sin aditivos ni conservantes</h3>
+
         </div>
         <div className="n2">
           {/* <h1>$ {currentPrice}</h1> */}
@@ -174,10 +176,13 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
       <div className="third">
         <div className="n1">
           <h1>¡Apasionante y Natural!</h1>
-          <h2>
+          <h2 id="desktop">
             Pulpa de fruta 100% natural
           </h2>
-          <h3>Sin aditivos ni conservantes</h3>
+          <h3 id="desktop">Sin aditivos ni conservantes</h3>
+          <h2 className="responsiveText">{currentWord}</h2>
+          <h3 className="responsiveText">¡Apasionante y natural!</h3>
+
         </div>
         <div className="n2">
           <button
