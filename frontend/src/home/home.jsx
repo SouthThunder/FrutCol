@@ -80,6 +80,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
       <div className="first">
         <div className="n1">
           <h1>{currentWord}</h1>
+          <h3 className="responsiveText">Apasionante y natural</h3>
         </div>
         <div className="n2">
           {/* <h1>$ {currentPrice}</h1> */}
@@ -172,7 +173,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
 
       <div className="third">
         <div className="n1">
-          <h1>Apasionante y Natural</h1>
+          <h1>¡Apasionante y Natural!</h1>
           <h2>
             Pulpa de fruta 100% natural
           </h2>

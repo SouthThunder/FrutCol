@@ -87,20 +87,20 @@
 
 
 .values > .holder > .container:nth-child(5){
-    left: 5rem;
-    top: 5rem;
+    left: 6rem;
+    top: 6rem;
 }
 .values > .holder > .container:nth-child(2){
-    right: 5rem;
-    top: 5rem;
+    right: 6rem;
+    top: 6rem;
 }
 .values > .holder > .container:nth-child(3){
-    right: 5rem;
-    bottom: 5rem;
+    right: 6rem;
+    bottom: 6rem;
 }
 .values > .holder > .container:nth-child(4){
-    left: 5rem;
-    bottom: 5rem;
+    left: 6rem;
+    bottom: 6rem;
 }
 
 .qualitypolicies {

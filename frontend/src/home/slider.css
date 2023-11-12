@@ -155,6 +155,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 .homecontain > .slider > .third > .n1 {
   display: flex;
   flex-direction: column;
+  text-align: right;
   grid-row: 2/3;
   grid-column: 1/3;
 }
@@ -266,6 +267,108 @@ input[type="range"]::-webkit-slider-runnable-track {
   > img {
   max-width: 55px;
 }
+
+.responsiveText{
+  visibility: hidden;
+  opacity: 0;
+}
+
+
+@media only screen and (max-width: 1024px) {
+  .slider{
+    padding-top: 6rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .responsiveText{
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .slider .first,
+  .slider .second,
+  .slider .third{
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: column-reverse !important;
+    width: 100% !important;
+  }
+
+  .slider .first .n1{
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .slider .first .n1 > h1{
+    margin-left: 0 !important;
+    text-transform: uppercase;
+  }
+
+  .slider .second{
+    margin-top: 5rem;
+  }
+
+  .slider .second svg{
+    width: 375px !important;
+    height: 375px !important;
+  }
+
+  .slider .third {
+    margin-top: 4rem ;
+  }
+  .slider .third .n2{
+    display: none !important;
+  }
+
+  .slider .third > .n1 h2{
+    margin-top: 2rem;
+    text-align: center;
+    margin-right: 0 !important;
+  }
+
+  .slider .third > .n3{
+    padding-right: 0 !important;
+  }
+
+  .slider .third > .n1 > h1{
+    display: none !important;
+  }
+
+  .slider .third .fruit{
+    border: 1px solid black !important;
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .slider .third .fruit:active,
+  .slider .third .fruit:focus{
+    background-color: var(--btn-color);
+  }
+
+  .slider .third img{
+    display: none;
+  }
+
+  .slider > .first > .n3,
+  .slider > .first > .n4,
+  .slider > .first > .n2 {
+    display: none !important;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .whatsapp-container {
+    bottom: 20px !important; /* Adjust the distance from the bottom as needed */
+    right: 0px !important; /* Adjust the distance from the right as needed */
+  }
+  
+}
+
 
 /* Position the WhatsApp container */
 .whatsapp-container {
