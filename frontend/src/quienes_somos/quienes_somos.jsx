@@ -34,8 +34,8 @@ export const QuienesSomos = ({ product }) => {
           <p>
             Producir y comercializar pulpa de frutas de óptima calidad 100%
             natural, sin aditivos ni conservantes, bajo el concepto de ALIMENTO
-            SALUDABLE con buenas prácticas de manufactura y de economía
-            circular.
+            SALUDABLE con buenas prácticas de manufactura y de
+            economía circular.
           </p>
         </div>
 
@@ -102,22 +102,34 @@ export const QuienesSomos = ({ product }) => {
         </h1>
         <div className="holder">
           <img src="./images/Frame 1.png" alt="Logo" />
-          <div className="container" style={{ backgroundColor: product.header_color }}>
+          <div
+            className="container"
+            style={{ backgroundColor: product.header_color }}
+          >
             <h2 className="tittlequienes">COMPROMISO</h2>
             <p>Hacer todo bien con honestidad</p>
           </div>
-          <div className="container" style={{ backgroundColor: product.header_color }}>
+          <div
+            className="container"
+            style={{ backgroundColor: product.header_color }}
+          >
             <h2 className="tittlequienes">CONFIANZA</h2>
             <p>Convicción propia para alcanzar los objetivos trazados</p>
           </div>
-          <div className="container" style={{ backgroundColor: product.header_color }}>
+          <div
+            className="container"
+            style={{ backgroundColor: product.header_color }}
+          >
             <h2 className="tittlequienes">EXCELENCIA</h2>
             <p>
               Obtener la máxima eficacia en la gestión para obtener los mejores
               resultados
             </p>
           </div>
-          <div className="container" style={{ backgroundColor: product.header_color }}>
+          <div
+            className="container"
+            style={{ backgroundColor: product.header_color }}
+          >
             <h2 className="tittlequienes">ÉTICA EMPRESARIAL</h2>
             <p>
               Fomentar la convivencia y ambiente laboral con respeto y libertad
@@ -136,7 +148,7 @@ export const QuienesSomos = ({ product }) => {
           <li>
             <p>
               Garantizar el procesamiento del producto con buenas practica de
-              manufactura (BPM)
+              manufactura (BPM)
             </p>
           </li>
           <li>
