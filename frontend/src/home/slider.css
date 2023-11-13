@@ -323,7 +323,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   }
 
   .slider .second svg{
-    width: 375px !important;
+    width: 100% !important;
     height: 375px !important;
   }
 
