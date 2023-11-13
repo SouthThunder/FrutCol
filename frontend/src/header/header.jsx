@@ -137,10 +137,10 @@ export const Headercom = ({ product }) => {
           ) : (
             <ul>
               <li>
-                <a href="/Ingreso">Ingresar</a>
+                <a href="/ingreso">Ingresar</a>
               </li>
               <li>
-                <a href="/registro">Registrarse</a>
+                <a href="/Registro">Registrarse</a>
               </li>
             </ul>
           )}
