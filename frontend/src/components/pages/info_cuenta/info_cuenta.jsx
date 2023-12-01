@@ -505,7 +505,7 @@ export const Cambiocontraseña = (prop) => {
   );
 };
 
-export const InfoCuentacom = ({ product, prodsPool, lProductos }) => {
+export const InfoCuentacom = ({ product, prodsPool }) => {
   const decode = jwt_decode(localStorage.getItem("token"));
   const [isLoading, setisLoading] = useState(true);
   const [admin, setAdmin] = useState(null);

@@ -52,7 +52,7 @@ export const Card = ({ prods, updateReloader }) => {
       <div className="info">
         <div className="pImg">
           <img
-            src={"../../images/" + prods.image}
+            src={"./public/images/" + prods.image}
             alt={prods.nombre_producto}
           />
         </div>
@@ -486,11 +486,8 @@ export const Cart = ({ lProductos }) => {
   );
 };
 
-export const Carritocom = ({ product, lProductos }) => {
-  useEffect(() => {}, []);
+export const Carritocom = ({lProductos}) => {
   return (
-    <div className="carritocontain">
       <Cart lProductos={lProductos} />
-    </div>
   );
 };

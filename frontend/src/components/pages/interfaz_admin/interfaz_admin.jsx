@@ -404,7 +404,7 @@ export const ProductosReserva = (prop) => {
 export const InterfazAdmincom = ({ product, prodsPool}) => {
   const [isLoading, setisLoading] = useState(true);
   const [userHistory, setUserHistory] = useState(null);
-  const [admin, setAdming] = useState(null);
+  const [admin, setAdmin] = useState(null);
   const firstRender = useRef(true);
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("token");
@@ -446,9 +446,9 @@ export const InterfazAdmincom = ({ product, prodsPool}) => {
     const lURI = "https://frutcol-backend.onrender.com/usuarios";
     try {
       const res = await axios.get(lURI, { headers });
-      setAdming(res.data);
+      setAdmin(res.data);
     } catch (error) {
-      setAdming(false);
+      setAdmin(false);
       console.error(error);
     }
   };

@@ -1,21 +1,21 @@
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
-import {Homecom} from './components/pages/home/home.jsx';
-import {InfoCuentacom} from './components/pages/info_cuenta/info_cuenta.jsx';
-import {Ingresocom} from './components/pages/ingreso/ingreso.jsx';
-import {InterfazAdmincom} from './components/pages/interfaz_admin/interfaz_admin.jsx';
-import {QuienesSomoscom} from './components/pages/quienes_somos/quienes_somos.jsx';
-import {Registrocom} from './components/pages/registro/registro.jsx';
-import {PrivacyComp} from './components/pages/privacy/privacy.jsx';
-import { Producto } from "./components/pages/home/cartSlice.js";
+import {Homecom} from '../components/pages/home/home.jsx';
+import {InfoCuentacom} from '../components/pages/info_cuenta/info_cuenta.jsx';
+import {Ingresocom} from '../components/pages/ingreso/ingreso.jsx';
+import {InterfazAdmincom} from '../components/pages/interfaz_admin/interfaz_admin.jsx';
+import {QuienesSomoscom} from '../components/pages/quienes_somos/quienes_somos.jsx';
+import {Registrocom} from '../components/pages/registro/registro.jsx';
+import {PrivacyComp} from '../components/pages/privacy/privacy.jsx';
+import { Producto } from "../components/pages/home/cartSlice.js";
 import { useRef, useEffect, useState } from 'react';
-import { Carritocom } from './components/pages/carrito/carrito.jsx';
-import { Selement } from './components/pages/s_element/s_element.jsx';
+import { Carritocom } from '../components/pages/carrito/carrito.jsx';
+import { Selement } from '../components/pages/s_element/s_element.jsx';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
-import LoadingSpinner from './components/common/loading/LoadingSpinner.jsx';
+import LoadingSpinner from '../components/common/loading/LoadingSpinner.jsx';
 import { gapi } from 'gapi-script';
-import { Headercom } from './components/common/header/header.jsx';
-import { Footercom } from './components/common/footer/footer.jsx';
+import { Headercom } from '../components/common/header/header.jsx';
+import { Footercom } from '../components/common/footer/footer.jsx';
 
 gapi.load('client:auth2', () => {
   gapi.client.init({
