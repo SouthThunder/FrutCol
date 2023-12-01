@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import "./quienes_somos.css";
-import { Headercom } from "../header/header";
-import { Footercom } from "../footer/footer";
 
 export const QuienesSomos = ({ product }) => {
   return (
@@ -205,9 +203,7 @@ export const QuienesSomoscom = ({ product }) => {
 
   return (
     <div className="QuienesSomoscontain">
-      <Headercom product={product} />
       <QuienesSomos product={product} />
-      <Footercom product={product} />
     </div>
   );
 };

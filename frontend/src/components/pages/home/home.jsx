@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./slider.css";
 import "./products.css";
-import { Headercom } from "../header/header";
-import { Footercom } from "../footer/footer";
 import { Link, useNavigate } from "react-router-dom";
 
 export const Slider = ({ product, changeProp, prodsPool }) => {
@@ -307,7 +305,6 @@ export const Homecom = ({
 }) => {
   return (
     <div className="homecontain">
-      <Headercom product={product} />
       <Slider product={product} changeProp={changeProp} prodsPool={prodsPool} />
       <Products
         prodsPool={prodsPool}
@@ -322,7 +319,6 @@ export const Homecom = ({
           <img src="../../images/wpp_logo.png" alt="WhatsApp Logo" />
         </Link>
       </div>
-      <Footercom product={product} />
     </div>
   );
 };

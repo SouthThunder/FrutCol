@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./info_cuenta.css";
-import { Headercom } from "../header/header";
-import { Footercom } from "../footer/footer";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
-import LoadingSpinner from "../loading/LoadingSpinner";
+import LoadingSpinner from "../../common/loading/LoadingSpinner.jsx";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import { FaUser } from "react-icons/fa";
@@ -580,9 +578,7 @@ export const InfoCuentacom = ({ product, prodsPool, lProductos }) => {
 
   return (
     <div className="infoCuentacontain">
-      <Headercom
-        product={product}
-      />
+
       <Informacioncuenta
         product={product}
         userData={userData}
@@ -591,7 +587,6 @@ export const InfoCuentacom = ({ product, prodsPool, lProductos }) => {
         prodsPool={prodsPool}
         admin={admin}
       />
-      <Footercom product={product} />
     </div>
   );
 };

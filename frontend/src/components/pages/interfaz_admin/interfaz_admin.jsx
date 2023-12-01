@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./interfaz_admin.css";
-import { Headercom } from "../header/header";
-import { Footercom } from "../footer/footer";
-import LoadingSpinner from "../loading/LoadingSpinner";
+import LoadingSpinner from "../../common/loading/LoadingSpinner.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -469,16 +467,12 @@ export const InterfazAdmincom = ({ product, prodsPool}) => {
   }else if(admin === true) {
     return (
       <div className="infopagecontain">
-        <Headercom
-          product={product}
-        />
         <Informacionpagina
           product={product}
           headers={headers}
           prodsPool={prodsPool}
           userHistory={userHistory}
         />
-        <Footercom product={product} />
       </div>
     );
   }

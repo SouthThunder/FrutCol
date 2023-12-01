@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./carrito.css";
-import { Headercom } from "../header/header";
-import { Footercom } from "../footer/footer";
 import jwt_decode from "jwt-decode";
 import { Toaster, toast } from "sonner";
 import axios from "axios";
@@ -492,9 +490,7 @@ export const Carritocom = ({ product, lProductos }) => {
   useEffect(() => {}, []);
   return (
     <div className="carritocontain">
-      <Headercom product={product} />
       <Cart lProductos={lProductos} />
-      <Footercom product={product} />
     </div>
   );
 };

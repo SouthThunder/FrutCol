@@ -6,7 +6,6 @@
 
 .ingresocontain >.contderformlogin {
     flex: 1;
-    /* border: 1px solid black; */
     height: 90vh;
     display: flex;
     flex-direction: column;
@@ -95,7 +94,6 @@
 
 .ingresocontain >.contizformlogin {
     flex: 0 0 30%; 
-    /* border: 1px solid red;  */
     height: 90vh;
     margin-left: 20px;
     background-size: cover;
@@ -105,7 +103,7 @@
     justify-content: center;
     align-items: center;
     color: black; 
-    background-image: url('../../public/images/minimalfrutas2.png');
+    background-image: url('../../../../public/images/minimalfrutas2.png');
 }
 
 

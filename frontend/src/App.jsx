@@ -1,20 +1,21 @@
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
-import {Homecom} from './home/home.jsx';
-import {InfoCuentacom} from './info_cuenta/info_cuenta.jsx';
-import {Ingresocom} from './ingreso/ingreso.jsx';
-import {InterfazAdmincom} from './interfaz_admin/interfaz_admin.jsx';
-import {QuienesSomoscom} from './quienes_somos/quienes_somos.jsx';
-import {Registrocom} from './registro/registro.jsx';
-
-import {PrivacyComp} from './privacy/privacy.jsx'
-import { Producto } from "./home/cartSlice.js";
+import {Homecom} from './components/pages/home/home.jsx';
+import {InfoCuentacom} from './components/pages/info_cuenta/info_cuenta.jsx';
+import {Ingresocom} from './components/pages/ingreso/ingreso.jsx';
+import {InterfazAdmincom} from './components/pages/interfaz_admin/interfaz_admin.jsx';
+import {QuienesSomoscom} from './components/pages/quienes_somos/quienes_somos.jsx';
+import {Registrocom} from './components/pages/registro/registro.jsx';
+import {PrivacyComp} from './components/pages/privacy/privacy.jsx';
+import { Producto } from "./components/pages/home/cartSlice.js";
 import { useRef, useEffect, useState } from 'react';
+import { Carritocom } from './components/pages/carrito/carrito.jsx';
+import { Selement } from './components/pages/s_element/s_element.jsx';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
-import LoadingSpinner from "./loading/LoadingSpinner";
+import LoadingSpinner from './components/common/loading/LoadingSpinner.jsx';
 import { gapi } from 'gapi-script';
-import { Carritocom } from './carrito/carrito.jsx';
-import { Selement } from './s_element/s_element.jsx';
+import { Headercom } from './components/common/header/header.jsx';
+import { Footercom } from './components/common/footer/footer.jsx';
 
 gapi.load('client:auth2', () => {
   gapi.client.init({
@@ -143,6 +144,7 @@ export const App= () =>{
   return (
     <div className="principalContainer">
       <BrowserRouter>
+      <Headercom product={product}/>
         <Routes>
           <Route path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool} user={user}/>}/>
           <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool}/>}/>
@@ -155,7 +157,8 @@ export const App= () =>{
           <Route path='/Privacidad' element={<PrivacyComp product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
           <Route path='/:id' element={<Selement product={product} lProductos={lProductos} updateLProducts={updateLProducts}/>}/>
         </Routes>
-      </BrowserRouter>      
+      <Footercom product={product}/>
+      </BrowserRouter>    
     </div>
   );
 }

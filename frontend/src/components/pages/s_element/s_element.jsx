@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Headercom } from "../header/header";
-import { Footercom } from "../footer/footer";
-import LoadingSpinner from "../loading/LoadingSpinner";
+import LoadingSpinner from "../../common/loading/LoadingSpinner";
 import "./s_element.css";
 import { useNavigate } from "react-router-dom";
 
@@ -198,14 +196,12 @@ export const Selement = ({ product, lProductos, updateLProducts }) => {
 
   return (
     <div className="selement">
-      <Headercom product={product} />
       <Element
         elements={elements}
         father={product}
         lProductos={lProductos}
         updateLProducts={updateLProducts}
       />
-      <Footercom product={product} />
     </div>
   );
 };
