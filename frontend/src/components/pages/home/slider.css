@@ -404,8 +404,9 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 /* Style the WhatsApp logo */
-.whatsapp-container img {
-  width: 128px; /* Adjust the width as needed */
-  height: 91px; /* Adjust the height as needed */
+.whatsapp-container svg {
+  width: 80px; /* Adjust the width as needed */
+  height: 80px; /* Adjust the height as needed */
+  color: #25D366;
   border: none; /* Remove the border if it exists */
 }

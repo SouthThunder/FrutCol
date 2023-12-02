@@ -52,7 +52,7 @@ export const Card = ({ prods, updateReloader }) => {
       <div className="info">
         <div className="pImg">
           <img
-            src={"./public/images/" + prods.image}
+            src={"../../images/" + prods.image}
             alt={prods.nombre_producto}
           />
         </div>
