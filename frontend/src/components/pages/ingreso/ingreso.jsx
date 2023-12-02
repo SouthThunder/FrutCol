@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import "./ingreso.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { IoEyeOff, IoEye } from "react-icons/io5";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { toast } from "sonner";
 import GoogleLogin from "react-google-login";
+import "./ingreso.css";
 
 const URI = "https://frutcol-backend.onrender.com/usuarios/login";
 
@@ -135,90 +136,60 @@ export const Ingresocom = ({ refresh }) => {
   };
 
   return (
-    <div className="ingresocontain" id="home">
-      <div className="contizformlogin">
-        <h1>¿Eres nuevo?</h1>
-        <br />
-        <br />
-        <br />
-        <Link to={"/Registro"}>
-          <button className="botonizform">Registrarse</button>
-        </Link>
-      </div>
-      <div className="contderformlogin">
+    <div className="contderformlogin">
+      <div className="form">
         <h1>Inicio de sesión</h1>
-        <br />
-        <p className="separadorform"></p>
-        <div className="form">
-          <label htmlFor="correo">Correo:</label>
+        <p>Correo:</p>
+        <div className="password">
           <input
             type="email"
-            id="correo"
             name="localuser"
             onChange={handleFieldChange}
             className={inputClasses.email}
           />
-          <p className={`error ${inputClasses.email}`}>{errors.email}</p>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <label htmlFor="contrasena">Contraseña:</label>
-          <div className="password">
-            <input
-              type={showPassword ? "text" : "password"}
-              id="contrasena"
-              name="localpassword"
-              onChange={handleFieldChange}
-              className={inputClasses.password}
-            />
-            <br />
-            <br />
-            <br />
-            <button
-              className="invisible"
-              type="button"
-              onClick={handleTogglePasswordVisibility}
-            >
-              <img
-                src={showPassword ? "images/ojo.png" : "images/invisible.png"}
-                alt={showPassword ? "visible" : "invisible"}
-              />
-            </button>
-            <br />
-            <br />
-          </div>
-          <p className={`error ${inputClasses.password}`}>{errors.password}</p>
+        </div>
+        <p className={`error ${inputClasses.email}`}>{errors.email}</p>
+
+        <p>Contraseña:</p>
+        <div className="password">
+          <input
+            type={showPassword ? "text" : "password"}
+            name="localpassword"
+            onChange={handleFieldChange}
+            className={inputClasses.password}
+          />
+
+          <button
+            className="invisible"
+            type="button"
+            onClick={handleTogglePasswordVisibility}
+          >
+            {showPassword ?  <IoEye /> : <IoEyeOff />}
+          </button>
+        </div>
+        <p className={`error ${inputClasses.password}`}>{errors.password}</p>
+        <div className="send">
           <button className="enviar" onClick={handleLogin}>
             Iniciar sesión
           </button>
-
-          <div className="googleAuth">
-            <GoogleLogin
-              clientId="336496153339-bfh9gkv3l2ktbgnq5725nba8kp84u5ff.apps.googleusercontent.com"
-              buttonText="Inicia sesión con Google"
-              onSuccess={handleResponseGoogleSuccess}
-              onFailure={handleResponseGoogleFailure}
-              cookiePolicy={"single_host_origin"}
-            />
-          </div>
-          <br />
-          <p className={`error ${inputClasses.credential}`}>{errors.credential}</p>
         </div>
-      </div>
 
-      <div className="logo-container">
-        <Link to={"/"} className="nav__logo">
-          <img src="images/Frame 1.png" alt="" />
-          <p
-            style={{
-              transition: "all 1s var(--btn-cubic-bezier)",
-            }}
-          >
-            FrutCol
-          </p>
-        </Link>
+        <div className="googleAuth">
+          <GoogleLogin
+            clientId="336496153339-bfh9gkv3l2ktbgnq5725nba8kp84u5ff.apps.googleusercontent.com"
+            buttonText="Inicia sesión con Google"
+            onSuccess={handleResponseGoogleSuccess}
+            onFailure={handleResponseGoogleFailure}
+            cookiePolicy={"single_host_origin"}
+          />
+        </div>
+        <p className={`error ${inputClasses.credential}`}>
+          {errors.credential}
+        </p>
+        <p className="registro">
+          ¿No tienes una cuenta?{" "}
+          <span onClick={() => navigate("/registro")} onKeyDown={() => navigate('/registro')}>Regístrate</span>
+        </p>
       </div>
     </div>
   );

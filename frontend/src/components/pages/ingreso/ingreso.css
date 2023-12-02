@@ -1,57 +1,43 @@
-.ingresocontain {
-    padding-top: 2.5%;
-    display: flex;
-    height: 100%;
-}
 
-.ingresocontain >.contderformlogin {
+.contderformlogin {
     flex: 1;
-    height: 90vh;
+    height: 60vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    margin-right: 20px;
+    margin-top: calc(var(--header-height) * 2);
 }
 
-.ingresocontain >.contderformlogin h1 {
+.contderformlogin h1 {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 3rem;
+    text-align: center;
 }
 
-.ingresocontain >.contderformlogin .form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.contderformlogin .form{
+    border: 1px solid black;
+    border-radius: var(--md-border);
+    padding: 2rem;
 }
 
-.ingresocontain >.contderformlogin label {
-    font-size: 16px;
-    margin-top: 10px;
-    margin-right: 10px;
-    display: inline-block;
-}
-
-.ingresocontain >.contderformlogin input {
+.contderformlogin input {
     width: 500px;
     border: none;
     border-bottom: 1px solid #ccc;
     padding: 5px 0;
     margin-top: 5px;
     margin-bottom: 15px;
-    border-radius: 4px;
     background: none;
 }
 
-.ingresocontain >.contderformlogin input:focus {
+.contderformlogin input:focus {
     outline: none; 
     border-color:var(--primary-color);
 }
 
-.ingresocontain >.contderformlogin .enviar {
-    margin-top: 4%;
-    margin-left: 40%;
+.contderformlogin .enviar {
     background-color: transparent;
     color: black;
     padding: 10px 20px;
@@ -61,27 +47,27 @@
     transition: background-color 0.3s;
 }
 
-.ingresocontain >.contderformlogin .invisible {
+.contderformlogin .invisible {
     background: none;
     border: none;
     padding: 0;
     cursor: pointer;
 }
 
-.ingresocontain >.contderformlogin .invisible img{
-    width: 20px; 
-    height: 20px; 
-    display: block; 
+.contderformlogin .invisible svg{
+    color: var(--primary-color);
+    width: 25px; 
+    height: 25px; 
+    margin-left: -25px;
 }
 
-.ingresocontain >.contderformlogin .enviar:hover {
+.contderformlogin .enviar:hover {
     background-color: var(--primary-color);
     color: white;
-    border: none;
 }
 
 
-.ingresocontain > .contderformlogin .botonizform {
+ .contderformlogin .botonizform {
     background-color: white;
     border: 2px solid white; 
     color: black; 
@@ -92,60 +78,47 @@
     font-weight: bold; 
 }
 
-.ingresocontain >.contizformlogin {
-    flex: 0 0 30%; 
-    height: 90vh;
-    margin-left: 20px;
-    background-size: cover;
-    background-position: center; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: black; 
-    background-image: url('../../../../public/images/minimalfrutas2.png');
-}
-
-
-.ingresocontain >.contizformlogin h1 {
-    border-radius: 5px; 
-    font-size: 24px; 
-    margin-bottom: 10px;
-    font-weight: bold; 
-    background-color: white;
-}
-
-.ingresocontain > .contderformlogin .separadorform{
+ .contderformlogin .separadorform{
     margin-top: 10%;
 }
 
-.ingresocontain >.contizformlogin p {
-    font-size: 18px; 
-    border-radius: 5px;
-    font-weight: 500; 
-    background-color: white;
-}
 
-
-.ingresocontain .googleAuth{
+.contderformlogin .googleAuth{
     width: 100%;
     display: flex;
     justify-content: center;
     margin-top: 2rem;
 }
 
-.ingresocontain > .contderformlogin .form .password{
+.contderformlogin .googleAuth button{
+    border: 1px solid black !important;
+    border-radius: 4px !important;
+}
+
+ .contderformlogin .form .password{
     display: flex;
+    margin-top: 1rem;
 }
 
-.ingresocontain > .contderformlogin .form .password > input{
-    border-radius: 0;
-}
-
-
-.ingresocontain > .contderformlogin .botonizform:hover {
+ .contderformlogin .botonizform:hover {
     background: transparent;
     color: white;
+}
+
+.contderformlogin .form .send{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.contderformlogin .registro{
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.contderformlogin .registro span{
+    color: var(--primary-color);
+    cursor: pointer;
 }
 
 .error{
@@ -171,55 +144,45 @@
     }
   }
 
-.ingresocontain .logo-container{
-    padding-left: 89.5%;
-}
 
     
 
 /* Ajustes generales para dispositivos móviles */
 @media (max-width: 1024px) {
-    .ingresocontain .logo-container{
-        padding-left: 0;
-    }
     .ingresocontain {
         flex-direction: column-reverse;
         padding-top: 10%;
     }
-    .ingresocontain >.contderformlogin .form {
+    .contderformlogin .form {
         row-gap: 1rem;
         flex-direction: column;
         align-items: center;
         width: 80%;
     }
 
-    .ingresocontain >.contderformlogin .form .password{
+    .contderformlogin .form .password{
         width: 100%;
     }
-    .ingresocontain >.contizformlogin {
-        flex: 0 0 100%; /* Ocupa todo el ancho en dispositivos móviles */
-        margin-left: 0;
-    }
-    .ingresocontain > .contderformlogin {
+     .contderformlogin {
        
         width: 100%; /* Ocupa todo el ancho en dispositivos móviles */
         margin-right: 0;
     }
 
-    .ingresocontain > .contderformlogin h1 {
+     .contderformlogin h1 {
         font-size: 20px; /* Reduce el tamaño de la fuente */
         margin-bottom: 10px;
     }
 
-    .ingresocontain > .contderformlogin input {
+     .contderformlogin input {
         width: 100%; /* Ocupa todo el ancho en dispositivos móviles */
     }
 
-    .ingresocontain > .contderformlogin .enviar {
+     .contderformlogin .enviar {
         margin-left: 0; /* Alinea el botón al centro en dispositivos móviles */
     }
 
-    .ingresocontain > .contderformlogin .googleAuth {
+     .contderformlogin .googleAuth {
         margin-top: 1rem; /* Agrega un espacio entre los elementos */
     }
 }
