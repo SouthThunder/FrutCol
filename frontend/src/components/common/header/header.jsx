@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaBars, FaTimes, FaUserCircle, FaShoppingBasket } from "react-icons/fa";
-import "./header.css";
+import { FaBars, FaTimes } from "react-icons/fa";
 import {AiOutlineUser} from "react-icons/ai";
 import {BsCart2} from "react-icons/bs";
+import Cookies from "js-cookie";
+import "./header.css";
 
 export const HeadPopUp = ({ product, trigger, togglePopup }) => {
   const menuRef = useRef();
@@ -51,8 +52,7 @@ export const HeadPopUp = ({ product, trigger, togglePopup }) => {
   );
 };
 
-export const Headercom = ({ product }) => {
-  const [header, setHeader] = useState([]);
+export const Headercom = ({ product, auth }) => {
   const [popup, setPopup] = useState(false);
   const [faItems, setFaItems] = useState(true);
 
@@ -72,23 +72,11 @@ export const Headercom = ({ product }) => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    validateToken();
   }, [product, popup]);
-
-  const validateToken = () => {
-    if (
-      localStorage.getItem("token") === null ||
-      localStorage.getItem("token") === undefined
-    ) {
-      setHeader(false);
-    } else {
-      setHeader(true);
-    }
-  };
 
   const logout = () => {
     window.location.href = "/";
-    localStorage.clear();
+    Cookies.remove("token");
   };
 
   return (
@@ -111,7 +99,7 @@ export const Headercom = ({ product }) => {
             transition: "all 1s var(--btn-cubic-bezier)",
           }}
         >
-          {header ? (
+          {auth ? (
             <ul>
               <li>
                 <div className="nav-btn">

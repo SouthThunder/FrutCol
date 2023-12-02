@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
-import "./registro.css";
+import Cookies from "js-cookie";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import GoogleLogin from "react-google-login";
+import "./registro.css";
 
 export const Registrocom = ({ refresh }) => {
   const [formData, setFormData] = useState({
@@ -76,7 +77,7 @@ export const Registrocom = ({ refresh }) => {
         correo_usuario: formData.correo,
         contrasena_usuario: formData.contrasena,
       });
-      localStorage.setItem("token", res.data.token);
+      Cookies.set("token", res.data.token);
       getId(res.data.token);
       navigate("/");
       refresh();
@@ -129,7 +130,7 @@ export const Registrocom = ({ refresh }) => {
       const res = await axios.post(URI, {
         correo_usuario: response.profileObj.email,
       });
-      localStorage.setItem("token", res.data.token);
+      Cookies.set("token", res.data.token);
       getId(res.data.token);
       navigate("/");
       refresh();

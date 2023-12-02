@@ -5,6 +5,7 @@ import { IoEyeOff, IoEye } from "react-icons/io5";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import GoogleLogin from "react-google-login";
+import Cookies from "js-cookie";
 import "./ingreso.css";
 
 const URI = "https://frutcol-backend.onrender.com/usuarios/login";
@@ -116,7 +117,7 @@ export const Ingresocom = ({ refresh }) => {
         correo_usuario: localuser,
         contrasena_usuario: localpassword,
       });
-      localStorage.setItem("token", res.data.token);
+      Cookies.set("token", res.data.token);
       navigate("/");
       refresh();
     } catch (error) {

@@ -25,7 +25,7 @@ gapi.load('client:auth2', () => {
       plugin_name: 'chat',
   });
 });
-export const App= () =>{
+function Routing ({authenticated}) {
   const [product, setProduct] = useState(null);
   const [prodsPool, setProdsPool] = useState(null);
   const [isLoading, setisLoading] = useState(true);
@@ -146,7 +146,7 @@ export const App= () =>{
   return (
     <div className="principalContainer">
       <BrowserRouter>
-      <Headercom product={product}/>
+      <Headercom product={product} auth={authenticated}/>
         <Routes>
           <Route exact path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool} user={user}/>}/>
           <Route path='/Ingreso' element={<Ingresocom refresh={refresh}/>}/>
@@ -167,4 +167,4 @@ export const App= () =>{
   );
 }
 
-export default App;
+export default Routing;
