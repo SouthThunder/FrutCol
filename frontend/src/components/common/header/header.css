@@ -67,7 +67,7 @@ nav > ul > li > button svg {
   height: 100%;
 }
 
-nav > ul > li:nth-child(2) > a {
+nav > ul > li:nth-child(2) > p {
   color: white;
   background-color: var(--btn-color);
   border: 1px solid black;
@@ -75,7 +75,7 @@ nav > ul > li:nth-child(2) > a {
   font-weight: 100;
 }
 
-nav > ul > li > a {
+nav > ul > li > p {
   height: 2.5rem;
   display: flex;
   justify-content: center;
@@ -83,12 +83,7 @@ nav > ul > li > a {
   color: var(--btn-color);
   font-weight: bold;
   padding: 7px 14px;
-}
-
-nav > ul > li > a.active,
-a:hover {
-  background-color: var(--primary-color);
-  transition: 0.5s;
+  cursor: pointer;
 }
 
 header .burger-menu {
@@ -248,7 +243,7 @@ header .popup-header .popup-inner:nth-child(3) button:hover {
     display: none;
   }
 
-  nav a {
+  nav p {
     font-size: var(--font-size);
   }
 

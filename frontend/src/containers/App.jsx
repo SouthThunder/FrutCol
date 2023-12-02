@@ -5,10 +5,8 @@ import Routing from "../navigation/Routes";
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
 
-  // Función para verificar la autenticación
   const checkAuthentication = () => {
-    const authToken = Cookies.get("authToken"); // Lee la cookie de autenticación
-
+    const authToken = Cookies.get("authToken"); 
     if (authToken) {
       // Si la cookie de autenticación existe, marca al usuario como autenticado
       setAuthenticated(true);

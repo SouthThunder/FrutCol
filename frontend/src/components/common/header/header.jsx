@@ -137,10 +137,10 @@ export const Headercom = ({ product }) => {
           ) : (
             <ul>
               <li>
-                <a href="/ingreso">Ingresar</a>
+                <p onClick={() => navigate('/ingreso')} onKeyDown={() => navigate('/ingreso')}>Ingresar</p>
               </li>
               <li>
-                <a href="/Registro">Registrarse</a>
+                <p onClick={() => navigate('/registro')} onKeyDown={() => navigate('/registro')}>Registrarse</p>
               </li>
             </ul>
           )}

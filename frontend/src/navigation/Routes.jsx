@@ -1,4 +1,11 @@
+import { useRef, useEffect, useState } from 'react';
+import axios from 'axios';
+import jwt_decode from "jwt-decode";
+import { gapi } from 'gapi-script';
+//import components
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import { Headercom } from '../components/common/header/header.jsx';
+import { Footercom } from '../components/common/footer/footer.jsx';
 import {Homecom} from '../components/pages/home/home.jsx';
 import {InfoCuentacom} from '../components/pages/info_cuenta/info_cuenta.jsx';
 import {Ingresocom} from '../components/pages/ingreso/ingreso.jsx';
@@ -7,15 +14,10 @@ import {QuienesSomoscom} from '../components/pages/quienes_somos/quienes_somos.j
 import {Registrocom} from '../components/pages/registro/registro.jsx';
 import {PrivacyComp} from '../components/pages/privacy/privacy.jsx';
 import { Producto } from "../components/pages/home/cartSlice.js";
-import { useRef, useEffect, useState } from 'react';
 import { Carritocom } from '../components/pages/carrito/carrito.jsx';
 import { Selement } from '../components/pages/s_element/s_element.jsx';
-import axios from 'axios';
-import jwt_decode from "jwt-decode";
 import LoadingSpinner from '../components/common/loading/LoadingSpinner.jsx';
-import { gapi } from 'gapi-script';
-import { Headercom } from '../components/common/header/header.jsx';
-import { Footercom } from '../components/common/footer/footer.jsx';
+import PrivateRoutes from '../utils/PrivateRoute.js';
 
 gapi.load('client:auth2', () => {
   gapi.client.init({
@@ -146,16 +148,18 @@ export const App= () =>{
       <BrowserRouter>
       <Headercom product={product}/>
         <Routes>
-          <Route path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool} user={user}/>}/>
-          <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool}/>}/>
+          <Route exact path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool} user={user}/>}/>
           <Route path='/Ingreso' element={<Ingresocom refresh={refresh}/>}/>
-          <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} prodsPool={prodsPool}/>}/> 
-          <Route path='/QuienesSomos' element={<QuienesSomoscom product={product}/>}/> 
           <Route path='/registro' element={<Registrocom refresh={refresh}/>}/> 
+          <Route path='/QuienesSomos' element={<QuienesSomoscom product={product}/>}/> 
           <Route path='/Privacidad' element={<PrivacyComp product={product}/>}/>
-          <Route path='/carrito' element={<Carritocom product={product} lProductos={lProductos}/>}/>
-          <Route path='/Privacidad' element={<PrivacyComp product={product} lProductos={lProductos} prodsPool={prodsPool}/>}/>
-          <Route path='/:id' element={<Selement product={product} lProductos={lProductos} updateLProducts={updateLProducts}/>}/>
+          {/* Protected routes */}
+          <Route element={<PrivateRoutes />}>
+            <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool}/>}/>
+            <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} prodsPool={prodsPool}/>}/> 
+            <Route path='/carrito' element={<Carritocom product={product} lProductos={lProductos}/>}/>
+            <Route path='/:id' element={<Selement product={product} lProductos={lProductos} updateLProducts={updateLProducts}/>}/>
+          </Route>
         </Routes>
       <Footercom product={product}/>
       </BrowserRouter>    
