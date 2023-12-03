@@ -1,6 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import axios from 'axios';
-import jwt_decode from "jwt-decode";
+import Cookie from "js-cookie";
 import { gapi } from 'gapi-script';
 //import components
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
@@ -18,6 +17,9 @@ import { Carritocom } from '../components/pages/carrito/carrito.jsx';
 import { Selement } from '../components/pages/s_element/s_element.jsx';
 import LoadingSpinner from '../components/common/loading/LoadingSpinner.jsx';
 import PrivateRoutes from '../utils/PrivateRoute.js';
+//Import services 
+import { getProducts } from '../services/products.js';
+import { getItems } from '../services/cart.js';
 
 gapi.load('client:auth2', () => {
   gapi.client.init({
@@ -35,9 +37,8 @@ function Routing ({authenticated}) {
   const firstSet = useRef(true);
 
   useEffect(() => {
-    
     if (firstRender.current) {
-       getProducts(); 
+      fetchProducts()
       firstRender.current = false;
     } else {
       if (prodsPool !== null && firstSet.current === true) {
@@ -45,7 +46,7 @@ function Routing ({authenticated}) {
           return prod
         })
         setProduct(firstprod[0]);
-        if(localStorage.getItem('token') === undefined || localStorage.getItem('token') === null){
+        if(!authenticated){
           setItems(false)
         }else{
           setItems(true)
@@ -67,30 +68,22 @@ function Routing ({authenticated}) {
     }
   }
 
-  const getProducts = async () => {
-    const URI = "https://frutcol-backend.onrender.com/metadata";
+  const fetchProducts = async () => {
     try {
-      const response = await axios.get(URI);
-      setProdsPool(response.data);
+      setProdsPool(await getProducts());
     } catch (error) {
-      console.error(error);
+      console.error("ERROR: " + error);
     }
-  };
+  }
 
+  
   const getProductsFromCart = async () => {
-    const headers= {
-      Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
-    }
-    const token= jwt_decode(localStorage.getItem("token"));
-    const URI = `https://frutcol-backend.onrender.com/carrito/${token.id_usuario}`;
     try {
-      const res = await axios.get(URI, {
-        headers
-      });
+      const res = await getItems(Cookie.get("token"))
       setLProductos(() => prodsPool
         .map((prod) => {
           return prod.SubMetadata_productos.map((sub) => {
-            const it = res.data.find(
+            const it = res.find(
               (lproduc) => lproduc.id_producto === sub.id_subMetadata_producto
             );
             if (it === undefined) {
@@ -116,8 +109,7 @@ function Routing ({authenticated}) {
             }
           })
       })
-    );
-
+    )
     } catch (error) {
       console.error("ERROR: " + error);
     }

@@ -206,14 +206,20 @@ export const ProdsComp = ({ product, loged, changeProp }) => {
         </div>
       </div>
       <div className="pImg">
-      <picture>
-    <source srcSet={"../../images/" + element.image.split('.')[0] + ".avif"} type="image/avif"/>
-    <source srcSet={"../../images/" + element.image.split('.')[0] + ".webp"} type="image/webp"/>
-    <img
-      src={"../../images/" + element.image}
-      alt={element.nombre_producto}
-    />
-  </picture>
+        <picture>
+          <source
+            srcSet={"../../images/" + element.image.split(".")[0] + ".avif"}
+            type="image/avif"
+          />
+          <source
+            srcSet={"../../images/" + element.image.split(".")[0] + ".webp"}
+            type="image/webp"
+          />
+          <img
+            src={"../../images/" + element.image}
+            alt={element.nombre_producto}
+          />
+        </picture>
       </div>
       {navBtn()}
     </div>
