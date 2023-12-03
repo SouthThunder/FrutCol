@@ -99,7 +99,11 @@ export const QuienesSomos = ({ product }) => {
           Valores
         </h1>
         <div className="holder">
-          <img src="./images/Frame 1.png" alt="Logo" />
+        <picture>
+      <source srcSet="./images/Frame1.avif" type="image/avif"/>
+      <source srcSet="./images/Frame1.webp" type="image/webp"/>
+      <img src="./images/Frame1.png" alt="Logo" />
+    </picture>
           <div
             className="container"
             style={{ backgroundColor: product.header_color }}

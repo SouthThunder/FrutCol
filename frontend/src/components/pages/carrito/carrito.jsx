@@ -51,10 +51,16 @@ export const Card = ({ prods, updateReloader }) => {
       </div>
       <div className="info">
         <div className="pImg">
-          <img
-            src={"../../images/" + prods.image}
-            alt={prods.nombre_producto}
-          />
+        <div className="pImg">
+  <picture>
+    <source srcSet={"../../images/" + prods.image.split('.')[0] + ".avif"} type="image/avif"/>
+    <source srcSet={"../../images/" + prods.image.split('.')[0] + ".webp"} type="image/webp"/>
+    <img
+      src={"../../images/" + prods.image}
+      alt={prods.nombre_producto}
+    />
+  </picture>
+</div>
         </div>
         <div className="price">
           <p>$ {formatPrice(prods.precio)}</p>
@@ -395,11 +401,16 @@ export const Cart = ({ lProductos }) => {
               })
             ) : (
               <div className="noprod">
-                <img
+                <picture>
+                  <sources srcset="../../images/37459.avif" type="image/avif"/>
+                  <sources srcset="../../images/37459.webp" type="image/webp"/>
+                  <img
                   className="emptycar"
                   src="../../images/37459.jpg"
                   alt="No hay productos"
                 />
+                </picture>
+                
                 <h5>Carrito vacío</h5>
               </div>
             )}

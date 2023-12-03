@@ -154,7 +154,7 @@ export const Infocuenta = (prop) => {
         <div className="enter">
           <button onClick={handleActualizar}>Actualizar</button>
         </div>
-        <Toaster richColors/>
+        <Toaster richColors />
       </form>
     </div>
   );
@@ -177,7 +177,7 @@ export const Infocontenidos = (prop) => {
   return (
     <div className="contenidos">
       <div className="imagecontain">
-      <FaUser/>
+        <FaUser />
       </div>
 
       <h4
@@ -271,18 +271,22 @@ export const ProductosReserva = (prop) => {
               if (sub.id_subMetadata_producto === products.id_producto) {
                 matchingProduct = sub;
               }
-            })
-          })
+            });
+          });
           return (
             <div className="product" key={products.id_producto}>
               <div className="pImg">
                 <div className="title">
                   <h3>{matchingProduct.nombre_producto}</h3>
                 </div>
-                <img
-                  src={"../../images/" + matchingProduct.image}
-                  alt={matchingProduct.nombre_producto}
-                />
+                <picture>
+      <source srcSet={"../../images/" + matchingProduct.image.split('.')[0] + ".avif"} type="image/avif"/>
+      <source srcSet={"../../images/" + matchingProduct.image.split('.')[0] + ".webp"} type="image/webp"/>
+      <img
+        src={"../../images/" + matchingProduct.image}
+        alt={matchingProduct.nombre_producto}
+      />
+    </picture>
               </div>
               <div className="promt">
                 <p>Cantidad: {products.cantidad_producto}</p>
@@ -489,17 +493,40 @@ export const Cambiocontraseña = (prop) => {
             type="button"
             onClick={togglePasswordVisibility}
           >
-            <img
-              src={showPassword ? "images/ojo.png" : "images/invisible.png"}
-              alt={showPassword ? "visible" : "invisible"}
-            />
+            <picture>
+              <source
+                srcSet={
+                  showPassword
+                    ? "../../images/ojo.avif"
+                    : "../../images/invisible.avif"
+                }
+                type="image/avif"
+              />
+              <source
+                srcSet={
+                  showPassword
+                    ? "../../images/ojo.webp"
+                    : "../../images/invisible.webp"
+                }
+                type="image/webp"
+              />
+              <img
+                className="emptycar"
+                src={
+                  showPassword
+                    ? "../../images/ojo.jpg"
+                    : "../../images/invisible.jpg"
+                }
+                alt={showPassword ? "visible" : "invisible"}
+              />
+            </picture>
           </button>
         </div>
         <br />
         <div className="enter">
           <button onClick={handleActualizarContra}>Actualizar</button>
         </div>
-        <Toaster richColors/>
+        <Toaster richColors />
       </form>
     </div>
   );
@@ -578,7 +605,6 @@ export const InfoCuentacom = ({ product, prodsPool }) => {
 
   return (
     <div className="infoCuentacontain">
-
       <Informacioncuenta
         product={product}
         userData={userData}

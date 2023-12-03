@@ -374,10 +374,14 @@ export const ProductosReserva = (prop) => {
                   <div className="title">
                     <h3>{matchingProduct.nombre_producto}</h3>
                   </div>
-                  <img
-                    src={"../../images/" + matchingProduct.image}
-                    alt={matchingProduct.nombre_producto}
-                  />
+                  <picture>
+        <source srcSet={"../../images/" + matchingProduct.image.split('.')[0] + ".avif"} type="image/avif"/>
+        <source srcSet={"../../images/" + matchingProduct.image.split('.')[0] + ".webp"} type="image/webp"/>
+        <img
+          src={"../../images/" + matchingProduct.image}
+          alt={matchingProduct.nombre_producto}
+        />
+      </picture>
                 </div>
                 <div className="promt">
                   <p>Cantidad: {products.cantidad_producto}</p>

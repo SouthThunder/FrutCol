@@ -123,10 +123,14 @@ export const Element = ({ elements, father, lProductos, updateLProducts }) => {
         </div>
         <div className="product">
           <div className="imageHolder">
+          <picture>
+            <source srcSet={`../../images/${activeElement?.image.split('.')[0]}.avif`} type="image/avif"/>
+            <source srcSet={`../../images/${activeElement?.image.split('.')[0]}.webp`} type="image/webp"/>
             <img
               src={`../../images/${activeElement?.image}`}
               alt={activeElement?.nombre_producto}
             />
+          </picture>
           </div>
           <div className="info">
             <div className="promt">
