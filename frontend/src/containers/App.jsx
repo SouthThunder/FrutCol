@@ -1,27 +1,35 @@
-import { useState, useEffect } from "react";
-import Cookies from "js-cookie";
+import { useState, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+import {login} from '../redux/userSlice'
+import Cookie from "js-cookie";
 import Routing from "../navigation/Routes";
+//import services methods
+import { authToken } from "../services/user";
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [auth, setAuth] = useState(false);
+  const firstLoad = useRef(true)
+  const dispatch = useDispatch();
 
-  const checkAuthentication = () => {
-    const authToken = Cookies.get("token"); 
-    if (authToken) {
-      // Si la cookie de autenticación existe, marca al usuario como autenticado
-      setAuthenticated(true);
+  const verifyToken = async () => {
+    const res = await authToken(Cookie.get("token"));
+    if (res?.status === 200) {
+      dispatch(login(res.data));
+      setAuth(true);
     } else {
-      // Si la cookie de autenticación no existe, marca al usuario como no autenticado
-      setAuthenticated(false);
+      setAuth(false);
     }
   };
 
   useEffect(() => {
-    checkAuthentication();
+    if(Cookie.get('token') && firstLoad.current){
+      verifyToken()
+      firstLoad.current = false
+    }
   }, []);
 
   return (
-      <Routing authenticated={authenticated} />
+      <Routing authenticated={auth} />
   );
 }
 

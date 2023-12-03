@@ -28,7 +28,7 @@ export const HeadPopUp = ({ product, trigger, togglePopup }) => {
 
   const logout = () => {
     window.location.href = "/";
-    localStorage.clear();
+    Cookies.remove("token");
   };
 
   const reDirect = () => {

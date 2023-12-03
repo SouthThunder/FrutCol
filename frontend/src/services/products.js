@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const API_URL = 'https://frutcol-backend.onrender.com'; // Replace with your API URL
+const API_URL = 'https://frutcol-backend.onrender.com/metadata/'; // Replace with your API URL
 
 // Create a new item
 export const createProduct = async (ProductData) => {
   try {
-    const response = await axios.post(`${API_URL}/metadata`, ProductData);
+    const response = await axios.post(`${API_URL}`, ProductData);
     return response.data;
   } catch (error) {
     console.error('Error creating item:', error);
@@ -16,7 +16,7 @@ export const createProduct = async (ProductData) => {
 // Read all items
 export const getProducts = async () => {
   try {
-    const response = await axios.get(`${API_URL}/metadata`);
+    const response = await axios.get(`${API_URL}`);
     console.log(response.data)
     return response.data;
   } catch (error) {
@@ -28,7 +28,7 @@ export const getProducts = async () => {
 // Read a single item by ID
 export const getProductById = async (ProductId) => {
   try {
-    const response = await axios.get(`${API_URL}/metadata/${ProductId}`);
+    const response = await axios.get(`${API_URL}${ProductId}`);
     return response.data;
   } catch (error) {
     console.error('Error getting item:', error);
@@ -39,7 +39,7 @@ export const getProductById = async (ProductId) => {
 // Update an existing item
 export const updateProduct = async (ProductId, ProductData) => {
   try {
-    const response = await axios.put(`${API_URL}/metadata/${ProductId}`, ProductData);
+    const response = await axios.put(`${API_URL}${ProductId}`, ProductData);
     return response.data;
   } catch (error) {
     console.error('Error updating item:', error);
@@ -50,7 +50,7 @@ export const updateProduct = async (ProductId, ProductData) => {
 // Delete an item by ID
 export const deleteProduct = async (ProductId) => {
   try {
-    const response = await axios.delete(`${API_URL}/metadata/${ProductId}`);
+    const response = await axios.delete(`${API_URL}${ProductId}`);
     return response.data;
   } catch (error) {
     console.error('Error deleting item:', error);
