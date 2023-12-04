@@ -5,6 +5,13 @@ import { Toaster, toast } from "sonner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import {
+  getTotalItems,
+  getTotalWeight,
+  getTotalPrice,
+  formatPrice,
+  prodTotalPrice
+} from "../../../utils/helpers";
 
 export const Card = ({ prods, updateReloader }) => {
   const [reloader, setReloader] = useState(false);
@@ -37,16 +44,12 @@ export const Card = ({ prods, updateReloader }) => {
     setReloader(!reloader);
   };
 
-  const formatPrice = (price) => {
-    return price.toLocaleString("en-US");
-  };
-
   const fatherReloader = () => {
     updateReloader();
   };
 
   return (
-    <div className="card" key={prods.id}>
+    <div className="card" key={prods.id_producto}>
       <div className="name">
         <p>{prods.nombre}</p>
       </div>
@@ -70,17 +73,17 @@ export const Card = ({ prods, updateReloader }) => {
           </div>
         </div>
         <div className="price">
-          <p>$ {formatPrice(prods.precio)}</p>
+          <p>$ {formatPrice(prods.precio_producto)}</p>
         </div>
         <div className="quantity">
           <div className="panel">
             <button onClick={() => handleResCantidad()}>-</button>
-            <p>{prods.cantidad}</p>
+            <p>{prods.cantidad_producto}</p>
             <button onClick={() => handleSumCantidad()}>+</button>
           </div>
         </div>
         <div className="subtotal">
-          <p>$ {formatPrice(prods.precio * prods.cantidad)}</p>
+          <p>$ {formatPrice(prodTotalPrice(prods))}</p>
         </div>
         <button onClick={() => handleDelete()}>X</button>
       </div>
@@ -300,49 +303,7 @@ export const Cart = ({ lProductos }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Calcula el número total de productos en el carrito
-    const totalpruductos = lProductos.map((prods) => {
-      return prods.reduce((accumulator, sub) => {
-        if (sub.cantidad > 0) {
-          return accumulator + sub.cantidad;
-        } else {
-          return accumulator;
-        }
-      }, 0);
-    });
-    const totalProductos = totalpruductos.reduce((accumulator, prods) => {
-      return accumulator + prods;
-    });
-
-    // Calcula el precio total de los productos en el carrito
-    const totalprice = lProductos.map((prods) => {
-      return prods.reduce((accumulator, sub) => {
-        if (sub.cantidad > 0) {
-          return accumulator + sub.cantidad * sub.precio;
-        }
-        return accumulator;
-      }, 0);
-    });
-    const totalPrice = totalprice.reduce((accumulator, prods) => {
-      return accumulator + prods;
-    });
-
-    // Calcula el peso total de los productos en el carrito
-
-    const totalweight = lProductos.map((prods) => {
-      return prods.reduce((accumulator, sub) => {
-        if (sub.cantidad > 0) {
-          return accumulator + (sub.peso / 1000) * sub.cantidad;
-        }
-        return accumulator;
-      }, 0);
-    });
-
-    const totalWeight = totalweight.reduce((accumulator, prods) => {
-      return accumulator + prods;
-    });
-
-    if (totalWeight >= 5) {
+    if (weight >= 5) {
       setComponentDisabled(false);
       setIndicator("green");
       setPromt("Todo listo para reservar!");
@@ -352,9 +313,9 @@ export const Cart = ({ lProductos }) => {
       setPromt("Pedido mínimo: 5Kg");
     }
     // Actualiza el estado total con el nuevo precio total calculado
-    setTotal(totalPrice);
-    setTotalp(totalProductos);
-    setWeight(totalWeight);
+    setTotal(getTotalPrice(cart.cart));
+    setTotalp(getTotalItems(cart.cart));
+    setWeight(getTotalWeight(cart.cart));
   }, [reloader]);
 
   const formatPrice = (price) => {
@@ -406,24 +367,22 @@ export const Cart = ({ lProductos }) => {
               <span></span>
             </div>
             {totalp > 0 ? (
-              lProductos.map((prods) => {
-                return prods.map((sub) => {
-                  if (sub.cantidad > 0) {
-                    return (
-                      <Card
-                        prods={sub}
-                        updateReloader={updateReloader}
-                        key={sub.id_producto}
-                      />
-                    );
-                  }
-                });
+              cart.cart.map((prods) => {
+                if (prods.cantidad_producto > 0) {
+                  return (
+                    <Card
+                      prods={prods}
+                      key={prods.id_producto}
+                      updateReloader={updateReloader}
+                    />
+                  );
+                }
               })
             ) : (
               <div className="noprod">
                 <picture>
-                  <sources srcset="../../images/37459.avif" type="image/avif" />
-                  <sources srcset="../../images/37459.webp" type="image/webp" />
+                  <sources srcSet="../../images/37459.avif" type="image/avif" />
+                  <sources srcSet="../../images/37459.webp" type="image/webp" />
                   <img
                     className="emptycar"
                     src="../../images/37459.jpg"

@@ -5,7 +5,7 @@ import {AiOutlineUser} from "react-icons/ai";
 import {BsCart2} from "react-icons/bs";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
-import { getTotalItems, getTotalWeight, getTotalPrice } from "../../../utils/helpers";
+import { getTotalItems } from "../../../utils/helpers";
 import "./header.css";
 
 export const HeadPopUp = ({ product, trigger, togglePopup }) => {
@@ -77,8 +77,6 @@ export const Headercom = ({ product, auth }) => {
   useEffect(() => {
     if(cart){
       setItems(getTotalItems(cart.cart));
-      console.log(getTotalWeight(cart.cart));
-      console.log(getTotalPrice(cart.cart));
     }
   }, [product, popup, cart]);
 
