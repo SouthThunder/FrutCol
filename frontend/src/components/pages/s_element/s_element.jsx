@@ -1,13 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import LoadingSpinner from "../../common/loading/LoadingSpinner";
-import "./s_element.css";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import LoadingSpinner from "../../common/loading/LoadingSpinner";
+import { getProduct, prodTotalPrice, formatPrice } from "../../../utils/helpers";
+import "./s_element.css";
 
-export const Element = ({ elements, father, lProductos, updateLProducts }) => {
+export const Element = ({ elements, father, updateLProducts }) => {
   const [activeElement, setActiveElement] = useState(null);
   const [isFather, setIsFather] = useState(true);
   const [test, setTest] = useState(false);
   const [activeObject, setActiveObject] = useState(null);
+  const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,7 +18,7 @@ export const Element = ({ elements, father, lProductos, updateLProducts }) => {
       setActiveElement(father);
       setActiveObject(null);
     } else {
-      getObject(activeElement.id_subMetadata_producto);
+      setActiveObject(getProduct(cart.cart, activeElement.id_subMetadata_producto));
     }
   }, [activeElement, isFather, activeObject]);
 
@@ -23,15 +26,6 @@ export const Element = ({ elements, father, lProductos, updateLProducts }) => {
     Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
   };
 
-  const getObject = (id) => {
-    return lProductos.map((obj) => {
-      obj.map((sub) => {
-        if (sub.id === id) {
-          setActiveObject(sub);
-        }
-      });
-    });
-  };
 
   const handleResCantidad = () => {
     if (activeObject.cantidad === 1) {
@@ -51,20 +45,18 @@ export const Element = ({ elements, father, lProductos, updateLProducts }) => {
     setTest(!test);
   };
 
-  const formatPrice = (price) => {
-    return price?.toLocaleString("en-US");
-  };
-
   const controls = (
     <div className="controls">
       <div className="panel">
         <button onClick={() => handleResCantidad()}>-</button>
-        <p>{activeObject?.cantidad}</p>
+        <p>{activeObject?.cantidad_producto}</p>
         <button onClick={() => handleSumCantidad()}>+</button>
       </div>
       <div className="value">
         <p>
-          Subtotal: <p>$ {formatPrice(activeObject?.calcularPrecioTotal())}</p>
+          Subtotal: <p>$ {
+            formatPrice(activeObject?.cantidad_producto * activeObject?.precio_producto)
+            }</p>
         </p>
         <button onClick={() => navigate("/carrito")}>Ir al carrito</button>
       </div>
@@ -94,13 +86,13 @@ export const Element = ({ elements, father, lProductos, updateLProducts }) => {
     );
   };
   const pricing = () => {
-    return <h4>$ {formatPrice(activeObject?.precio)}</h4>;
+    return <h4>$ {formatPrice(activeObject?.precio_producto)}</h4>;
   };
 
   const fDisplay = () => {
-    if (activeObject?.cantidad === 0) {
+    if (activeObject?.cantidad_producto === 0) {
       return noControls();
-    } else if (activeObject === null) {
+    } else if (activeObject === null || activeObject === undefined) {
       return;
     } else {
       return controls;
@@ -108,7 +100,7 @@ export const Element = ({ elements, father, lProductos, updateLProducts }) => {
   };
 
   const pDisplay = () => {
-    if (activeObject === null) {
+    if (activeObject === null || activeObject === undefined) {
       return;
     } else {
       return pricing();
@@ -170,7 +162,7 @@ export const Element = ({ elements, father, lProductos, updateLProducts }) => {
   );
 };
 
-export const Selement = ({ product, lProductos, updateLProducts }) => {
+export const Selement = ({ product, updateLProducts }) => {
   const [elements, setElements] = useState(null);
   const [loader, setLoader] = useState(true);
   const firstLoad = useRef(true);
@@ -203,7 +195,6 @@ export const Selement = ({ product, lProductos, updateLProducts }) => {
       <Element
         elements={elements}
         father={product}
-        lProductos={lProductos}
         updateLProducts={updateLProducts}
       />
     </div>

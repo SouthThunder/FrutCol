@@ -173,7 +173,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
   );
 };
 
-export const ProdsComp = ({ product, loged, changeProp }) => {
+export const ProdsComp = ({ product, changeProp }) => {
   const element = product;
   const navigate = useNavigate();
 
@@ -182,7 +182,6 @@ export const ProdsComp = ({ product, loged, changeProp }) => {
   const navBtn = () => {
     return (
       <div className="noControls">
-        {loged ? (
           <button
             onClick={() => {
               changeProp(element);
@@ -191,9 +190,6 @@ export const ProdsComp = ({ product, loged, changeProp }) => {
           >
             Ver opciones
           </button>
-        ) : (
-          <button onClick={() => navigate("/ingreso")}>Ver opciones</button>
-        )}
       </div>
     );
   };
