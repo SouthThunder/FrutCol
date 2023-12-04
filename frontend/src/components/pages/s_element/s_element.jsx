@@ -1,31 +1,36 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { sumItemFromCart, restItemFromCart } from "../../../redux/cartSlice";
+import { sumItemFromCart, restItemFromCart, addToCart } from "../../../redux/cartSlice";
 import LoadingSpinner from "../../common/loading/LoadingSpinner";
 import { getProduct, formatPrice } from "../../../utils/helpers";
 import "./s_element.css";
 
 export const Element = ({ elements, father }) => {
   const [activeElement, setActiveElement] = useState(null);
-  const [isFather, setIsFather] = useState(true);
   const [activeObject, setActiveObject] = useState(null);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (activeElement === undefined || activeElement === null) {
       setActiveElement(father);
       setActiveObject(null);
     } else {
-      setActiveObject(getProduct(cart.cart, activeElement.id_subMetadata_producto));
+      if(getProduct(cart.cart, activeElement.id_subMetadata_producto) === undefined && activeElement !== father) {
+        let newObject = {
+          ...activeElement,
+          id_producto: activeElement.id_subMetadata_producto,
+          cantidad_producto: 0,
+        };
+        dispatch(addToCart(newObject));
+        setActiveObject(getProduct(cart.cart, activeElement.id_subMetadata_producto));
+      }else{
+        setActiveObject(getProduct(cart.cart, activeElement.id_subMetadata_producto));
+      }
     }
-  }, [activeElement, isFather, activeObject, cart]);
-
-  const headers = {
-    Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
-  };
+  }, [activeElement, activeObject, cart]);
 
   const controls = (
     <div className="controls">
@@ -107,7 +112,6 @@ export const Element = ({ elements, father }) => {
                     setActiveElement(father);
                     setActiveObject(null);
                   } else {
-                    setIsFather(false);
                     setActiveElement(elements[e.target.value]);
                   }
                 }}
