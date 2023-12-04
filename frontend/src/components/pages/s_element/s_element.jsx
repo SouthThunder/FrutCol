@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { sumItemFromCart, restItemFromCart } from "../../../redux/cartSlice";
 import LoadingSpinner from "../../common/loading/LoadingSpinner";
-import { getProduct, prodTotalPrice, formatPrice } from "../../../utils/helpers";
+import { getProduct, formatPrice } from "../../../utils/helpers";
 import "./s_element.css";
 
-export const Element = ({ elements, father, updateLProducts }) => {
+export const Element = ({ elements, father }) => {
   const [activeElement, setActiveElement] = useState(null);
   const [isFather, setIsFather] = useState(true);
-  const [test, setTest] = useState(false);
   const [activeObject, setActiveObject] = useState(null);
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
 
@@ -20,37 +21,18 @@ export const Element = ({ elements, father, updateLProducts }) => {
     } else {
       setActiveObject(getProduct(cart.cart, activeElement.id_subMetadata_producto));
     }
-  }, [activeElement, isFather, activeObject]);
+  }, [activeElement, isFather, activeObject, cart]);
 
   const headers = {
     Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
   };
 
-
-  const handleResCantidad = () => {
-    if (activeObject.cantidad === 1) {
-      activeObject.delProd(headers);
-      updateLProducts(activeObject);
-      setTest(!test);
-    } else {
-      activeObject.resCantidad(headers);
-      updateLProducts(activeObject);
-      setTest(!test);
-    }
-  };
-
-  const handleSumCantidad = () => {
-    activeObject.sumCantidad(headers);
-    updateLProducts(activeObject);
-    setTest(!test);
-  };
-
   const controls = (
     <div className="controls">
       <div className="panel">
-        <button onClick={() => handleResCantidad()}>-</button>
+        <button onClick={() => dispatch(restItemFromCart(activeObject))}>-</button>
         <p>{activeObject?.cantidad_producto}</p>
-        <button onClick={() => handleSumCantidad()}>+</button>
+        <button onClick={() => dispatch(sumItemFromCart(activeObject))}>+</button>
       </div>
       <div className="value">
         <p>
@@ -67,19 +49,7 @@ export const Element = ({ elements, father, updateLProducts }) => {
     return (
       <div className="noControls">
         <button
-          onClick={() => {
-            if (activeObject.exists) {
-              activeObject.sumCantidad(headers);
-              console.log("enter exists");
-              updateLProducts(activeObject);
-            } else {
-              activeObject.insertIntoDb(headers);
-              console.log("enter not exists");
-              updateLProducts(activeObject);
-            }
-            setTest(!test);
-          }}
-        >
+          onClick={() => dispatch(sumItemFromCart(activeObject))}>
           + Añadir al carrito
         </button>
       </div>
@@ -162,7 +132,7 @@ export const Element = ({ elements, father, updateLProducts }) => {
   );
 };
 
-export const Selement = ({ product, updateLProducts }) => {
+export const Selement = ({ product }) => {
   const [elements, setElements] = useState(null);
   const [loader, setLoader] = useState(true);
   const firstLoad = useRef(true);
@@ -195,7 +165,6 @@ export const Selement = ({ product, updateLProducts }) => {
       <Element
         elements={elements}
         father={product}
-        updateLProducts={updateLProducts}
       />
     </div>
   );

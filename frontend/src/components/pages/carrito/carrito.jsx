@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./carrito.css";
+import { useEffect, useRef, useState } from "react";
 import jwt_decode from "jwt-decode";
 import { Toaster, toast } from "sonner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { sumItemFromCart, restItemFromCart, clearItemFromCart } from "../../../redux/cartSlice";
 import {
   getTotalItems,
   getTotalWeight,
@@ -12,41 +12,10 @@ import {
   formatPrice,
   prodTotalPrice
 } from "../../../utils/helpers";
+import "./carrito.css";
 
-export const Card = ({ prods, updateReloader }) => {
-  const [reloader, setReloader] = useState(false);
-  const headers = {
-    Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
-  };
-  useEffect(() => {}, [reloader]);
-
-  const handleResCantidad = () => {
-    if (prods.cantidad === 1) {
-      prods.delProd(headers);
-      fatherReloader();
-      setReloader(!reloader);
-    } else {
-      prods.resCantidad(headers);
-      fatherReloader();
-      setReloader(!reloader);
-    }
-  };
-
-  const handleSumCantidad = () => {
-    prods.sumCantidad(headers);
-    fatherReloader();
-    setReloader(!reloader);
-  };
-
-  const handleDelete = () => {
-    prods.delProd(headers);
-    fatherReloader();
-    setReloader(!reloader);
-  };
-
-  const fatherReloader = () => {
-    updateReloader();
-  };
+export const Card = ({ prods }) => {
+  const dispatch = useDispatch();
 
   return (
     <div className="card" key={prods.id_producto}>
@@ -77,15 +46,15 @@ export const Card = ({ prods, updateReloader }) => {
         </div>
         <div className="quantity">
           <div className="panel">
-            <button onClick={() => handleResCantidad()}>-</button>
+            <button onClick={() => dispatch(restItemFromCart(prods))}>-</button>
             <p>{prods.cantidad_producto}</p>
-            <button onClick={() => handleSumCantidad()}>+</button>
+            <button onClick={() => dispatch(sumItemFromCart(prods))}>+</button>
           </div>
         </div>
         <div className="subtotal">
           <p>$ {formatPrice(prodTotalPrice(prods))}</p>
         </div>
-        <button onClick={() => handleDelete()}>X</button>
+        <button onClick={() => dispatch(clearItemFromCart(prods))}>X</button>
       </div>
     </div>
   );
@@ -293,7 +262,6 @@ export const ReceiptInfo = ({
 export const Cart = ({ lProductos }) => {
   const [total, setTotal] = useState(0);
   const [totalp, setTotalp] = useState(0);
-  const [reloader, setReloader] = useState(false);
   const [weight, setWeight] = useState(0);
   const [indicator, setIndicator] = useState([]);
   const [promt, setPromt] = useState([]);
@@ -316,17 +284,13 @@ export const Cart = ({ lProductos }) => {
     setTotal(getTotalPrice(cart.cart));
     setTotalp(getTotalItems(cart.cart));
     setWeight(getTotalWeight(cart.cart));
-  }, [reloader]);
+  }, [cart]);
 
   const formatPrice = (price) => {
     const formattedNumber = price.toFixed(2);
     const parts = formattedNumber.split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return parts.join(".");
-  };
-
-  const updateReloader = () => {
-    setReloader(!reloader);
   };
 
   const openPopup = () => {
@@ -373,7 +337,6 @@ export const Cart = ({ lProductos }) => {
                     <Card
                       prods={prods}
                       key={prods.id_producto}
-                      updateReloader={updateReloader}
                     />
                   );
                 }

@@ -12,15 +12,12 @@ import {InterfazAdmincom} from '../components/pages/interfaz_admin/interfaz_admi
 import {QuienesSomoscom} from '../components/pages/quienes_somos/quienes_somos.jsx';
 import {Registrocom} from '../components/pages/registro/registro.jsx';
 import {PrivacyComp} from '../components/pages/privacy/privacy.jsx';
-import { Producto } from "../components/pages/home/cartSlice.js";
 import { Carritocom } from '../components/pages/carrito/carrito.jsx';
 import { Selement } from '../components/pages/s_element/s_element.jsx';
 import LoadingSpinner from '../components/common/loading/LoadingSpinner.jsx';
 import PrivateRoutes from '../utils/PrivateRoute.js';
 //Import services 
 import { getProducts } from '../services/products.js';
-import { getItems } from '../services/cart.js';
-import { useSelector } from 'react-redux';
 
 gapi.load('client:auth2', () => {
   gapi.client.init({
@@ -32,11 +29,8 @@ function Routing ({authenticated}) {
   const [product, setProduct] = useState(null);
   const [prodsPool, setProdsPool] = useState(null);
   const [isLoading, setisLoading] = useState(true);
-  const [lProductos, setLProductos] = useState(null);
-  const [user, setUser] = useState([]);
   const firstRender = useRef(true);
   const firstSet = useRef(true);
-  const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
     if (firstRender.current) {
@@ -48,27 +42,13 @@ function Routing ({authenticated}) {
           return prod
         })
         setProduct(firstprod[0]);
-        if(!authenticated){
-          setItems(false)
-        }else{
-          setItems(true)
-        }
         if (product !== null) {
           firstSet.current = false;
           setisLoading(false);
         }
       }
     }
-  }, [prodsPool, product, lProductos]);
-
-  const setItems = async(cond) => {
-    if(cond){
-      setUser(true)
-      getProductsFromCart();
-    }else{
-      setUser(false)
-    }
-  }
+  }, [prodsPool, product]);
 
   const fetchProducts = async () => {
     try {
@@ -78,57 +58,7 @@ function Routing ({authenticated}) {
     }
   }
 
-  
-  const getProductsFromCart = async () => {
-    try {
-      const res = await getItems(Cookie.get("token"))
-      console.log(res)
-      setLProductos(() => prodsPool
-        .map((prod) => {
-          return prod.SubMetadata_productos.map((sub) => {
-            const it = res.find(
-              (lproduc) => lproduc.id_producto === sub.id_subMetadata_producto
-            );
-            if (it === undefined) {
-              return new Producto(
-                sub.id_subMetadata_producto,
-                sub.nombre_producto,
-                sub.precio_producto,
-                0,
-                sub.image,
-                false,
-                sub.peso_producto
-              );
-            }else {
-              return new Producto(
-                it.id_producto,
-                sub.nombre_producto,
-                sub.precio_producto,
-                it.cantidad_producto,
-                sub.image,
-                true,
-                sub.peso_producto
-              );
-            }
-          })
-      })
-    )
-    } catch (error) {
-      console.error("ERROR: " + error);
-    }
-  };
-
   const refresh= () => window.location.reload(true)
-
-  const updateLProducts= (element) =>{
-    lProductos.map((prod, index) => {
-      prod.map((sub) => {
-        if(sub.id === element.id){
-          lProductos[index].cantidad = element.cantidad;
-        }
-      })
-    })
-  }
 
   const changeProp = (element) => {
     setProduct(element);
@@ -143,7 +73,7 @@ function Routing ({authenticated}) {
       <BrowserRouter>
       <Headercom product={product} auth={authenticated}/>
         <Routes>
-          <Route exact path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool} user={user}/>}/>
+          <Route exact path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool}/>}/>
           <Route path='/Ingreso' element={<Ingresocom refresh={refresh}/>}/>
           <Route path='/registro' element={<Registrocom refresh={refresh}/>}/> 
           <Route path='/QuienesSomos' element={<QuienesSomoscom product={product}/>}/> 
@@ -152,8 +82,8 @@ function Routing ({authenticated}) {
           <Route element={<PrivateRoutes />}>
             <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool}/>}/>
             <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} prodsPool={prodsPool}/>}/> 
-            <Route path='/carrito' element={<Carritocom product={product} lProductos={lProductos}/>}/>
-            <Route path='/:id' element={<Selement product={product} lProductos={lProductos} updateLProducts={updateLProducts}/>}/>
+            <Route path='/carrito' element={<Carritocom product={product}/>}/>
+            <Route path='/:id' element={<Selement product={product}/>}/>
           </Route>
         </Routes>
       <Footercom product={product}/>
