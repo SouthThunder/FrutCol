@@ -4,6 +4,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import {AiOutlineUser} from "react-icons/ai";
 import {BsCart2} from "react-icons/bs";
 import Cookies from "js-cookie";
+import { useSelector } from "react-redux";
 import "./header.css";
 
 export const HeadPopUp = ({ product, trigger, togglePopup }) => {
@@ -53,9 +54,10 @@ export const HeadPopUp = ({ product, trigger, togglePopup }) => {
 };
 
 export const Headercom = ({ product, auth }) => {
+  const cart = useSelector((state) => state.cart);
   const [popup, setPopup] = useState(false);
   const [faItems, setFaItems] = useState(true);
-
+  const [items, setItems] = useState([]); 
   const navRef = useRef();
 
   const togglePopup = () => {
@@ -72,7 +74,15 @@ export const Headercom = ({ product, auth }) => {
 
   const navigate = useNavigate();
   useEffect(() => {
-  }, [product, popup]);
+    if(cart){
+      setItems(() => {
+        const cart = JSON.parse(localStorage.getItem("cart"));
+        return cart?.reduce((acc, item) => {
+          return acc + item.cantidad_producto;
+        }, 0);
+      });
+    }
+  }, [product, popup, cart, items]);
 
   const logout = () => {
     window.location.href = "/";
@@ -119,6 +129,7 @@ export const Headercom = ({ product, auth }) => {
               <li>
                 <button id="cartIcon" onClick={() => navigate("/carrito")}>
                   <BsCart2 />
+                  <p>{items}</p>
                 </button>
               </li>
             </ul>

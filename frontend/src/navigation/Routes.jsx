@@ -20,6 +20,7 @@ import PrivateRoutes from '../utils/PrivateRoute.js';
 //Import services 
 import { getProducts } from '../services/products.js';
 import { getItems } from '../services/cart.js';
+import { useSelector } from 'react-redux';
 
 gapi.load('client:auth2', () => {
   gapi.client.init({
@@ -35,6 +36,7 @@ function Routing ({authenticated}) {
   const [user, setUser] = useState([]);
   const firstRender = useRef(true);
   const firstSet = useRef(true);
+  const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
     if (firstRender.current) {
@@ -80,6 +82,7 @@ function Routing ({authenticated}) {
   const getProductsFromCart = async () => {
     try {
       const res = await getItems(Cookie.get("token"))
+      console.log(res)
       setLProductos(() => prodsPool
         .map((prod) => {
           return prod.SubMetadata_productos.map((sub) => {

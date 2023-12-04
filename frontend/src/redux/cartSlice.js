@@ -15,25 +15,25 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart: (state, action) => {
-            const { id, name, price, quantity, image } = action.payload;
-            const item = state.cart.find(item => item.id === id);
+            const { id_producto, nombre_producto, precio_producto, cantidad_producto, image } = action.payload;
+            const item = state.cart.find(item => item.id_producto === id_producto);
             if(item){
-                item.quantity += quantity;
+                item.cantidad_producto += cantidad_producto;
             }else{
-                state.cart.push({id, name, price, quantity, image});
+                state.cart.push({id_producto, nombre_producto, precio_producto, cantidad_producto, image});
             }
             localStorage.setItem('cart', JSON.stringify(state.cart));
         },
         removeFromCart: (state, action) => {
-            const { id } = action.payload;
-            state.cart = state.cart.filter(item => item.id !== id);
+            const { id_producto } = action.payload;
+            state.cart = state.cart.filter(item => item.id_producto !== id_producto);
             localStorage.setItem('cart', JSON.stringify(state.cart));
         },
         updateCart: (state, action) => {
-            const { id, quantity } = action.payload;
-            const item = state.cart.find(item => item.id === id);
+            const { id_producto, cantidad_producto } = action.payload;
+            const item = state.cart.find(item => item.id_producto === id_producto);
             if(item){
-                item.quantity = quantity;
+                item.cantidad_producto = cantidad_producto;
             }
             localStorage.setItem('cart', JSON.stringify(state.cart));
         },
