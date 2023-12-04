@@ -102,7 +102,11 @@ export const Headercom = ({ product, auth }) => {
         }}
       >
         <div className="logo" onClick={() => navigate("/")}>
+        <picture>
+          <source srcSet={"images/Frame 1.avif"} type="image/avif" />
+          <source srcSet={"images/Frame 1.webp"} type="image/webp" />
           <img src="images/Frame 1.png" alt="" />
+        </picture>
           <h1>Frutcol - A</h1>
         </div>
         <nav
