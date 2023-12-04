@@ -4,13 +4,18 @@ import { Toaster, toast } from "sonner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { sumItemFromCart, restItemFromCart, clearItemFromCart } from "../../../redux/cartSlice";
+import { EmptyCart } from "../../common/emptyCart/EmptyCart";
+import {
+  sumItemFromCart,
+  restItemFromCart,
+  clearItemFromCart,
+} from "../../../redux/cartSlice";
 import {
   getTotalItems,
   getTotalWeight,
   getTotalPrice,
   formatPrice,
-  prodTotalPrice
+  prodTotalPrice,
 } from "../../../utils/helpers";
 import "./carrito.css";
 
@@ -333,26 +338,12 @@ export const Cart = ({ lProductos }) => {
             {totalp > 0 ? (
               cart.cart.map((prods) => {
                 if (prods.cantidad_producto > 0) {
-                  return (
-                    <Card
-                      prods={prods}
-                      key={prods.id_producto}
-                    />
-                  );
+                  return <Card prods={prods} key={prods.id_producto} />;
                 }
               })
             ) : (
               <div className="noprod">
-                <picture>
-                  <sources srcSet="../../images/37459.avif" type="image/avif" />
-                  <sources srcSet="../../images/37459.webp" type="image/webp" />
-                  <img
-                    className="emptycar"
-                    src="../../images/37459.jpg"
-                    alt="No hay productos"
-                  />
-                </picture>
-
+                <EmptyCart />
                 <h5>Carrito vacío</h5>
               </div>
             )}

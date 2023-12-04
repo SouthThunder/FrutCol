@@ -149,16 +149,18 @@
   cursor: pointer;
 }
 
-.cartComp > .info > .items > .elements > .noprod > .emptycar {
-  width: 300px;
-  height: 300px;
-}
 .cartComp > .info > .items > .elements > .noprod {
   display: flex;
   flex-direction: column;
   align-self: center;
   text-align: center;
   margin-bottom: 5rem;
+}
+
+.cartComp > .info > .items > .elements > .noprod svg{
+  height: 300px;
+  width: 300px;
+  margin: 0 auto;
 }
 
 .cartComp > .info > .checkout {
