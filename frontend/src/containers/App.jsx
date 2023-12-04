@@ -35,6 +35,7 @@ function App() {
           precio_producto: prod.SubMetadata_producto.precio_producto,
           cantidad_producto: prod.cantidad_producto,
           image: prod.SubMetadata_producto.image,
+          peso_producto: prod.SubMetadata_producto.peso_producto,
         }
         items.push(item);
       });

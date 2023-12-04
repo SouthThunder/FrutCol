@@ -4,6 +4,7 @@ import jwt_decode from "jwt-decode";
 import { Toaster, toast } from "sonner";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const Card = ({ prods, updateReloader }) => {
   const [reloader, setReloader] = useState(false);
@@ -51,16 +52,22 @@ export const Card = ({ prods, updateReloader }) => {
       </div>
       <div className="info">
         <div className="pImg">
-        <div className="pImg">
-  <picture>
-    <source srcSet={"../../images/" + prods.image.split('.')[0] + ".avif"} type="image/avif"/>
-    <source srcSet={"../../images/" + prods.image.split('.')[0] + ".webp"} type="image/webp"/>
-    <img
-      src={"../../images/" + prods.image}
-      alt={prods.nombre_producto}
-    />
-  </picture>
-</div>
+          <div className="pImg">
+            <picture>
+              <source
+                srcSet={"../../images/" + prods.image.split(".")[0] + ".avif"}
+                type="image/avif"
+              />
+              <source
+                srcSet={"../../images/" + prods.image.split(".")[0] + ".webp"}
+                type="image/webp"
+              />
+              <img
+                src={"../../images/" + prods.image}
+                alt={prods.nombre_producto}
+              />
+            </picture>
+          </div>
         </div>
         <div className="price">
           <p>$ {formatPrice(prods.precio)}</p>
@@ -81,32 +88,37 @@ export const Card = ({ prods, updateReloader }) => {
   );
 };
 
-export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, openPopup }) => {
+export const ReceiptInfo = ({
+  lProductos,
+  num_productos_reserva,
+  valor_reserva,
+  openPopup,
+}) => {
   const firstLoad = useRef(true);
   const [localProds, setLocalProds] = useState([]);
   const [deActive, setDeActive] = useState(false);
   const [formData, setFormData] = useState({
-    nombre: '',
-    ciudad: '',
-    direccion: '',
-    telefono: '',
-    correo: '',
-    cedula: '',
-    direccionEnvio: '',
+    nombre: "",
+    ciudad: "",
+    direccion: "",
+    telefono: "",
+    correo: "",
+    cedula: "",
+    direccionEnvio: "",
   });
 
   useEffect(() => {
-    if(firstLoad.current) {
-      lProductos.map((prods) => { 
+    if (firstLoad.current) {
+      lProductos.map((prods) => {
         return prods.map((sub) => {
-          if (sub.cantidad > 0) {          
-            setLocalProds((pro) => [...pro,sub])
+          if (sub.cantidad > 0) {
+            setLocalProds((pro) => [...pro, sub]);
           }
-        })
-      })
+        });
+      });
       firstLoad.current = false;
     }
-  }, [localProds])
+  }, [localProds]);
 
   const [errors, setErrors] = useState({});
 
@@ -128,14 +140,14 @@ export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, o
 
     // Validar campos obligatorios
     for (const key in formData) {
-      if (formData[key] === '') {
-        newErrors[key] = 'Este campo es obligatorio';
+      if (formData[key] === "") {
+        newErrors[key] = "Este campo es obligatorio";
       }
     }
 
     // Validar correo electrónico
     if (formData.correo && !validateEmail(formData.correo)) {
-      newErrors.correo = 'El correo electrónico no es válido';
+      newErrors.correo = "El correo electrónico no es válido";
     }
 
     setErrors(newErrors);
@@ -143,28 +155,32 @@ export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, o
     if (Object.keys(newErrors).length === 0) {
       // Aquí puedes enviar los datos o realizar la acción de confirmación
       setDeActive(true);
-      handlePurchase()
+      handlePurchase();
     }
-    
   };
 
   const headers = {
     Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
   };
 
-  const handlePurchase = async() => {
+  const handlePurchase = async () => {
     const id_h = jwt_decode(localStorage.getItem("token"));
-    const URI = 'https://frutcol-backend.onrender.com/reserva/';
+    const URI = "https://frutcol-backend.onrender.com/reserva/";
     try {
-      const res = await axios.post(URI, {
-        id_usuario: id_h.id_usuario,
-        valor_reserva: valor_reserva,
-        num_productos_reserva: num_productos_reserva,
-        fecha_reserva: new Date().toISOString().slice(0, 10),          
-        formData, localProds
-      }, { headers })
-      if(res.data){
-        toast.success('La compra ha sido creada');
+      const res = await axios.post(
+        URI,
+        {
+          id_usuario: id_h.id_usuario,
+          valor_reserva: valor_reserva,
+          num_productos_reserva: num_productos_reserva,
+          fecha_reserva: new Date().toISOString().slice(0, 10),
+          formData,
+          localProds,
+        },
+        { headers }
+      );
+      if (res.data) {
+        toast.success("La compra ha sido creada");
         //eliminar productos del carrito
         lProductos.map((prods) => {
           return prods.map((sub) => {
@@ -174,12 +190,12 @@ export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, o
           });
         });
         await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
-        openPopup()
+        openPopup();
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   return (
     <div className="captureReceiptData" id="captureReceiptData">
@@ -224,7 +240,9 @@ export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, o
               value={formData.direccion}
               onChange={handleInputChange}
             />
-            {errors.direccion && <div className="error">{errors.direccion}</div>}
+            {errors.direccion && (
+              <div className="error">{errors.direccion}</div>
+            )}
           </div>
           <div className="n5">
             <label htmlFor="telefono">Teléfono</label>
@@ -255,16 +273,19 @@ export const ReceiptInfo = ({lProductos, num_productos_reserva, valor_reserva, o
             value={formData.direccionEnvio}
             onChange={handleInputChange}
           />
-          {errors.direccionEnvio && <div className="error">{errors.direccionEnvio}</div>}
+          {errors.direccionEnvio && (
+            <div className="error">{errors.direccionEnvio}</div>
+          )}
         </div>
         <div className="confirm">
-          <button disabled={deActive} onClick={handleConfirm}>Confirmar</button>
+          <button disabled={deActive} onClick={handleConfirm}>
+            Confirmar
+          </button>
         </div>
       </div>
     </div>
   );
 };
-
 
 export const Cart = ({ lProductos }) => {
   const [total, setTotal] = useState(0);
@@ -275,9 +296,8 @@ export const Cart = ({ lProductos }) => {
   const [promt, setPromt] = useState([]);
   const [isComponentDisabled, setComponentDisabled] = useState(false);
   const [receipt, setReceipt] = useState(false);
+  const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
-
-
 
   useEffect(() => {
     // Calcula el número total de productos en el carrito
@@ -402,15 +422,15 @@ export const Cart = ({ lProductos }) => {
             ) : (
               <div className="noprod">
                 <picture>
-                  <sources srcset="../../images/37459.avif" type="image/avif"/>
-                  <sources srcset="../../images/37459.webp" type="image/webp"/>
+                  <sources srcset="../../images/37459.avif" type="image/avif" />
+                  <sources srcset="../../images/37459.webp" type="image/webp" />
                   <img
-                  className="emptycar"
-                  src="../../images/37459.jpg"
-                  alt="No hay productos"
-                />
+                    className="emptycar"
+                    src="../../images/37459.jpg"
+                    alt="No hay productos"
+                  />
                 </picture>
-                
+
                 <h5>Carrito vacío</h5>
               </div>
             )}
@@ -454,20 +474,23 @@ export const Cart = ({ lProductos }) => {
             >
               Comprar
             </button>
-              {
-                receipt ? (
-                  <ReceiptInfo lProductos={lProductos} num_productos_reserva={totalp} valor_reserva={total} openPopup={openPopup}/>
-                ) : (
-                  null
-                )
-              }
+            {receipt ? (
+              <ReceiptInfo
+                lProductos={lProductos}
+                num_productos_reserva={totalp}
+                valor_reserva={total}
+                openPopup={openPopup}
+              />
+            ) : null}
             <div className="toast2" id="popup">
               <h2>Pasos para hacer efectiva la compra:</h2>
               <div className="pasos">
                 <p>
                   1. Realice el pago del valor del pedido a Bancolombia a nombre
-                  de <strong>Frutcol - A SAS</strong> cuenta de Ahorros <strong>No.
-                  601-000041-89</strong> NIT: <strong>901733392-6.</strong> o a Nequi, al número <strong>3108621696</strong>
+                  de <strong>Frutcol - A SAS</strong> cuenta de Ahorros{" "}
+                  <strong>No. 601-000041-89</strong> NIT:{" "}
+                  <strong>901733392-6.</strong> o a Nequi, al número{" "}
+                  <strong>3108621696</strong>
                 </p>
                 <p>
                   2. Tome una foto o captura de pantalla del comprobante de la
@@ -497,8 +520,6 @@ export const Cart = ({ lProductos }) => {
   );
 };
 
-export const Carritocom = ({lProductos}) => {
-  return (
-      <Cart lProductos={lProductos} />
-  );
+export const Carritocom = ({ lProductos }) => {
+  return <Cart lProductos={lProductos} />;
 };

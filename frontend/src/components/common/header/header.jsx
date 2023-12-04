@@ -5,6 +5,7 @@ import {AiOutlineUser} from "react-icons/ai";
 import {BsCart2} from "react-icons/bs";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
+import { getTotalItems, getTotalWeight, getTotalPrice } from "../../../utils/helpers";
 import "./header.css";
 
 export const HeadPopUp = ({ product, trigger, togglePopup }) => {
@@ -57,7 +58,7 @@ export const Headercom = ({ product, auth }) => {
   const cart = useSelector((state) => state.cart);
   const [popup, setPopup] = useState(false);
   const [faItems, setFaItems] = useState(true);
-  const [items, setItems] = useState([]); 
+  const [items, setItems] = useState(0); 
   const navRef = useRef();
 
   const togglePopup = () => {
@@ -75,14 +76,11 @@ export const Headercom = ({ product, auth }) => {
   const navigate = useNavigate();
   useEffect(() => {
     if(cart){
-      setItems(() => {
-        const cart = JSON.parse(localStorage.getItem("cart"));
-        return cart?.reduce((acc, item) => {
-          return acc + item.cantidad_producto;
-        }, 0);
-      });
+      setItems(getTotalItems(cart.cart));
+      console.log(getTotalWeight(cart.cart));
+      console.log(getTotalPrice(cart.cart));
     }
-  }, [product, popup, cart, items]);
+  }, [product, popup, cart]);
 
   const logout = () => {
     window.location.href = "/";
