@@ -21,6 +21,7 @@ function App() {
     }
   };
 
+
   useEffect(() => {
     if(Cookie.get('token') && firstLoad.current){
       verifyToken()
