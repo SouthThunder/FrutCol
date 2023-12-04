@@ -21,6 +21,10 @@ const formatPrice = (price) => {
     return price.toLocaleString("en-US");
   }; 
 
+const formatWeight = (weight) => {
+    return weight.toFixed(2);
+}
+
 const prodTotalPrice = (prod) => {
     return prod.precio_producto * prod.cantidad_producto;
 }
@@ -28,4 +32,4 @@ const prodTotalPrice = (prod) => {
 
 
 
-export { getTotalPrice, getTotalItems, getTotalWeight, formatPrice, prodTotalPrice, getProduct };
+export { getTotalPrice, getTotalItems, getTotalWeight, formatPrice, prodTotalPrice, getProduct, formatWeight };

@@ -78,12 +78,12 @@ function Routing ({authenticated}) {
           <Route path='/registro' element={<Registrocom refresh={refresh}/>}/> 
           <Route path='/QuienesSomos' element={<QuienesSomoscom product={product}/>}/> 
           <Route path='/Privacidad' element={<PrivacyComp product={product}/>}/>
+          <Route path='/carrito' element={<Carritocom product={product}/>}/>
+          <Route path='/:id' element={<Selement product={product}/>}/>
           {/* Protected routes */}
           <Route element={<PrivateRoutes />}>
             <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool}/>}/>
             <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} prodsPool={prodsPool}/>}/> 
-            <Route path='/carrito' element={<Carritocom product={product}/>}/>
-            <Route path='/:id' element={<Selement product={product}/>}/>
           </Route>
         </Routes>
       <Footercom product={product}/>

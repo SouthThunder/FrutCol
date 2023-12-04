@@ -23,25 +23,25 @@ function App() {
       setAuth(false);
     }
   };
-
+  
   const getCart = async () => {
     try {
       const res = await getItems(Cookie.get("token"));
       let items = [];
       res.map((prod) => {
-        if(prod.cantidad_producto > 0){
-          const item ={
+        if (prod.cantidad_producto > 0) {
+          const item = {
             id_producto: prod.id_producto,
             nombre_producto: prod.SubMetadata_producto.nombre_producto,
             precio_producto: prod.SubMetadata_producto.precio_producto,
             cantidad_producto: prod.cantidad_producto,
             image: prod.SubMetadata_producto.image,
             peso_producto: prod.SubMetadata_producto.peso_producto,
-          }
+          };
           items.push(item);
         }
       });
-      if(!localStorage.getItem('cart')){
+      if (!localStorage.getItem("cart")) {
         return items.map((item) => {
           return dispatch(addToCart(item));
         });

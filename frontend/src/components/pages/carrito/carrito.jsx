@@ -16,6 +16,7 @@ import {
   getTotalPrice,
   formatPrice,
   prodTotalPrice,
+  formatWeight
 } from "../../../utils/helpers";
 import "./carrito.css";
 
@@ -360,7 +361,7 @@ export const Cart = ({ lProductos }) => {
               <p>$ {formatPrice(total - total / 1.19)}</p>
             </div>
             <div className="progress">
-              <p>{weight} Kg</p>
+              <p>{formatWeight(weight)} Kg</p>
               <input
                 type="range"
                 min={0}

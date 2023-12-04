@@ -6,10 +6,15 @@ import {BsCart2} from "react-icons/bs";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
 import { getTotalItems } from "../../../utils/helpers";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../redux/userSlice";
+import { clearCart } from "../../../redux/cartSlice";
 import "./header.css";
 
 export const HeadPopUp = ({ product, trigger, togglePopup }) => {
   const menuRef = useRef();
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
     document.documentElement.style.setProperty(
@@ -28,8 +33,10 @@ export const HeadPopUp = ({ product, trigger, togglePopup }) => {
   }, [product]);
   const navigate = useNavigate();
 
-  const logout = () => {
+  const exitaccount = () => {
     window.location.href = "/";
+    dispatch(logout());
+    dispatch(clearCart());
     Cookies.remove("token");
   };
 
@@ -48,17 +55,17 @@ export const HeadPopUp = ({ product, trigger, togglePopup }) => {
       </div>
       <div className="separator"></div>
       <div className="popup-inner">
-        <button onClick={logout}>Salir</button>
+        <button onClick={exitaccount}>Salir</button>
       </div>
     </div>
   );
 };
 
 export const Headercom = ({ product, auth }) => {
-  const cart = useSelector((state) => state.cart);
   const [popup, setPopup] = useState(false);
   const [faItems, setFaItems] = useState(true);
   const [items, setItems] = useState(0); 
+  const cart = useSelector((state) => state.cart);
   const navRef = useRef();
 
   const togglePopup = () => {
@@ -109,9 +116,9 @@ export const Headercom = ({ product, auth }) => {
             <ul>
               <li>
                 <div className="nav-btn">
-                  <p onClick={() => navigate('/carrito')}>Carrito</p>
-                  <p onClick={() => navigate('/InformacionCuenta')}>Ajustes</p>
-                  <p onClick={() => logout()}>Salir</p>
+                  <p onClick={() => navigate('/carrito')} onKeyDown={() => navigate('/carrito')}>Carrito {`(${items})`}</p>
+                  <p onClick={() => navigate('/InformacionCuenta')} onKeyDown={() => navigate('/InformacionCuenta')}>Ajustes</p>
+                  <p onClick={() => logout()} onKeyDown={() => logout()}>Salir</p>
                 </div>
                 <button id="userIcon" onClick={togglePopup}>
                   <AiOutlineUser />
@@ -136,6 +143,12 @@ export const Headercom = ({ product, auth }) => {
               </li>
               <li>
                 <p onClick={() => navigate('/registro')} onKeyDown={() => navigate('/registro')}>Registrarse</p>
+              </li>
+              <li>
+                <button id="cartIcon" onClick={() => navigate("/carrito")}>
+                  <BsCart2 />
+                  <p>{items}</p>
+                </button>
               </li>
             </ul>
           )}

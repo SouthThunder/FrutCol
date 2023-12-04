@@ -18,7 +18,7 @@ const cartSlice = createSlice({
             const { id_producto, nombre_producto, precio_producto, cantidad_producto, image, peso_producto } = action.payload;
             const item = state.cart.find(item => item.id_producto === id_producto);
             if(item){
-                item.cantidad_producto += cantidad_producto;
+                item.cantidad_producto = cantidad_producto;
             }else{
                 state.cart.push({id_producto, nombre_producto, precio_producto, cantidad_producto, image, peso_producto});
             }
