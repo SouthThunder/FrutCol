@@ -56,6 +56,20 @@ export const getOrder = async (token) => {
   }
 };
 
+export const getAllOrders = async (token) => {
+  try {
+    const response = await axios.get(`${API_URL}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error getting resources:', error);
+    throw error;
+  }
+}
+
 // Read a single resource by ID
 export const getOrderById = async (id) => {
   try {
@@ -88,3 +102,24 @@ export const deleteOrderById = async (id) => {
     throw error;
   }
 };
+
+export const deliverOrder = async (token, order, id_reserva, num_productos_reserva, valor_reserva, fecha_reserva, num_orden) => {
+  try {
+    const response = await axios.put(`${API_URL}${order}`, {
+      id_reserva,
+      num_productos_reserva,
+      valor_reserva,
+      fecha_reserva,
+      num_orden,
+      estado_reserva: true,
+    } ,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error('Error updating resource:', error);
+    throw error;
+  }
+}

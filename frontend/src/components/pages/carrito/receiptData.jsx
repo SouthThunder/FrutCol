@@ -62,43 +62,45 @@ export const ReceiptInfo = ({ openPopup }) => {
 
   const handlePurchase = async () => {
     try {
-      if(Cookie.get('token')){
-        const res =  await createOrder(
-            Cookie.get("token"),
-            user.id,
-            getTotalPrice(cart.cart),
-            getTotalItems(cart.cart),
-            new Date().toISOString().slice(0, 10),
-            formData,
-            cart.cart
-          );
-          console.log(res)
-          if (res.status === 200) {
-            toast.success("La compra ha sido creada");
-            //eliminar productos del carrito
-            dispatch(clearCart());
-            await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
-            openPopup();
-          }
-      }else{
-        const res = await createOrderForNullUser(
-            getTotalPrice(cart.cart),
-            getTotalItems(cart.cart),
-            new Date().toISOString().slice(0, 10),
-            formData,
-            cart.cart
-        )
-        console.log(res)
-        if(res.status === 200){
+      if (Cookie.get("token")) {
+        const res = await createOrder(
+          Cookie.get("token"),
+          user.id,
+          getTotalPrice(cart.cart),
+          getTotalItems(cart.cart),
+          new Date().toISOString().slice(0, 10),
+          formData,
+          cart.cart
+        );
+        if (res.status === 200) {
           toast.success("La compra ha sido creada");
           //eliminar productos del carrito
           dispatch(clearCart());
           await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
           openPopup();
+        } else {
+          toast.error("Error al crear la compra");
+        }
+      } else {
+        const res = await createOrderForNullUser(
+          getTotalPrice(cart.cart),
+          getTotalItems(cart.cart),
+          new Date().toISOString().slice(0, 10),
+          formData,
+          cart.cart
+        );
+        if (res.status === 200) {
+          toast.success("La compra ha sido creada");
+          //eliminar productos del carrito
+          dispatch(clearCart());
+          await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
+          openPopup();
+        } else {
+          toast.error("Error al crear la compra");
         }
       }
-      
     } catch (error) {
+      toast.error("Error al crear la compra");
       console.error(error);
     }
   };

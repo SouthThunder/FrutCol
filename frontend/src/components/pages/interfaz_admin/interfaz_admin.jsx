@@ -5,7 +5,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Cookie from "js-cookie";
-import { getOrder } from "../../../services/reserva.js";
+import {
+  deliverOrder,
+  getAllOrders,
+  getOrder,
+} from "../../../services/reserva.js";
 
 const URI = "https://frutcol-backend.onrender.com/metadata/";
 
@@ -66,7 +70,7 @@ export const Reservas = (prop) => {
   const [estado, setEstado] = useState("");
   const [fecha, setFecha] = useState("");
   const [numOrden, setNumOrden] = useState("");
-  const [loader , setLoader] = useState(true);
+  const [loader, setLoader] = useState(true);
   const filtrarReservas = () => {
     return prop.prod.userHistory.filter((userHistory) => {
       // Verificar si se cumple la condición de estado y fecha
@@ -74,20 +78,20 @@ export const Reservas = (prop) => {
         estado === "" || userHistory.estado_reserva.toString() === estado;
       const cumpleCondicionFecha =
         fecha === "" || userHistory.fecha_reserva === fecha;
-      const encontroNumOrden = 
+      const encontroNumOrden =
         numOrden === "" || userHistory.num_orden === numOrden;
       // Si ambas condiciones se cumplen, se muestra el elemento
       return cumpleCondicionEstado && cumpleCondicionFecha && encontroNumOrden;
     });
   };
   useEffect(() => {
-    if(prop.prod.userHistory !== null){
+    if (prop.prod.userHistory !== null) {
       setLoader(false);
     }
   }, [prop.prod.userHistory]);
 
-  if(loader){
-    return 
+  if (loader) {
+    return;
   }
 
   return (
@@ -123,9 +127,13 @@ export const Reservas = (prop) => {
           </div>
           <div className="search">
             <label>Buscar orden: </label>
-            <input type="text" placeholder="FC202310U1S1" onChange={(e) =>{
-              setNumOrden(e.target.value);
-            }}/>
+            <input
+              type="text"
+              placeholder="FC202310U1S1"
+              onChange={(e) => {
+                setNumOrden(e.target.value);
+              }}
+            />
           </div>
         </div>
         <div className="labels">
@@ -185,10 +193,8 @@ export const Reservas = (prop) => {
 
 export const ProductosReserva = (prop) => {
   const URI = `https://frutcol-backend.onrender.com/reserprod/${prop.reservation.num_orden}`;
-  const URI2 = `https://frutcol-backend.onrender.com/reserva/${prop.reservation.num_orden}`;
   const URI3 = `https://frutcol-backend.onrender.com/facturacion/${prop.reservation.num_orden}`;
   const [products, setProducts] = useState(null);
-  const [userData, setUserData] = useState(null);
   const [receiptData, setReceiptData] = useState(null);
   const [isLoading, setisLoading] = useState(true);
   const firstRender = useRef(true);
@@ -197,78 +203,59 @@ export const ProductosReserva = (prop) => {
 
   useEffect(() => {
     if (firstRender.current) {
-      Promise.all([getProducts(), getUserData(), getReceiptData()]);
+      Promise.all([getProducts(), getReceiptData()]);
       firstRender.current = false;
     } else {
-      if (products !== null && userData !== null && receiptData !== null) {
+      if (products !== null && receiptData !== null) {
         setisLoading(false);
-      }else{
+      } else {
         setisLoading(true);
       }
     }
-  }, [products, userData, receiptData]);
+  }, [products, receiptData]);
 
   const getProducts = async () => {
     try {
-      const res = await axios.get(URI, { 
+      const res = await axios.get(URI, {
         headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-       });
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       setProducts(res.data);
     } catch (error) {
       console.error("ERROR: " + error);
     }
   };
 
-  const getUserData = async () => {
-    try {
-      const res = await axios.get(URI2, { 
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-       });
-      setUserData(res.data.Usuario);
-    } catch (error) {
-      console.error("ERROR: " + error);
-    }
-  };
   const getReceiptData = async () => {
     try {
-      const res = await axios.get(URI3, { 
+      const res = await axios.get(URI3, {
         headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-       });
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       setReceiptData(res.data);
     } catch (error) {
       console.error("ERROR: " + error);
     }
-  }
+  };
 
   const handleEntregarOrden = async () => {
-    const URI = `https://frutcol-backend.onrender.com/reserva/${prop.reservation.num_orden}`;
     try {
-      await axios.put(
-        URI,
-        {
-          id_reserva: prop.reservation.id_reserva,
-          id_usuario: prop.reservation.id_usuario,
-          num_productos_reserva: prop.reservation.num_productos_reserva,
-          valor_reserva: prop.reservation.valor_reserva,
-          fecha_reserva: prop.reservation.fecha_reserva,
-          num_orden: prop.reservation.num_orden,
-          estado_reserva: true,
-        },
-        { 
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
-         }
-      );
-      window.location.reload(false);
+      if (
+        deliverOrder(
+          Cookie.get("token"),
+          prop.reservation.num_orden,
+          prop.reservation.id_reserva,
+          prop.reservation.num_productos_reserva,
+          prop.reservation.valor_reserva,
+          prop.reservation.fecha_reserva
+        ).status === 200
+      ) {
+        window.location.reload(false);
+      }
     } catch (error) {
-      console.error("ERROR: " + error);
+      console.error(error);
     }
   };
 
@@ -292,38 +279,6 @@ export const ProductosReserva = (prop) => {
     <div className="reserva">
       <h2>Número de orden: {prop.reservation.num_orden}</h2>
       <div className="resuser">
-        <h3>Información de Usuario</h3>
-        <div className="grid">
-          <div className="r1">
-            <div className="c1">
-              <p>
-                <strong>Cédula:</strong> {userData.cedula_usuario}
-              </p>
-            </div>
-            <div className="c2">
-              <p>
-                <strong>Correo:</strong> {userData.correo_usuario}
-              </p>
-            </div>
-            <div className="c3">
-              <p>
-                <strong>Dirección:</strong> {prop.reservation.direccion_reserva}
-              </p>
-            </div>
-          </div>
-          <div className="r2">
-            <div className="c1">
-              <p>
-                <strong>Nombre:</strong> {userData.nombre_usuario}
-              </p>
-            </div>
-            <div className="c2">
-              <p>
-                <strong>Apellido:</strong> {userData.apellido_usuario}
-              </p>
-            </div>
-          </div>
-        </div>
         <h3>Datos de facturación</h3>
         <div className="grid">
           <div className="r1">
@@ -377,14 +332,14 @@ export const ProductosReserva = (prop) => {
             </div>
           </div>
           {products?.map((products) => {
-          let matchingProduct = null;
-          metadata.map((prod) => {
-            return prod.SubMetadata_productos.map((sub) => {
-              if (sub.id_subMetadata_producto === products.id_producto) {
-                matchingProduct = sub;
-              }
-            })
-          })
+            let matchingProduct = null;
+            metadata.map((prod) => {
+              return prod.SubMetadata_productos.map((sub) => {
+                if (sub.id_subMetadata_producto === products.id_producto) {
+                  matchingProduct = sub;
+                }
+              });
+            });
             return (
               <div className="product" key={products.id_producto}>
                 <div className="pImg">
@@ -392,13 +347,27 @@ export const ProductosReserva = (prop) => {
                     <h3>{matchingProduct.nombre_producto}</h3>
                   </div>
                   <picture>
-        <source srcSet={"../../images/" + matchingProduct.image.split('.')[0] + ".avif"} type="image/avif"/>
-        <source srcSet={"../../images/" + matchingProduct.image.split('.')[0] + ".webp"} type="image/webp"/>
-        <img
-          src={"../../images/" + matchingProduct.image}
-          alt={matchingProduct.nombre_producto}
-        />
-      </picture>
+                    <source
+                      srcSet={
+                        "../../images/" +
+                        matchingProduct.image.split(".")[0] +
+                        ".avif"
+                      }
+                      type="image/avif"
+                    />
+                    <source
+                      srcSet={
+                        "../../images/" +
+                        matchingProduct.image.split(".")[0] +
+                        ".webp"
+                      }
+                      type="image/webp"
+                    />
+                    <img
+                      src={"../../images/" + matchingProduct.image}
+                      alt={matchingProduct.nombre_producto}
+                    />
+                  </picture>
                 </div>
                 <div className="promt">
                   <p>Cantidad: {products.cantidad_producto}</p>
@@ -422,7 +391,7 @@ export const ProductosReserva = (prop) => {
   );
 };
 
-export const InterfazAdmincom = ({ product, prodsPool}) => {
+export const InterfazAdmincom = ({ product, prodsPool }) => {
   const [isLoading, setisLoading] = useState(true);
   const [userHistory, setUserHistory] = useState(null);
   const [admin, setAdmin] = useState(null);
@@ -447,8 +416,8 @@ export const InterfazAdmincom = ({ product, prodsPool}) => {
       );
       firstRender.current = false;
     } else {
-      if (prodsPool !== null && userHistory !== null ) {
-        if(user.role === 'superusuario'){
+      if (prodsPool !== null && userHistory !== null) {
+        if (user.role === "superusuario") {
           setAdmin(true);
         }
         setisLoading(false);
@@ -458,7 +427,7 @@ export const InterfazAdmincom = ({ product, prodsPool}) => {
 
   const getHistoryData = async () => {
     try {
-      const res = await getOrder(Cookie.get('token'))
+      const res = await getAllOrders(Cookie.get("token"));
       setUserHistory(res);
     } catch (error) {
       console.error(error);
@@ -476,7 +445,7 @@ export const InterfazAdmincom = ({ product, prodsPool}) => {
         </div>
       </div>
     );
-  }else if(admin === true) {
+  } else if (admin === true) {
     return (
       <div className="infopagecontain">
         <Informacionpagina
