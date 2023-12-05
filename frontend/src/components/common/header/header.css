@@ -38,13 +38,13 @@ header h1 {
 
 nav > ul {
   float: right;
-  margin-right: 10px;
+  margin-right: 2rem;
   line-height: 80px;
-  width: 30%;
   display: flex;
   justify-content: space-around;
   align-items: center;
   height: 80px;
+  gap: 5rem;
 }
 
 nav > ul > li {
@@ -184,7 +184,12 @@ header .popup-header .popup-inner:nth-child(3) button:hover {
   color: white;
 }
 
+@media only screen and (max-width: 1024px) {
+  nav > ul {
+    gap: 2rem;
+  }
 
+}
 
 @media only screen and (max-width: 768px) {
 

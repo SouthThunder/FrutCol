@@ -147,6 +147,9 @@ export const Headercom = ({ product, auth }) => {
               <li>
                 <p onClick={() => navigate('/registro')} onKeyDown={() => navigate('/registro')}>Registrarse</p>
               </li>
+              <li className="nav-btn">
+                <p onClick={() => navigate('/carrito')} onKeyDown={() => navigate('/carrito')}>Carrito {`(${items})`}</p>
+              </li>
               <li>
                 <button id="cartIcon" onClick={() => navigate("/carrito")}>
                   <BsCart2 />

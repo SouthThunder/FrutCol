@@ -42,6 +42,7 @@ footer > .footer__section > .footer__content > .footer__social{
     display:flex;
     column-gap: 1.25rem;
 }
+
 footer > .footer__section > .footer__content > .footer__social > .footer__social-link{
     display:inline-flex;
     color: black;
@@ -49,6 +50,11 @@ footer > .footer__section > .footer__content > .footer__social > .footer__social
     border-radius: .25rem;
     font-size: 1rem;
 }
+
+footer > .footer__section > .footer__content > .footer__social > .footer__social-link i{
+    font-size: 1.5rem;
+}
+
 footer > .footer__section > .footer__content > .footer__social > .footer__social-link:hover{
     background-color: var(--btn-color);
     transition: all 1s var(--btn-cubic-bezier);
