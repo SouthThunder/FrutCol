@@ -1,10 +1,10 @@
 .contderformlogin .terms_coditions{
-  width: 500px;
   height: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 1rem 0;
+  text-align: center;
 }
 
 .contderformlogin .terms_coditions input{
