@@ -81,7 +81,7 @@
   align-items: center;
   justify-content: flex-start;
 }
-.cartComp > .info > .items > .elements > .card > .info > .pImg > img {
+.cartComp > .info > .items > .elements > .card > .info > .pImg > picture> img {
   width: 100%;
   min-width: 80px;
   max-width: 120px;

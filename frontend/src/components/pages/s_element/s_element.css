@@ -31,7 +31,7 @@
     align-items: center;
 }
 
-.elementComp > .container > .product > .imageHolder > img{
+.elementComp > .container > .product > .imageHolder >picture > img{
     width: 100%;
     height: auto;
     max-height: 300px;

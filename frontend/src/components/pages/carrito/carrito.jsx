@@ -30,7 +30,6 @@ export const Card = ({ prods }) => {
       </div>
       <div className="info">
         <div className="pImg">
-          <div className="pImg">
             <picture>
               <source
                 srcSet={"../../images/" + prods.image.split(".")[0] + ".avif"}
@@ -45,7 +44,7 @@ export const Card = ({ prods }) => {
                 alt={prods.nombre_producto}
               />
             </picture>
-          </div>
+          
         </div>
         <div className="price">
           <p>$ {formatPrice(prods.precio_producto)}</p>
