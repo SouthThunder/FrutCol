@@ -8,6 +8,11 @@ import { FaUser } from "react-icons/fa";
 import { getOrder } from "../../../services/reserva.js";
 import Cookie from "js-cookie";
 import "./info_cuenta.css";
+import { updateUser } from "../../../services/user.js";
+import { HistorialReservas } from "./histReserva.jsx";
+import { Cambiocontraseña } from "./CambioContra.jsx";
+import { ProductosReserva } from "./histReserva.jsx";
+
 
 const numeros = /^\d+$/; // Solo números
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -84,9 +89,7 @@ export const Infocuenta = (prop) => {
       role,
     };
     try {
-      await axios.put(`${URI}`, user, {
-        headers,
-      });
+      await updateUser(id_usuario, user);
       toast.success("Los datos se actualizaron correctamente");
       window.location.reload();
     } catch (error) {
@@ -208,175 +211,8 @@ export const Infocontenidos = (prop) => {
   );
 };
 
-export const ProductosReserva = (prop) => {
-  const URI = `https://frutcol-backend.onrender.com/reserprod/${prop.reservation.num_orden}`;
-  const [products, setProducts] = useState(null);
-  const [isLoading, setisLoading] = useState(true);
-  const firstRender = useRef(true);
-  const headers = prop.headers;
-  const metadata = prop.prodsPool;
 
-  useEffect(() => {
-    if (firstRender.current) {
-      console.log(prop.reservation.num_orden);
-      getProducts();
-      firstRender.current = false;
-    } else {
-      if (products !== null) {
-        setisLoading(false);
-      }
-    }
-  }, [products]);
 
-  const getProducts = async () => {
-    try {
-      const res = await axios.get(URI, { headers });
-      setProducts(res.data);
-    } catch (error) {
-      console.error("ERROR: " + error);
-    }
-  };
-
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-
-  return (
-    <div className="resprod">
-      <h2>Número de orden: {prop.reservation.num_orden}</h2>
-      <div className="elements">
-        <div className="labels">
-          <div className="lItem">
-            <p>Producto</p>
-          </div>
-          <div className="lItem">
-            <p>Cantidad</p>
-          </div>
-          <div className="lItem">
-            <p>Valor</p>
-          </div>
-        </div>
-        {products?.map((products) => {
-          let matchingProduct = null;
-          metadata.map((prod) => {
-            return prod.SubMetadata_productos.map((sub) => {
-              if (sub.id_subMetadata_producto === products.id_producto) {
-                matchingProduct = sub;
-              }
-            });
-          });
-          return (
-            <div className="product" key={products.id_producto}>
-              <div className="pImg">
-                <div className="title">
-                  <h3>{matchingProduct.nombre_producto}</h3>
-                </div>
-                <picture>
-                  <source
-                    srcSet={
-                      "../../images/" +
-                      matchingProduct.image.split(".")[0] +
-                      ".avif"
-                    }
-                    type="image/avif"
-                  />
-                  <source
-                    srcSet={
-                      "../../images/" +
-                      matchingProduct.image.split(".")[0] +
-                      ".webp"
-                    }
-                    type="image/webp"
-                  />
-                  <img
-                    src={"../../images/" + matchingProduct.image}
-                    alt={matchingProduct.nombre_producto}
-                  />
-                </picture>
-              </div>
-              <div className="promt">
-                <p>Cantidad: {products.cantidad_producto}</p>
-              </div>
-              <div className="unit">
-                <p>$ {matchingProduct.precio_producto} c/u</p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-      <div className="separator"></div>
-      <div className="total">
-        <p>
-          <strong>Total:</strong> {prop.reservation.valor_reserva}
-        </p>
-      </div>
-    </div>
-  );
-};
-
-export const HistorialReservas = (prop) => {
-  const handleReservationClick = (reserva) => {
-    prop.onSelectOption("productosreserva");
-    prop.onSelectReservation(reserva);
-  };
-  useEffect(() => {}, []);
-  return (
-    <div className="historialReserva">
-      <div className="container">
-        <div className="labels">
-          <div className="lItem">
-            <p># Reserva</p>
-          </div>
-          <div className="lItem">
-            <p>Número de productos </p>
-          </div>
-          <div className="lItem">
-            <p>Fecha</p>
-          </div>
-          <div className="lItem">
-            <p>Valor total</p>
-          </div>
-          <div className="lItem">
-            <p>Estado</p>
-          </div>
-        </div>
-        {prop.userHistory.map((userHistory) => {
-          const chkStatus = () => {
-            if (userHistory.estado_reserva === false) {
-              return <li style={{ color: "#ff8c00" }}>En proceso</li>;
-            } else {
-              return <li style={{ color: "green" }}>Entregado</li>;
-            }
-          };
-
-          return (
-            <ul
-              className="orders"
-              key={userHistory.num_orden}
-              onClick={() => handleReservationClick(userHistory)}
-            >
-              <div className="lItem">
-                <li>{userHistory.num_orden}</li>
-              </div>
-              <div className="lItem">
-                <li>{userHistory.num_productos_reserva}</li>
-              </div>
-              <div className="lItem">
-                <li>{userHistory.fecha_reserva}</li>
-              </div>
-              <div className="lItem">
-                <li>{userHistory.valor_reserva}</li>
-              </div>
-              <div className="lItem">
-                <li>{chkStatus()}</li>
-              </div>
-            </ul>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
 
 export const Informacioncuenta = (prop) => {
   const [selectedOption, setSelectedOption] = useState("infocuenta"); // Por defecto muestra "infocuenta"
@@ -416,127 +252,6 @@ export const Informacioncuenta = (prop) => {
   );
 };
 
-export const Cambiocontraseña = (prop) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const handleActualizarContra = async (e) => {
-    e.preventDefault();
-
-    const accessToken = localStorage.getItem("token");
-    const headers = {
-      Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
-    };
-
-    let contrasena_usuario1 =
-      document.getElementById("contrasena")?.value || "";
-    let confirmacioncontra =
-      document.getElementById("newcontrasena")?.value || "";
-
-    const passwordPattern = /^(?=.*\d)(?=.*[A-Z]).{8,}$/; // Al menos un número, una mayúscula y 8 o más caracteres
-    if (!passwordPattern.test(contrasena_usuario1)) {
-      toast.error(
-        "La contraseña debe contener al menos un número, una mayúscula y tener 8 o más caracteres."
-      );
-      return;
-    }
-    if (contrasena_usuario1 !== confirmacioncontra) {
-      toast.error("Las contraseñas deben coincidir");
-      return;
-    }
-
-    const newcontra = {
-      id_usuario: prop.user[0].id_usuario,
-      contrasena_usuario: contrasena_usuario1,
-    };
-    try {
-      await axios.put(`${URI2}${prop.user[0].id_usuario}`, newcontra, {
-        headers,
-      });
-
-      toast.success("Los datos se actualizaron correctamente");
-      window.location.reload();
-    } catch (error) {
-      console.error(error);
-      toast.error("Error al actualizar los datos");
-    }
-  };
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-  return (
-    <div className="cambiocontrasena">
-      <form action="" className="form">
-        <div className="input__info">
-          <small className="errores">Error message</small>
-          <ion-icon name="person"></ion-icon>
-          <input
-            type={showPassword ? "text" : "password"}
-            id="contrasena"
-            name="contrasena"
-          />
-          <label htmlFor="">Nueva contraseña</label>
-          <button
-            className="invisible"
-            type="button"
-            onClick={togglePasswordVisibility}
-          >
-            <img
-              src={showPassword ? "images/ojo.png" : "images/invisible.png"}
-              alt={showPassword ? "visible" : "invisible"}
-            />
-          </button>
-        </div>
-        <div className="input__info">
-          <small className="errores">Error message</small>
-          <ion-icon name="person"></ion-icon>
-          <input
-            type={showPassword ? "text" : "password"}
-            id="newcontrasena"
-            name="newcontrasena"
-          />
-          <label htmlFor="">Confirmar nueva contraseña</label>
-          <button
-            className="invisible"
-            type="button"
-            onClick={togglePasswordVisibility}
-          >
-            <picture>
-              <source
-                srcSet={
-                  showPassword
-                    ? "../../images/ojo.avif"
-                    : "../../images/invisible.avif"
-                }
-                type="image/avif"
-              />
-              <source
-                srcSet={
-                  showPassword
-                    ? "../../images/ojo.webp"
-                    : "../../images/invisible.webp"
-                }
-                type="image/webp"
-              />
-              <img
-                className="emptycar"
-                src={
-                  showPassword
-                    ? "../../images/ojo.jpg"
-                    : "../../images/invisible.jpg"
-                }
-                alt={showPassword ? "visible" : "invisible"}
-              />
-            </picture>
-          </button>
-        </div>
-        <br />
-        <div className="enter">
-          <button onClick={handleActualizarContra}>Actualizar</button>
-        </div>
-        <Toaster richColors />
-      </form>
-    </div>
-  );
-};
 
 export const InfoCuentacom = ({ product, prodsPool }) => {
   const user = useSelector((state) => state.user);
@@ -581,6 +296,7 @@ export const InfoCuentacom = ({ product, prodsPool }) => {
   if (isLoading) {
     return <LoadingSpinner />;
   }
+  console.log(userHistory);
 
   return (
     <div className="infoCuentacontain">
