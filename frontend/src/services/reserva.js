@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// const API_URL = 'https://frutcol-backend.onrender.com/reserva/'; 
-const API_URL = 'http://localhost:8000/reserva/'; 
+const API_URL = 'https://frutcol-backend.onrender.com/reserva/'; 
 
 // Create a new resource
 export const createOrder = async (token, id_usuario, valor_reserva, num_productos_reserva, fecha_reserva, formData, localProds) => {

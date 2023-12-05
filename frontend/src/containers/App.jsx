@@ -23,7 +23,7 @@ function App() {
       setAuth(false);
     }
   };
-  
+
   const getCart = async () => {
     try {
       const res = await getItems(Cookie.get("token"));
@@ -41,11 +41,9 @@ function App() {
           items.push(item);
         }
       });
-      if (!localStorage.getItem("cart")) {
-        return items.map((item) => {
-          return dispatch(addToCart(item));
-        });
-      }
+      items.forEach((item) => {
+        dispatch(addToCart(item));
+      });
     } catch (error) {
       console.error(error);
     }

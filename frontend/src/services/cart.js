@@ -40,10 +40,17 @@ export const getItemById = async (itemId) => {
 };
 
 // Update an existing item
-export const updateItem = async (itemId, itemData) => {
+export const updateProductFromCart = async (token, id_carrito, id_producto, cantidad_producto) => {
   try {
-    const response = await axios.put(`${API_URL}${itemId}`, itemData);
-    return response.data;
+    const response = await axios.put(`${API_URL}mod`, {
+      id_carrito,
+      id_producto,
+      cantidad_producto
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });    return response;
   } catch (error) {
     console.error('Error updating item:', error);
     throw error;
@@ -51,9 +58,17 @@ export const updateItem = async (itemId, itemData) => {
 };
 
 // Delete an item by ID
-export const deleteItem = async (itemId) => {
+export const deleteItem = async (token, id_usuario, id_producto, cantidad_producto) => {
   try {
-    const response = await axios.delete(`${API_URL}${itemId}`);
+    const response = await axios.delete(`${API_URL}`, {
+        id_usuario,
+        id_producto,
+        cantidad_producto
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error('Error deleting item:', error);
