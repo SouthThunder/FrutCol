@@ -59,7 +59,11 @@
     align-items: center;
 }
 
- .productsComp > .elements > .card > .pImg > img{
+ .productsComp > .elements > .card > .pImg > picture > img{
+    width: calc(var(--card-width) - (var(--card-width) / 2));
+    height: calc(var(--card-width) - (var(--card-width) / 2));
+}
+.productsComp > .elements > .card > .pImg > picture > source{
     width: calc(var(--card-width) - (var(--card-width) / 2));
     height: calc(var(--card-width) - (var(--card-width) / 2));
 }

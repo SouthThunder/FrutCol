@@ -24,7 +24,7 @@ header .logo {
   display: flex;
 }
 
-header .logo img {
+header .logo picture img {
   height: 80px;
 }
 
@@ -198,7 +198,7 @@ header .popup-header .popup-inner:nth-child(3) button:hover {
     display: flex;
   }
 
-  header .logo img{
+  header .logo picture img{
     margin-left: -1rem;
     height: 65px;
   }
