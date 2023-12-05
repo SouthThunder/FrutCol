@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { Toaster, toast } from "sonner";
-
+import { IoEyeOff, IoEye } from "react-icons/io5";
 import Cookie from "js-cookie";
 import "./info_cuenta.css";
 import { updateUserPassword } from "../../../services/user.js";
@@ -66,10 +66,7 @@ export const Cambiocontraseña = (prop) => {
               type="button"
               onClick={togglePasswordVisibility}
             >
-              <img
-                src={showPassword ? "images/ojo.png" : "images/invisible.png"}
-                alt={showPassword ? "visible" : "invisible"}
-              />
+             {showPassword ?  <IoEye /> : <IoEyeOff />}
             </button>
           </div>
           <div className="input__info">
@@ -86,33 +83,7 @@ export const Cambiocontraseña = (prop) => {
               type="button"
               onClick={togglePasswordVisibility}
             >
-              <picture>
-                <source
-                  srcSet={
-                    showPassword
-                      ? "../../images/ojo.avif"
-                      : "../../images/invisible.avif"
-                  }
-                  type="image/avif"
-                />
-                <source
-                  srcSet={
-                    showPassword
-                      ? "../../images/ojo.webp"
-                      : "../../images/invisible.webp"
-                  }
-                  type="image/webp"
-                />
-                <img
-                  className="emptycar"
-                  src={
-                    showPassword
-                      ? "../../images/ojo.jpg"
-                      : "../../images/invisible.jpg"
-                  }
-                  alt={showPassword ? "visible" : "invisible"}
-                />
-              </picture>
+              {showPassword ?  <IoEye /> : <IoEyeOff />}
             </button>
           </div>
           <br />
