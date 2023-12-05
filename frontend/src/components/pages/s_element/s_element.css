@@ -1,0 +1,160 @@
+.elementComp{
+    margin-top: calc(var(--header-height)*2);
+    min-height: 54vh;
+}
+
+.elementComp > .container{
+    width: 70%;
+    margin: auto;
+}
+
+.elementComp > .container > .title{
+    margin: auto;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: var(--font-bold);
+    color: black;
+    border-bottom: 1px solid black;
+    padding-bottom: 1rem;
+}
+
+.elementComp > .container > .product{
+    margin-top: 4rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.elementComp > .container > .product > .imageHolder{
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.elementComp > .container > .product > .imageHolder >picture > img{
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    max-width: 300px;
+}
+
+.elementComp > .container > .product > .info{
+    margin-left: 2rem;
+    flex: 4;
+}
+
+.elementComp > .container > .product > .info > .presentaciones {
+    border-top: 1px solid black;
+    margin-top: 1rem;
+}
+
+.elementComp > .container > .product > .info > .presentaciones > h4{
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    font-weight: var(--font-bold);
+}
+
+.elementComp > .container > .product > .info > .presentaciones > select{
+    height: 2rem;
+    font-size: 1rem;
+    border-radius: 15px;
+    padding-right: 1rem;
+    padding-left: .2rem;
+    margin-bottom: 1rem;
+}
+
+.elementComp > .container > .product > .info > .presentaciones > select + p{
+    font-size: 1rem;
+    text-align: justify;
+    margin-bottom: 1rem;
+}
+
+.elementComp > .container > .product > .info > .presentaciones > .controls {
+    display: flex;
+    flex-direction: column;
+}
+
+.elementComp > .container > .product > .info > .presentaciones > .controls > .panel{
+    display: flex;
+}
+
+.elementComp > .container > .product > .info > .presentaciones > .controls > .panel > button{
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 7px;
+    background-color: var(--primary-color);
+    color: white;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+
+.elementComp > .container > .product > .info > .presentaciones > .controls > .panel > p{
+    margin: auto 1rem;
+}
+
+.elementComp > .container > .product > .info > .presentaciones > .controls > .value{
+    display: flex;
+    margin-top: 1rem;
+    width: 100%;
+    border-top: 1px solid black;
+    justify-content: space-between;
+}
+
+.elementComp > .container > .product > .info > .presentaciones > .controls > .value > p{
+    position: relative;
+    display: flex;
+    font-size: 1.2rem;
+    padding-top: 1rem;
+    font-weight: var(--font-bold);
+}
+
+.elementComp > .container > .product > .info > .presentaciones > .controls >  .value > button{
+    margin-top: .5rem;
+    margin-right: 2rem;
+    padding: .5rem;
+    font-size: 1.2rem;
+    color: white;
+    border-radius: var(--sm-border);
+    background-color: var(--primary-color);
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+
+.elementComp > .container > .product > .info > .presentaciones >.noControls{
+    display: flex;
+    justify-content: center;
+}
+
+.elementComp > .container > .product > .info > .presentaciones >.noControls > button{
+    margin-top: -1rem;
+    width: 9rem;
+    height: 2rem;
+    border-radius: var(--xs-border);
+    border: 1px solid black;
+    color: var(--secondary-color);
+    font-weight: var(--font-bold);
+    background-color: var(--primary-color);
+}
+
+.elementComp > .container > .product > .info > .presentaciones >.noControls > button:hover{
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1024px) {
+    .product{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product > .imageHolder{
+        margin-top: -4rem;
+        width: 100%;
+    }
+
+    .product > .imageHolder > img{
+        width: 250px !important;
+    }
+  
+  }

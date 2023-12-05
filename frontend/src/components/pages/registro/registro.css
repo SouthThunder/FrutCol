@@ -1,0 +1,20 @@
+.contderformlogin .terms_coditions{
+  width: 500px;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.contderformlogin .terms_coditions input{
+  width: 15px;
+  height: 100%;
+  margin: auto 0;
+}
+
+.contderformlogin .terms_coditions label {
+    font-size: .8rem;
+    margin-top: -.1rem;
+    margin-left: 1rem;
+}
