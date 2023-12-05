@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import Cookie from "js-cookie";
 import { createOrder, createOrderForNullUser } from "../../../services/reserva";
 import { getTotalItems, getTotalPrice } from "../../../utils/helpers";
-import { clearCart } from "../../../redux/cartSlice";
+import { clearCart } from "../../../redux/cartSlice"
+import { updateProductFromCart } from "../../../services/cart";
 
 export const ReceiptInfo = ({ openPopup }) => {
   const [deActive, setDeActive] = useState(false);
@@ -60,6 +61,20 @@ export const ReceiptInfo = ({ openPopup }) => {
     }
   };
 
+  const clearAPICart = () => {
+      if(Cookie.get("token")){
+        cart.cart.forEach(async (prod) => {
+          await updateProductFromCart(
+            Cookie.get("token"),
+            user.id,
+            prod.id_producto,
+            0
+          );
+        });
+      }
+    dispatch(clearCart());
+  }
+
   const handlePurchase = async () => {
     try {
       if (Cookie.get("token")) {
@@ -75,7 +90,7 @@ export const ReceiptInfo = ({ openPopup }) => {
         if (res.status === 200) {
           toast.success("La compra ha sido creada");
           //eliminar productos del carrito
-          dispatch(clearCart());
+          clearAPICart();
           await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
           openPopup();
         } else {
@@ -92,7 +107,7 @@ export const ReceiptInfo = ({ openPopup }) => {
         if (res.status === 200) {
           toast.success("La compra ha sido creada");
           //eliminar productos del carrito
-          dispatch(clearCart());
+          clearAPICart();
           await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
           openPopup();
         } else {

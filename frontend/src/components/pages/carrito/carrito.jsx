@@ -55,6 +55,21 @@ export const Card = ({ prods }) => {
     }
   };
 
+  const removeItem = async () => {
+    dispatch(clearItemFromCart(prods));
+    if (Cookie.get("token")) {
+      const res = await updateProductFromCart(
+        Cookie.get("token"),
+        user.id,
+        prods.id_producto,
+        0
+      );
+      if (res.status === 200) {
+        console.log("Elemento actualizado");
+      }
+    }
+  }
+
   return (
     <div className="card">
       <div className="name">
@@ -90,7 +105,7 @@ export const Card = ({ prods }) => {
         <div className="subtotal">
           <p>$ {formatPrice(prodTotalPrice(prods))}</p>
         </div>
-        <button onClick={() => dispatch(clearItemFromCart(prods))}>X</button>
+        <button onClick={() => removeItem()}>X</button>
       </div>
     </div>
   );
