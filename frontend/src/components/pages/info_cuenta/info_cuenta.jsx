@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
-import "./info_cuenta.css";
-import jwt_decode from "jwt-decode";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import LoadingSpinner from "../../common/loading/LoadingSpinner.jsx";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 import { FaUser } from "react-icons/fa";
+import { getOrder } from "../../../services/reserva.js";
+import Cookie from "js-cookie";
+import "./info_cuenta.css";
 
 const numeros = /^\d+$/; // Solo números
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -99,7 +101,7 @@ export const Infocuenta = (prop) => {
           <small className="errores">Error message</small>
           <ion-icon name="person"></ion-icon>
           <input
-            placeholder={prop.user[0].nombre_usuario}
+            placeholder={prop.user.name}
             type="text"
             id="nombre"
             name="nombre"
@@ -110,7 +112,7 @@ export const Infocuenta = (prop) => {
           <small className="errores">Error message</small>
           <ion-icon name="person"></ion-icon>
           <input
-            placeholder={prop.user[0].apellido_usuario}
+            placeholder={prop.user.lastname}
             type="text"
             id="apellido"
             name="apellido"
@@ -120,19 +122,14 @@ export const Infocuenta = (prop) => {
         <div className="input__info">
           <small className="errores">Error message</small>
           <ion-icon name="person"></ion-icon>
-          <input
-            placeholder={prop.user[0].cedula_usuario}
-            type="text"
-            id="cedula"
-            name="cedula"
-          />
+          <input type="text" id="cedula" name="cedula" />
           <label htmlFor="">Cedula</label>
         </div>
         <div className="input__info">
           <small className="errores">Error message</small>
           <ion-icon name="person"></ion-icon>
           <input
-            placeholder={prop.user[0].correo_usuario}
+            placeholder={prop.user.email}
             type="text"
             id="correo"
             name="correo"
@@ -142,12 +139,7 @@ export const Infocuenta = (prop) => {
         <div className="input__info">
           <small className="errores">Error message</small>
           <ion-icon name="person"></ion-icon>
-          <input
-            placeholder={prop.user[0].direccion_usuario}
-            type="text"
-            id="direccion"
-            name="direccion"
-          />
+          <input type="text" id="direccion" name="direccion" />
           <label htmlFor="">Dirección</label>
         </div>
         <br />
@@ -280,13 +272,27 @@ export const ProductosReserva = (prop) => {
                   <h3>{matchingProduct.nombre_producto}</h3>
                 </div>
                 <picture>
-      <source srcSet={"../../images/" + matchingProduct.image.split('.')[0] + ".avif"} type="image/avif"/>
-      <source srcSet={"../../images/" + matchingProduct.image.split('.')[0] + ".webp"} type="image/webp"/>
-      <img
-        src={"../../images/" + matchingProduct.image}
-        alt={matchingProduct.nombre_producto}
-      />
-    </picture>
+                  <source
+                    srcSet={
+                      "../../images/" +
+                      matchingProduct.image.split(".")[0] +
+                      ".avif"
+                    }
+                    type="image/avif"
+                  />
+                  <source
+                    srcSet={
+                      "../../images/" +
+                      matchingProduct.image.split(".")[0] +
+                      ".webp"
+                    }
+                    type="image/webp"
+                  />
+                  <img
+                    src={"../../images/" + matchingProduct.image}
+                    alt={matchingProduct.nombre_producto}
+                  />
+                </picture>
               </div>
               <div className="promt">
                 <p>Cantidad: {products.cantidad_producto}</p>
@@ -533,67 +539,40 @@ export const Cambiocontraseña = (prop) => {
 };
 
 export const InfoCuentacom = ({ product, prodsPool }) => {
-  const decode = jwt_decode(localStorage.getItem("token"));
+  const user = useSelector((state) => state.user);
   const [isLoading, setisLoading] = useState(true);
-  const [admin, setAdmin] = useState(null);
   const firstRender = useRef(true);
-
-  const [userData, setUserData] = useState(null); // Estado para almacenar los datos del usuario
-  const [userHistory, setUserHistory] = useState(null);
-
-  const headers = {
-    Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
-  };
+  const [userHistory, setUserHistory] = useState(user);
+  const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
     // Obtener datos del usuario cuando el componente se monta
     if (firstRender.current) {
-      getUserData();
       getHistoryData();
-      getAdmin();
       firstRender.current = false;
     } else {
-      if (
-        userData !== null &&
-        headers.Authorization !== null &&
-        userHistory !== null &&
-        admin !== null
-      ) {
+      if (userHistory !== null) {
         document.documentElement.style.setProperty(
           "--background-btn",
           product.main_color
-        );
-        document.documentElement.style.setProperty(
-          "--btn-color",
-          product.main_color
-        );
-        setisLoading(false);
+          );
+          document.documentElement.style.setProperty(
+            "--btn-color",
+            product.main_color
+            );
+            if (user.role === "superusuario") {
+              console.log('enter')
+              setAdmin(true);
+            }
+            setisLoading(false);
       }
     }
-  }, [userData, headers, userHistory, admin]);
-
-  const getAdmin = async () => {
-    const URI = "https://frutcol-backend.onrender.com/usuarios";
-    try {
-      const res = await axios.get(URI, { headers });
-      setAdmin(res.data);
-    } catch (error) {}
-  };
-
-  const getUserData = async () => {
-    try {
-      const res = await axios.get(`${URI}${decode.id_usuario}`, { headers });
-      setUserData(res.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  }, [userHistory]);
 
   const getHistoryData = async () => {
-    const lURI = "https://frutcol-backend.onrender.com/reserva/usuario";
     try {
-      const res = await axios.get(lURI, { headers });
-      setUserHistory(res.data);
+      const res = await getOrder(Cookie.get("token"));
+      setUserHistory(res);
     } catch (error) {
       console.error(error);
     }
@@ -607,10 +586,9 @@ export const InfoCuentacom = ({ product, prodsPool }) => {
     <div className="infoCuentacontain">
       <Informacioncuenta
         product={product}
-        userData={userData}
         userHistory={userHistory}
-        headers={headers}
         prodsPool={prodsPool}
+        userData={user}
         admin={admin}
       />
     </div>

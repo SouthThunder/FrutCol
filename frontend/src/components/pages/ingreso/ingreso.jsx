@@ -5,7 +5,9 @@ import { IoEyeOff, IoEye } from "react-icons/io5";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import GoogleLogin from "react-google-login";
-import Cookies from "js-cookie";
+import Cookie from "js-cookie";
+import { useDispatch } from "react-redux";
+import { login } from "../../../redux/userSlice";
 import "./ingreso.css";
 
 const URI = "https://frutcol-backend.onrender.com/usuarios/login";
@@ -27,6 +29,8 @@ export const Ingresocom = ({ refresh }) => {
     password: "",
     credential: "",
   });
+
+  const dispatch = useDispatch();
 
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -53,8 +57,9 @@ export const Ingresocom = ({ refresh }) => {
       const res = await axios.post(URI, {
         correo_usuario: response.profileObj.email,
       });
-      localStorage.setItem("token", res.data.token);
+      Cookie.setItem("token", res.data.token);
       getId(res.data.token);
+      dispatch(login(res.data.token));
       navigate("/");
       refresh();
     } catch (error) {
@@ -117,7 +122,8 @@ export const Ingresocom = ({ refresh }) => {
         correo_usuario: localuser,
         contrasena_usuario: localpassword,
       });
-      Cookies.set("token", res.data.token);
+      Cookie.set("token", res.data.token);
+      dispatch(login(res.data.token));
       navigate("/");
       refresh();
     } catch (error) {

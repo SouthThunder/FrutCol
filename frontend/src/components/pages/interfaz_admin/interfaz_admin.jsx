@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./interfaz_admin.css";
 import LoadingSpinner from "../../common/loading/LoadingSpinner.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const URI = "https://frutcol-backend.onrender.com/metadata/";
 
@@ -411,6 +412,7 @@ export const InterfazAdmincom = ({ product, prodsPool}) => {
   const [admin, setAdmin] = useState(null);
   const firstRender = useRef(true);
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
   const accessToken = localStorage.getItem("token");
   const headers = {
     Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
