@@ -49,9 +49,10 @@ export const getUserById = async (userId) => {
 };
 
 // Update a user by ID
-export const updateUser = async (userId, userData,token) => {
+export const updateUser = async ( userData,token) => {
+ 
   try {
-    const response = await axios.put(`${API_URL}`, userData,{
+    const response = await axios.put(`${API_URL}`,userData,{
       headers: {
           Authorization: `Bearer ${token}`,
       },

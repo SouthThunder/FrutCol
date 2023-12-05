@@ -25,7 +25,8 @@ export const Infocuenta = (prop) => {
   useEffect(() => {
     console.log();
   }, [headers]);
-
+  console.log(prop.user);
+    
   const handleActualizar = async (e) => {
     e.preventDefault();
 
@@ -34,16 +35,15 @@ export const Infocuenta = (prop) => {
     let cedula_usuario = document.getElementById("cedula")?.value || "";
     let correo_usuario = document.getElementById("correo")?.value || "";
     let direccion_usuario = document.getElementById("direccion")?.value || "";
-    let id_usuario = prop.user[0].id_usuario;
-    let contrasena_usuario = prop.user[0].contrasena_usuario;
-    let role = prop.user[0].role;
+    let id_usuario = prop.user.id;
+    let role = prop.user.role;
 
     if (nombre_usuario !== "" && !texto.test(nombre_usuario)) {
       toast.error("Ingrese un nombre válido");
       return;
     } else {
       if (nombre_usuario === "") {
-        nombre_usuario = prop.user[0].nombre_usuario;
+        nombre_usuario = prop.user.name;
       }
     }
     if (apellido_usuario !== "" && !texto.test(apellido_usuario)) {
@@ -51,7 +51,7 @@ export const Infocuenta = (prop) => {
       return;
     } else {
       if (apellido_usuario === "") {
-        apellido_usuario = prop.user[0].apellido_usuario;
+        apellido_usuario = prop.user.lastname;
       }
     }
     if (
@@ -62,7 +62,7 @@ export const Infocuenta = (prop) => {
       return;
     } else {
       if (cedula_usuario === "") {
-        cedula_usuario = prop.user[0].cedula_usuario;
+        cedula_usuario = prop.user.cedula_usuario;
       }
     }
     if (correo_usuario !== "" && !emailRegex.test(correo_usuario)) {
@@ -70,13 +70,13 @@ export const Infocuenta = (prop) => {
       return;
     } else {
       if (correo_usuario === "") {
-        correo_usuario = prop.user[0].correo_usuario;
+        correo_usuario = prop.user.email;
       }
     }
     if (direccion_usuario === "") {
-      direccion_usuario = prop.user[0].direccion_usuario;
+      direccion_usuario = prop.user.direccion_usuario;
     }
-    console.log(nombre_usuario);
+    
     const user = {
       nombre_usuario,
       apellido_usuario,
@@ -84,11 +84,10 @@ export const Infocuenta = (prop) => {
       correo_usuario,
       direccion_usuario,
       id_usuario,
-      contrasena_usuario,
       role,
     };
     try {
-      await updateUser(id_usuario, user,Cookie.get("token"));
+      await updateUser( user,Cookie.get("token"));
       toast.success("Los datos se actualizaron correctamente");
       window.location.reload();
     } catch (error) {
@@ -275,7 +274,7 @@ export const InfoCuentacom = ({ product, prodsPool }) => {
             product.main_color
             );
             if (user.role === "superusuario") {
-              console.log('enter')
+              
               setAdmin(true);
             }
             setisLoading(false);
@@ -295,7 +294,7 @@ export const InfoCuentacom = ({ product, prodsPool }) => {
   if (isLoading) {
     return <LoadingSpinner />;
   }
-  console.log(userHistory);
+  
 
   return (
     <div className="infoCuentacontain">
