@@ -8,6 +8,8 @@ import {
 } from "../../../redux/cartSlice";
 import LoadingSpinner from "../../common/loading/LoadingSpinner";
 import { getProduct, formatPrice } from "../../../utils/helpers";
+import Cookie from "js-cookie";
+import { updateProductFromCart } from "../../../services/cart";
 import "./s_element.css";
 
 export const Element = ({ elements, father }) => {
@@ -16,6 +18,7 @@ export const Element = ({ elements, father }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     if (activeElement === undefined || activeElement === null) {
@@ -44,14 +47,44 @@ export const Element = ({ elements, father }) => {
     }
   }, [activeElement, activeObject, cart]);
 
+  const sumCantidad = async () => {
+    dispatch(sumItemFromCart(activeObject));
+    if (Cookie.get("token")) {
+      const res = await updateProductFromCart(
+        Cookie.get("token"),
+        user.id,
+        activeObject.id_producto,
+        (activeObject.cantidad_producto + 1)
+        );
+        if (res.status === 200) {
+          console.log("Elemento actualizado");
+        }
+      }
+  };
+
+  const subsCantidad = async () => {
+    dispatch(restItemFromCart(activeObject));
+    if (Cookie.get("token")) {
+      const res = await updateProductFromCart(
+        Cookie.get("token"),
+        user.id,
+        activeObject.id_producto,
+        (activeObject.cantidad_producto -1)
+        );
+        if (res.status === 200) {
+          console.log("Elemento actualizado");
+        }
+      }
+  };
+
   const controls = (
     <div className="controls">
       <div className="panel">
-        <button onClick={() => dispatch(restItemFromCart(activeObject))}>
+        <button onClick={() => subsCantidad()}>
           -
         </button>
         <p>{activeObject?.cantidad_producto}</p>
-        <button onClick={() => dispatch(sumItemFromCart(activeObject))}>
+        <button onClick={() => sumCantidad()}>
           +
         </button>
       </div>

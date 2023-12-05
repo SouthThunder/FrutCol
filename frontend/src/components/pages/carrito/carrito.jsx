@@ -15,55 +15,101 @@ import {
   getTotalPrice,
   formatPrice,
   prodTotalPrice,
-  formatWeight
+  formatWeight,
 } from "../../../utils/helpers";
 import "./carrito.css";
+import Cookie from "js-cookie";
+import { updateProductFromCart } from "../../../services/cart";
 
 export const Card = ({ prods }) => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+
+  const sumCantidad = async () => {
+    dispatch(sumItemFromCart(prods));
+    if (Cookie.get("token")) {
+      const res = await updateProductFromCart(
+        Cookie.get("token"),
+        user.id,
+        prods.id_producto,
+        (prods.cantidad_producto + 1)
+      );
+      if (res.status === 200) {
+        console.log("Elemento actualizado");
+      }
+    }
+  };
+
+  const subsCantidad = async () => {
+    dispatch(restItemFromCart(prods));
+    if (Cookie.get("token")) {
+      const res = await updateProductFromCart(
+        Cookie.get("token"),
+        user.id,
+        prods.id_producto,
+        (prods.cantidad_producto -1)
+      );
+      if (res.status === 200) {
+        console.log("Elemento actualizado");
+      }
+    }
+  };
+
+  const removeItem = async () => {
+    dispatch(clearItemFromCart(prods));
+    if (Cookie.get("token")) {
+      const res = await updateProductFromCart(
+        Cookie.get("token"),
+        user.id,
+        prods.id_producto,
+        0
+      );
+      if (res.status === 200) {
+        console.log("Elemento actualizado");
+      }
+    }
+  }
 
   return (
-    <div className="card" key={prods.id_producto}>
+    <div className="card">
       <div className="name">
         <p>{prods.nombre}</p>
       </div>
       <div className="info">
         <div className="pImg">
-            <picture>
-              <source
-                srcSet={"../../images/" + prods.image.split(".")[0] + ".avif"}
-                type="image/avif"
-              />
-              <source
-                srcSet={"../../images/" + prods.image.split(".")[0] + ".webp"}
-                type="image/webp"
-              />
-              <img
-                src={"../../images/" + prods.image}
-                alt={prods.nombre_producto}
-              />
-            </picture>
-          
+          <picture>
+            <source
+              srcSet={"../../images/" + prods.image.split(".")[0] + ".avif"}
+              type="image/avif"
+            />
+            <source
+              srcSet={"../../images/" + prods.image.split(".")[0] + ".webp"}
+              type="image/webp"
+            />
+            <img
+              src={"../../images/" + prods.image}
+              alt={prods.nombre_producto}
+            />
+          </picture>
         </div>
         <div className="price">
           <p>$ {formatPrice(prods.precio_producto)}</p>
         </div>
         <div className="quantity">
           <div className="panel">
-            <button onClick={() => dispatch(restItemFromCart(prods))}>-</button>
+            <button onClick={() => subsCantidad()}>-</button>
             <p>{prods.cantidad_producto}</p>
-            <button onClick={() => dispatch(sumItemFromCart(prods))}>+</button>
+            <button onClick={() => sumCantidad()}>+</button>
           </div>
         </div>
         <div className="subtotal">
           <p>$ {formatPrice(prodTotalPrice(prods))}</p>
         </div>
-        <button onClick={() => dispatch(clearItemFromCart(prods))}>X</button>
+        <button onClick={() => removeItem()}>X</button>
       </div>
     </div>
   );
 };
-
 
 export const Cart = () => {
   const [total, setTotal] = useState(0);
@@ -80,7 +126,6 @@ export const Cart = () => {
     setTotal(getTotalPrice(cart.cart));
     setTotalp(getTotalItems(cart.cart));
     setWeight(getTotalWeight(cart.cart));
-
 
     if (getTotalWeight(cart.cart) >= 5) {
       setComponentDisabled(false);
@@ -190,11 +235,7 @@ export const Cart = () => {
             >
               Comprar
             </button>
-            {receipt ? (
-              <ReceiptInfo
-                openPopup={openPopup}
-              />
-            ) : null}
+            {receipt ? <ReceiptInfo openPopup={openPopup} /> : null}
             <div className="toast2" id="popup">
               <h2>Pasos para hacer efectiva la compra:</h2>
               <div className="pasos">

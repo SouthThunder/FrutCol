@@ -59,7 +59,7 @@ export const Ingresocom = ({ refresh }) => {
       });
       Cookie.setItem("token", res.data.token);
       getId(res.data.token);
-      dispatch(login(res.data.token));
+      dispatch(login(res.data));
       navigate("/");
       refresh();
     } catch (error) {
@@ -123,7 +123,7 @@ export const Ingresocom = ({ refresh }) => {
         contrasena_usuario: localpassword,
       });
       Cookie.set("token", res.data.token);
-      dispatch(login(res.data.token));
+      dispatch(login(res.data));
       navigate("/");
       refresh();
     } catch (error) {
