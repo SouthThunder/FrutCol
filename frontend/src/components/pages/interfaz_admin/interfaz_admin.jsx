@@ -4,6 +4,8 @@ import LoadingSpinner from "../../common/loading/LoadingSpinner.jsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Cookie from "js-cookie";
+import { getOrder } from "../../../services/reserva.js";
 
 const URI = "https://frutcol-backend.onrender.com/metadata/";
 
@@ -191,10 +193,8 @@ export const ProductosReserva = (prop) => {
   const [isLoading, setisLoading] = useState(true);
   const firstRender = useRef(true);
   const metadata = prop.prodsPool;
-  const accessToken = localStorage.getItem("token");
-  const headers = {
-    Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
-  };
+  const accessToken = Cookie.get("token");
+
   useEffect(() => {
     if (firstRender.current) {
       Promise.all([getProducts(), getUserData(), getReceiptData()]);
@@ -210,7 +210,11 @@ export const ProductosReserva = (prop) => {
 
   const getProducts = async () => {
     try {
-      const res = await axios.get(URI, { headers });
+      const res = await axios.get(URI, { 
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+       });
       setProducts(res.data);
     } catch (error) {
       console.error("ERROR: " + error);
@@ -219,7 +223,11 @@ export const ProductosReserva = (prop) => {
 
   const getUserData = async () => {
     try {
-      const res = await axios.get(URI2, { headers });
+      const res = await axios.get(URI2, { 
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+       });
       setUserData(res.data.Usuario);
     } catch (error) {
       console.error("ERROR: " + error);
@@ -227,7 +235,11 @@ export const ProductosReserva = (prop) => {
   };
   const getReceiptData = async () => {
     try {
-      const res = await axios.get(URI3, { headers });
+      const res = await axios.get(URI3, { 
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+       });
       setReceiptData(res.data);
     } catch (error) {
       console.error("ERROR: " + error);
@@ -248,7 +260,11 @@ export const ProductosReserva = (prop) => {
           num_orden: prop.reservation.num_orden,
           estado_reserva: true,
         },
-        { headers }
+        { 
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+         }
       );
       window.location.reload(false);
     } catch (error) {
@@ -421,7 +437,6 @@ export const InterfazAdmincom = ({ product, prodsPool}) => {
   useEffect(() => {
     if (firstRender.current) {
       getHistoryData();
-      getAdmin();
       document.documentElement.style.setProperty(
         "--background-btn",
         product.main_color
@@ -432,29 +447,20 @@ export const InterfazAdmincom = ({ product, prodsPool}) => {
       );
       firstRender.current = false;
     } else {
-      if (prodsPool !== null && userHistory !== null && admin !== null) {
+      if (prodsPool !== null && userHistory !== null ) {
+        if(user.role === 'superusuario'){
+          setAdmin(true);
+        }
         setisLoading(false);
       }
     }
   }, [userHistory, admin]);
 
   const getHistoryData = async () => {
-    const lURI = "https://frutcol-backend.onrender.com/reserva/";
     try {
-      const res = await axios.get(lURI, { headers });
-      setUserHistory(res.data);
+      const res = await getOrder(Cookie.get('token'))
+      setUserHistory(res);
     } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getAdmin = async () => {
-    const lURI = "https://frutcol-backend.onrender.com/usuarios";
-    try {
-      const res = await axios.get(lURI, { headers });
-      setAdmin(res.data);
-    } catch (error) {
-      setAdmin(false);
       console.error(error);
     }
   };
