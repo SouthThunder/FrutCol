@@ -1,26 +1,20 @@
-import { useState, useEffect, useRef } from "react";
-import axios from "axios";
-import LoadingSpinner from "../../common/loading/LoadingSpinner.jsx";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 import { Toaster, toast } from "sonner";
-import { FaUser } from "react-icons/fa";
-import { getOrder } from "../../../services/reserva.js";
+
 import Cookie from "js-cookie";
 import "./info_cuenta.css";
-import { updateUser } from "../../../services/user.js";
+import { updateUserPassword } from "../../../services/user.js";
 
 
 
 export const Cambiocontraseña = (prop) => {
     const [showPassword, setShowPassword] = useState(false);
+   
     const handleActualizarContra = async (e) => {
       e.preventDefault();
   
-      const accessToken = localStorage.getItem("token");
-      const headers = {
-        Authorization: `${accessToken}`, // Agrega "Bearer" antes del token si es necesario
-      };
+     
   
       let contrasena_usuario1 =
         document.getElementById("contrasena")?.value || "";
@@ -40,11 +34,11 @@ export const Cambiocontraseña = (prop) => {
       }
   
       const newcontra = {
-        id_usuario: prop.user[0].id_usuario,
+        id_usuario: prop.user.id,
         contrasena_usuario: contrasena_usuario1,
       };
       try {
-        await updateUser(prop.user[0].id_usuario, newcontra);
+        await updateUserPassword(prop.user.id, newcontra,Cookie.get("token"));
         toast.success("Los datos se actualizaron correctamente");
         window.location.reload();
       } catch (error) {

@@ -51,7 +51,19 @@ export const getUserById = async (userId) => {
 // Update a user by ID
 export const updateUser = async (userId, userData,token) => {
   try {
-    const response = await axios.put(`${API_URL}/${userId}`, userData,{
+    const response = await axios.put(`${API_URL}`, userData,{
+      headers: {
+          Authorization: `Bearer ${token}`,
+      },
+  });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+};
+export const updateUserPassword = async (userId, userData,token) => {
+  try {
+    const response = await axios.put(`${API_URL}contrasena/${userId}`, userData,{
       headers: {
           Authorization: `Bearer ${token}`,
       },
@@ -65,7 +77,7 @@ export const updateUser = async (userId, userData,token) => {
 // Delete a user by ID
 export const deleteUser = async (userId,token) => {
   try {
-    const response = await axios.delete(`${API_URL}/${userId}`,{
+    const response = await axios.delete(`${API_URL}${userId}`,{
       headers: {
           Authorization: `Bearer ${token}`,
       },

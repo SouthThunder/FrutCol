@@ -18,8 +18,7 @@ const numeros = /^\d+$/; // Solo números
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 const texto = /^[A-Za-zÁ-ÿ\s]+$/; // Solo letras y espacios
 
-const URI = "https://frutcol-backend.onrender.com/usuarios/";
-const URI2 = "https://frutcol-backend.onrender.com/usuarios/contrasena/";
+
 
 export const Infocuenta = (prop) => {
   const headers = prop.headers;
@@ -89,7 +88,7 @@ export const Infocuenta = (prop) => {
       role,
     };
     try {
-      await updateUser(id_usuario, user);
+      await updateUser(id_usuario, user,Cookie.get("token"));
       toast.success("Los datos se actualizaron correctamente");
       window.location.reload();
     } catch (error) {
