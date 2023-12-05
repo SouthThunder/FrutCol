@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-import jwt_decode from "jwt-decode";
-import { Toaster, toast } from "sonner";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import { Toaster } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { EmptyCart } from "../../common/emptyCart/EmptyCart";
+import { ReceiptInfo } from "./receiptData";
 import {
   sumItemFromCart,
   restItemFromCart,
@@ -65,204 +64,6 @@ export const Card = ({ prods }) => {
   );
 };
 
-export const ReceiptInfo = ({
-  lProductos,
-  num_productos_reserva,
-  valor_reserva,
-  openPopup,
-}) => {
-  const firstLoad = useRef(true);
-  const [localProds, setLocalProds] = useState([]);
-  const [deActive, setDeActive] = useState(false);
-  const [formData, setFormData] = useState({
-    nombre: "",
-    ciudad: "",
-    direccion: "",
-    telefono: "",
-    correo: "",
-    cedula: "",
-    direccionEnvio: "",
-  });
-
-  useEffect(() => {
-    if (firstLoad.current) {
-      lProductos.map((prods) => {
-        return prods.map((sub) => {
-          if (sub.cantidad > 0) {
-            setLocalProds((pro) => [...pro, sub]);
-          }
-        });
-      });
-      firstLoad.current = false;
-    }
-  }, [localProds]);
-
-  const [errors, setErrors] = useState({});
-
-  const validateEmail = (email) => {
-    const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    return emailPattern.test(email);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleConfirm = () => {
-    const newErrors = {};
-
-    // Validar campos obligatorios
-    for (const key in formData) {
-      if (formData[key] === "") {
-        newErrors[key] = "Este campo es obligatorio";
-      }
-    }
-
-    // Validar correo electrónico
-    if (formData.correo && !validateEmail(formData.correo)) {
-      newErrors.correo = "El correo electrónico no es válido";
-    }
-
-    setErrors(newErrors);
-
-    if (Object.keys(newErrors).length === 0) {
-      // Aquí puedes enviar los datos o realizar la acción de confirmación
-      setDeActive(true);
-      handlePurchase();
-    }
-  };
-
-  const headers = {
-    Authorization: `${localStorage.getItem("token")}`, // Agrega "Bearer" antes del token si es necesario
-  };
-
-  const handlePurchase = async () => {
-    const id_h = jwt_decode(localStorage.getItem("token"));
-    const URI = "https://frutcol-backend.onrender.com/reserva/";
-    try {
-      const res = await axios.post(
-        URI,
-        {
-          id_usuario: id_h.id_usuario,
-          valor_reserva: valor_reserva,
-          num_productos_reserva: num_productos_reserva,
-          fecha_reserva: new Date().toISOString().slice(0, 10),
-          formData,
-          localProds,
-        },
-        { headers }
-      );
-      if (res.data) {
-        toast.success("La compra ha sido creada");
-        //eliminar productos del carrito
-        lProductos.map((prods) => {
-          return prods.map((sub) => {
-            if (sub.cantidad > 0) {
-              sub.delProd(headers);
-            }
-          });
-        });
-        await new Promise((resolve) => setTimeout(resolve, 2500)); // Esperar 1 segundo
-        openPopup();
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  return (
-    <div className="captureReceiptData" id="captureReceiptData">
-      <div className="inner">
-        <h1>Datos de facturación</h1>
-        <div className="grid">
-          <div className="n1">
-            <label htmlFor="nombre">Nombre</label>
-            <input
-              type="text"
-              name="nombre"
-              value={formData.nombre}
-              onChange={handleInputChange}
-            />
-            {errors.nombre && <div className="error">{errors.nombre}</div>}
-          </div>
-          <div className="n2">
-            <label htmlFor="cedula">Cédula o NIT</label>
-            <input
-              type="text"
-              name="cedula"
-              value={formData.cedula}
-              onChange={handleInputChange}
-            />
-            {errors.cedula && <div className="error">{errors.cedula}</div>}
-          </div>
-          <div className="n3">
-            <label htmlFor="correo">Correo</label>
-            <input
-              type="text"
-              name="correo"
-              value={formData.correo}
-              onChange={handleInputChange}
-            />
-            {errors.correo && <div className="error">{errors.correo}</div>}
-          </div>
-          <div className="n4">
-            <label htmlFor="direccion">Dirección</label>
-            <input
-              type="text"
-              name="direccion"
-              value={formData.direccion}
-              onChange={handleInputChange}
-            />
-            {errors.direccion && (
-              <div className="error">{errors.direccion}</div>
-            )}
-          </div>
-          <div className="n5">
-            <label htmlFor="telefono">Teléfono</label>
-            <input
-              type="text"
-              name="telefono"
-              value={formData.telefono}
-              onChange={handleInputChange}
-            />
-            {errors.telefono && <div className="error">{errors.telefono}</div>}
-          </div>
-          <div className="n6">
-            <label htmlFor="ciudad">Ciudad</label>
-            <input
-              type="text"
-              name="ciudad"
-              value={formData.ciudad}
-              onChange={handleInputChange}
-            />
-            {errors.ciudad && <div className="error">{errors.ciudad}</div>}
-          </div>
-        </div>
-        <div className="additional">
-          <h1>Dirección de envío</h1>
-          <input
-            type="text"
-            name="direccionEnvio"
-            value={formData.direccionEnvio}
-            onChange={handleInputChange}
-          />
-          {errors.direccionEnvio && (
-            <div className="error">{errors.direccionEnvio}</div>
-          )}
-        </div>
-        <div className="confirm">
-          <button disabled={deActive} onClick={handleConfirm}>
-            Confirmar
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 export const Cart = () => {
   const [total, setTotal] = useState(0);
@@ -276,7 +77,12 @@ export const Cart = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (weight >= 5) {
+    setTotal(getTotalPrice(cart.cart));
+    setTotalp(getTotalItems(cart.cart));
+    setWeight(getTotalWeight(cart.cart));
+
+
+    if (getTotalWeight(cart.cart) >= 5) {
       setComponentDisabled(false);
       setIndicator("green");
       setPromt("Todo listo para reservar!");
@@ -286,10 +92,7 @@ export const Cart = () => {
       setPromt("Pedido mínimo: 5Kg");
     }
     // Actualiza el estado total con el nuevo precio total calculado
-    setTotal(getTotalPrice(cart.cart));
-    setTotalp(getTotalItems(cart.cart));
-    setWeight(getTotalWeight(cart.cart));
-  }, [cart]);
+  }, [cart, isComponentDisabled]);
 
   const formatPrice = (price) => {
     const formattedNumber = price.toFixed(2);
@@ -389,8 +192,6 @@ export const Cart = () => {
             </button>
             {receipt ? (
               <ReceiptInfo
-                num_productos_reserva={totalp}
-                valor_reserva={total}
                 openPopup={openPopup}
               />
             ) : null}

@@ -1,12 +1,40 @@
 import axios from 'axios';
 
-const API_URL = 'https://frutcol-backend.onrender.com/reserva/'; 
+// const API_URL = 'https://frutcol-backend.onrender.com/reserva/'; 
+const API_URL = 'http://localhost:8000/reserva/'; 
 
 // Create a new resource
-export const createOrder = async (id_usuario, valor_reserva, num_productos_reserva, fecha_reserva, data) => {
+export const createOrder = async (token, id_usuario, valor_reserva, num_productos_reserva, fecha_reserva, formData, localProds) => {
   try {
-    const response = await axios.post(`${API_URL}/resources`, data);
-    return response.data;
+    const response = await axios.post(`${API_URL}`,{
+            id_usuario,
+            valor_reserva,
+            num_productos_reserva,
+            fecha_reserva,
+            formData,
+            localProds,
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error('Error creating resource:', error);
+    throw error;    
+  }
+};
+
+export const createOrderForNullUser = async ( valor_reserva, num_productos_reserva, fecha_reserva, formData, localProds) => {
+  try {
+    const response = await axios.post(`${API_URL}`,{
+            valor_reserva,
+            num_productos_reserva,
+            fecha_reserva,
+            formData,
+            localProds,
+    });
+    return response;
   } catch (error) {
     console.error('Error creating resource:', error);
     throw error;    
