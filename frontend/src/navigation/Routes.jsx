@@ -82,7 +82,7 @@ function Routing ({authenticated}) {
           {/* Protected routes */}
           <Route element={<PrivateRoutes />}>
             <Route path='/InformacionCuenta' element={<InfoCuentacom product={product} prodsPool={prodsPool}/>}/>
-            <Route path='/InterfazAdmin' element={<InterfazAdmincom product={product} prodsPool={prodsPool}/>}/> 
+            <Route path='/InterfazAdmin' element={<InterfazAdmincom prodsPool={prodsPool}/>}/> 
           </Route>
         </Routes>
       <Footercom product={product}/>

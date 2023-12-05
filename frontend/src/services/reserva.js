@@ -117,6 +117,7 @@ export const deliverOrder = async (token, order, id_reserva, num_productos_reser
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log(response)
     return response;
   } catch (error) {
     console.error('Error updating resource:', error);
