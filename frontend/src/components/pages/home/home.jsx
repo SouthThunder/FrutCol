@@ -17,7 +17,7 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
   const changestyle = (element) => {
     setBackgroundColor(element.comp_color);
     setPrimaryColor(element.main_color);
-    setCurrentImage(`../../images/${product.image}`);
+    setCurrentImage(`${product.image}`);
     setCurrentWord(element.nombre_producto);
   };
   const updateProp = (element) => {
@@ -117,7 +117,32 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
 
       <div className="second">
         <Stain color={product.font_color} />
-        <img src={currentImage} alt="" />
+        <picture>
+  {typeof currentImage === 'string' && (
+    <>
+      <source
+        srcSet={
+          "../../images/" +
+          currentImage.split(".")[0] +
+          ".avif"
+        }
+        type="image/avif"
+      />
+      <source
+        srcSet={
+          "../../images/" +
+          currentImage.split(".")[0] +
+          ".webp"
+        }
+        type="image/webp"
+      />
+    </>
+  )}
+  <img
+    src={"../../images/" + currentImage}
+    alt={currentWord}
+  />
+</picture>
       </div>
 
       <div className="third">
@@ -161,7 +186,28 @@ export const Slider = ({ product, changeProp, prodsPool }) => {
                   }}
                 >
                   <div className="fruit__container">
-                    <img src={`../../images/${element.image}`} alt="" />
+                    <picture>
+                      <source
+                        srcSet={
+                          "../../images/" +
+                          element.image.split(".")[0] +
+                          ".avif"
+                        }
+                        type="image/avif"
+                      />
+                      <source
+                        srcSet={
+                          "../../images/" +
+                          element.image.split(".")[0] +
+                          ".webp"
+                        }
+                        type="image/webp"
+                      />
+                      <img
+                        src={"../../images/" + element.image}
+                        alt={element.nombre_producto}
+                      />
+                    </picture>
                   </div>
                 </button>
               );
@@ -182,14 +228,14 @@ export const ProdsComp = ({ product, changeProp }) => {
   const navBtn = () => {
     return (
       <div className="noControls">
-          <button
-            onClick={() => {
-              changeProp(element);
-              navigate(`/${element.id_metadata_producto}`);
-            }}
-          >
-            Ver opciones
-          </button>
+        <button
+          onClick={() => {
+            changeProp(element);
+            navigate(`/${element.id_metadata_producto}`);
+          }}
+        >
+          Ver opciones
+        </button>
       </div>
     );
   };
