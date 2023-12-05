@@ -1,5 +1,4 @@
 import { useRef, useEffect, useState } from 'react';
-import Cookie from "js-cookie";
 import { gapi } from 'gapi-script';
 //import components
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
@@ -9,10 +8,10 @@ import {Homecom} from '../components/pages/home/home.jsx';
 import {InfoCuentacom} from '../components/pages/info_cuenta/info_cuenta.jsx';
 import {Ingresocom} from '../components/pages/ingreso/ingreso.jsx';
 import {InterfazAdmincom} from '../components/pages/interfaz_admin/interfaz_admin.jsx';
-import {QuienesSomoscom} from '../components/pages/quienes_somos/quienes_somos.jsx';
+import {QuienesSomos} from '../components/pages/quienes_somos/quienes_somos.jsx';
 import {Registrocom} from '../components/pages/registro/registro.jsx';
 import {PrivacyComp} from '../components/pages/privacy/privacy.jsx';
-import { Carritocom } from '../components/pages/carrito/carrito.jsx';
+import { Cart } from '../components/pages/carrito/carrito.jsx';
 import { Selement } from '../components/pages/s_element/s_element.jsx';
 import LoadingSpinner from '../components/common/loading/LoadingSpinner.jsx';
 import PrivateRoutes from '../utils/PrivateRoute.js';
@@ -28,7 +27,7 @@ gapi.load('client:auth2', () => {
 function Routing ({authenticated}) {
   const [product, setProduct] = useState(null);
   const [prodsPool, setProdsPool] = useState(null);
-  const [isLoading, setisLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const firstRender = useRef(true);
   const firstSet = useRef(true);
 
@@ -44,7 +43,7 @@ function Routing ({authenticated}) {
         setProduct(firstprod[0]);
         if (product !== null) {
           firstSet.current = false;
-          setisLoading(false);
+          setLoading(false);
         }
       }
     }
@@ -64,7 +63,7 @@ function Routing ({authenticated}) {
     setProduct(element);
   };
 
-  if (isLoading) {
+  if (loading) {
     return <LoadingSpinner />;
   }
 
@@ -76,9 +75,9 @@ function Routing ({authenticated}) {
           <Route exact path='/' element={<Homecom product={product} changeProp={changeProp} prodsPool={prodsPool}/>}/>
           <Route path='/Ingreso' element={<Ingresocom refresh={refresh}/>}/>
           <Route path='/registro' element={<Registrocom refresh={refresh}/>}/> 
-          <Route path='/QuienesSomos' element={<QuienesSomoscom product={product}/>}/> 
-          <Route path='/Privacidad' element={<PrivacyComp product={product}/>}/>
-          <Route path='/carrito' element={<Carritocom product={product}/>}/>
+          <Route path='/QuienesSomos' element={<QuienesSomos product={product}/>}/> 
+          <Route path='/Privacidad' element={<PrivacyComp/>}/>
+          <Route path='/carrito' element={<Cart />}/>
           <Route path='/:id' element={<Selement product={product}/>}/>
           {/* Protected routes */}
           <Route element={<PrivateRoutes />}>

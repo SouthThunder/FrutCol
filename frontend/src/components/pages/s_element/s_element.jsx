@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { sumItemFromCart, restItemFromCart, addToCart } from "../../../redux/cartSlice";
+import {
+  sumItemFromCart,
+  restItemFromCart,
+  addToCart,
+} from "../../../redux/cartSlice";
 import LoadingSpinner from "../../common/loading/LoadingSpinner";
 import { getProduct, formatPrice } from "../../../utils/helpers";
 import "./s_element.css";
@@ -18,16 +22,24 @@ export const Element = ({ elements, father }) => {
       setActiveElement(father);
       setActiveObject(null);
     } else {
-      if(getProduct(cart.cart, activeElement.id_subMetadata_producto) === undefined && activeElement !== father) {
+      if (
+        getProduct(cart.cart, activeElement.id_subMetadata_producto) ===
+          undefined &&
+        activeElement !== father
+      ) {
         let newObject = {
           ...activeElement,
           id_producto: activeElement.id_subMetadata_producto,
           cantidad_producto: 0,
         };
         dispatch(addToCart(newObject));
-        setActiveObject(getProduct(cart.cart, activeElement.id_subMetadata_producto));
-      }else{
-        setActiveObject(getProduct(cart.cart, activeElement.id_subMetadata_producto));
+        setActiveObject(
+          getProduct(cart.cart, activeElement.id_subMetadata_producto)
+        );
+      } else {
+        setActiveObject(
+          getProduct(cart.cart, activeElement.id_subMetadata_producto)
+        );
       }
     }
   }, [activeElement, activeObject, cart]);
@@ -35,15 +47,23 @@ export const Element = ({ elements, father }) => {
   const controls = (
     <div className="controls">
       <div className="panel">
-        <button onClick={() => dispatch(restItemFromCart(activeObject))}>-</button>
+        <button onClick={() => dispatch(restItemFromCart(activeObject))}>
+          -
+        </button>
         <p>{activeObject?.cantidad_producto}</p>
-        <button onClick={() => dispatch(sumItemFromCart(activeObject))}>+</button>
+        <button onClick={() => dispatch(sumItemFromCart(activeObject))}>
+          +
+        </button>
       </div>
       <div className="value">
         <p>
-          Subtotal: <p>$ {
-            formatPrice(activeObject?.cantidad_producto * activeObject?.precio_producto)
-            }</p>
+          Subtotal:{" "}
+          <p>
+            ${" "}
+            {formatPrice(
+              activeObject?.cantidad_producto * activeObject?.precio_producto
+            )}
+          </p>
         </p>
         <button onClick={() => navigate("/carrito")}>Ir al carrito</button>
       </div>
@@ -53,8 +73,7 @@ export const Element = ({ elements, father }) => {
   const noControls = () => {
     return (
       <div className="noControls">
-        <button
-          onClick={() => dispatch(sumItemFromCart(activeObject))}>
+        <button onClick={() => dispatch(sumItemFromCart(activeObject))}>
           + Añadir al carrito
         </button>
       </div>
@@ -90,14 +109,24 @@ export const Element = ({ elements, father }) => {
         </div>
         <div className="product">
           <div className="imageHolder">
-          <picture>
-            <source srcSet={`../../images/${activeElement?.image.split('.')[0]}.avif`} type="image/avif"/>
-            <source srcSet={`../../images/${activeElement?.image.split('.')[0]}.webp`} type="image/webp"/>
-            <img
-              src={`../../images/${activeElement?.image}`}
-              alt={activeElement?.nombre_producto}
-            />
-          </picture>
+            <picture>
+              <source
+                srcSet={`../../images/${
+                  activeElement?.image.split(".")[0]
+                }.avif`}
+                type="image/avif"
+              />
+              <source
+                srcSet={`../../images/${
+                  activeElement?.image.split(".")[0]
+                }.webp`}
+                type="image/webp"
+              />
+              <img
+                src={`../../images/${activeElement?.image}`}
+                alt={activeElement?.nombre_producto}
+              />
+            </picture>
           </div>
           <div className="info">
             <div className="promt">
@@ -164,12 +193,5 @@ export const Selement = ({ product }) => {
     return <LoadingSpinner />;
   }
 
-  return (
-    <div className="selement">
-      <Element
-        elements={elements}
-        father={product}
-      />
-    </div>
-  );
+  return <Element elements={elements} father={product} />;
 };

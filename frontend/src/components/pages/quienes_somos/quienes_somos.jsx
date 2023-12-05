@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import "./quienes_somos.css";
 
 export const QuienesSomos = ({ product }) => {
@@ -198,16 +197,6 @@ export const QuienesSomos = ({ product }) => {
           optimización y mejora continua en todos nuestros procesos.
         </p>
       </div>
-    </div>
-  );
-};
-
-export const QuienesSomoscom = ({ product }) => {
-  useEffect(() => {}, [product]);
-
-  return (
-    <div className="QuienesSomoscontain">
-      <QuienesSomos product={product} />
     </div>
   );
 };

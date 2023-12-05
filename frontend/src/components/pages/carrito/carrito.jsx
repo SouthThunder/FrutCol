@@ -265,7 +265,7 @@ export const ReceiptInfo = ({
   );
 };
 
-export const Cart = ({ lProductos }) => {
+export const Cart = () => {
   const [total, setTotal] = useState(0);
   const [totalp, setTotalp] = useState(0);
   const [weight, setWeight] = useState(0);
@@ -390,7 +390,6 @@ export const Cart = ({ lProductos }) => {
             </button>
             {receipt ? (
               <ReceiptInfo
-                lProductos={lProductos}
                 num_productos_reserva={totalp}
                 valor_reserva={total}
                 openPopup={openPopup}
@@ -432,8 +431,4 @@ export const Cart = ({ lProductos }) => {
       </div>
     </div>
   );
-};
-
-export const Carritocom = ({ lProductos }) => {
-  return <Cart lProductos={lProductos} />;
 };
