@@ -7,7 +7,7 @@ import { getTotalItems, getTotalPrice } from "../../../utils/helpers";
 import { clearCart } from "../../../redux/cartSlice"
 import { updateProductFromCart } from "../../../services/cart";
 
-export const ReceiptInfo = ({ openPopup }) => {
+export const ReceiptInfo = ({ openPopup, setOrderNumber }) => {
   const [deActive, setDeActive] = useState(false);
   const [formData, setFormData] = useState({
     nombre: "",
@@ -88,6 +88,7 @@ export const ReceiptInfo = ({ openPopup }) => {
           cart.cart
         );
         if (res.status === 200) {
+          setOrderNumber(res.data)
           toast.success("La compra ha sido creada");
           //eliminar productos del carrito
           clearAPICart();
@@ -105,6 +106,7 @@ export const ReceiptInfo = ({ openPopup }) => {
           cart.cart
         );
         if (res.status === 200) {
+          setOrderNumber(res.data)
           toast.success("La compra ha sido creada");
           //eliminar productos del carrito
           clearAPICart();
