@@ -119,6 +119,7 @@ export const Cart = () => {
   const [promt, setPromt] = useState([]);
   const [isComponentDisabled, setComponentDisabled] = useState(false);
   const [receipt, setReceipt] = useState(false);
+  const [ordernumber, setOrderNumber] = useState([]); 
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
 
@@ -235,7 +236,7 @@ export const Cart = () => {
             >
               Comprar
             </button>
-            {receipt ? <ReceiptInfo openPopup={openPopup} /> : null}
+            {receipt ? <ReceiptInfo openPopup={openPopup} setOrderNumber={setOrderNumber}/> : null}
             <div className="toast2" id="popup">
               <h2>Pasos para hacer efectiva la compra:</h2>
               <div className="pasos">
@@ -254,7 +255,7 @@ export const Cart = () => {
                   3. Envíe la foto del comprobante a WhatsApp al número
                   <strong> 3174358995</strong> y/o al E-mail{" "}
                   <strong>frutcol0518@gmail.com</strong>, junto con un mensaje
-                  que indique el número de orden de la compra
+                  que indique el siguiente número de orden <strong>{ordernumber}</strong>
                 </p>
                 <p>
                   Nota: Para ver el número de orden de la compra, hacer click en
